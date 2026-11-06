@@ -131,7 +131,7 @@ vectors = [
     vector("source exactly at eps_out stays", [0.99, 1, 1.01], oracleCollateral=e18(0.9), C=e18(50), X=e18(45), A=e18(100), D=e18(50)),
     vector("source just past eps_out goes", [0.989, 1, 1, 1.01], oracleCollateral=e18(0.9), C=e18(50), X=e18(45), A=e18(100), D=e18(50)),
     # With eps_out 0 only a source equal to the median survives, so the median's rounding decides which one.
-    vector("even source count takes the floored median", [1, 1.000000000000000001], oracleCollateral=e18(0.9), minSources=1, epsOutBps=0, C=e18(50), X=e18(45), A=e18(100), D=e18(50), **ZERO),
+    vector("even source count takes the floored median", [1, "1.000000000000000001"], oracleCollateral=e18(0.9), minSources=1, epsOutBps=0, C=e18(50), X=e18(45), A=e18(100), D=e18(50), **ZERO),
     vector("gate exactly at tau stays closed", [1, 1, 1], oracleCollateral=e18(0.9925), C=e18(50), X=e18(45), A=e18(100), D=e18(50), **ZERO),
     vector("gate one wei past tau opens", [1, 1, 1], oracleCollateral=e18(0.9925) - 1, C=e18(50), X=e18(45), A=e18(100), D=e18(50), **ZERO),
     vector("debt priced above band opens the gate", [1, 1, 1], oracleCollateral=e18(1), oracleDebt=e18(1.05), A=e18(100), D=e18(50), C=e18(50), X=e18(45), **ZERO),
