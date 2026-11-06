@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { findProtocolFee, fmt18, scanRange, summarize } from "./onchain";
+import { findProtocolFee, fmt18, safeMessage, scanRange, summarize } from "./onchain";
 
 const E18 = 10n ** 18n;
 
@@ -40,6 +40,17 @@ describe("findProtocolFee", () => {
   test("matches addresses regardless of case", () => {
     const logs = [fee(1, 5n), liq(2)];
     expect(findProtocolFee(logs, 2, aToken.toUpperCase().replace("0X", "0x"), user, treasury)).toBe(5n);
+  });
+});
+
+describe("safeMessage", () => {
+  test("removes the RPC URL and API key from error text", () => {
+    const saved = [process.env.MAINNET_RPC, process.env.ETHERSCAN_API_KEY];
+    process.env.MAINNET_RPC = "https://rpc.example/secret-key";
+    process.env.ETHERSCAN_API_KEY = "etherscan-secret";
+    const text = safeMessage(new Error("HTTP 429 from https://rpc.example/secret-key apikey=etherscan-secret"));
+    [process.env.MAINNET_RPC, process.env.ETHERSCAN_API_KEY] = saved;
+    expect(text).toBe("HTTP 429 from [redacted] apikey=[redacted]");
   });
 });
 

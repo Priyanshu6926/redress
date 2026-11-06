@@ -168,4 +168,7 @@ Each one resolves something the PRD leaves open.
 | D13 | Can `AMBIGUOUS` pay when the gate is closed? | No. A closed gate returns before the interval check | PRD 6.3: a closed gate is recorded `VALID` |
 | D14 | Scope of a position? | Key is market and user | One address held a position in both Core and Prime |
 | D15 | Assets with other decimals? | Out of scope | The MVP class is 18-decimal wstETH and WETH |
-| D16 | Multi-asset positions? | Out of scope for the engine. The replay flags them | PRD 8.8 |
+| D16 | Multi-asset positions? | The engine stays two-asset. The replay flags these rows and passes effective balances: wstETH plus other collateral at its Aave value, converted at the Lido rate, and all debt at its Aave value | PRD 8.8 defers them, but 3 of the 34 incident positions are multi-asset. Converting at the Lido rate keeps a glitched wstETH price out of the other assets |
+| D17 | Does S1 apply the stETH/ETH multiplier? | No. S1 is raw `stEthPerToken`, and the Chainlink feed value is recorded alongside | The Phase 1 brief lists S1 as the Lido rate. PRD 6.2 calls the multiplier a sanity check |
+| D18 | Which debt band does a non-numeraire control event use? | A fixed band at the Aave oracle price | No independent debt source exists yet, so these rows test the collateral side only |
+| D19 | What is the control set? | Walking back from the incident over about a year: wstETH-collateral liquidations on Core and Prime, skipping any UTC day with 5 or more and any wstETH-debt event | Only 30 wstETH/WETH liquidations exist outside the incident, so 50 needs other debt assets |

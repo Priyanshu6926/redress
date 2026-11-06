@@ -5,7 +5,7 @@
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { EXECUTION_TX, SCAN_AFTER, SCAN_BEFORE, SUBMISSION_TX, WETH, WSTETH, collectLiquidations, makeClient, resolveMarkets } from "./onchain";
+import { EXECUTION_TX, SCAN_AFTER, SCAN_BEFORE, SUBMISSION_TX, WETH, WSTETH, collectLiquidations, makeClient, resolveMarkets, safeMessage } from "./onchain";
 
 export async function fetchIncidentData() {
   const c = makeClient();
@@ -39,7 +39,7 @@ export async function fetchIncidentData() {
 
 if (import.meta.main) {
   fetchIncidentData().catch((e) => {
-    console.error(e);
+    console.error(`error: ${safeMessage(e)}`);
     process.exit(1);
   });
 }

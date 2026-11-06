@@ -53,10 +53,42 @@ export const liquidationCall = parseAbiItem(
 );
 export const borrowCapChanged = parseAbiItem("event BorrowCapChanged(address indexed asset, uint256 oldBorrowCap, uint256 newBorrowCap)");
 
+/** RPC URLs embed API keys, and viem puts the URL in error messages. */
+export function safeMessage(e: unknown): string {
+  const err = e as { shortMessage?: string; message?: string };
+  let text = err?.shortMessage ?? err?.message ?? String(e);
+  for (const secret of [process.env.MAINNET_RPC, process.env.ETHERSCAN_API_KEY]) {
+    if (secret) text = text.split(secret).join("[redacted]");
+  }
+  return text;
+}
+
+function exitSafely(e: unknown): never {
+  console.error(`error: ${safeMessage(e)}`);
+  process.exit(1);
+}
+
+const MIN_REQUEST_GAP_MS = 80;
+let nextSlot = 0;
+
+/** Spaces all RPC requests out, so parallel reads do not trip provider rate limits. */
+const throttledFetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+  const now = Date.now();
+  const wait = Math.max(0, nextSlot - now);
+  nextSlot = Math.max(now, nextSlot) + MIN_REQUEST_GAP_MS;
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  return fetch(input, init);
+}) as typeof fetch;
+
 export function makeClient(): PublicClient {
   const url = process.env.MAINNET_RPC;
   if (!url) throw new Error("MAINNET_RPC is not set. Copy .env.example to .env and fill it in.");
-  return createPublicClient({ chain: mainnet, transport: http(url, { retryCount: 5, retryDelay: 1000, timeout: 30_000 }) }) as PublicClient;
+  process.on("uncaughtException", exitSafely);
+  process.on("unhandledRejection", exitSafely);
+  return createPublicClient({
+    chain: mainnet,
+    transport: http(url, { retryCount: 8, retryDelay: 1500, timeout: 30_000, fetchFn: throttledFetch }),
+  }) as PublicClient;
 }
 
 /** Walks a block range, halving the chunk when the RPC refuses it. Throws rather than skip a range. */
