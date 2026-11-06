@@ -6,8 +6,6 @@ The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must 
 
 | Item | Why it is open | What clears it |
 |---|---|---|
-| CRE account access | `cre whoami` reports not logged in. `cre workflow supported-chains` is tenant-scoped and needs login | Run `cre login`, then confirm Ethereum Sepolia and the forwarder from that command |
-| RPC configuration | `MAINNET_RPC` in `.env` currently answers chain id 11155111, which is Sepolia | Set `MAINNET_RPC` to a mainnet archive URL and add `SEPOLIA_RPC` |
 | Deployer key | Not provided yet | Add `CRE_ETH_PRIVATE_KEY` to `.env`, funded with Sepolia ETH |
 
 ## Open: blocks the mirror, not deployment
@@ -15,7 +13,6 @@ The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must 
 | Item | Why it is open | What clears it |
 |---|---|---|
 | Mainnet read and Sepolia write in one simulation | The docs show a target with both RPCs and one client per chain, but no page states it for one run. Not yet run | The first `bun replay/mirror.ts sepolia --limit 1` |
-| Real simulation of the workflow on any target | Only mocked tests have run, because CRE is not logged in | `bun replay/mirror.ts fork --limit 1` |
 
 ## Confirmed
 
@@ -29,6 +26,10 @@ The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must 
 | Mainnet simulation forwarder | `0xa3d1ad4ac559a6575a114998affb2fb2ec97a7d9` | Same; 4,579 bytes of code on mainnet |
 | CRE quotas | 15 HTTP calls, 15 EVM reads, 50 KB report, 10M gas, 5 log-trigger addresses, 100-block log queries | [Service quotas](https://docs.chain.link/cre/service-quotas.md) |
 | Aave addresses and bonus logic | Registry reads and fork tests | `replay/data/verification-report.txt`, `contracts/test/fork/AaveBonus.fork.t.sol` |
+
+## Measured in a real simulation
+
+`docs/transcripts/fork.txt`: one incident liquidation through `cre workflow simulate --broadcast` on the fork. Historical reads at a chosen block, the local HTTP snapshot, bigint median consensus, the `receiver` encoding and the mock forwarder write all worked, and the result matched the offline replay.
 
 ## Decided
 

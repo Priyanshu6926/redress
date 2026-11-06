@@ -21,6 +21,8 @@ cast send $WETH 'deposit()' --value $RESERVE --rpc-url $RPC --private-key $KEY >
 cast send $WETH 'approve(address,uint256)' "$VAULT" $RESERVE --rpc-url $RPC --private-key $KEY >/dev/null
 cast send "$VAULT" 'fund(uint256)' $RESERVE --rpc-url $RPC --private-key $KEY >/dev/null
 
+# A new fork has a new vault, so earlier fork results no longer describe anything.
+rm -f replay/out/mirror-fork.json
 mkdir -p deployments
 printf '{\n  "network": "fork",\n  "vault": "%s",\n  "payoutAsset": "%s",\n  "forwarder": "%s",\n  "reserve": "%s"\n}\n' \
   "$VAULT" "$WETH" "$MOCK_FORWARDER" "$RESERVE" > deployments/fork.json
