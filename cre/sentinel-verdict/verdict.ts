@@ -50,7 +50,7 @@ export function computeRedress(
   debtToCover: bigint,
   bandLowE18: bigint,
   debtPriceHighE18: bigint,
-  bonusBps: bigint = 100n
+  bonusBps: bigint
 ): bigint {
   if (verdict === VerdictType.VALID || verdict === VerdictType.INCONCLUSIVE) {
     return 0n;

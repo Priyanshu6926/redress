@@ -1,0 +1,16 @@
+{
+  "_note": "Synthetic hand-computed inputs, not incident data. Consumed by verdict.test.ts and VerdictVectors.t.sol.",
+  "count": 10,
+  "vectors": [
+    { "name": "valid pays nothing", "verdict": 0, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1200000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "0" },
+    { "name": "inconclusive pays nothing", "verdict": 4, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1200000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "0" },
+    { "name": "wrongful pays C*pL - X*pH", "verdict": 1, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1200000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "10000000000000000000" },
+    { "name": "wrongful clamps at zero", "verdict": 1, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1000000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "0" },
+    { "name": "excess deducts entitlement", "verdict": 2, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1200000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "8900000000000000000" },
+    { "name": "ambiguous uses excess formula", "verdict": 3, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1200000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 500, "redress": "4500000000000000000" },
+    { "name": "excess exactly at entitlement", "verdict": 2, "collateralSeized": "101000000000000000000", "debtToCover": "100000000000000000000", "bandLowE18": "1000000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "0" },
+    { "name": "wrongful integer truncation", "verdict": 1, "collateralSeized": "3", "debtToCover": "1", "bandLowE18": "1500000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "3" },
+    { "name": "excess integer truncation", "verdict": 2, "collateralSeized": "1000", "debtToCover": "333", "bandLowE18": "1000000000000000000", "debtPriceHighE18": "1500000000000000000", "bonusBps": 100, "redress": "497" },
+    { "name": "unknown verdict code pays nothing", "verdict": 5, "collateralSeized": "100000000000000000000", "debtToCover": "110000000000000000000", "bandLowE18": "1200000000000000000", "debtPriceHighE18": "1000000000000000000", "bonusBps": 100, "redress": "0" }
+  ]
+}
