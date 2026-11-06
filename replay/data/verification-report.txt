@@ -1,0 +1,83 @@
+Redress on-chain verification report
+chain id: 1
+
+== Incident transactions
+[PASS] submission tx: block 24626859, 2026-03-10T11:45:59.000Z
+[PASS] execution tx: block 24626860, tx index 0, 2026-03-10T11:46:11.000Z
+[PASS] execution follows submission by one block
+[INFO] fork block (execution - 1): 24626859
+
+== Aave markets (registry at the execution block)
+[INFO] Aave Ethereum Market: provider 0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e pool 0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2 oracle 0x54586bE62E3c3580375aE3723C145253060Ca0C2 configurator 0x64b761D848206f447Fe2dd461b0c635Ec39EbB27
+[INFO] Aave V3 Lido Ethereum: provider 0xcfBf336fe147D643B9Cb705648500e101504B16d pool 0x4e033931ad43597d96D6bcc25c280717730B58B1 oracle 0xE3C061981870C0C7b1f3C4F4bB36B95f1F260BE6 configurator 0x342631c6CeFC9cfbf97b2fe4aa242a236e1fd517
+[INFO] Aave V3 EtherFi Ethereum: provider 0xeBa440B438Ad808101d1c451C1C5322c90BEFCdA pool 0x0AA97c284e98396202b6A04024F5E2c65026F3c0 oracle 0x43b64f28A678944E0655404B0B98E443851cC34F configurator 0x8438F4D29D895d75C86BDC25360c25eF0607E65d
+[PASS] Core market resolved: 0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2
+
+== Liquidations
+[INFO] scanned blocks 24626560-24630460, all markets: 49 wstETH-collateral liquidations
+[PASS] Prime market identified from incident logs: Aave V3 Lido Ethereum: 0x4e033931ad43597d96D6bcc25c280717730B58B1
+[INFO] markets with liquidations: Aave Ethereum Market, Aave V3 Lido Ethereum
+[INFO] wstETH liquidations before the execution tx in the scan window: 0
+
+== Containment (CAPO adapters and borrow caps)
+[INFO] Aave Ethereum Market wstETH price source: 0xe1D97bF61901B075E9626c8A2340a7De385861Ef
+[INFO] Aave V3 Lido Ethereum wstETH price source: 0xe1D97bF61901B075E9626c8A2340a7De385861Ef
+[INFO] adapter log: block 24626860 0xe1d97bf61901b075e9626c8a2340a7de385861ef tx 0x32c64151469cf2202cbc9581139c6de7b34dae2012eba9daf49311265dfe5a1e topic 0x47f15f36
+[INFO] adapter log: block 24628089 0xe1d97bf61901b075e9626c8a2340a7de385861ef tx 0xb883ad2f1101df8d48f014ba308550f3251c2e0a401e7fc9cf09f9c2a158259d topic 0x47f15f36
+[PASS] realignment found after execution: block 24628089, tx 0xb883ad2f1101df8d48f014ba308550f3251c2e0a401e7fc9cf09f9c2a158259d
+[INFO] borrow cap: block 24627510 asset 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 180000 -> 1 tx 0x34f568b28dbcaf6a8272038ea441cbc864c8608fe044c590f9f03d0dac9cf7f8
+[INFO] borrow cap: block 24627510 asset 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0 70000 -> 1 tx 0x34f568b28dbcaf6a8272038ea441cbc864c8608fe044c590f9f03d0dac9cf7f8
+[PASS] borrow cap tx completes 0x34f568b2: 0x34f568b28dbcaf6a8272038ea441cbc864c8608fe044c590f9f03d0dac9cf7f8
+
+== Incident totals (execution tx onward, wstETH collateral, WETH debt)
+[INFO] window: blocks 24626860-24628089, 47 liquidation events
+[INFO] Aave Ethereum Market: 20 events, 20 users, 8609.4961 wstETH
+[INFO] Aave V3 Lido Ethereum: 27 events, 14 users, 2329.0863 wstETH
+[DIFF] distinct users vs PRD 34: 33
+[PASS] wstETH seized vs PRD ~10,938: 10938.5824
+[INFO] WETH debt repaid: 12943.5919
+[DIFF] rough net loss at raw Lido rate vs DAO 512.19 ETH (1 stETH = 1 ETH, not a verdict): 498.2741 ETH
+[INFO] other debt asset in window: 0xBe9895146f7AF43049ca1c1AE358B0541Ea49704 user 0xF07E4924115e2b786a797b2B9545472324EE5B05 block 24626865 tx 0x98e993438697cdf7c8faade4a15f9b9bce74fda0a91fe29fc1762740826458bd
+[INFO] other debt asset in window: 0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38 user 0x1570c1a39779Cd31906a2BA854738B7D58FDB367 block 24626866 tx 0x0fb57c3cba7aaedcd7b3033be6ab17e354cd78883b241d93dce11cb17229b5ce
+[PASS] distinct (market, user) positions vs PRD 34: 34
+[INFO] addresses liquidated in both markets: 0x5e1b601245b942d99aa924d39e0fbec1786e2170
+[INFO] other-debt user 0xF07E4924115e2b786a797b2B9545472324EE5B05 also has a WETH-debt liquidation: false; seized 0.0034 wstETH
+[INFO] other-debt user 0x1570c1a39779Cd31906a2BA854738B7D58FDB367 also has a WETH-debt liquidation: false; seized 0.0008 wstETH
+[INFO] protocol fee taken in collateral (aToken transfers to treasury): 10.8411 wstETH = 13.3221 ETH at the Lido rate; events with a fee: 47 of 47
+[PASS] protocol fee vs DAO 13.32 ETH fees: 13.3221 ETH
+[PASS] rough net loss including protocol fee vs DAO 512.19 ETH (1 stETH = 1 ETH, not a verdict): 511.5963 ETH
+[PASS] every position healthy just before the execution block: 0 of 47 events below HF 1
+[INFO] pre-glitch HF range: 1.0016 to 1.0286; above the PRD ~1.0288: 0
+[INFO] non-E-Mode event: Aave Ethereum Market user 0x3aaC936216A43D4195791819ECc4975ba8fb6C72 block 24626861 tx 0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78 pre-glitch HF 1.0016 HF at block-1 0.9732 seized 0.0380 wstETH
+[PASS] large liquidation completes 0x9064b507f: 0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c
+[PASS] large liquidation completes 0x7872defde: 0x7872defdef7b839d43e79797ce4c4461b9727861db6aa9e72347f8e995812f5f
+
+== E-Mode (read at the execution block)
+[INFO] Aave Ethereum Market category 1 "ETH correlated": ltv 9300 LT 9500 bonus 10100 (19 events)
+[PASS] Aave Ethereum Market category 1 bonus vs PRD 1%: raw 10100
+[DIFF] Aave Ethereum Market category 1 LT vs PRD Appendix A assumed 95.5%: raw 9500
+[INFO] Aave V3 Lido Ethereum category 1 "wstETH/WETH": ltv 9500 LT 9650 bonus 10100 (27 events)
+[PASS] Aave V3 Lido Ethereum category 1 bonus vs PRD 1%: raw 10100
+[DIFF] Aave V3 Lido Ethereum category 1 LT vs PRD Appendix A assumed 95.5%: raw 9650
+[INFO] Aave Ethereum Market no E-Mode: 1 events
+
+== Rates at the execution block
+[PASS] stEthPerToken vs PRD ~1.2288: 1.228848
+[PASS] Aave Ethereum Market oracle wstETH/WETH vs PRD 1.193957: 1.193946
+[PASS] Aave V3 Lido Ethereum oracle wstETH/WETH vs PRD 1.193957: 1.193946
+
+== Uniswap v3 wstETH/WETH pools at the execution block
+[INFO] fee 100: 0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa liquidity 10925299558175605956302174 wstETH 1359.73 WETH 1747.30
+[INFO] fee 500: 0xD340B57AAcDD10F96FC1CF10e15921936F41E29c liquidity 365159282271841523 wstETH 0.23 WETH 1.54
+[INFO] fee 3000: 0xC12aF0C4AA39D3061c56cD3CB19f5e62dEeaeBdE liquidity 6259889886970917 wstETH 0.00 WETH 0.00
+[INFO] fee 10000: no pool
+[PASS] deepest pool by in-range liquidity: 0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa (fee 100)
+[PASS] 30-minute TWAP readable: mean tick 2058, wstETH/WETH 1.228495
+
+== Chainlink stETH/ETH feed
+[PASS] feed description: 0x86392dC19c0b719886221c78AB11eb8Cf5c52812: STETH / ETH
+
+== Etherscan cross-check
+[PASS] Etherscan log count vs RPC: 49 vs 49
+
+RESULT: no failed checks (see DIFF lines for differences from the PRD)
