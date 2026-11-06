@@ -1,0 +1,481 @@
+{
+ "target": "sepolia",
+ "config": "default",
+ "chainId": 11155111,
+ "vault": "0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9",
+ "payoutAsset": "0xa193cae8762aeedcbf4d73c96369b54e5100fba4",
+ "complete": true,
+ "totalPaidWei": "473295500496135010048",
+ "rows": [
+  {
+   "liquidationTx": "0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c",
+   "logIndex": 17,
+   "user": "0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f",
+   "verdict": "WRONGFUL",
+   "redress": "230533099950029831035",
+   "vaultTx": "0xe823565fb68bdd53bfca824c2e0f72d82da3a4c208b98c9d74c275de53bd50a9",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x8f47b5e821530e9b9fc2262cde6dbb7427311f13116de995650fd7709df2fa67",
+   "logIndex": 14,
+   "user": "0x4BaCce55f0991Cfc4D919f7F50EDB8be028E37DF",
+   "verdict": "WRONGFUL",
+   "redress": "81105872269752940657",
+   "vaultTx": "0x5383ba5c9c9c7e73bf1830e8954573948e40391f93062e853f9e15264350ab79",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x6b9c0d3292b51fc1612fba7cc26258357b2b705ab2699d2a4f0014c09a9b96cc",
+   "logIndex": 37,
+   "user": "0xf82d8c60402200114E2d5a8bdc40b1eF8f8aB0De",
+   "verdict": "WRONGFUL",
+   "redress": "49963620037012877959",
+   "vaultTx": "0x8c178b7becde2145ff71bf506f82147b4a76ca3e92f9ccaa66ed1f765d2c5d12",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x60f3fd66c0f13927ff8b827228dcf209d6f2a5501ec5050e119f0c09300992db",
+   "logIndex": 64,
+   "user": "0x1E2799e0071E535468097E04Ad23b9FE3Ae5A6A5",
+   "verdict": "WRONGFUL",
+   "redress": "34278898364915054888",
+   "vaultTx": "0x5a6c640e6b4b6305743fe87fa389dd675c69ed2f0ed113a26ad74b316d45ff93",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xac1cad7fdcab60d1174cd785ac993d36b8230caa5517541b7ee8b7a370fd66fb",
+   "logIndex": 79,
+   "user": "0x6CC243d26eb6B79B70D94Af4FD6f145b297e728b",
+   "verdict": "WRONGFUL",
+   "redress": "10405196168930028333",
+   "vaultTx": "0x3afcb712fba26a2796ca20791d832c92487523a058b08250e7d71a38c2dd8809",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x33fc18a92afeccaa00e1cab0f406b9f03f516b1d38cd15a7d58d8f9094c6c31b",
+   "logIndex": 102,
+   "user": "0x3Ee505bA316879d246a8fD2b3d7eE63b51B44FAB",
+   "verdict": "WRONGFUL",
+   "redress": "6852619558721992871",
+   "vaultTx": "0x9d07ada19ff43e4b2e2f60877ba213f6f339198a3cc2bbf1a1b069ab516d67d4",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xfdac8cca66fc49bc709ef0eb3471458db1f2833815192c166950910c9e9aeded",
+   "logIndex": 128,
+   "user": "0x6C92cD38dB2074379aA6e68257F28207a8f7585e",
+   "verdict": "WRONGFUL",
+   "redress": "20669523267382448266",
+   "vaultTx": "0x3b009637c5f38581d19e72d3215fc49be0780d0c840027fc67ada5a843653c82",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xb27dd3350490a750ee92494b0c0d9b33f2ad1cf0cbeadff8dae52104a1ead99b",
+   "logIndex": 170,
+   "user": "0x718E7B7e03F9370394CC8a3BD41B395C72B90fa2",
+   "verdict": "WRONGFUL",
+   "redress": "1766025900927696932",
+   "vaultTx": "0xf2d743d7277de4d892969c9e3c85384c413ee628d447c5513f5535f9c9aec7d4",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x83c6cad0319f1b6a4777dd4cfffa2b07c3ffad5dbb6a340f475179a7676bdcb1",
+   "logIndex": 186,
+   "user": "0xFBfA537Dde869b0C4738ef98Fd9A652c7bF0EFbc",
+   "verdict": "WRONGFUL",
+   "redress": "1267422495902323519",
+   "vaultTx": "0xa96339153bdc90be97bf620908560380d9d10834a419bd944efff789c6814d61",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xf7b0ff68402cee6f68bb746f91f00503e13d35ef87471df10fb1d66117d49e1e",
+   "logIndex": 216,
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "verdict": "WRONGFUL",
+   "redress": "980291071519919487",
+   "vaultTx": "0xb57bb3f783a4de340b37768f8a9195a7dfb7d027f8544d97bab5ece2eb88ca22",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x7872defdef7b839d43e79797ce4c4461b9727861db6aa9e72347f8e995812f5f",
+   "logIndex": 233,
+   "user": "0x9a982dfCd22159A059114eCa54B5AbaaBdd627B4",
+   "verdict": "WRONGFUL",
+   "redress": "432821176609179770",
+   "vaultTx": "0xa1947e317f7923b14a95374cb9a27830e68003056a89b9363fe41153c59e02ee",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x058203b57c37d0700a2caccf9303a25ce1a3cbe7b751c26c8b9a02dd24f49f65",
+   "logIndex": 272,
+   "user": "0x892843Df4Fa30ee38b38542f2050690403e47A0E",
+   "verdict": "WRONGFUL",
+   "redress": "23557517430921666",
+   "vaultTx": "0x7237efdaafb8ad9903a9867cb9036f80a84dd9c6866fbc11fb65a7198846fb7a",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x5444c97b90d957420b8d1b1e53117525cf498e6f2c3aefb66ac34034c461db19",
+   "logIndex": 334,
+   "user": "0xe0Eb3075C2cbC4C4807a5802DA45B1dbC7b955d1",
+   "verdict": "WRONGFUL",
+   "redress": "13743546472077503",
+   "vaultTx": "0x7c095dbe9b45fea4ce6806f09ee1ab723ebc72a0e698c93c49daacfbccfa00c9",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x5444c97b90d957420b8d1b1e53117525cf498e6f2c3aefb66ac34034c461db19",
+   "logIndex": 359,
+   "user": "0x1Fc623b96c8024067142Ec9c15D669E5c99c5e9D",
+   "verdict": "WRONGFUL",
+   "redress": "4600513471053311",
+   "vaultTx": "0xe2337d33b8187cb68774616e085b40122a7c130c5fc3dbc33fe62d9b9478fae3",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x5444c97b90d957420b8d1b1e53117525cf498e6f2c3aefb66ac34034c461db19",
+   "logIndex": 384,
+   "user": "0xC8cf295c4E084d08d3db7702aCa33450Ad652EB8",
+   "verdict": "WRONGFUL",
+   "redress": "4791206521369202",
+   "vaultTx": "0x080d622a58d0dda09e36b559d9e0f5b13f9c6ddea13c2a3a754d8aa5da77b46c",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78",
+   "logIndex": 409,
+   "user": "0xde89Be395B57D07741004ed0Be3174F3027fD44A",
+   "verdict": "WRONGFUL",
+   "redress": "3305767437517397",
+   "vaultTx": "0x01884264aa4d0559df7d2a7f7a3886df54093a2d3e2dcf6d3b0228d5b70e4d01",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78",
+   "logIndex": 434,
+   "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
+   "verdict": "WRONGFUL",
+   "redress": "1916636799505753",
+   "vaultTx": "0xed81f5183bc2c7c633cdfddf31bcda4dd71c620c27f47dc415162afd8323e37d",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78",
+   "logIndex": 459,
+   "user": "0x3aaC936216A43D4195791819ECc4975ba8fb6C72",
+   "verdict": "AMBIGUOUS",
+   "redress": "1201768889703676",
+   "vaultTx": "0xd04134eead05a89d1c6e159aeb2e4035e87f97d2564208ed8e5b70dbdc11c247",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xf7ef63d5b2da12a3ff3dedca42156174f5970f073777e24349a064af6fb5c566",
+   "logIndex": 484,
+   "user": "0x7F689846082b2b086Fd9A899c61C16E9D0F6C31f",
+   "verdict": "WRONGFUL",
+   "redress": "1390055079832170",
+   "vaultTx": "0xef68193da1a42f810c2ad3a79213eba1163d39aa44a33b1e1aed92a26b1d61c2",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xf7ef63d5b2da12a3ff3dedca42156174f5970f073777e24349a064af6fb5c566",
+   "logIndex": 509,
+   "user": "0x681Dc889B79AbA892D973d41C52f1b2B1F1Ee0dd",
+   "verdict": "WRONGFUL",
+   "redress": "2602793380236669",
+   "vaultTx": "0xd24035db69517cee30216131ba288e6106f00aa946b28bc251aff799e25b528c",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xf7ef63d5b2da12a3ff3dedca42156174f5970f073777e24349a064af6fb5c566",
+   "logIndex": 534,
+   "user": "0x6B803f020cB302Db766c5A276e935CCa01De4E4A",
+   "verdict": "WRONGFUL",
+   "redress": "1061071059948136",
+   "vaultTx": "0x07b6f8b466e9f144d194492c8ade556bcb052041e967b33d83328cf266c02b22",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x545558c91855f69185390957af3dacc7422c5d72758cc3b0ebc2a81bd3f79f77",
+   "logIndex": 564,
+   "user": "0xe7aaF0d67d89c253d5c00FfA3D85e7F1a6D235cF",
+   "verdict": "WRONGFUL",
+   "redress": "19490139446710066",
+   "vaultTx": "0xf6eb19f723defae3423bf728d9196d8fdb1ba8b2af74c13394a534c2b70556b5",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xc5aa4bf15e6b762bf9e75e33897fa143afe619b47a9789f03e2e532cd620b1f3",
+   "logIndex": 14,
+   "user": "0x6C92cD38dB2074379aA6e68257F28207a8f7585e",
+   "verdict": "WRONGFUL",
+   "redress": "20259690988811773381",
+   "vaultTx": "0x85aec8a207081e4cc9728a2c9ab256674a0dc61ac408078d318c71352cd7ec08",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x4054c372cb927fa5386a8786d59ec5f09d17be697e4a116c7631361e76174495",
+   "logIndex": 38,
+   "user": "0x5ceDE91b3c5783d093B2F6C29Cb2571a11204B27",
+   "verdict": "WRONGFUL",
+   "redress": "5438667566867970661",
+   "vaultTx": "0x26d3132fc5405b25c92003afa1ecc71f59b3f34a4150127d6b5c46699a2a5c26",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x61031c5559992e6a72996aa549fa7d209fb1877913dafcf84a6559ab60fc334c",
+   "logIndex": 85,
+   "user": "0x2935dd2B83dFaE2D038B7FB0b9D62D02a78d1707",
+   "verdict": "WRONGFUL",
+   "redress": "2563342564414356133",
+   "vaultTx": "0x30d49fb684ae706d67e709fbc61243489261aafa3c36e5d0994adbb86f719891",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x66f6d449111cb67ce2fc491f6a6be0c4096d2e468579bf1b348dcb230ce51647",
+   "logIndex": 103,
+   "user": "0x669173F1505025bc31fc7245FE4565659ca0e6e0",
+   "verdict": "WRONGFUL",
+   "redress": "1224188576944366849",
+   "vaultTx": "0x2a9da23f04fe256411cf0aae291330a34c7deb1b9b69763ef36591664e7b164e",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xef7217a8a72b236b3c00640e88e78e66fa8b23a3507e411c617cfb7712289c5a",
+   "logIndex": 155,
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "verdict": "WRONGFUL",
+   "redress": "1595431019453726",
+   "vaultTx": "0x9070d4425f87a84f2336acad80b4a4c96fcb29b38fe87a4beb2806936bb78b14",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x3bee9cc474c6bb9d0e03d6ce8b5efe89cf5098d791c35c62cbb0ab504f6f27db",
+   "logIndex": 178,
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "verdict": "WRONGFUL",
+   "redress": "362777865014404405",
+   "vaultTx": "0x30c07c6dee50846c014a24253e36e94ff69f61d90f5d5dba0a351e17fcfe3a55",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xd7418255899739b2579c4f12ed244ea8e1c670062280e1afea01c8286d5515b5",
+   "logIndex": 226,
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "verdict": "WRONGFUL",
+   "redress": "337256813327580898",
+   "vaultTx": "0xab02baf97b62a11f12e21577fd9d2e2f520505abaadc58545683ab7abafef2c3",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x047b6265d7ab3def4054bea0f805c65f5e78c58a966a92323f08ad09c3af7186",
+   "logIndex": 252,
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "verdict": "WRONGFUL",
+   "redress": "295303505654407508",
+   "vaultTx": "0x9c082534e1bbcdf4bc286b1026505edbad97fd71e1471e1b6b4caab56f9841d0",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x31482796d23b1c04b47852f85aabf98b0351d3fdae07f23b1200e8cb41a5f159",
+   "logIndex": 297,
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "verdict": "WRONGFUL",
+   "redress": "307301366535923162",
+   "vaultTx": "0x7cf1c723a88394a275a26726fe0210b8f8afe9235d0d39c50da47700f5ad813c",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x02796db103e92e98f68cfe1e3d9cf712a0edfe67903ac246eba086c32f0f205b",
+   "logIndex": 14,
+   "user": "0x669173F1505025bc31fc7245FE4565659ca0e6e0",
+   "verdict": "WRONGFUL",
+   "redress": "1361068973437062268",
+   "vaultTx": "0x2a18c1987cf16a689165c60696fe932863decf49459e0a7a68e02a6f119011bf",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xedacc685c672873fb90b0e5250387261583c2e9b0acdda54873a5a6042ea1a54",
+   "logIndex": 58,
+   "user": "0x342686053986b43Cf852B94CA5aFC46151296685",
+   "verdict": "WRONGFUL",
+   "redress": "1134428576495821363",
+   "vaultTx": "0x2fa539262bbaff0fed401f7373e49a6102015f25d367edc5b4f4fb8f47303c20",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xc59881ec4233833ddc7e0eb3b78a4e4654d86a6f79aa7e6ed948e13f2f52a7d6",
+   "logIndex": 147,
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "verdict": "WRONGFUL",
+   "redress": "258214337281410617",
+   "vaultTx": "0xff243fcd8022c1b0da6d35fa18e28eb0302f1b11d0f918083cd0d7403ff9ed29",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xffb974f5e9618c5f774a7eeb0ee1f89e7a048cf9d55ec9aa914446981f141c7e",
+   "logIndex": 217,
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "verdict": "WRONGFUL",
+   "redress": "320807466362002478",
+   "vaultTx": "0x41b6647b83115ce21ea8f1c28ff3dba6be1b0fce1bc9076cd4b20bfb32e8d82b",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x602afac70192ed1903ceade622731c2430d68974618a211308da3ca0c17c9584",
+   "logIndex": 264,
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "verdict": "WRONGFUL",
+   "redress": "321155329012938806",
+   "vaultTx": "0xd9b4a29da018ca468a25ab6abcb08910551374774c38ac363241a235d0cb85b8",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x2b043f918b90e572130d35f41533c38e823a1b5f1a777a441b19912e93c1bb55",
+   "logIndex": 308,
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "verdict": "WRONGFUL",
+   "redress": "318348847158338453",
+   "vaultTx": "0x165ce48be7c2d2770906532def43f884bc7bd17d8eace445ccf72c9f5328a679",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xecb8f9bc4fbae98456aed6ce93e9578a0c742c7fe0b0b5a4193ffc24226ea73e",
+   "logIndex": 367,
+   "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
+   "verdict": "WRONGFUL",
+   "redress": "38024025269320589",
+   "vaultTx": "0x80b39f067a21c37415ad96dbf79b58ca189a6e7a30cddc144e1faf5f2c636be3",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x499fe5661104e3bdd301aae517c32f1fd10b9adc3dcfdbca74db54e8eb711b11",
+   "logIndex": 385,
+   "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
+   "verdict": "WRONGFUL",
+   "redress": "105286961908967012",
+   "vaultTx": "0x734842d482b3d602df1fa00f2bb0d9638e77dc8616142642ee79f445d4f6e300",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x896a41b851cd5162b2fd9841b7fb7344cf0e40aea6621a9b48e4c7939302c346",
+   "logIndex": 14,
+   "user": "0xeeF25A4B78FEF3E5daf6FB0A2f12e36EA0828F96",
+   "verdict": "WRONGFUL",
+   "redress": "164142013059787330",
+   "vaultTx": "0x755439e4a2e0fdcbc4724d487e90288c1d43346e8cb10376e2f7a1d9c6703f21",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xbf9bcadd9dc090cda315bceb565641b1c3296b00b71199d6322b14894d44c0aa",
+   "logIndex": 47,
+   "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
+   "verdict": "WRONGFUL",
+   "redress": "53511543481001327",
+   "vaultTx": "0x197b36e9b7fbfcbbe06467ad9f8d57f4a7026f7ad9f7ff2ea73c6575e4cc1093",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x90181b3cde4da6b467a7844d58230d2d5d6c21f4f9ff8fa22a6d249e6295e378",
+   "logIndex": 160,
+   "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
+   "verdict": "WRONGFUL",
+   "redress": "59348954750754271",
+   "vaultTx": "0x0457469cdebb14cc33e84800b7e48ecdb6b98cc6e3a10dd0f269f49de3d4e48c",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xca6082d51fcf0e47f2581d4f9be0092e03f02cd783fd343e73c541df690c080d",
+   "logIndex": 249,
+   "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
+   "verdict": "WRONGFUL",
+   "redress": "36733676794720636",
+   "vaultTx": "0xe3ecd29c4996303648e0750f23fe1cf3b1d519c2b08c39e56cca994a5f905371",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x0269621586a95336197fd4194ec0fa964de27b283516c856713625f9540def47",
+   "logIndex": 110,
+   "user": "0xBE6e072a92224CDeBcB5A171451A6eBd1E380e62",
+   "verdict": "WRONGFUL",
+   "redress": "436731979204488",
+   "vaultTx": "0x8233d6588b2167af8a762cccfe34c780457d71d29ef5abda5e0196cba1970484",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x0269621586a95336197fd4194ec0fa964de27b283516c856713625f9540def47",
+   "logIndex": 127,
+   "user": "0xB27dd61b74e49d9707ddB7EA4A4baF03734DD94B",
+   "verdict": "WRONGFUL",
+   "redress": "413036325773353",
+   "vaultTx": "0x48fd3d4c890c5bb650f34f49243d87a4f0047e45d3092dcca8ada944120058f0",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0x0269621586a95336197fd4194ec0fa964de27b283516c856713625f9540def47",
+   "logIndex": 144,
+   "user": "0xDB306e5c24cD28a02B50c6F893d46a3572835195",
+   "verdict": "WRONGFUL",
+   "redress": "275390975485267",
+   "vaultTx": "0xb73f0a49137aaff922902d3830805df7fe6cad1d56f855a9046d2cbc133265b5",
+   "paid": true,
+   "queued": false
+  },
+  {
+   "liquidationTx": "0xa6367dca45597724f06d499bec95a86bea0475243bca975331ecf2338fa20452",
+   "logIndex": 126,
+   "user": "0x7F821b5058C362088C88952fD7735A6965e0Bc98",
+   "verdict": "WRONGFUL",
+   "redress": "128675559015801",
+   "vaultTx": "0x909e695909f5de738890c454b54befff9f630dcfaa27f49a04b9e3d17c093f2c",
+   "paid": true,
+   "queued": false
+  }
+ ]
+}
