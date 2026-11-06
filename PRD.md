@@ -326,10 +326,10 @@ Using the event amount alone gives 498.27 ETH, because it omits the fee.
 | Draining the reserve with many false positives | Per-event cap, epoch cap, gate, provable-floor payout |
 | Forged reports | Forwarder-only entry; CRE consensus |
 | Source outage | `INCONCLUSIVE`, no payout, automatic re-evaluation |
-| Chain reorgs | Confirmation delay `N` |
+| Chain reorgs | The log trigger's `confidence` level (`CONFIDENCE_LEVEL_SAFE` by default). CRE has no exact `N`-confirmation setting |
 | Double payment | `(txHash, logIndex)` idempotency |
 | Real market crash mistaken for glitch | Independent band falls with the market; gate stays closed; verdict `VALID` |
-| Governance capture of parameters | Timelock, caps, public parameter history |
+| Governance capture of parameters | Vault parameters are immutable, so there is no timelock and no parameter history: changing one means a new vault. Workflow parameters are configuration |
 | Reputation: naming entities | Neutral wording ("oracle operator (demo)"), facts cited to primary sources |
 
 ---
@@ -440,11 +440,11 @@ The vault re-derives `redress` from the report's fields with `VerdictMath` and r
 
 | Tier | What | Priority | Judge-visible evidence |
 |---|---|---|---|
-| **U1** | Uniswap v3 wstETH/WETH TWAP as an independent source in the verdict (on-chain `observe`) | Must | `cre/sentinel-verdict/sources/uniswapV3.ts`, replay scorecard |
+| **U1** | Uniswap v3 wstETH/WETH TWAP as an independent source in the verdict (on-chain `observe`) | Must | `cre/sentinel-verdict/handler.ts` (the `observe` read), `cre/sentinel-verdict/position.ts` (tick math), replay scorecard |
 | **U3** | New **`BandOracleHook`** for Uniswap v4: records observations and exposes `getBand(key, window) → (twapTick, minTick, maxTick, n)` so v4 markets get a native, manipulation-resistant price band without an external oracle | Should (cut line: ship U1 plus U2 if time slips) | `contracts/src/hooks/BandOracleHook.sol`, tests, Sepolia deployment |
 | **U2** | Vault can settle reserve → payout asset through the Universal Router (for example a USDC reserve paying WETH) | Could | `RedressVault._swapToPayoutAsset`, fork test |
 
-Hook notes: permission flags `afterInitialize` and `beforeSwap` (record pre-swap tick, like the geomean-style oracle hooks); hook address mined with CREATE2 so the low bits encode the flags; base on `BaseHook` from v4-periphery. Use the official Uniswap deployments page for PoolManager and Universal Router addresses. Note that Universal Router 2.1.2 release notes say some testnet v4 addresses previously had no onchain activity, so confirm activity on the explorer before use `[PRIMARY]`. Sepolia Universal Router listed there: `0x7E4f6c5e954Da5c61B3423D81E2277431Ac043f3` `[VERIFY]`.
+Hook notes: permission flags `afterInitialize` and `beforeSwap` (record pre-swap tick, like the geomean-style oracle hooks); hook address mined with CREATE2 so the low bits encode the flags; `BaseHook` was removed from v4-periphery on 2026-02-06 (commit `5da22e60`, "remove hooks and move to hook repo") and now lives in OpenZeppelin `uniswap-hooks`; the base to use is an open decision in `docs/HOOK_DESIGN.md`. Use the official Uniswap deployments page for PoolManager and Universal Router addresses. Note that Universal Router 2.1.2 release notes say some testnet v4 addresses previously had no onchain activity, so confirm activity on the explorer before use `[PRIMARY]`. The page lists three Sepolia Universal Routers: `0x3A9D48AB9751398BbFa63ad67599Bb04e4BdF98b` in its main table, plus 2.1.1 `0x7dfd4f31be6814d2906bde155c3e1b146eac1468` and 2.1.2 `0x7E4f6c5e954Da5c61B3423D81E2277431Ac043f3`. All three have code and transactions as recent as 2026-11-06, read from Etherscan on 2026-11-07. The hook does not depend on any of them.
 
 ### 7.6 Arkiv data model
 
@@ -709,7 +709,7 @@ Never cut: the verdict engine tests, the replay scorecard, negative controls, an
 | Band logic | Outlier rejection, `minSources`, staleness, widening margin | Unit tests | Edge cases listed in Section 8.6 |
 | Aave state rebuild | `A`, `D`, LT, E-Mode category match Aave's own `getUserAccountData` at `B-1` | Fork tests on 5 incident users | Exact match |
 | CRE workflow | Handler logic with mocked capabilities; real simulation on fork | `bun test`, `cre workflow simulate` | Both pass |
-| Replay | 34 / 34 classified, total within ±2% of the DAO figure | `make scorecard` | Matches Section 8.4 |
+| Replay | 34 / 34 classified, total within ±2% of the DAO figure | `make scorecard` | Target. Measured in Phase 1 and not met: 33 of 34 positions all `WRONGFUL`; floor paid −7.594% and midpoint −2.541% against 512.19 ETH. Reported as measured, never tuned |
 | Negative controls | 0 false positives across 200+ real liquidations | Replay harness | 0 payouts |
 | Frontend | "Was I wronged?" returns correct data for incident users and a clean "no record" for others | Manual plus Playwright smoke | Pass |
 

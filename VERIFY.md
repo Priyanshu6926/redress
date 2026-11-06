@@ -44,6 +44,16 @@ Sepolia's gas schedule is not the one Foundry 1.5.1 simulates, so forge's estima
 
 The first deployment attempt ran out of gas on both creates at forge's default 130% limit. It left no code at either address and cost about 0.0000025 ETH. `replay/deploy-sepolia.sh` now uses a 1000% multiplier, and the Sepolia workflow config uses a 1,500,000 gas limit. Neither changes verdict logic or payout data. The cause of the schedule change was not investigated.
 
+## Deployed before Phase 3 approval
+
+These Sepolia contracts went out before the Phase 3 brief arrived, and they do not meet it. They hold no reserve and nothing in the mirror uses them. They are not final, and they stay out of the README and `replay.json`.
+
+| Contract | Address | Gap against the brief |
+|---|---|---|
+| `BandOracleHook` | `0x301eb55a7d1e5528771857aceef4714af34b5080` | Built before design approval, on `IHooks` directly rather than `BaseHook` |
+| `OperatorBond` | `0xbd41374a100de606970fa787033e7eda97688cca` | Refills the vault after payout rather than paying first, and attribution comes from an attestor rather than the report |
+| `RecoveryLedger` | `0x0e11c9be0b6d88c0b5ebb05eb1150181a578060a` | Claims are opened by an attestor, not by each payout |
+
 ## Decided
 
 | Item | Decision |
