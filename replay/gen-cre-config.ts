@@ -25,7 +25,9 @@ for (const target of process.argv.slice(2).length ? process.argv.slice(2) : ["fo
     readChain: "ethereum-mainnet",
     writeChain: target === "fork" ? "ethereum-mainnet" : "ethereum-testnet-sepolia",
     vault,
-    gasLimit: "500000",
+    // Sepolia's gas schedule costs far more than the fork's: 740,498 at most for onReport and
+    // about 850,000 through the forwarder, by node estimate, against 216,575 on the fork.
+    gasLimit: target === "fork" ? "500000" : "1500000",
     confidence: "CONFIDENCE_LEVEL_SAFE",
     wstEth: WSTETH,
     weth: WETH,

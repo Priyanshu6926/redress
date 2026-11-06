@@ -6,13 +6,11 @@ The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must 
 
 | Item | Why it is open | What clears it |
 |---|---|---|
-| Deployer key | Not provided yet | Add `CRE_ETH_PRIVATE_KEY` to `.env`, funded with Sepolia ETH |
 
 ## Open: blocks the mirror, not deployment
 
 | Item | Why it is open | What clears it |
 |---|---|---|
-| Mainnet read and Sepolia write in one simulation | The docs show a target with both RPCs and one client per chain, but no page states it for one run. Not yet run | The first `bun replay/mirror.ts sepolia --limit 1` |
 
 ## Confirmed
 
@@ -31,6 +29,21 @@ The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must 
 
 `docs/transcripts/fork.txt`: one incident liquidation through `cre workflow simulate --broadcast` on the fork. Historical reads at a chosen block, the local HTTP snapshot, bigint median consensus, the `receiver` encoding and the mock forwarder write all worked, and the result matched the offline replay.
 
+`docs/transcripts/sepolia.txt`: the same event through `--target sepolia --broadcast`. One simulation read mainnet history and wrote to the Sepolia mock forwarder, which settles the cross-chain question. Vault transaction `0xe823565fb68bdd53bfca824c2e0f72d82da3a4c208b98c9d74c275de53bd50a9` paid 230533099950029831035 wei, equal to the offline replay.
+
+## Measured on Sepolia
+
+Sepolia's gas schedule is not the one Foundry 1.5.1 simulates, so forge's estimates do not transfer. Node estimates and receipts:
+
+| Operation | Forge or fork | Sepolia |
+|---|---:|---:|
+| Plain transfer | 21,000 | 12,000 |
+| `MockWETH` create | 507,940 | 3,315,394 |
+| `RedressVault` create | 1,359,377 | 9,480,591 |
+| Report through the forwarder | 216,575 | 851,647 |
+
+The first deployment attempt ran out of gas on both creates at forge's default 130% limit. It left no code at either address and cost about 0.0000025 ETH. `replay/deploy-sepolia.sh` now uses a 1000% multiplier, and the Sepolia workflow config uses a 1,500,000 gas limit. Neither changes verdict logic or payout data. The cause of the schedule change was not investigated.
+
 ## Decided
 
 | Item | Decision |
@@ -40,5 +53,5 @@ The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must 
 
 ## Measured trust findings
 
-- **`MockKeystoneForwarder` delivers forged reports from any sender.** `contracts/test/fork/MockForwarder.fork.t.sol` sends a report from an arbitrary address with no signatures, and the mainnet mock delivers it. It was run against mainnet. The Sepolia mock is assumed to behave the same way and is not yet measured. A vault using the mock can be emptied by anyone who writes a report whose arithmetic is consistent, so it must only ever hold test tokens.
+- **`MockKeystoneForwarder` delivers forged reports from any sender.** `contracts/test/fork/MockForwarder.fork.t.sol` sends a report from an arbitrary address with no signatures, and the mainnet mock delivers it. It was run against mainnet. On Sepolia, an `eth_call` from `0x…dEaD` with no signatures did not revert at the mock, using a real report and the deployed vault. That call changed no state, so forged delivery there is shown by simulation only, and the fork test remains the only measured payout from a forged report. A vault using the mock can be emptied by anyone who writes a report whose arithmetic is consistent, so it must only ever hold test tokens.
 - **The vault re-derives arithmetic, not facts.** It cannot see mainnet. It trusts the report for `user`, `C`, `X`, the band, the bonus, the verdict and the finality of the liquidation. Strict equality proves the redress follows from the reported fields, not that the fields are true. In production that trust rests on CRE consensus.

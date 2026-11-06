@@ -1,8 +1,8 @@
 {
   "readChain": "ethereum-mainnet",
   "writeChain": "ethereum-testnet-sepolia",
-  "vault": "0x0000000000000000000000000000000000000000",
-  "gasLimit": "500000",
+  "vault": "0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9",
+  "gasLimit": "1500000",
   "confidence": "CONFIDENCE_LEVEL_SAFE",
   "wstEth": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
   "weth": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
