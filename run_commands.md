@@ -101,7 +101,7 @@ bun backend/watcher.ts
 bun replay/controls.ts
 ```
 
-Then restart the site in terminal 1, because it reads some files once at startup.
+The site picks these up on the next page load, with no restart.
 
 **Browser:** open http://localhost:3001 and check each page:
 
@@ -269,7 +269,7 @@ These send real testnet transactions.
 
 | `make` target | Direct command | What it does |
 |---|---|---|
-| `make deploy-sepolia` | `VERIFY_CLEARED=true bash replay/deploy-sepolia.sh` | Bond, ledger and vault, verified on Etherscan. `make` needs `VERIFY_CLEARED=true` set too |
+| `make deploy-sepolia` | `VERIFY_CLEARED=true bun run sepolia:deploy` | Bond, ledger and vault, verified on Etherscan. Refuses to run without `VERIFY_CLEARED=true`, on `make` too |
 | `make deploy-hook` | `bash replay/deploy-hook.sh` | Hook, demo pool and swaps |
 
 ### Arkiv

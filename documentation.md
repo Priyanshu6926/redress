@@ -251,7 +251,8 @@ redress/
 | `sentinel-verdict/config.fork.json` | Generated config for the fork |
 | `sentinel-verdict/config.sepolia.json` | Generated config for Sepolia |
 | `sentinel-verdict/config.demo-v4hook.json` | Generated dry-run config for the hook demo |
-| `sentinel-verdict/*.test.ts` | Tests. `handler.test.ts` mocks every capability and checks all 47 events |
+| `sentinel-verdict/handler.test.ts` | Mocks every capability and checks all 47 events |
+| `sentinel-verdict/verdict.test.ts`, `sentinel-verdict/report.test.ts` | Engine and report encoding tests |
 | `sentinel-verdict/tsconfig.json`, `package.json`, `bun.lock` | The workflow's own project, because the SDK's types differ |
 | `sentinel-verdict/sources/` | Empty placeholder |
 
