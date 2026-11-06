@@ -106,8 +106,19 @@ redress/
 
 ## Trust model of this demo
 
-- **Anyone can forge a report against a simulation vault.** Simulated runs go through `MockKeystoneForwarder`. A fork test shows it delivers a report from any sender with no signatures, and it supplies no workflow identity, so the vault cannot tell a forged report from a real one. This is why the demo vault only ever holds test tokens. Production forwarding uses the signature-checking `KeystoneForwarder` and needs a deployed workflow.
+- **Anyone can forge a report against a simulation vault.** Simulated runs go through `MockKeystoneForwarder`, including the Sepolia mirror. A fork test shows it delivers a report from any sender with no signatures, an `eth_call` shows the same on Sepolia, and it supplies no workflow identity, so the vault cannot tell a forged report from a real one. This is why the demo vault only ever holds test tokens. Production forwarding uses the signature-checking `KeystoneForwarder` and needs a deployed workflow.
 - **The vault checks arithmetic, not facts.** It cannot see mainnet, so it trusts the report for the position, band, bonus, verdict and finality. In production that trust rests on CRE consensus.
+
+## Sepolia public mirror
+
+All 47 incident liquidations ran through `cre workflow simulate --broadcast`, reading mainnet history and writing to Sepolia. The vault paid 33 addresses a total of 473.295500496135010048 test WETH, equal to the offline replay's floor to the wei. These are test tokens, not compensation.
+
+| Contract | Address |
+|---|---|
+| `RedressVault` | [`0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9`](https://sepolia.etherscan.io/address/0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9#code) |
+| `MockWETH` | [`0xa193cae8762aeedcbf4d73c96369b54e5100fba4`](https://sepolia.etherscan.io/address/0xa193cae8762aeedcbf4d73c96369b54e5100fba4#code) |
+
+Every vault transaction is in `replay/out/mirror-sepolia.json`, and the first event's transcript is in `docs/transcripts/sepolia.txt`. Each run was a local simulation with one node, so DON consensus was not exercised. The historical liquidations were replayed from their logs, not re-executed.
 
 ## Verified incident data
 
