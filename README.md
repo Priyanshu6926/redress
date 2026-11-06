@@ -11,33 +11,33 @@ Redress is an automatic, evidence-based restitution layer for wrongful liquidati
 ### 1. Uniswap Foundation (Primary)
 - **U1: Uniswap v3 TWAP Oracle Integration**
   - Consumed as an independent on-chain price source within the consensus band.
-  - Pointers: [`cre/sentinel-verdict/verdict.ts`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/cre/sentinel-verdict/verdict.ts#L1-L60)
+  - Pointers: [`cre/sentinel-verdict/verdict.ts`](cre/sentinel-verdict/verdict.ts)
 - **U3: Uniswap v4 `BandOracleHook`**
   - Native v4 hook recording tick observations and exposing `getBand(key, window)` to give pools manipulation-resistant internal price bands.
-  - Pointers: [`contracts/src/hooks/BandOracleHook.sol`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/contracts/src/hooks/BandOracleHook.sol#L1-L55)
-- **Developer Feedback**: See [`FEEDBACK.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/FEEDBACK.md) for detailed developer feedback submitted to the Uniswap Foundation form.
+  - Pointers: [`contracts/src/hooks/BandOracleHook.sol`](contracts/src/hooks/BandOracleHook.sol)
+- **Developer Feedback**: See [`FEEDBACK.md`](FEEDBACK.md) for detailed developer feedback submitted to the Uniswap Foundation form.
 
 ### 2. Chainlink CRE (Primary)
 - **Chainlink Runtime Environment (CRE) Workflow: `sentinel-verdict`**
   - Log-triggered EVM execution on Aave `LiquidationCall` events.
   - Multi-source price aggregation, consensus threshold checks, and deterministic on-chain reporting.
   - Pointers:
-    - Configuration: [`cre/project.yaml`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/cre/project.yaml#L1-L16)
-    - Workflow Entrypoint: [`cre/sentinel-verdict/main.ts`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/cre/sentinel-verdict/main.ts#L1-L10)
-    - Verdict & Restitution Math: [`cre/sentinel-verdict/verdict.ts`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/cre/sentinel-verdict/verdict.ts#L1-L60)
-    - On-chain Settlement Vault: [`contracts/src/RedressVault.sol`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/contracts/src/RedressVault.sol#L75-L108)
+    - Configuration: [`cre/project.yaml`](cre/project.yaml)
+    - Workflow Entrypoint: [`cre/sentinel-verdict/main.ts`](cre/sentinel-verdict/main.ts)
+    - Verdict & Restitution Math: [`cre/sentinel-verdict/verdict.ts`](cre/sentinel-verdict/verdict.ts)
+    - On-chain Settlement Vault: [`contracts/src/RedressVault.sol`](contracts/src/RedressVault.sol)
 
 ### 3. Arkiv + Swarm (Third Pick)
 - **Arkiv Public Ledger**:
-  - Signer & Writer Wallet: `0x[CONFIGURED_IN_DEPLOYMENT]`
-  - Runnable query: `query { verdicts(where: { user: "0x..." }) { liquidationTx netLoss status } }`
+  - Signer & Writer Wallet: TODO-VERIFY, added after the first Arkiv write
+  - Runnable query: TODO-VERIFY, added once writes exist (planned queries are in PRD Appendix B)
   - Specification & Design files:
-    - [`arkiv/schema.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/arkiv/schema.md)
-    - [`arkiv/friction.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/arkiv/friction.md)
-    - [`arkiv/reach.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/arkiv/reach.md)
-    - [`arkiv/why-arkiv.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/arkiv/why-arkiv.md)
-    - [`arkiv/how-you-use-arkiv.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/arkiv/how-you-use-arkiv.md)
-    - [`arkiv/swarm.md`](file:///d:/CAREER/Hackathon/ETHGlobal%20Mumbai/redress/arkiv/swarm.md)
+    - [`arkiv/schema.md`](arkiv/schema.md)
+    - [`arkiv/friction.md`](arkiv/friction.md)
+    - [`arkiv/reach.md`](arkiv/reach.md)
+    - [`arkiv/why-arkiv.md`](arkiv/why-arkiv.md)
+    - [`arkiv/how-you-use-arkiv.md`](arkiv/how-you-use-arkiv.md)
+    - [`arkiv/swarm.md`](arkiv/swarm.md)
 - **Swarm Evidence Storage**:
   - Full transaction execution traces and price snapshot bundles stored on Swarm, referenced by `evidenceHash` on-chain and `evidenceSwarmRef` in Arkiv.
 
@@ -87,6 +87,8 @@ redress/
 │   ├── data/
 │   │   └── incident-2026-03-10.json
 │   ├── fetch-incident.ts
+│   ├── onchain.ts
+│   ├── verify-onchain.mjs
 │   ├── fork-up.sh
 │   ├── replay.ts
 │   └── scorecard.ts
@@ -102,19 +104,52 @@ redress/
 
 ---
 
+## Verified incident data
+
+Read from chain by `replay/verify-onchain.mjs`. Full output: [`replay/data/verification-report.txt`](replay/data/verification-report.txt). Per-liquidation data: [`replay/data/incident-2026-03-10.json`](replay/data/incident-2026-03-10.json).
+
+| Fact | On-chain value |
+|---|---|
+| Execution tx | block 24626860, 2026-03-10 11:46:11 UTC (fork block 24626859) |
+| Core pool / oracle | `0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2` / `0x54586bE62E3c3580375aE3723C145253060Ca0C2` |
+| Prime pool / oracle | `0x4e033931ad43597d96D6bcc25c280717730B58B1` / `0xE3C061981870C0C7b1f3C4F4bB36B95f1F260BE6` (market id "Aave V3 Lido Ethereum") |
+| Borrow cap cut | block 24627510 |
+| CAPO realignment | block 24628089 |
+| E-Mode bonus | 1% in both markets |
+| E-Mode liquidation threshold | Core 95.0%, Prime 96.5% |
+| Deepest Uniswap v3 pool | `0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa` (0.01% fee) |
+
+### Differences from the published figures
+
+Data was not adjusted to fit. These are the differences and their causes.
+
+| Published | On-chain | Cause |
+|---|---|---|
+| 34 accounts | 33 distinct addresses, 34 market positions | `0x5e1b601245b942d99aa924d39e0fbec1786e2170` was liquidated in both Core and Prime. 20 Core + 14 Prime = 34 |
+| 34 liquidations implied | 47 WETH-debt events | Some Prime positions were liquidated more than once |
+| ~512 ETH loss | 498.27 ETH from `C · rate − X`, 511.60 ETH with the protocol fee | `liquidatedCollateralAmount` excludes the Aave protocol fee. 10.84 wstETH (13.32 ETH) went to the treasury, matching the DAO's 13.32 ETH fee line |
+| All E-Mode | 46 of 47 events | One 0.038 wstETH Core position was outside E-Mode |
+| LT 95.5% (assumed, PRD Appendix A) | 95.0% Core, 96.5% Prime | The PRD value was an illustrative assumption |
+
+Both totals treat 1 stETH as 1 ETH and are rough checks, not verdicts. Two further wstETH-collateral liquidations in the window had non-WETH debt (0.0034 and 0.0008 wstETH). They are stored in the incident file but are outside these totals.
+
+---
+
 ## ⚡ Quickstart
 
 ```bash
 # 1. Install dependencies
+git submodule update --init --recursive
 bun install
+cp .env.example .env   # then fill it in
 
-# 2. Compile contracts
-cd contracts
-forge build
+# 2. Run tests
+bun test
+(cd contracts && forge test)
 
-# 3. Run replay on local fork
-cd ../replay
-./fork-up.sh
-bun run replay.ts
+# 3. Re-check on-chain facts and rebuild the incident file
+bun run verify
+bun run fetch-incident
 ```
 
+Pinned toolchain: Foundry 1.5.1, solc 0.8.26, forge-std 1.17.0, Bun 1.4.4, viem 2.57.
