@@ -2,7 +2,7 @@
  * Runs the verdict engine over cached reads for the replay. The conversions live in
  * cre/sentinel-verdict/position.ts, which the CRE workflow shares.
  */
-import { assess, isMultiAsset, type OffchainPrice } from "../cre/sentinel-verdict/position";
+import { assess, evidenceHash, isMultiAsset, type OffchainPrice } from "../cre/sentinel-verdict/position";
 import { DEFAULT_CONFIG, INCONCLUSIVE, VerdictType, type EngineConfig, type PriceSource } from "../cre/sentinel-verdict/verdict";
 import { toLiquidation } from "../cre/sentinel-verdict/position";
 import type { EventReads } from "./reads";
@@ -50,6 +50,11 @@ export interface Row {
   bonusBps: string;
   ltBps: string;
   impliedBonusBps: string;
+  /** X, in 18 decimals. */
+  debtToCover: string;
+  /** C, gross of the protocol fee. */
+  collateralSeized: string;
+  evidenceHash: string;
 }
 
 export function evaluate(reads: EventReads[], cfg: EngineConfig, offchain: OffchainPrice[] = []): Row[] {
@@ -93,6 +98,16 @@ export function evaluate(reads: EventReads[], cfg: EngineConfig, offchain: Offch
       bonusBps: r.bonusBps,
       ltBps: r.ltBps,
       impliedBonusBps: implied.toString(),
+      debtToCover: target.debtCovered.toString(),
+      collateralSeized: target.collateralSeized.toString(),
+      evidenceHash: evidenceHash({
+        txHash: r.txHash,
+        facts: r,
+        chainlinkStEthEth: r.chainlinkStEthEth,
+        sources,
+        peers: peers.filter((p) => p.block === target.block && p.logIndex < target.logIndex).length,
+        config: cfg,
+      }),
     };
   });
 }

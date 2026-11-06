@@ -35,7 +35,7 @@ const reports = results.incident.map((row) => {
     verdict: VerdictType[row.verdict as keyof typeof VerdictType],
     sourceCount: row.sourcesUsed.length,
     redress: BigInt(row.redress),
-    evidenceHash: `0x${"00".repeat(32)}`,
+    evidenceHash: row.evidenceHash as Hex,
   });
   return { report, redress: row.redress };
 });

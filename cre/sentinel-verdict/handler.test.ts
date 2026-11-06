@@ -229,7 +229,7 @@ describe("report", () => {
     expect(report.liquidationBonusBps).toBe(600n);
     expect(report.redress).toBe(BigInt(row.redress));
     expect(report.sourceCount).toBe(3);
-    expect(report.evidenceHash).not.toBe(`0x${"00".repeat(32)}`);
+    expect(report.evidenceHash).toBe(row.evidenceHash as Hex);
     expect((seen.report!.length - 2) / 2).toBeLessThan(1024);
   });
 });

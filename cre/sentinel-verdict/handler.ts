@@ -9,12 +9,12 @@ import {
   type EVMLog, type HTTPSendRequester, type Runtime,
 } from "@chainlink/cre-sdk";
 import {
-  decodeEventLog, decodeFunctionResult, encodeFunctionData, keccak256, parseAbi, stringToHex, zeroAddress,
+  decodeEventLog, decodeFunctionResult, encodeFunctionData, parseAbi, zeroAddress,
   type Abi, type Address, type Hex,
 } from "viem";
 import { effectiveBonusBps } from "./bonus";
 import {
-  LIQUIDATION_TOPIC, assess, collateralGross, countUserAssets, findProtocolFee, meanTick, nearestPerSource, priceAtTick, to18,
+  LIQUIDATION_TOPIC, assess, collateralGross, countUserAssets, evidenceHash, findProtocolFee, meanTick, nearestPerSource, priceAtTick, to18,
   type EventFacts, type OffchainPrice, type RawLog,
 } from "./position";
 import { encodeReport } from "./report";
@@ -344,19 +344,10 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
   }
 
   const offchain = offchainPrices(runtime, timestamp);
-  const result = assess(facts, peers, engineConfig(cfg), offchain);
+  const engine = engineConfig(cfg);
+  const result = assess(facts, peers, engine, offchain);
   const { band, outcome } = result;
   const ok = band !== INCONCLUSIVE;
-
-  const evidence = {
-    txHash,
-    logIndex: own.logIndex,
-    facts,
-    chainlinkStEthEth: chainlink.toString(),
-    sources: result.sources.map((s) => ({ name: s.name, price: s.price.toString(), timestamp: s.timestamp.toString() })),
-    peers: peers.length,
-    config: cfg.engine,
-  };
 
   const reportHex = encodeReport({
     liquidationTx: txHash,
@@ -374,7 +365,7 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
     verdict: outcome.verdict,
     sourceCount: ok ? band.collateral.n : 0,
     redress: result.redress,
-    evidenceHash: keccak256(stringToHex(JSON.stringify(evidence))),
+    evidenceHash: evidenceHash({ txHash, facts, chainlinkStEthEth: chainlink.toString(), sources: result.sources, peers: peers.length, config: engine }),
   });
 
   const report = runtime.report(prepareReportRequest(reportHex)).result();

@@ -6,6 +6,7 @@ import {
   INCONCLUSIVE, buildBand, fixedBand, rebuildPosition, redress, verdict,
   type EngineConfig, type Liquidation, type PairBand, type Position, type PriceSource, type VerdictOutcome,
 } from "./verdict";
+import { keccak256, stringToHex, type Hex } from "viem";
 
 const WAD = 10n ** 18n;
 const Q192 = 2n ** 192n;
@@ -185,6 +186,60 @@ export function sourcesFor(r: Pick<EventFacts, "timestamp" | "lidoRate" | "twapP
     sources.push({ name: `S3 ${o.name}`, price: BigInt(o.price), timestamp: BigInt(o.timestamp) });
   }
   return sources;
+}
+
+export interface EvidenceInput {
+  txHash: string;
+  facts: EventFacts;
+  chainlinkStEthEth: string;
+  sources: readonly PriceSource[];
+  peers: number;
+  config: EngineConfig;
+}
+
+/** Canonical evidence bundle. Fields are listed explicitly so the hash cannot depend on object order. */
+export function evidenceBundle(e: EvidenceInput) {
+  const f = e.facts;
+  return {
+    txHash: e.txHash.toLowerCase(),
+    logIndex: f.logIndex,
+    block: f.blockNumber,
+    timestamp: f.timestamp,
+    debtToCover: f.debtToCover,
+    collateralEvent: f.collateralEvent,
+    protocolFee: f.protocolFee,
+    lidoRate: f.lidoRate,
+    twapPrice: f.twapPrice,
+    chainlinkStEthEth: e.chainlinkStEthEth,
+    oracleCollateral: f.oracleCollateral,
+    oracleDebt: f.oracleDebt,
+    oracleWeth: f.oracleWeth,
+    preOracleCollateral: f.preOracleCollateral,
+    preOracleWeth: f.preOracleWeth,
+    preCollateralBalance: f.preCollateralBalance,
+    preDebtBalance: f.preDebtBalance,
+    totalCollateralBase: f.totalCollateralBase,
+    totalDebtBase: f.totalDebtBase,
+    ltBps: f.ltBps,
+    bonusBps: f.bonusBps,
+    borrows: f.borrows,
+    collaterals: f.collaterals,
+    sources: e.sources.map((s) => ({ name: s.name, price: s.price.toString(), timestamp: s.timestamp.toString() })),
+    peers: e.peers,
+    config: {
+      name: e.config.name,
+      tauBps: e.config.tauBps.toString(),
+      muBps: e.config.muBps.toString(),
+      epsOutBps: e.config.epsOutBps.toString(),
+      epsHBps: e.config.epsHBps.toString(),
+      minSources: e.config.minSources,
+      maxStalenessSec: e.config.maxStalenessSec.toString(),
+    },
+  };
+}
+
+export function evidenceHash(e: EvidenceInput): Hex {
+  return keccak256(stringToHex(JSON.stringify(evidenceBundle(e))));
 }
 
 export interface Assessment {

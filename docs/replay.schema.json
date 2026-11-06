@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://redress.local/replay.schema.json",
+  "title": "Redress replay data",
+  "description": "Frontend data contract. Amounts, prices and health factors are decimal strings in 1e18 fixed point, because they exceed JavaScript's safe integer range. Bump schemaVersion on any breaking change.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "mock", "config", "incident", "series", "liquidations", "scorecard", "control", "alternateConfigs", "dataChecks"],
+  "$defs": {
+    "wei": { "type": "string", "pattern": "^[0-9]+$" },
+    "address": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+    "hash": { "type": "string", "pattern": "^0x[0-9a-fA-F]{64}$" },
+    "verdict": { "enum": ["VALID", "WRONGFUL", "EXCESS", "AMBIGUOUS", "INCONCLUSIVE", "OVERPRICED"] },
+    "verdictCounts": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/verdict" },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eth", "vsDaoHeadlinePct", "vsDaoTablePct"],
+      "properties": {
+        "eth": { "type": "number" },
+        "vsDaoHeadlinePct": { "type": "number" },
+        "vsDaoTablePct": { "type": "number" }
+      }
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "minSources", "tauBps", "muBps", "epsOutBps", "epsHBps", "maxStalenessSec"],
+      "properties": {
+        "name": { "type": "string" },
+        "minSources": { "type": "integer", "minimum": 1 },
+        "tauBps": { "type": "string" },
+        "muBps": { "type": "string" },
+        "epsOutBps": { "type": "string" },
+        "epsHBps": { "type": "string" },
+        "maxStalenessSec": { "type": "string" }
+      }
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "verdicts", "falsePositives", "totalRedressEth", "wethDebtEvents", "note"],
+      "properties": {
+        "events": { "type": "integer", "minimum": 0 },
+        "verdicts": { "$ref": "#/$defs/verdictCounts" },
+        "falsePositives": { "type": "integer", "minimum": 0 },
+        "totalRedressEth": { "type": "number" },
+        "wethDebtEvents": { "type": "integer", "minimum": 0 },
+        "note": { "type": "string" }
+      }
+    }
+  },
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "mock": { "type": "boolean", "description": "True for replay.mock.json. Mock data must never be shown as real." },
+    "config": { "$ref": "#/$defs/config", "description": "The config that produced `liquidations`, `series` and `scorecard`." },
+    "incident": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "protocol", "chain", "title", "executionTx", "executionBlock", "firstLiquidationBlock", "lastLiquidationBlock", "collateralAsset", "debtAsset", "markets"],
+      "properties": {
+        "id": { "type": "string" },
+        "protocol": { "type": "string" },
+        "chain": { "type": "string" },
+        "title": { "type": "string" },
+        "executionTx": { "$ref": "#/$defs/hash" },
+        "executionBlock": { "type": "integer" },
+        "firstLiquidationBlock": { "type": "integer" },
+        "lastLiquidationBlock": { "type": "integer" },
+        "collateralAsset": { "$ref": "#/$defs/address" },
+        "debtAsset": { "$ref": "#/$defs/address" },
+        "markets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "pool"],
+            "properties": { "name": { "type": "string" }, "pool": { "$ref": "#/$defs/address" } }
+          }
+        }
+      }
+    },
+    "series": {
+      "type": "array",
+      "description": "One point per block, for the Replay Theater chart. Band values are null before the first liquidation, when no band was built.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["block", "timestamp", "oraclePrice", "bandLow", "bandHigh", "liquidations", "cumulativeRedressFloor"],
+        "properties": {
+          "block": { "type": "integer" },
+          "timestamp": { "type": ["integer", "null"] },
+          "oraclePrice": { "$ref": "#/$defs/wei" },
+          "bandLow": { "oneOf": [{ "$ref": "#/$defs/wei" }, { "type": "null" }] },
+          "bandHigh": { "oneOf": [{ "$ref": "#/$defs/wei" }, { "type": "null" }] },
+          "liquidations": { "type": "integer", "minimum": 0 },
+          "cumulativeRedressFloor": { "$ref": "#/$defs/wei" }
+        }
+      }
+    },
+    "liquidations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["market", "user", "tx", "logIndex", "block", "debtToCover", "collateralSeized", "verdict", "hfWorst", "bandLow", "bandHigh", "sourcesUsed", "sourcesRejected", "redressFloor", "redressMidpoint", "vaultTx", "evidenceHash", "multiAsset", "bonusBps"],
+        "properties": {
+          "market": { "type": "string" },
+          "user": { "$ref": "#/$defs/address" },
+          "tx": { "$ref": "#/$defs/hash" },
+          "logIndex": { "type": "integer" },
+          "block": { "type": "integer" },
+          "debtToCover": { "$ref": "#/$defs/wei", "description": "X." },
+          "collateralSeized": { "$ref": "#/$defs/wei", "description": "C, gross of the protocol fee." },
+          "verdict": { "$ref": "#/$defs/verdict" },
+          "hfWorst": { "$ref": "#/$defs/wei" },
+          "bandLow": { "$ref": "#/$defs/wei" },
+          "bandHigh": { "$ref": "#/$defs/wei" },
+          "sourcesUsed": { "type": "array", "items": { "type": "string" } },
+          "sourcesRejected": { "type": "array", "items": { "type": "string" } },
+          "redressFloor": { "$ref": "#/$defs/wei", "description": "What is actually paid." },
+          "redressMidpoint": { "$ref": "#/$defs/wei", "description": "Loss at the band midpoint. Comparison only, never paid." },
+          "vaultTx": { "oneOf": [{ "$ref": "#/$defs/hash" }, { "type": "null" }], "description": "Null until the event has been written to a public vault." },
+          "evidenceHash": { "$ref": "#/$defs/hash" },
+          "multiAsset": { "type": "boolean" },
+          "bonusBps": { "$ref": "#/$defs/wei" }
+        }
+      }
+    },
+    "scorecard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "eventVerdicts", "positions", "addresses", "positionsAllWrongful", "expectedPositions", "paidFloor", "comparisonMidpoint", "daoHeadlineEth", "daoTableEth", "payouts"],
+      "properties": {
+        "events": { "type": "integer" },
+        "eventVerdicts": { "$ref": "#/$defs/verdictCounts" },
+        "positions": { "type": "integer" },
+        "addresses": { "type": "integer" },
+        "positionsAllWrongful": { "type": "integer" },
+        "expectedPositions": { "type": "integer" },
+        "paidFloor": { "$ref": "#/$defs/comparison", "description": "What the vault pays." },
+        "comparisonMidpoint": { "$ref": "#/$defs/comparison", "description": "For comparing with the DAO figure only." },
+        "daoHeadlineEth": { "type": "number" },
+        "daoTableEth": { "type": "number" },
+        "payouts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["target", "network", "vault", "payoutAsset", "complete", "recorded", "totalPaidWei"],
+          "description": "Real payouts recorded so far. Empty values mean none have run.",
+          "properties": {
+            "target": { "type": ["string", "null"] },
+            "network": { "type": ["string", "null"] },
+            "vault": { "oneOf": [{ "$ref": "#/$defs/address" }, { "type": "null" }] },
+            "payoutAsset": { "oneOf": [{ "$ref": "#/$defs/address" }, { "type": "null" }] },
+            "complete": { "type": "boolean" },
+            "recorded": { "type": "integer" },
+            "totalPaidWei": { "$ref": "#/$defs/wei" }
+          }
+        }
+      }
+    },
+    "control": { "$ref": "#/$defs/control" },
+    "alternateConfigs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["config", "eventVerdicts", "paidFloor", "comparisonMidpoint", "control"],
+        "properties": {
+          "config": { "$ref": "#/$defs/config" },
+          "eventVerdicts": { "$ref": "#/$defs/verdictCounts" },
+          "paidFloor": { "$ref": "#/$defs/comparison" },
+          "comparisonMidpoint": { "$ref": "#/$defs/comparison" },
+          "control": { "$ref": "#/$defs/control" }
+        }
+      }
+    },
+    "dataChecks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["singleAssetEvents", "maxDeviationBpsSingle", "multiAssetEvents", "maxDeviationBpsMulti"],
+      "properties": {
+        "singleAssetEvents": { "type": "integer" },
+        "maxDeviationBpsSingle": { "type": "number" },
+        "multiAssetEvents": { "type": "integer" },
+        "maxDeviationBpsMulti": { "type": "number" }
+      }
+    }
+  }
+}

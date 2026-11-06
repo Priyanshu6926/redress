@@ -35,7 +35,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "6304565167623755951957",
+   "collateralSeized": "5333244853672323854639",
+   "evidenceHash": "0x546d578efd8ade4539eb5c81beb22f6924bbdd6c7fcff15f48fa2b43476c0987"
   },
   {
    "market": "Aave Ethereum Market",
@@ -61,7 +64,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "2218066481074625052672",
+   "collateralSeized": "1876337373842120678747",
+   "evidenceHash": "0x6ce5f9aeea71d44662537958181c332e2ebd5b8e6dacc140b5c020822fe19267"
   },
   {
    "market": "Aave Ethereum Market",
@@ -87,7 +93,10 @@
    "multiAsset": true,
    "bonusBps": "100",
    "ltBps": "9480",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "1366394661395882701753",
+   "collateralSeized": "1155879407795436001462",
+   "evidenceHash": "0x12f3a7e779f35d603079f2dafd414690e3cfce354a973bb4cb5a47a7ff88336b"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -113,7 +122,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "937452163987601000000",
+   "collateralSeized": "793022457391316114880",
+   "evidenceHash": "0x64be67b029e29d218060c61e99abbf9a4dab6e4328b86dca008fc42636fc26da"
   },
   {
    "market": "Aave Ethereum Market",
@@ -139,7 +151,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "284559134935990015037",
+   "collateralSeized": "240718186088768343147",
+   "evidenceHash": "0xf215866a2b40dd7337cccf93372ba5e136510aecb9f60c72a803b6fad29ec065"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -165,7 +180,10 @@
    "multiAsset": true,
    "bonusBps": "100",
    "ltBps": "9648",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "187404010651717766127",
+   "collateralSeized": "158531384065351876617",
+   "evidenceHash": "0x2d7ab7805db54982358f9f84d24e72cd87025185047f116bfb9a08db650357ba"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -191,7 +209,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "565265811909290098688",
+   "collateralSeized": "478177447831387841090",
+   "evidenceHash": "0xf25943248145ecdb1e883d19e523a71f4a521900761ce3f6139c1b3dd9337dbe"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -217,7 +238,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "48296908052836275216",
+   "collateralSeized": "40855986235655263348",
+   "evidenceHash": "0x8f23a9e6adb8601e32c7dfcc2875b34ad872a4d8c10dfb2f22939b7c6d83bb48"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -243,7 +267,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "34661206110587441152",
+   "collateralSeized": "29321085279748212244",
+   "evidenceHash": "0x915e3436818c239c508c19782712cd67392a06fd75e19465288988fab9f59bef"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -269,7 +296,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "26808795794752196376",
+   "collateralSeized": "22678466099458018417",
+   "evidenceHash": "0xc0abe4f1f59c0218f7cf41984fc053c7e8dfd9e3b46938ee80cb11bceac199ce"
   },
   {
    "market": "Aave Ethereum Market",
@@ -295,7 +325,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "11836703277700000242",
+   "collateralSeized": "10013067206293901371",
+   "evidenceHash": "0x56d48f2ac4f83f3c8e8aad5fc1d2aab322c28e093dea0a72cd8aedb5881acb96"
   },
   {
    "market": "Aave Ethereum Market",
@@ -321,7 +354,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "644246074033595145",
+   "collateralSeized": "544989519914945460",
+   "evidenceHash": "0xecdace87f60e89c08be5b43a92996ee9b3448d637d3e9e5c9246082d0b76dae8"
   },
   {
    "market": "Aave Ethereum Market",
@@ -347,7 +383,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "375855642849365599",
+   "collateralSeized": "317948986590358980",
+   "evidenceHash": "0x524d9d4c0a01abddd55e5e606e8c3d09532a2d70ce82196b0db99c4b045f6b68"
   },
   {
    "market": "Aave Ethereum Market",
@@ -373,7 +412,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "125813883018691491",
+   "collateralSeized": "106430214274641037",
+   "evidenceHash": "0xaea972bff87067d45412bf6383d6ee7770517de30034f1ef5f3529b8c70a2653"
   },
   {
    "market": "Aave Ethereum Market",
@@ -399,7 +441,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "131028916791742878",
+   "collateralSeized": "110841787533475199",
+   "evidenceHash": "0xa1ca5bcb3300bb0bd08029f02a0655c8e2d459cb0c5ee8fb5ba553b10319625a"
   },
   {
    "market": "Aave Ethereum Market",
@@ -425,7 +470,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "90405438498930902",
+   "collateralSeized": "76477014779081484",
+   "evidenceHash": "0xfe26ec8706831826416809febed71b563a734cd2eba0dd0c250a364aa5c13d0a"
   },
   {
    "market": "Aave Ethereum Market",
@@ -451,7 +499,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "52415783498863674",
+   "collateralSeized": "44340282131888964",
+   "evidenceHash": "0x79a7ba735644200b6a539d115b8399cbd9250a4d8e48ced15897eb912b8d59ca"
   },
   {
    "market": "Aave Ethereum Market",
@@ -477,7 +528,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "43103238790725097",
+   "collateralSeized": "38267559499734879",
+   "evidenceHash": "0x63e982db9715defa7db1dc3789922ad359f5ce77fb69360ca7528837819deeef"
   },
   {
    "market": "Aave Ethereum Market",
@@ -503,7 +557,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "38014936442192606",
+   "collateralSeized": "32158119073221324",
+   "evidenceHash": "0xc1ba2f7c9310fff9cf8d7c291593e4548e565a6f113b13ee39afdfa8c8966346"
   },
   {
    "market": "Aave Ethereum Market",
@@ -529,7 +586,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "71180650578107214",
+   "collateralSeized": "60214117166313121",
+   "evidenceHash": "0x3ac17eac4557396fc3bc992a39c7d42aaa95ba892ee373d69f53a6fb5de2714f"
   },
   {
    "market": "Aave Ethereum Market",
@@ -555,7 +615,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "29017950072488093",
+   "collateralSeized": "24547264339396616",
+   "evidenceHash": "0x9b9ae313ed8bbf7756308a8b990ed87dc312730bc8d45f035d23738dfa755b85"
   },
   {
    "market": "Aave Ethereum Market",
@@ -581,7 +644,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "533012269129370928",
+   "collateralSeized": "450893086306093265",
+   "evidenceHash": "0xfa054163adbfd6578f980e1e5c06e9eac45fed972eb0a425fa3a7264e6d6d04c"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -607,7 +673,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "554058329218220228608",
+   "collateralSeized": "468696643911001140167",
+   "evidenceHash": "0x92fa68b8f514895b950927501b968ca59b284219ec6db256c6a585fbb477a732"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -633,7 +702,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "148735687377279320064",
+   "collateralSeized": "125820538790366394497",
+   "evidenceHash": "0x12a5bf799013e84b05c3cc43e9773eeb40beb5deea6990f69eac35c345547368"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -659,7 +731,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "70101824318923784192",
+   "collateralSeized": "59301499603261796838",
+   "evidenceHash": "0x432a9d4995fd165b29d940b0b754fa115455252b413633c08c9f202cfaa9042a"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -685,7 +760,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "33478885633763905536",
+   "collateralSeized": "28320919496988872874",
+   "evidenceHash": "0xbd12afa5dfe4854f90f94baa5b54c10b1c6bbc1f6ab4554f0c1d8b409a0d8427"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -711,7 +789,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "43631556153033792",
+   "collateralSeized": "36909406210707737",
+   "evidenceHash": "0x9bed9f3ea25714233e6f9c49b936835c2663c014952026f9c92e64145829d0a2"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -737,7 +818,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "9921182799788722176",
+   "collateralSeized": "8392663437529652408",
+   "evidenceHash": "0x74501ea9eb2199e06a4663292117624005fd2ee6cd1f2f7947a074673805ea1f"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -763,7 +847,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "9223237739061880832",
+   "collateralSeized": "7802248150282720930",
+   "evidenceHash": "0x509ccf33c5db71ef6dee5a77eba9cf9dd93434bffb93aef3813b62c5a7195d94"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -789,7 +876,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "8075906342575478784",
+   "collateralSeized": "6831681791780958145",
+   "evidenceHash": "0x9618f419584a724ca75bcdcd8e5326d05f5d8834f5c5bb7f95ae0c128f15a2d5"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -815,7 +905,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "8404021650843321344",
+   "collateralSeized": "7109245607161109813",
+   "evidenceHash": "0x61cc8b497ad314e8f9ff035f0e255273091e9dd1c8412eb13bb989406e5bb790"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -841,7 +934,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "37222300993396408320",
+   "collateralSeized": "31487599862724875320",
+   "evidenceHash": "0x6566074e3e5fab0b25e1c088a0f2ff9ba91220b9cf712189ac93cba1efe916e0"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -867,7 +963,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "31024174934504357888",
+   "collateralSeized": "26244395976008017670",
+   "evidenceHash": "0x3d8fe453f782e9894e2f7210f96afd1157438894b108f1b46eb9514b20915417"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -893,7 +992,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "7061605231385055232",
+   "collateralSeized": "5973650042586697481",
+   "evidenceHash": "0x4b885665d523833d4288fa8efb32495fab6429e102fae6d4d0f234515d18937a"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -919,7 +1021,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "8773392316555900928",
+   "collateralSeized": "7421708473944880362",
+   "evidenceHash": "0x4dbf95945acb5898ba8d707d0de51e20e144759abc0ed03280e083eb8bebee85"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -945,7 +1050,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "8782905609820396544",
+   "collateralSeized": "7429756089586437203",
+   "evidenceHash": "0x3cc7c955404dfec6629528a2378eef130f519d98e2857bd031b86287329f90af"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -971,7 +1079,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "8706154383862581248",
+   "collateralSeized": "7364829638844930959",
+   "evidenceHash": "0x3808a1f90d0e10d708b6fc69e83432cd0f8b0dcdad50c747bf046e60912d4fe7"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -997,7 +1108,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "1039875084347155840",
+   "collateralSeized": "879665407276929858",
+   "evidenceHash": "0x590d108b6b40c0d5eaac210f3878a45320559e932d48f93350e243bccad8c85d"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -1023,7 +1137,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "2879371334840771584",
+   "collateralSeized": "2435757329020335609",
+   "evidenceHash": "0x224cbcae0b2a015a81a489dff1fe55d61689da8ff7e67a7fbb09a0c651e63ec1"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -1049,7 +1166,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "4488934304587125760",
+   "collateralSeized": "3797340806330082741",
+   "evidenceHash": "0x3e3adad94d54ceddddfd1d185bffdbb870bfae0040b739f78b2adb485bf0fe1b"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -1075,7 +1195,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "1463426692200844800",
+   "collateralSeized": "1237961956736197858",
+   "evidenceHash": "0xb52a88e1f3781b2f22996ed0ec003ef3b985fb0afd6edf80ba6a844f7182131a"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -1101,7 +1224,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "1623067452115449856",
+   "collateralSeized": "1373007455476912961",
+   "evidenceHash": "0x12eaefbeca7c1ee4a28bbd85c40738fbef01c02f8312e4864db6fe3a1cf514d5"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -1127,7 +1253,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9650",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "1004587788486399863",
+   "collateralSeized": "849814665111515115",
+   "evidenceHash": "0x1bc8a98c47b805eadfb57aa4443fb544e68ca1dbee0ca7b69d46628ddcd2d475"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1153,7 +1282,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "11943711681870252",
+   "collateralSeized": "10103587541939208",
+   "evidenceHash": "0x50d554ebc255870970d5711af29ca6d652c393b7d7be3563b3b55aabff05c48e"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1179,7 +1311,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "11295684822901733",
+   "collateralSeized": "9555399819938615",
+   "evidenceHash": "0xea4d356f904d653365b3c9e050eebadf4ff37922fbc6c9753d099b20e752d0f9"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1205,7 +1340,10 @@
    "multiAsset": true,
    "bonusBps": "100",
    "ltBps": "9499",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "7531370652033148",
+   "collateralSeized": "6371039817472656",
+   "evidenceHash": "0xa2df83bcde70a05115b8b08894f28bb4faf297405f8f87cad261aa7eb712ce64"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1231,7 +1369,10 @@
    "multiAsset": false,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "3519012362285341",
+   "collateralSeized": "2976850850217512",
+   "evidenceHash": "0x1d3a1c0d888bba1593dbcdc3d074b685a3e492ba51c27d4e731c72442fa4c765"
   }
  ],
  "control": [
@@ -1259,7 +1400,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "8930051555328000000000000",
+   "collateralSeized": "2094183462890368755077",
+   "evidenceHash": "0x0c9f4e76ccf8248ae8ee21c1fe4738cd4c93acf3d190d5939afec24f2a514bf7"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1285,7 +1429,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "5407713394688000000000000",
+   "collateralSeized": "1268996117750824188539",
+   "evidenceHash": "0x0ace6f2be4d0a446ec41480c300c828d61df9939346c0f0d7631871dafaf6c0e"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1311,7 +1458,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "457086757343764022673",
+   "collateralSeized": "97317976724008985",
+   "evidenceHash": "0xb3da06d2d15393142e9555854df491fc4cbf16b493cbaedc2c26a6628abd884b"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1337,7 +1487,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "621648635000000000000",
+   "collateralSeized": "141325362840443730",
+   "evidenceHash": "0xbd59b174f3729a68ebd4f79e51c479aa039d91fd41668c12082143514c6c64ce"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1363,7 +1516,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7939",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "7982217595000000000000",
+   "collateralSeized": "1860640054845453201",
+   "evidenceHash": "0xec55fd1248942de7cfecd04325b1bef4859d4658e6262e921548125769ba9cd0"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1389,7 +1545,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7956",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "6106684557548388124832",
+   "collateralSeized": "1373104113045767988",
+   "evidenceHash": "0x88cb2c731bb26492e06bbefb17e056f9858599c295c79fad551cbe0ad6e558d6"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1415,7 +1574,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "30043429000000000000",
+   "collateralSeized": "7078726763500752",
+   "evidenceHash": "0x7a852b4bc815787bbffaca7080f0df51b1372c1916d90665361eb9f1b3073e04"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1441,7 +1603,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7902",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "1512744708000000000000",
+   "collateralSeized": "357129035830922762",
+   "evidenceHash": "0x80424cf001ebde9749bf76887df4c57216359efa347cf801f6aec0a7a69f34b1"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1467,7 +1632,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8073",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "2611436218121029929543",
+   "collateralSeized": "626022851569964343",
+   "evidenceHash": "0x503a8b88b0cb5385eb58b0eb7ec69d22daab42b4605f24c855bfb35b0959d1f5"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1493,7 +1661,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7950",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "8868506083435570033973",
+   "collateralSeized": "2164039562517202709",
+   "evidenceHash": "0xa3b68bab73ad65ae2b901240efc3519bff7df829e213483270ebbc0b3576af1d"
   },
   {
    "market": "Aave V3 Lido Ethereum",
@@ -1519,7 +1690,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8300",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "4685059519236497",
+   "collateralSeized": "4075397179798590",
+   "evidenceHash": "0xf971d64f49b091381349421332e897282d6b53aa708ce2c095198f5b9e6db0b6"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1545,7 +1719,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7955",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "3364468341395969067",
+   "collateralSeized": "6171501064871780",
+   "evidenceHash": "0x2f584dcbb36bb1d1342185e3966053b091451611f98b3f6ac49603981c4f7770"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1571,7 +1748,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7811",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "3487323091260406078102",
+   "collateralSeized": "952719297422668963",
+   "evidenceHash": "0x878a0a2d2f2ab04d1d4287abd71c6926e7353faaa73b8086aad7215be5e91ba2"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1597,7 +1777,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "7594570000000000000",
+   "collateralSeized": "2061965829787940",
+   "evidenceHash": "0x040522762cbca24e5e1188c3c9ceddfa4e196fc8296f6fd146e3d6ff8f77e801"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1623,7 +1806,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7996",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "211543296000000000000",
+   "collateralSeized": "59326527061333926",
+   "evidenceHash": "0x6b024c13ba1e23faf0fe5afc010f6d335c8ba43c72d0f495952a10a5b6674f77"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1649,7 +1835,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7803",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "11492425055479717095671",
+   "collateralSeized": "3251098966886918589",
+   "evidenceHash": "0xf3aa0a69334fb654a2adfcca18175bae25b479dc20f60d1acb8d1a4b817e11ce"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1675,7 +1864,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "54843527511662068717",
+   "collateralSeized": "16106293123656462",
+   "evidenceHash": "0xf2105649c655411f42aa523415ecc0c4a0a9d90bade42c363351b7bc14fc4fd5"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1701,7 +1893,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "2635249000000000000",
+   "collateralSeized": "763959647232634",
+   "evidenceHash": "0x72e2cdf29f2610339dc092e7080c17108f4d60c163707d80f7c924aa58431688"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1727,7 +1922,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8059",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "556931036167000000000000",
+   "collateralSeized": "165098297332922635194",
+   "evidenceHash": "0xa0add17fce03fc6c8c9b30a30712887fbd442d833f716ec828c7538da3099f10"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1753,7 +1951,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7973",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1436303485841000000000000",
+   "collateralSeized": "430374405937883579263",
+   "evidenceHash": "0x4fecadf2dd184c8f2bb3969e4b0de13909b3a1f109a9a245fffdb40caf42fb4d"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1779,7 +1980,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7641",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1731153224716727814770",
+   "collateralSeized": "523820260450455780",
+   "evidenceHash": "0xe055188edb39b8c9737183877d980a23575b1760cdc4dcc6f869eaeff518e6e9"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1805,7 +2009,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8098",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "2646356449651684272",
+   "collateralSeized": "734310349259601",
+   "evidenceHash": "0xfac3029f3d10edee581c414af193d4a2c3a0f2c21f1eefc75c2ac689d97e18c3"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1831,7 +2038,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7937",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1313378342382359902223",
+   "collateralSeized": "358705250009052626",
+   "evidenceHash": "0xdc05efbaa1c304d8a8154d2c116905d4039ee55939c5cf73306bbfe019773b09"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1857,7 +2067,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "3040663748000000000000",
+   "collateralSeized": "1009489975494423995",
+   "evidenceHash": "0x61bdaa8d251b06c5945727474e1d71c777f818096b376f33f40c8cff36f08758"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1883,7 +2096,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1500509309000000000000",
+   "collateralSeized": "430271151840785988",
+   "evidenceHash": "0x2938b6d0891452b69a5a73d4b2c7295c070b72ba3013b27032b3a97ca40d1cd0"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1909,7 +2125,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8068",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "605335837703223368324",
+   "collateralSeized": "180119827002355996",
+   "evidenceHash": "0xc321ed38316bcac8be7e09c870048f9c2bde355b131ff9f8f47fb64f029d76a4"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1935,7 +2154,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7903",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1493046595288467708084",
+   "collateralSeized": "446937928688175821",
+   "evidenceHash": "0x4f1c7a55cf9e042880a037e12bfbbea3fe210be77432eb00fe743ea7333f866f"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1961,7 +2183,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1857640801362238345792",
+   "collateralSeized": "565075200564842082",
+   "evidenceHash": "0xd586331ed7423d33fd3bd2f285c00e813eed9942fcece5ec3607002947ebe65f"
   },
   {
    "market": "Aave Ethereum Market",
@@ -1987,7 +2212,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "46643367492000000000000",
+   "collateralSeized": "14293546844101513526",
+   "evidenceHash": "0x169a8fb61ae4669d8585a64b31940af85d2bb7df93844669dad4bbabf177a84e"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2013,7 +2241,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "102416984000000000000",
+   "collateralSeized": "31789720006733790",
+   "evidenceHash": "0x76026e39b27840c6bed9d56d55c1c0db9722b8ac6fd728426e8edfbcc0f6e941"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2039,7 +2270,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1503601630000000000000",
+   "collateralSeized": "573289786615355388",
+   "evidenceHash": "0x2102b2aeaa71e9a3febd32a81f685184d1cad2eae5a3606782a25f542526d396"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2065,7 +2299,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1423754891000000000000",
+   "collateralSeized": "454732319829649288",
+   "evidenceHash": "0xd4430f9550f6602399ad6893ad100efaab2f7fd2ac77cf3aa71a241f6f296120"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2091,7 +2328,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "7858",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "554534251978044241",
+   "collateralSeized": "479558841080050971",
+   "evidenceHash": "0x6743e33b81bde2582d0c5318576bcc86188e1c33d1ffe7ec048b6b4b518bf959"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2117,7 +2357,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1502571211000000000000",
+   "collateralSeized": "490942680984043319",
+   "evidenceHash": "0xb9c11e555f2e7dae421d5aae6b7b6d15e4c3c42d85296b17a813426f86ab4c9e"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2143,7 +2386,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "261936548142989209",
+   "collateralSeized": "112658058762147",
+   "evidenceHash": "0xf42503337f09f8277c671f5441fd05c1e608dadbffe1e80808f6eab23195890b"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2169,7 +2415,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "3932147893961739",
+   "collateralSeized": "1691204040214",
+   "evidenceHash": "0x3276f7a925f5d773bc5a11081e483ea0b20579f02bf06fc49467534f4ed98d36"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2195,7 +2444,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "691"
+   "impliedBonusBps": "691",
+   "debtToCover": "14706000000000000",
+   "collateralSeized": "6320723406589",
+   "evidenceHash": "0x87cc1f8d3ac03bc5fc5c2f6891a167098870f2adf478a72a8e323cbf987756e2"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2221,7 +2473,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "3562453000000000000",
+   "collateralSeized": "1476866472383542",
+   "evidenceHash": "0x71505515e2132e82702336245d83fda5351e4029fa52f562979ddf11dfd9e7c3"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2247,7 +2502,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8076",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "80943760826000000000000",
+   "collateralSeized": "34091131071175974420",
+   "evidenceHash": "0xa0825ef1dda0e61dfba2a8c837ed34117ef5954270191f65118073ad7081b28b"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2273,7 +2531,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "4058856178124540544",
+   "collateralSeized": "1784718818868066",
+   "evidenceHash": "0x8e86324f95df8b917645a37a70dc9f1430d941845136410b3fd64ba53ee83361"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2299,7 +2560,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1719339370000000000000",
+   "collateralSeized": "807033245408158245",
+   "evidenceHash": "0x9bc37ef1aed616ba0c932600a4cf49155fd8eb384b3e16649773b58b4f21a1d8"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2325,7 +2589,10 @@
    "multiAsset": true,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "3008413000000000000",
+   "collateralSeized": "1403946413033154",
+   "evidenceHash": "0xdd3e93312cd403f37e5558045909a1053309905baa7fde8fdfd6f213e0e44d98"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2351,7 +2618,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "11006189000000000000",
+   "collateralSeized": "5232436291947199",
+   "evidenceHash": "0x4f8b519fb37fff1382378713912fcea9af40727934459ec9f84857fc6a510f45"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2377,7 +2647,10 @@
    "multiAsset": true,
    "bonusBps": "100",
    "ltBps": "9500",
-   "impliedBonusBps": "99"
+   "impliedBonusBps": "99",
+   "debtToCover": "20510894818584071",
+   "collateralSeized": "18374541789290925",
+   "evidenceHash": "0x7930b444e56c8c2c5fa526e49f8325b65fc4d16d59cb250a6c21e276899717ba"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2403,7 +2676,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "3949616920730596489",
+   "collateralSeized": "1774861772604266",
+   "evidenceHash": "0x08654a05811ef11d38f1202c53d51ee2227fef63a8284bc190ccb73a1be04c13"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2429,7 +2705,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "1962507447000000000000",
+   "collateralSeized": "918718838642830789",
+   "evidenceHash": "0x80f509292019c4d0d2e800bbdd0838a4da699f24b806cb44cb59b6a73c39d5cd"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2455,7 +2734,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "1409011000000000000",
+   "collateralSeized": "620853968194353",
+   "evidenceHash": "0xa1124fcf25e624a5642dee754be979b08bbf76157e4d9f629d9a380c5e638161"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2481,7 +2763,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "599"
+   "impliedBonusBps": "599",
+   "debtToCover": "1838697000000000000",
+   "collateralSeized": "814393544478642",
+   "evidenceHash": "0x1e98610fb651e1a377e36dd89d7b9b4b7b6ceef97c2c7c57bc76e3822afb89dc"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2507,7 +2792,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "931341000000000000",
+   "collateralSeized": "394453921200058",
+   "evidenceHash": "0x573a5dd9f5db074bd4e18e83e558afe1864a544c241bd716a2fb7cf8acb83323"
   },
   {
    "market": "Aave Ethereum Market",
@@ -2533,7 +2821,10 @@
    "multiAsset": false,
    "bonusBps": "600",
    "ltBps": "8100",
-   "impliedBonusBps": "600"
+   "impliedBonusBps": "600",
+   "debtToCover": "562940000000000000",
+   "collateralSeized": "249921401095013",
+   "evidenceHash": "0x07012544eed76a6870fe1d4555b3b6bdf26e58e65ccfd08279fbdda764370304"
   }
  ]
 }

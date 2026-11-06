@@ -10,6 +10,6 @@
     "resolveJsonModule": true,
     "types": ["bun-types"]
   },
-  "include": ["cre/sentinel-verdict/verdict*.ts", "cre/sentinel-verdict/position.ts", "cre/sentinel-verdict/bonus.ts", "cre/sentinel-verdict/report*.ts", "cre/sentinel-verdict/gen-random-vectors.ts", "replay/**/*.ts", "backend/**/*.ts"],
+  "include": ["cre/sentinel-verdict/verdict*.ts", "cre/sentinel-verdict/position.ts", "cre/sentinel-verdict/bonus.ts", "cre/sentinel-verdict/report*.ts", "cre/sentinel-verdict/gen-random-vectors.ts", "replay/**/*.ts", "backend/**/*.ts", "web/lib/**/*.ts"],
   "exclude": ["**/node_modules", "web", "contracts"]
 }

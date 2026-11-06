@@ -1,0 +1,327 @@
+{
+ "schemaVersion": "1.0.0",
+ "mock": true,
+ "config": {
+  "name": "mock",
+  "minSources": 3,
+  "tauBps": "75",
+  "muBps": "10",
+  "epsOutBps": "100",
+  "epsHBps": "10",
+  "maxStalenessSec": "3600"
+ },
+ "incident": {
+  "id": "mock-incident",
+  "protocol": "mock-protocol",
+  "chain": "mock-chain",
+  "title": "MOCK DATA: not a real incident",
+  "executionTx": "0x1111111111111111111111111111111111111111111111111111111111111111",
+  "executionBlock": 1000,
+  "firstLiquidationBlock": 1001,
+  "lastLiquidationBlock": 1009,
+  "collateralAsset": "0x1111111111111111111111111111111111111111",
+  "debtAsset": "0x2222222222222222222222222222222222222222",
+  "markets": [
+   {
+    "name": "Mock Market A",
+    "pool": "0x3333333333333333333333333333333333333333"
+   },
+   {
+    "name": "Mock Market B",
+    "pool": "0x4444444444444444444444444444444444444444"
+   }
+  ]
+ },
+ "series": [
+  {
+   "block": 1000,
+   "timestamp": null,
+   "oraclePrice": "1228000000000000000",
+   "bandLow": null,
+   "bandHigh": null,
+   "liquidations": 0,
+   "cumulativeRedressFloor": "0"
+  },
+  {
+   "block": 1001,
+   "timestamp": 1700000000,
+   "oraclePrice": "1194000000000000000",
+   "bandLow": "1226000000000000000",
+   "bandHigh": "1230000000000000000",
+   "liquidations": 2,
+   "cumulativeRedressFloor": "3000000000000000000"
+  },
+  {
+   "block": 1002,
+   "timestamp": 1700000012,
+   "oraclePrice": "1194000000000000000",
+   "bandLow": "1226000000000000000",
+   "bandHigh": "1230000000000000000",
+   "liquidations": 1,
+   "cumulativeRedressFloor": "5000000000000000000"
+  }
+ ],
+ "liquidations": [
+  {
+   "market": "Mock Market A",
+   "user": "0x1111111111111111111111111111111111111111",
+   "tx": "0x1111111111111111111111111111111111111111111111111111111111111111",
+   "logIndex": 1,
+   "block": 1001,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "WRONGFUL",
+   "hfWorst": "10200000000000000000",
+   "bandLow": "12200000000000000000",
+   "bandHigh": "12300000000000000000",
+   "sourcesUsed": [
+    "S1 mock rate",
+    "S2 mock TWAP",
+    "S3 mock API"
+   ],
+   "sourcesRejected": [],
+   "redressFloor": "3000000000000000000",
+   "redressMidpoint": "4000000000000000000",
+   "vaultTx": "0x7777777777777777777777777777777777777777777777777777777777777777",
+   "evidenceHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Mock Market A",
+   "user": "0x1111111111111111111111111111111111111111",
+   "tx": "0x2222222222222222222222222222222222222222222222222222222222222222",
+   "logIndex": 20,
+   "block": 1002,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "WRONGFUL",
+   "hfWorst": "10200000000000000000",
+   "bandLow": "12200000000000000000",
+   "bandHigh": "12300000000000000000",
+   "sourcesUsed": [
+    "S1 mock rate",
+    "S2 mock TWAP",
+    "S3 mock API"
+   ],
+   "sourcesRejected": [],
+   "redressFloor": "2000000000000000000",
+   "redressMidpoint": "2000000000000000000",
+   "vaultTx": null,
+   "evidenceHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Mock Market A",
+   "user": "0x3333333333333333333333333333333333333333",
+   "tx": "0x3333333333333333333333333333333333333333333333333333333333333333",
+   "logIndex": 3,
+   "block": 1003,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "AMBIGUOUS",
+   "hfWorst": "9900000000000000000",
+   "bandLow": "12200000000000000000",
+   "bandHigh": "12300000000000000000",
+   "sourcesUsed": [
+    "S1 mock rate",
+    "S2 mock TWAP",
+    "S3 mock API"
+   ],
+   "sourcesRejected": [],
+   "redressFloor": "100000000000000000",
+   "redressMidpoint": "200000000000000000",
+   "vaultTx": "0x8888888888888888888888888888888888888888888888888888888888888888",
+   "evidenceHash": "0x4444444444444444444444444444444444444444444444444444444444444444",
+   "multiAsset": false,
+   "bonusBps": "600"
+  },
+  {
+   "market": "Mock Market B",
+   "user": "0x4444444444444444444444444444444444444444",
+   "tx": "0x4444444444444444444444444444444444444444444444444444444444444444",
+   "logIndex": 4,
+   "block": 1004,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "EXCESS",
+   "hfWorst": "9900000000000000000",
+   "bandLow": "12200000000000000000",
+   "bandHigh": "12300000000000000000",
+   "sourcesUsed": [
+    "S1 mock rate",
+    "S2 mock TWAP",
+    "S3 mock API"
+   ],
+   "sourcesRejected": [],
+   "redressFloor": "500000000000000000",
+   "redressMidpoint": "600000000000000000",
+   "vaultTx": null,
+   "evidenceHash": "0x5555555555555555555555555555555555555555555555555555555555555555",
+   "multiAsset": true,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Mock Market A",
+   "user": "0x5555555555555555555555555555555555555555",
+   "tx": "0x5555555555555555555555555555555555555555555555555555555555555555",
+   "logIndex": 5,
+   "block": 1005,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "VALID",
+   "hfWorst": "9900000000000000000",
+   "bandLow": "12200000000000000000",
+   "bandHigh": "12300000000000000000",
+   "sourcesUsed": [
+    "S1 mock rate",
+    "S2 mock TWAP",
+    "S3 mock API"
+   ],
+   "sourcesRejected": [],
+   "redressFloor": "0",
+   "redressMidpoint": "0",
+   "vaultTx": null,
+   "evidenceHash": "0x6666666666666666666666666666666666666666666666666666666666666666",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Mock Market B",
+   "user": "0x6666666666666666666666666666666666666666",
+   "tx": "0x6666666666666666666666666666666666666666666666666666666666666666",
+   "logIndex": 6,
+   "block": 1006,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "INCONCLUSIVE",
+   "hfWorst": "9900000000000000000",
+   "bandLow": "0",
+   "bandHigh": "0",
+   "sourcesUsed": [],
+   "sourcesRejected": [
+    "S3 mock API"
+   ],
+   "redressFloor": "0",
+   "redressMidpoint": "0",
+   "vaultTx": null,
+   "evidenceHash": "0x7777777777777777777777777777777777777777777777777777777777777777",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Mock Market A",
+   "user": "0x9999999999999999999999999999999999999999",
+   "tx": "0x9999999999999999999999999999999999999999999999999999999999999999",
+   "logIndex": 9,
+   "block": 1009,
+   "debtToCover": "100000000000000000000",
+   "collateralSeized": "85000000000000000000",
+   "verdict": "OVERPRICED",
+   "hfWorst": "9900000000000000000",
+   "bandLow": "12200000000000000000",
+   "bandHigh": "12300000000000000000",
+   "sourcesUsed": [
+    "S1 mock rate",
+    "S2 mock TWAP",
+    "S3 mock API"
+   ],
+   "sourcesRejected": [],
+   "redressFloor": "0",
+   "redressMidpoint": "0",
+   "vaultTx": null,
+   "evidenceHash": "0x1010101010101010101010101010101010101010101010101010101010101010",
+   "multiAsset": false,
+   "bonusBps": "100"
+  }
+ ],
+ "scorecard": {
+  "events": 7,
+  "eventVerdicts": {
+   "WRONGFUL": 2,
+   "AMBIGUOUS": 1,
+   "EXCESS": 1,
+   "VALID": 1,
+   "INCONCLUSIVE": 1,
+   "OVERPRICED": 1
+  },
+  "positions": 6,
+  "addresses": 6,
+  "positionsAllWrongful": 1,
+  "expectedPositions": 6,
+  "paidFloor": {
+   "eth": 5.6,
+   "vsDaoHeadlinePct": -50,
+   "vsDaoTablePct": -50
+  },
+  "comparisonMidpoint": {
+   "eth": 6.8,
+   "vsDaoHeadlinePct": -50,
+   "vsDaoTablePct": -50
+  },
+  "daoHeadlineEth": 11.2,
+  "daoTableEth": 11.2,
+  "payouts": {
+   "target": "mock",
+   "network": "mock",
+   "vault": "0x5555555555555555555555555555555555555555",
+   "payoutAsset": "0x6666666666666666666666666666666666666666",
+   "complete": false,
+   "recorded": 2,
+   "totalPaidWei": "3000000000000000000"
+  }
+ },
+ "control": {
+  "events": 2,
+  "verdicts": {
+   "VALID": 2
+  },
+  "falsePositives": 0,
+  "totalRedressEth": 0,
+  "wethDebtEvents": 1,
+  "note": "Mock data."
+ },
+ "alternateConfigs": [
+  {
+   "config": {
+    "name": "mock-alternate",
+    "minSources": 2,
+    "tauBps": "75",
+    "muBps": "10",
+    "epsOutBps": "100",
+    "epsHBps": "10",
+    "maxStalenessSec": "3600"
+   },
+   "eventVerdicts": {
+    "WRONGFUL": 2
+   },
+   "paidFloor": {
+    "eth": 5.8,
+    "vsDaoHeadlinePct": -50,
+    "vsDaoTablePct": -50
+   },
+   "comparisonMidpoint": {
+    "eth": 6.9,
+    "vsDaoHeadlinePct": -50,
+    "vsDaoTablePct": -50
+   },
+   "control": {
+    "events": 2,
+    "verdicts": {
+     "VALID": 2
+    },
+    "falsePositives": 0,
+    "totalRedressEth": 0,
+    "wethDebtEvents": 1,
+    "note": "Mock data."
+   }
+  }
+ ],
+ "dataChecks": {
+  "singleAssetEvents": 6,
+  "maxDeviationBpsSingle": 0,
+  "multiAssetEvents": 1,
+  "maxDeviationBpsMulti": 0
+ }
+}

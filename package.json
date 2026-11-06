@@ -17,12 +17,18 @@
     "replay": "bun replay/replay.ts",
     "scorecard": "bun replay/scorecard.ts",
     "cre:config": "bun replay/gen-cre-config.ts",
-    "snapshot:serve": "bun replay/serve-snapshot.ts"
+    "snapshot:serve": "bun replay/serve-snapshot.ts",
+    "fork:up": "bash replay/fork-up.sh",
+    "fork:deploy": "bash replay/fork-deploy.sh",
+    "sepolia:deploy": "bash replay/deploy-sepolia.sh",
+    "replay:fork": "bun replay/mirror.ts fork",
+    "mirror": "bun replay/mirror.ts sepolia"
   },
   "dependencies": {
     "viem": "^2.57.16"
   },
   "devDependencies": {
+    "ajv": "8.17.1",
     "bun-types": "^1.4.4",
     "typescript": "^7.0.2"
   }

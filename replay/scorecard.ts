@@ -2,10 +2,12 @@
  * Compares replay results with the published figures. Writes replay/out/replay.json.
  * Nothing here feeds back into the engine: results are reported as they fall.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { hfFloor } from "../cre/sentinel-verdict/verdict";
+import { buildMock, buildReplay } from "./build-replay";
 import { basePosition, isMultiAsset, type Row } from "./evaluate";
+import type { Mirror } from "./mirror";
 import { fmt18, type Liquidation } from "./onchain";
 import type { EventReads } from "./reads";
 import { outDir, runReplay, tally, type Results } from "./replay";
@@ -147,8 +149,13 @@ export function generateScorecard() {
   console.log(`  multi-asset events ${check.multiAssetEvents}: max deviation ${check.maxDeviationBpsMulti.toFixed(4)} bps`);
   console.log(`  events where implied bonus differs from the bonus read: ${check.bonusMismatch(results[0]!.incident).length}`);
 
-  const { bonusMismatch: _, ...stateRebuild } = check;
-  writeFileSync(join(outDir, "replay.json"), JSON.stringify({ configs: summaries, stateRebuild }, null, 1) + "\n");
+  const { bonusMismatch: _, ...dataChecks } = check;
+  const incident = JSON.parse(readFileSync(join(dataDir, "incident-2026-03-10.json"), "utf8"));
+  const mirrorPath = ["sepolia", "fork"].map((t) => join(outDir, `mirror-${t}.json`)).find(existsSync);
+  const mirror = mirrorPath ? (JSON.parse(readFileSync(mirrorPath, "utf8")) as Mirror) : null;
+  const [primary, ...alternates] = results as [Results, ...Results[]];
+  writeFileSync(join(outDir, "replay.json"), JSON.stringify(buildReplay({ primary, alternates, reads, incident, mirror, dataChecks }), null, 1) + "\n");
+  writeFileSync(join(outDir, "replay.mock.json"), JSON.stringify(buildMock(), null, 1) + "\n");
   console.log(`\nwrote ${join(outDir, "replay.json")}`);
 }
 
