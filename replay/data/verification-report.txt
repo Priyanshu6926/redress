@@ -80,4 +80,12 @@ chain id: 1
 == Etherscan cross-check
 [PASS] Etherscan log count vs RPC: 49 vs 49
 
+== Sepolia deployments (addresses from official docs; code and activity via Etherscan)
+[PASS] Uniswap v4 PoolManager: 0xE03A1074c86CFeDd5C142C4F04F1a1536e203543 code present, last direct tx: 2026-11-06T11:10:24.000Z
+[PASS] Uniswap Universal Router (v4 table): 0x3A9D48AB9751398BbFa63ad67599Bb04e4BdF98b code present, last direct tx: 2026-11-06T11:44:00.000Z
+[PASS] Uniswap Universal Router 2.1.1: 0x7dfd4f31be6814d2906bde155c3e1b146eac1468 code present, last direct tx: 2026-11-05T10:40:48.000Z
+[PASS] Uniswap Universal Router 2.1.2: 0x7E4f6c5e954Da5c61B3423D81E2277431Ac043f3 code present, last direct tx: 2026-11-06T11:30:24.000Z
+[PASS] CRE MockKeystoneForwarder (simulation): 0x15fC6ae953E024d975e77382eEeC56A9101f9F88 code present, last direct tx: 2026-11-06T11:45:24.000Z
+[PASS] CRE KeystoneForwarder (production): 0xF8344CFd5c43616a4366C34E3EEE75af79a74482 code present, last direct tx: 2026-11-06T11:46:00.000Z
+
 RESULT: no failed checks (see DIFF lines for differences from the PRD)

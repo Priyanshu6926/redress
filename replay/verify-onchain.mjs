@@ -190,6 +190,32 @@ if (key) {
 } else check("SKIP", "Etherscan logs", "ETHERSCAN_API_KEY not set; logs came from the RPC only");
 
 log("");
+log("== Sepolia deployments (addresses from official docs; code and activity via Etherscan)");
+const SEPOLIA = {
+  "Uniswap v4 PoolManager": "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543",
+  "Uniswap Universal Router (v4 table)": "0x3A9D48AB9751398BbFa63ad67599Bb04e4BdF98b",
+  "Uniswap Universal Router 2.1.1": "0x7dfd4f31be6814d2906bde155c3e1b146eac1468",
+  "Uniswap Universal Router 2.1.2": "0x7E4f6c5e954Da5c61B3423D81E2277431Ac043f3",
+  "CRE MockKeystoneForwarder (simulation)": "0x15fC6ae953E024d975e77382eEeC56A9101f9F88",
+  "CRE KeystoneForwarder (production)": "0xF8344CFd5c43616a4366C34E3EEE75af79a74482",
+};
+if (key) {
+  const api = async (params) => {
+    await new Promise((r) => setTimeout(r, 400));
+    return (await fetch(`https://api.etherscan.io/v2/api?${new URLSearchParams({ chainid: "11155111", apikey: key, ...params })}`)).json();
+  };
+  for (const [name, address] of Object.entries(SEPOLIA)) {
+    const code = await api({ module: "proxy", action: "eth_getCode", address, tag: "latest" });
+    if (typeof code.result !== "string" || !code.result.startsWith("0x")) { check("SKIP", name, `code lookup failed: ${code.message ?? "no result"}`); continue; }
+    const hasCode = code.result.length > 2;
+    const txs = await api({ module: "account", action: "txlist", address, page: "1", offset: "1", sort: "desc" });
+    const last = Array.isArray(txs.result) ? txs.result[0] : undefined;
+    const when = last ? new Date(Number(last.timeStamp) * 1000).toISOString() : "no direct transactions";
+    check(hasCode ? (last ? "PASS" : "DIFF") : "FAIL", name, `${address} code ${hasCode ? "present" : "MISSING"}, last direct tx: ${when}`);
+  }
+} else check("SKIP", "Sepolia deployments", "ETHERSCAN_API_KEY not set");
+
+log("");
 log(failed ? `RESULT: ${failed} failed check(s)` : "RESULT: no failed checks (see DIFF lines for differences from the PRD)");
 writeFileSync(join(import.meta.dir, "data", "verification-report.txt"), lines.join("\n") + "\n");
 process.exit(failed ? 1 : 0);

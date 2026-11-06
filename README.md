@@ -119,6 +119,15 @@ Read from chain by `replay/verify-onchain.mjs`. Full output: [`replay/data/verif
 | E-Mode liquidation threshold | Core 95.0%, Prime 96.5% |
 | Deepest Uniswap v3 pool | `0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa` (0.01% fee) |
 
+### Checked against official docs
+
+| Item | Result | Source |
+|---|---|---|
+| CRE forwarder, Sepolia | Simulation `0x15fC6ae953E024d975e77382eEeC56A9101f9F88`, production `0xF8344CFd5c43616a4366C34E3EEE75af79a74482`. The vault must switch forwarder between the two | [Forwarder directory](https://docs.chain.link/cre/guides/workflow/using-evm-client/forwarder-directory-ts) |
+| CRE quotas | 15 HTTP calls, 15 EVM reads, 50 KB report, 100-block log queries, per execution. Higher than the PRD figures, so the PRD budget still fits. TODO-VERIFY: read from a search index of the page, confirm on the live page | [Service quotas](https://docs.chain.link/cre/service-quotas) |
+| Uniswap Sepolia | PoolManager `0xE03A1074c86CFeDd5C142C4F04F1a1536e203543`; code and activity are in the verification report | [v4 deployments](https://developers.uniswap.org/docs/protocols/v4/deployments) |
+| Arkiv testnet | TODO-VERIFY: the PRD chain ID 7794095 was not found. The Tiramisu RPC answers `eth_chainId` with `0x7614d1`. Confirm against the Mumbai prize page | [Arkiv docs](https://arkiv.dev.golem.network/docs) |
+
 ### Differences from the published figures
 
 Data was not adjusted to fit. These are the differences and their causes.
