@@ -391,6 +391,7 @@ struct Verdict {
     uint256 bandLowE18;       // p_c^L (numeraire per collateral unit)
     uint256 bandHighE18;      // p_c^H
     uint256 debtPriceHighE18; // p_d^H
+    uint256 liquidationBonusBps; // effective bonus for this position; bounded by the vault
     uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE, 5 OVERPRICED
     uint8   sourceCount;
     uint256 redress;          // computed off-chain, re-derived on-chain
@@ -406,7 +407,7 @@ interface IRedressVault {
 }
 ```
 
-The vault re-derives `redress` from the report's fields with `VerdictMath` and reverts if the CRE-supplied value differs or exceeds the per-event cap. This keeps arithmetic deterministic and auditable on-chain.
+The vault re-derives `redress` from the report's fields with `VerdictMath` and reverts if the CRE-supplied value differs by even one wei, or if `liquidationBonusBps` exceeds 2,000 (20%). This keeps arithmetic deterministic and auditable on-chain.
 
 ### 7.4 CRE workflow: `sentinel-verdict`
 
@@ -414,7 +415,7 @@ The vault re-derives `redress` from the report's fields with `VerdictMath` and r
 
 **Steps**
 1. Decode the event. Add the protocol fee from the aToken transfer to the treasury in the same receipt to get gross `C`.
-2. One Multicall3 `aggregate3` read at block `B-1`: user balances (aToken, debt token), E-Mode id and category data, reserve LT.
+2. One Multicall3 `aggregate3` read at block `B-1`: user balances (aToken, debt token), E-Mode id and category data, reserve LT, and the inputs to the effective bonus: the E-Mode bonus applies only if the collateral is enabled in the category's collateral bitmap, otherwise the reserve bonus applies (`cre/sentinel-verdict/bonus.ts`).
 3. One Multicall3 read at block `B`: `AaveOracle.getAssetPrice(c, d)`, `stEthPerToken`, Chainlink feed round, Uniswap `observe`.
 4. Two HTTP calls to off-chain aggregators, each with median consensus across DON nodes.
 5. Build the band, run gate and verdict from `verdict.ts` (the same pure function the unit tests use).

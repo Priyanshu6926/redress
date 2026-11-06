@@ -13,11 +13,12 @@ struct Verdict {
     address collateralAsset;
     address debtAsset;
     uint256 debtToCover;      // X
-    uint256 collateralSeized; // C
+    uint256 collateralSeized; // C, gross of the protocol fee
     uint256 bandLowE18;       // p_c^L (numeraire per collateral unit)
     uint256 bandHighE18;      // p_c^H
     uint256 debtPriceHighE18; // p_d^H
-    uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE
+    uint256 liquidationBonusBps; // effective bonus for this position, 100 = 1%
+    uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE, 5 OVERPRICED
     uint8   sourceCount;
     uint256 redress;          // computed off-chain, re-derived on-chain
     bytes32 evidenceHash;     // keccak256 of the Swarm bundle
@@ -47,6 +48,13 @@ interface IRedressVault {
 
 contract RedressVault is IRedressVault {
     using VerdictMath for uint8;
+
+    /// Largest liquidation bonus a report may claim. Aave bonuses seen on Core and Prime
+    /// are 1% to 6%, so 20% leaves headroom while bounding what a bad report can assert.
+    uint256 public constant MAX_LIQUIDATION_BONUS_BPS = 2_000;
+
+    error BonusOutOfBounds(uint256 bonusBps);
+    error RedressMismatch(uint256 reported, uint256 calculated);
 
     address public immutable owner;
     address public forwarder; // Chainlink CRE forwarder
@@ -106,17 +114,19 @@ contract RedressVault is IRedressVault {
         require(!processed[v.liquidationTx][v.logIndex], "Already processed");
         processed[v.liquidationTx][v.logIndex] = true;
 
-        // Re-derive redress floor on-chain using VerdictMath
+        if (v.liquidationBonusBps > MAX_LIQUIDATION_BONUS_BPS) revert BonusOutOfBounds(v.liquidationBonusBps);
+
+        // Re-derive the redress floor on-chain. It must equal the report exactly.
         uint256 calculatedRedress = VerdictMath.computeRedress(
             v.verdict,
             v.collateralSeized,
             v.debtToCover,
             v.bandLowE18,
             v.debtPriceHighE18,
-            100 // 1% default liquidation bonus (E-Mode)
+            v.liquidationBonusBps
         );
 
-        require(v.redress <= calculatedRedress, "Redress exceeds calculated floor");
+        if (v.redress != calculatedRedress) revert RedressMismatch(v.redress, calculatedRedress);
 
         emit Attested(v.liquidationTx, v.logIndex, v.user, v.verdict, v.redress, v.evidenceHash);
 

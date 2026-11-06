@@ -3,6 +3,7 @@
  * engine inputs. Reads are cached in replay/data so the replay runs without an RPC.
  */
 import { parseAbi, type Address, type Hash, type PublicClient } from "viem";
+import { effectiveBonusBps } from "../cre/sentinel-verdict/bonus";
 import { CHAINLINK_STETH_ETH_FEED, WETH, WSTETH, erc20Abi, findProtocolFee, oracleAbi, poolAbi, v3PoolAbi, wstEthAbi } from "./onchain";
 
 /** Deepest wstETH/WETH pool, chosen in replay/data/verification-report.txt. token0 is wstETH. */
@@ -15,6 +16,10 @@ const Q192 = 2n ** 192n;
 const poolConfigAbi = parseAbi([
   "function getConfiguration(address asset) view returns (uint256)",
   "function getUserConfiguration(address user) view returns (uint256)",
+  "function getEModeCategoryCollateralBitmap(uint8 id) view returns (uint128)",
+  "struct ReserveConfigurationMap { uint256 data; }",
+  "struct ReserveDataLegacy { ReserveConfigurationMap configuration; uint128 liquidityIndex; uint128 currentLiquidityRate; uint128 variableBorrowIndex; uint128 currentVariableBorrowRate; uint128 currentStableBorrowRate; uint40 lastUpdateTimestamp; uint16 id; address aTokenAddress; address stableDebtTokenAddress; address variableDebtTokenAddress; address interestRateStrategyAddress; uint128 accruedToTreasury; uint128 unbacked; uint128 isolationModeTotalDebt; }",
+  "function getReserveData(address asset) view returns (ReserveDataLegacy)",
 ]);
 const feedAbi = parseAbi(["function latestAnswer() view returns (int256)"]);
 const decimalsAbi = parseAbi(["function decimals() view returns (uint8)"]);
@@ -132,11 +137,15 @@ export async function readEvent(c: PublicClient, e: EventInput, treasury: Addres
     c.readContract({ address: e.pool, abi: poolConfigAbi, functionName: "getConfiguration", args: [WSTETH], blockNumber: P }),
   ]);
 
-  let bonus = (reserveConfig >> 32n) & 0xffffn;
+  const reserve = await c.readContract({ address: e.pool, abi: poolConfigAbi, functionName: "getReserveData", args: [WSTETH], blockNumber: P });
+  let eModeBonus = 0n;
+  let collateralBitmap = 0n;
   if (eModeId !== 0n) {
     const cfg = await c.readContract({ address: e.pool, abi: poolAbi, functionName: "getEModeCategoryCollateralConfig", args: [Number(eModeId)], blockNumber: P });
-    if (cfg.liquidationBonus !== 0) bonus = BigInt(cfg.liquidationBonus);
+    eModeBonus = BigInt(cfg.liquidationBonus);
+    collateralBitmap = await c.readContract({ address: e.pool, abi: poolConfigAbi, functionName: "getEModeCategoryCollateralBitmap", args: [Number(eModeId)], blockNumber: P });
   }
+  const bonusBps = effectiveBonusBps({ reserveConfig, eModeCategory: eModeId, eModeBonus, collateralBitmap, reserveId: BigInt(reserve.id) });
 
   let twapTick: number | null = null;
   let twapPrice: string | null = null;
@@ -168,7 +177,7 @@ export async function readEvent(c: PublicClient, e: EventInput, treasury: Addres
     totalCollateralBase: acct[0].toString(),
     totalDebtBase: acct[1].toString(),
     ltBps: acct[3].toString(),
-    bonusBps: (bonus - 10_000n).toString(),
+    bonusBps: bonusBps.toString(),
     eModeId: Number(eModeId),
     borrows,
     collaterals,

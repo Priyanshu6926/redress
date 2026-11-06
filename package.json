@@ -9,6 +9,8 @@
     "typecheck": "tsc --noEmit",
     "vectors": "python contracts/test/gen_vectors.py",
     "vectors:random": "bun cre/sentinel-verdict/gen-random-vectors.ts",
+    "vectors:reports": "bun replay/gen-report-fixture.ts",
+    "offchain": "bun replay/fetch-offchain.ts",
     "verify": "bun replay/verify-onchain.mjs",
     "fetch-incident": "bun replay/fetch-incident.ts",
     "replay:fetch": "bun replay/fetch-reads.ts",
