@@ -1,0 +1,18 @@
+name: redress-sentinel
+version: 0.1.0
+description: "Chainlink CRE workflow for oracle liquidation monitoring and verdict calculation"
+
+targets:
+  fork:
+    network: local-anvil
+    rpcUrl: "http://127.0.0.1:8545"
+    vaultAddress: "0x0000000000000000000000000000000000000000"
+  sepolia:
+    network: ethereum-sepolia
+    rpcUrl: "${SEPOLIA_RPC_URL}"
+    vaultAddress: "0x0000000000000000000000000000000000000000"
+
+workflows:
+  - name: sentinel-verdict
+    entrypoint: ./sentinel-verdict/main.ts
+

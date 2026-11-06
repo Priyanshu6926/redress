@@ -1,0 +1,11 @@
+{
+  "_status": "TODO-VERIFY: startBlock and endBlock are unset until read from chain by replay/fetch-incident.ts",
+  "incidentId": "aave-2026-03-10",
+  "protocol": "aave-v3",
+  "chain": "ethereum-mainnet",
+  "startBlock": null,
+  "endBlock": null,
+  "collateralAsset": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+  "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  "liquidations": []
+}

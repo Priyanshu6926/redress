@@ -1,0 +1,7 @@
+{
+  "target": "sepolia",
+  "chainId": 11155111,
+  "rpcUrl": "${SEPOLIA_RPC_URL}",
+  "vaultAddress": "0x0000000000000000000000000000000000000000"
+}
+
