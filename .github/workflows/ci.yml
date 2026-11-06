@@ -2,30 +2,35 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v1
         with:
-          bun-version: latest
+          submodules: recursive
 
-      - name: Run Foundry Contract Tests
-        run: |
-          cd contracts
-          forge test -vvv
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.5.1
 
-      - name: Run TypeScript Tests
-        run: |
-          bun test
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
 
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Foundry tests
+        working-directory: contracts
+        run: forge test -vvv
+
+      - name: Bun tests
+        run: bun test
+
+      - name: Typecheck
+        run: bun run typecheck

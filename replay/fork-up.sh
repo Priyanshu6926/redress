@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Spin up local Anvil fork before the incident execution block
-RPC_URL="${MAINNET_ARCHIVE_RPC_URL:-http://localhost:8545}"
-FORK_BLOCK="${INCIDENT_FORK_BLOCK:-19405000}"
+# Spin up a local Anvil fork one block before the incident execution block.
+: "${MAINNET_RPC:?set MAINNET_RPC in .env}"
+: "${INCIDENT_FORK_BLOCK:?set INCIDENT_FORK_BLOCK (execution block - 1, from replay/data/verification-report.txt)}"
 
-echo "Starting Anvil fork at block ${FORK_BLOCK}..."
-anvil --fork-url "${RPC_URL}" --fork-block-number "${FORK_BLOCK}" --port 8545
-
+echo "Starting Anvil fork at block ${INCIDENT_FORK_BLOCK}..."
+anvil --fork-url "${MAINNET_RPC}" --fork-block-number "${INCIDENT_FORK_BLOCK}" --port 8545

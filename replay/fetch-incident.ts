@@ -5,7 +5,7 @@ async function fetchIncidentData() {
   console.log("Fetching incident logs from archive RPC...");
 }
 
-if (require.main === module) {
+if (import.meta.main) {
   fetchIncidentData().catch(console.error);
 }
 

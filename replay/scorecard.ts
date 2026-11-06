@@ -5,7 +5,7 @@ export function generateScorecard() {
   console.log("Generating Redress restitution scorecard...");
 }
 
-if (require.main === module) {
+if (import.meta.main) {
   generateScorecard();
 }
 

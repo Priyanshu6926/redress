@@ -4,7 +4,7 @@ export async function main() {
   console.log("Chainlink CRE Sentinel Verdict workflow triggered");
 }
 
-if (require.main === module) {
+if (import.meta.main) {
   main().catch(console.error);
 }
 

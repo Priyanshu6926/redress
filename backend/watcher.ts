@@ -5,7 +5,7 @@ export async function startWatcher() {
   console.log("Listening for liquidation events...");
 }
 
-if (require.main === module) {
+if (import.meta.main) {
   startWatcher().catch(console.error);
 }
 
