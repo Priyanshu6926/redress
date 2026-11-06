@@ -19,6 +19,7 @@ The cause was `HTTP 429 ANON_COST_LIMITED`. viem's default retries sat on it sil
 Two more surprises:
 
 - Reading by key still worked, so the budget looks query-specific.
+- The budget came back by itself. After the publish, about an hour later, anonymous queries answered again. We do not know the refill rate, so a demo cannot rely on it.
 - The SDK does print a warning about the public endpoint, but it says "heavily rate limited", which reads as slower rather than stops.
 
 **What would help:** have the query client surface a 429 as a clear error straight away, and turn off retries on it by default.
@@ -51,3 +52,4 @@ It would have saved a design change to see this limit next to `expiresIn` in the
 - **`defineSchema`** caught our type mistakes before any transaction was sent.
 - **Error messages** named the exact fix in both cases above.
 - A single write confirmed in under 3 seconds.
+- Publishing all 128 entities took 13 batch transactions and about 0.06 tGLM.

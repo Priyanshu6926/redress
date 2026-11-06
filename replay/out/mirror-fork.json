@@ -1,0 +1,41 @@
+{
+ "target": "fork",
+ "config": "default",
+ "chainId": 1,
+ "vault": "0x24658baab7fb72b862f3617dec25914131d9299d",
+ "payoutAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+ "complete": false,
+ "totalPaidWei": "311638972219782771692",
+ "rows": [
+  {
+   "liquidationTx": "0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c",
+   "logIndex": 17,
+   "user": "0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f",
+   "verdict": "WRONGFUL",
+   "redress": "230533099950029831035",
+   "vaultTx": "0x8ad5f9f039d39eee08401264c996c3c3e6456c2dfc66f180f95794405471806f",
+   "paid": true,
+   "queued": false,
+   "fromBond": "0",
+   "fromReserve": "230533099950029831035",
+   "oracleAdapter": "0xe1D97bF61901B075E9626c8A2340a7De385861Ef",
+   "liquidator": "0xbD32122bAD41A09f2405Bb374A83877d8245079C",
+   "builder": "0xdadB0d80178819F2319190D340ce9A924f783711"
+  },
+  {
+   "liquidationTx": "0x8f47b5e821530e9b9fc2262cde6dbb7427311f13116de995650fd7709df2fa67",
+   "logIndex": 14,
+   "user": "0x4BaCce55f0991Cfc4D919f7F50EDB8be028E37DF",
+   "verdict": "WRONGFUL",
+   "redress": "81105872269752940657",
+   "vaultTx": "0x507c4d454144b2abf68341614b6d4e8ec9f277464bd3c2d00a2ddf6a5c9c71ca",
+   "paid": true,
+   "queued": false,
+   "fromBond": "0",
+   "fromReserve": "81105872269752940657",
+   "oracleAdapter": "0xe1D97bF61901B075E9626c8A2340a7De385861Ef",
+   "liquidator": "0xF00002236E516b0820a85A5887A8b10eA3a7e7bB",
+   "builder": "0xdadB0d80178819F2319190D340ce9A924f783711"
+  }
+ ]
+}

@@ -42,17 +42,25 @@ Sepolia's gas schedule is not the one Foundry 1.5.1 simulates, so forge's estima
 | `RedressVault` create | 1,359,377 | 9,480,591 |
 | Report through the forwarder | 216,575 | 851,647 |
 
-The first deployment attempt ran out of gas on both creates at forge's default 130% limit. It left no code at either address and cost about 0.0000025 ETH. `replay/deploy-sepolia.sh` now uses a 1000% multiplier, and the Sepolia workflow config uses a 1,500,000 gas limit. Neither changes verdict logic or payout data. The cause of the schedule change was not investigated.
+A report through the final vault used 1,774,377 gas, because each payout now also writes a claim, so the Sepolia gas limit is 3,000,000.
 
-## Deployed before Phase 3 approval
+The first deployment attempt ran out of gas on both creates at forge's default 130% limit. It left no code at either address and cost about 0.0000025 ETH. `replay/deploy-sepolia.sh` now uses a 1000% multiplier, and raised the Sepolia workflow gas limit. Neither changes verdict logic or payout data. The cause of the schedule change was not investigated.
 
-These Sepolia contracts went out before the Phase 3 brief arrived, and they do not meet it. They hold no reserve and nothing in the mirror uses them. They are not final, and they stay out of the README and `replay.json`.
+## Superseded Sepolia deployments
 
-| Contract | Address | Gap against the brief |
+These contracts are on Sepolia but are not the final system. Nothing current uses them.
+
+| Contract | Address | Why it was replaced |
 |---|---|---|
-| `BandOracleHook` | `0x301eb55a7d1e5528771857aceef4714af34b5080` | Superseded by `0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`, built on `BaseHook` after approval |
-| `OperatorBond` | `0xbd41374a100de606970fa787033e7eda97688cca` | Refills the vault after payout rather than paying first, and attribution comes from an attestor rather than the report |
-| `RecoveryLedger` | `0x0e11c9be0b6d88c0b5ebb05eb1150181a578060a` | Claims are opened by an attestor, not by each payout |
+| Vault v1, reserve-only | `0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9` | No bond or claims. Its 47 payouts are kept in `replay/out/mirror-sepolia-v1.json` |
+| `BandOracleHook` | `0x301eb55a7d1e5528771857aceef4714af34b5080` | Built before design approval, on `IHooks` directly |
+| `OperatorBond`, attestor version | `0xbd41374a100de606970fa787033e7eda97688cca` | Built before the Phase 3 brief |
+| `RecoveryLedger`, attestor version | `0x0e11c9be0b6d88c0b5ebb05eb1150181a578060a` | Built before the Phase 3 brief |
+| Interim vault | `0x72841568bdebb14fed50a1b7a47ed71ce6356b64` | Bond-first, but before the security fixes. Stopped after 14 events |
+| Interim bond | `0x1e07ced6f24d4ff74235b4be64e7ab8efe389d84` | Had the withdrawal and squatting flaws in `docs/SECURITY.md` |
+| Interim ledger | `0x8ab383c7cbcd2b3f6ac0e3671f46e71f3c3f7bb6` | Paired with the interim vault |
+
+The final contracts were verified on Etherscan before `forge fmt` ran, so the repo's Solidity differs from the verified source in whitespace only.
 
 ## Uniswap v4 on Sepolia
 

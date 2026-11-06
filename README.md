@@ -2,144 +2,167 @@
 
 > When an oracle gets it wrong, make people whole in blocks, not weeks.
 
-Redress is an automatic, evidence-based restitution layer for wrongful liquidations caused by oracle misconfigurations or price feed anomalies. It monitors lending protocol liquidations in real time, constructs an independent multi-source price band, calculates the exact provable net loss, and pays victims from a pre-funded vault in the same transaction that records the verdict.
+On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave, and healthy positions were liquidated. Repairing that took a DAO vote and weeks of manual work.
 
----
+Redress is an automatic, evidence-based restitution layer. It re-checks each liquidation against prices the broken oracle could not touch, decides whether the position was really unhealthy, and pays the amount it can prove, from the oracle operator's bond first. It then opens a public claim against whoever benefited.
 
-## 🏛️ Sponsor Sections & Code Pointers
+**This is a hackathon demo on testnets.** It replays real mainnet history, but every payout is a test token on Sepolia. It is economic restitution, not a reversal, and it handles no real funds.
 
-### 1. Uniswap Foundation (Primary)
+## Results
 
-**U1: Uniswap v3 TWAP in every verdict.** The mainnet wstETH/WETH pool's 30-minute TWAP is source S2 in the band, for all 47 incident events.
+Replaying the incident from real chain data:
+
+| Measure | Result |
+|---|---|
+| Liquidation events | 47, covering 34 positions and 33 addresses |
+| Verdicts | 46 `WRONGFUL`, 1 `AMBIGUOUS`. 33 of 34 positions wrongful on every event |
+| Paid on Sepolia | 473.2955 test WETH to 33 addresses, equal to the offline replay to the wei |
+| Paid from the bond, then the reserve | 100.0000 and 373.2955 |
+| Against the DAO's 512.19 ETH | Floor paid −7.594%. Midpoint, for comparison only, −2.541% |
+| False positives | 0 on 215 calm and 60 market-crash liquidations |
+
+The PRD's target of 34 of 34 positions and ±2% of the DAO figure is **not met**. Redress pays only what it can prove, so the floor sits below the DAO's figure. Nothing was tuned to close the gap.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A[Aave LiquidationCall<br/>mainnet] --> B[CRE workflow<br/>sentinel-verdict]
+    U[Uniswap v3 TWAP] --> B
+    L[Lido rate] --> B
+    O[Off-chain prices] --> B
+    B -->|signed report| V[RedressVault<br/>Sepolia]
+    V -->|1. bond first| OB[OperatorBond]
+    V -->|2. then reserve| R[Reserve]
+    OB --> W[Victim]
+    R --> W
+    V -->|3. opens claim| RL[RecoveryLedger]
+    RL -.->|recoveries refill| R
+    B --> K[Arkiv: verdicts, claims]
+    K --> F[Lookup and explorer]
+```
+
+1. A log trigger fires on an Aave `LiquidationCall`.
+2. The workflow rebuilds the position at the block before, and forms an independent price band from the Lido rate, the Uniswap v3 TWAP and off-chain prices.
+3. A pure verdict function asks whether the position was healthy across the whole band.
+4. The workflow writes a report. The vault re-derives the amount and reverts if it differs by one wei.
+5. The vault pays the provable floor, from the adapter's bond first and then the reserve.
+6. A claim opens against the liquidator and the block builder.
+
+Verdict logic is one pure function in TypeScript and Solidity, checked against shared vectors. See [`docs/VERDICT_SPEC.md`](docs/VERDICT_SPEC.md).
+
+## Sponsor sections
+
+### Uniswap
+
+**U1: Uniswap v3 TWAP in every verdict.** The mainnet wstETH/WETH pool's 30-minute TWAP is source S2 for all 47 incident events.
 
 | What | Where |
 |---|---|
 | `observe` read at the event block | [`cre/sentinel-verdict/handler.ts:298`](cre/sentinel-verdict/handler.ts#L298) |
 | Tick cumulatives to mean tick | [`cre/sentinel-verdict/position.ts:44`](cre/sentinel-verdict/position.ts#L44) |
 | Tick to price | [`cre/sentinel-verdict/position.ts:38`](cre/sentinel-verdict/position.ts#L38) |
-| Result per event | `sourcesUsed` in `replay/out/replay.json` |
 
 **U3: `BandOracleHook`, a Uniswap v4 hook.** It gives a v4 pool a TWAP plus the lowest and highest ticks over a window, with no external oracle.
 
-**This hook was not used in the incident replay.** The incident was on mainnet with a v3 pool. The Sepolia v4 pool is synthetic: we chose its price and made its swaps. It shows the mechanism, not market evidence, and a test keeps it out of `replay.json`. Design and limits: [`docs/HOOK_DESIGN.md`](docs/HOOK_DESIGN.md).
+**The hook was not used in the incident replay.** The incident was on mainnet with a v3 pool. The Sepolia v4 pool is synthetic: we chose its price and made its swaps. It shows the mechanism and is not market evidence, and a test keeps it out of `replay.json`. Design and limits: [`docs/HOOK_DESIGN.md`](docs/HOOK_DESIGN.md).
 
 | What | Where |
 |---|---|
 | Permission flags | [`contracts/src/hooks/BandOracleHook.sol:58`](contracts/src/hooks/BandOracleHook.sol#L58) |
 | `getBand(key, window)` | [`contracts/src/hooks/BandOracleHook.sol:68`](contracts/src/hooks/BandOracleHook.sol#L68) |
-| Pre-swap recording, once per block | [`contracts/src/hooks/BandOracleHook.sol:124`](contracts/src/hooks/BandOracleHook.sol#L124) to [`:133`](contracts/src/hooks/BandOracleHook.sol#L133) |
+| Pre-swap recording | [`contracts/src/hooks/BandOracleHook.sol:124`](contracts/src/hooks/BandOracleHook.sol#L124) |
+| One observation per block | [`contracts/src/hooks/BandOracleHook.sol:133`](contracts/src/hooks/BandOracleHook.sol#L133) |
 | Large-swap manipulation test | [`contracts/test/unit/BandOracleHook.t.sol:172`](contracts/test/unit/BandOracleHook.t.sol#L172) |
 | Same-block sandwich test | [`contracts/test/unit/BandOracleHook.t.sol:82`](contracts/test/unit/BandOracleHook.t.sol#L82) |
 | Address mining and pool setup | [`contracts/script/DeployHook.s.sol`](contracts/script/DeployHook.s.sol) |
 | `v4Hook` source and its guards | [`cre/sentinel-verdict/v4hook.ts:34`](cre/sentinel-verdict/v4hook.ts#L34) |
 | Hook read in the workflow | [`cre/sentinel-verdict/handler.ts:221`](cre/sentinel-verdict/handler.ts#L221) |
 
-Deployed and verified on Sepolia: [`0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code). Example swap: [`0x8d9428c1…06f1`](https://sepolia.etherscan.io/tx/0x8d9428c179d62c188c301864ab0f163bdf491467a86c181a5254e149e79b06f1).
+Deployed and verified: [`0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code). Run the demo with `bun replay/demo-v4hook.ts`. Developer feedback: [`FEEDBACK.md`](FEEDBACK.md).
 
-Developer feedback: [`FEEDBACK.md`](FEEDBACK.md).
+### Chainlink CRE
 
-### 2. Chainlink CRE (Primary)
-- **Chainlink Runtime Environment (CRE) Workflow: `sentinel-verdict`**
-  - Log-triggered EVM execution on Aave `LiquidationCall` events.
-  - Multi-source price aggregation, consensus threshold checks, and deterministic on-chain reporting.
-  - Pointers:
-    - Configuration: [`cre/project.yaml`](cre/project.yaml)
-    - Workflow Entrypoint: [`cre/sentinel-verdict/main.ts`](cre/sentinel-verdict/main.ts)
-    - Verdict & Restitution Math: [`cre/sentinel-verdict/verdict.ts`](cre/sentinel-verdict/verdict.ts)
-    - On-chain Settlement Vault: [`contracts/src/RedressVault.sol`](contracts/src/RedressVault.sol)
+The whole pipeline is one CRE workflow, `sentinel-verdict`. It reads two chains (mainnet history and Sepolia), calls an external HTTP source, and writes a report with `--broadcast`.
 
-### 3. Arkiv + Swarm (Third Pick)
-- **Arkiv Public Ledger**:
-  - Signer & Writer Wallet: TODO-VERIFY, added after the first Arkiv write
-  - Runnable query: TODO-VERIFY, added once writes exist (planned queries are in PRD Appendix B)
-  - Specification & Design files:
-    - [`arkiv/schema.md`](arkiv/schema.md)
-    - [`arkiv/friction.md`](arkiv/friction.md)
-    - [`arkiv/reach.md`](arkiv/reach.md)
-    - [`arkiv/why-arkiv.md`](arkiv/why-arkiv.md)
-    - [`arkiv/how-you-use-arkiv.md`](arkiv/how-you-use-arkiv.md)
-    - [`arkiv/swarm.md`](arkiv/swarm.md)
-- **Swarm Evidence Storage**:
-  - Full transaction execution traces and price snapshot bundles stored on Swarm, referenced by `evidenceHash` on-chain and `evidenceSwarmRef` in Arkiv.
+| What | Where |
+|---|---|
+| Log trigger | [`cre/sentinel-verdict/main.ts:11`](cre/sentinel-verdict/main.ts#L11) |
+| Handler | [`cre/sentinel-verdict/handler.ts:233`](cre/sentinel-verdict/handler.ts#L233) |
+| HTTP source with median consensus | [`cre/sentinel-verdict/handler.ts:173`](cre/sentinel-verdict/handler.ts#L173) |
+| Chainlink stETH/ETH feed read, kept as evidence | [`cre/sentinel-verdict/handler.ts:297`](cre/sentinel-verdict/handler.ts#L297) |
+| Report encoding | [`cre/sentinel-verdict/report.ts`](cre/sentinel-verdict/report.ts) |
+| Report receiver | [`contracts/src/RedressVault.sol:188`](contracts/src/RedressVault.sol#L188) |
+| Targets | [`cre/project.yaml`](cre/project.yaml) |
 
----
+Simulation transcript with `--broadcast`: [`docs/transcripts/sepolia.txt`](docs/transcripts/sepolia.txt). First vault transaction: [`0xc7ca7d754a…`](https://sepolia.etherscan.io/tx/0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0). All 47 are in [`replay/out/mirror-sepolia.json`](replay/out/mirror-sepolia.json).
 
-## 📁 Repository Structure
+**What breaks without CRE:** there would be no multi-source verdict with consensus and no authorised on-chain report, so the vault would have to trust one operator's server. In this demo CRE ran as a local simulation, so consensus across nodes was not exercised.
 
-```
-redress/
-├── README.md                 # sponsor sections with file+line pointers
-├── PRD.md                    # full product requirements document
-├── FEEDBACK.md               # Uniswap requirement feedback
-├── LICENSE                   # MIT
-├── arkiv/                    # Arkiv requirement files
-│   ├── schema.md
-│   ├── friction.md
-│   ├── reach.md
-│   ├── why-arkiv.md
-│   ├── how-you-use-arkiv.md
-│   └── swarm.md
-├── contracts/
-│   ├── src/
-│   │   ├── RedressVault.sol
-│   │   ├── VerdictMath.sol
-│   │   ├── OperatorBond.sol
-│   │   ├── RecoveryLedger.sol
-│   │   └── hooks/
-│   │       └── BandOracleHook.sol
-│   ├── test/
-│   │   ├── unit/
-│   │   ├── fuzz/
-│   │   ├── invariant/
-│   │   └── fork/
-│   └── script/
-│       ├── DeployVault.s.sol
-│       ├── DeployHook.s.sol
-│       └── MineHookAddress.s.sol
-├── cre/
-│   ├── project.yaml
-│   └── sentinel-verdict/
-│       ├── main.ts
-│       ├── sources/
-│       ├── verdict.ts
-│       ├── config.fork.json
-│       └── config.sepolia.json
-├── replay/
-│   ├── data/
-│   │   └── incident-2026-03-10.json
-│   ├── fetch-incident.ts
-│   ├── onchain.ts
-│   ├── verify-onchain.mjs
-│   ├── fork-up.sh
-│   ├── replay.ts
-│   └── scorecard.ts
-├── backend/
-│   ├── watcher.ts
-│   ├── arkiv.ts
-│   ├── swarm.ts
-│   └── api.ts
-├── web/                      # Next.js app
-└── .github/workflows/
-    └── ci.yml
-```
+### Arkiv
 
----
+Arkiv is the queryable index of verdicts, claims and recoveries. The lookup and the explorer read from it, and fall back to `replay.json` if it does not answer. Each response says which one served. The chain stays the source of truth.
 
-## Trust model of this demo
+- **Writer wallet:** `0xD19D988fAe15c6AF0CB18FD5D79bffa41F8c2683`
+- **Published:** 128 entities in 13 batch transactions on Rabdi, listed in [`replay/out/arkiv.json`](replay/out/arkiv.json).
+- **Client:** [`backend/arkiv.ts:75`](backend/arkiv.ts#L75), [`backend/arkiv.ts:96`](backend/arkiv.ts#L96)
+- **Run a query:** see [`arkiv/schema.md`](arkiv/schema.md).
+- **Sponsor files:** [`schema`](arkiv/schema.md), [`friction`](arkiv/friction.md), [`reach`](arkiv/reach.md), [`why-arkiv`](arkiv/why-arkiv.md), [`how-you-use-arkiv`](arkiv/how-you-use-arkiv.md), [`swarm`](arkiv/swarm.md).
 
-- **Anyone can forge a report against a simulation vault.** Simulated runs go through `MockKeystoneForwarder`, including the Sepolia mirror. A fork test shows it delivers a report from any sender with no signatures, an `eth_call` shows the same on Sepolia, and it supplies no workflow identity, so the vault cannot tell a forged report from a real one. This is why the demo vault only ever holds test tokens. Production forwarding uses the signature-checking `KeystoneForwarder` and needs a deployed workflow.
-- **The vault checks arithmetic, not facts.** It cannot see mainnet, so it trusts the report for the position, band, bonus, verdict and finality. In production that trust rests on CRE consensus.
+Swarm is not built: it needs a postage batch and a Bee endpoint.
 
-## Sepolia public mirror
+## Accountability
 
-All 47 incident liquidations ran through `cre workflow simulate --broadcast`, reading mainnet history and writing to Sepolia. The vault paid 33 addresses a total of 473.295500496135010048 test WETH, equal to the offline replay's floor to the wei. These are test tokens, not compensation.
+| What | Where |
+|---|---|
+| Waterfall: bond, then reserve, then claim | [`contracts/src/RedressVault.sol:248`](contracts/src/RedressVault.sol#L248) |
+| Bond draw | [`contracts/src/OperatorBond.sol:128`](contracts/src/OperatorBond.sol#L128) |
+| Withdrawal delay and window | [`contracts/src/OperatorBond.sol:114`](contracts/src/OperatorBond.sol#L114) |
+| Claim opened by each payout | [`contracts/src/RecoveryLedger.sol:62`](contracts/src/RecoveryLedger.sol#L62) |
+| Recovery re-credits the reserve | [`contracts/src/RecoveryLedger.sol:74`](contracts/src/RecoveryLedger.sol#L74) |
+| Tests and invariants | [`contracts/test/unit/Accountability.t.sol`](contracts/test/unit/Accountability.t.sol), [`contracts/test/invariant/Accountability.invariant.t.sol`](contracts/test/invariant/Accountability.invariant.t.sol) |
+
+The bond belongs to a demo operator. No real entity is named or accused.
+
+## Sepolia deployment
 
 | Contract | Address |
 |---|---|
-| `RedressVault` | [`0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9`](https://sepolia.etherscan.io/address/0x73278c1e2b1a2d9d129955369c32aa4aeef4fbf9#code) |
+| `RedressVault` | [`0xaccfe6e8939d3143f7f70a550ebf29dcfc197609`](https://sepolia.etherscan.io/address/0xaccfe6e8939d3143f7f70a550ebf29dcfc197609#code) |
+| `OperatorBond` | [`0x934d3fae4d7393ef34a35246b28aab0b05cddea4`](https://sepolia.etherscan.io/address/0x934d3fae4d7393ef34a35246b28aab0b05cddea4#code) |
+| `RecoveryLedger` | [`0x82339ee18be49be221bac62c4fb30e2f1d7a055d`](https://sepolia.etherscan.io/address/0x82339ee18be49be221bac62c4fb30e2f1d7a055d#code) |
 | `MockWETH` | [`0xa193cae8762aeedcbf4d73c96369b54e5100fba4`](https://sepolia.etherscan.io/address/0xa193cae8762aeedcbf4d73c96369b54e5100fba4#code) |
+| `BandOracleHook` | [`0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code) |
 
-Every vault transaction is in `replay/out/mirror-sepolia.json`, and the first event's transcript is in `docs/transcripts/sepolia.txt`. Each run was a local simulation with one node, so DON consensus was not exercised. The historical liquidations were replayed from their logs, not re-executed.
+## Trust assumptions
+
+- **Anyone can forge a report against this vault.** Simulated runs use `MockKeystoneForwarder`, which checks no signatures and supplies no workflow identity. A fork test proves it delivers forged reports, and an `eth_call` shows the same on Sepolia. This is why it holds test tokens only. Production needs the signature-checking forwarder and a deployed workflow.
+- **The vault checks arithmetic, not facts.** It cannot see mainnet, so it trusts the report for the position, band, verdict, adapter, liquidator and builder. In production that trust rests on CRE consensus.
+- **A registrar names bond operators.** It decides who may bond against an adapter, and it has no other power.
+- **Claims are records, not enforcement.** Nothing can force a liquidator or builder to pay.
+
+## Limitations
+
+- **Log replay, not re-execution.** The workflow reads historical state, and the original liquidations are not run again.
+- **Local CRE simulation.** One node, so DON consensus was not exercised.
+- **Off-chain prices are a committed snapshot** served locally. DefiLlama is the only working off-chain series, and its provenance is unconfirmed. CoinGecko's wstETH history is wrong and is rejected on every incident event.
+- **One manipulated source can block a payout.** Negative control 5 fails: see [`docs/SECURITY.md`](docs/SECURITY.md).
+- **wstETH with WETH debt only.** Multi-asset positions are approximated, and the source set is specific to wstETH.
+- **Self-reviewed.** [`docs/SECURITY.md`](docs/SECURITY.md) lists every finding. No external auditor has read this code.
+
+## Negative controls
+
+Run with `bun replay/controls.ts`. Results are in [`replay/out/controls.json`](replay/out/controls.json).
+
+| Control | Result | Pass |
+|---|---|---|
+| Calm-day control | 215 events: 207 VALID, 8 INCONCLUSIVE. False positives: 0 | Yes |
+| Volatility control (2024-08-05) | 60 events: 47 VALID, 13 INCONCLUSIVE. False positives: 0 | Yes |
+| Over-pricing glitch | OVERPRICED, redress 0 wei | Yes |
+| Source outage | INCONCLUSIVE, redress 0 wei, with one source left | Yes |
+| Single-source manipulation (one source +5%) | Before WRONGFUL, 230533099950029831035 wei. After INCONCLUSIVE, 0 wei | **No** |
+| Boundary position | 1 real incident event(s) AMBIGUOUS. Paid 1201768889703676 wei against a midpoint loss of 3878400737512551 wei | Yes |
+| Reserve exhaustion | 1000 ETH reserve, budget 200 ETH: spent 199 ETH, 9 queued. Also enforced on-chain by a Forge test | Yes |
 
 ## Verified incident data
 
@@ -161,9 +184,9 @@ Read from chain by `replay/verify-onchain.mjs`. Full output: [`replay/data/verif
 | Item | Result | Source |
 |---|---|---|
 | CRE forwarder, Sepolia | Simulation `0x15fC6ae953E024d975e77382eEeC56A9101f9F88`, production `0xF8344CFd5c43616a4366C34E3EEE75af79a74482`. The vault must switch forwarder between the two | [Forwarder directory](https://docs.chain.link/cre/guides/workflow/using-evm-client/forwarder-directory-ts) |
-| CRE quotas | 15 HTTP calls, 15 EVM reads, 50 KB report, 100-block log queries, per execution. Higher than the PRD figures, so the PRD budget still fits. TODO-VERIFY: read from a search index of the page, confirm on the live page | [Service quotas](https://docs.chain.link/cre/service-quotas) |
-| Uniswap Sepolia | PoolManager `0xE03A1074c86CFeDd5C142C4F04F1a1536e203543`; code and activity are in the verification report | [v4 deployments](https://developers.uniswap.org/docs/protocols/v4/deployments) |
-| Arkiv testnet | TODO-VERIFY: the PRD chain ID 7794095 was not found. The Tiramisu RPC answers `eth_chainId` with `0x7614d1`. Confirm against the Mumbai prize page | [Arkiv docs](https://arkiv.dev.golem.network/docs) |
+| CRE quotas | 15 HTTP calls, 15 EVM reads, 50 KB report, 100-block log queries, per execution. Higher than the PRD figures, so the PRD budget still fits. Confirmed on the live page on 2026-11-07 | [Service quotas](https://docs.chain.link/cre/service-quotas) |
+| Uniswap Sepolia | Addresses and activity are in [`docs/HOOK_DESIGN.md`](docs/HOOK_DESIGN.md) | [v4 deployments](https://developers.uniswap.org/docs/protocols/v4/deployments) |
+| Arkiv testnet | Rabdi, chain ID 7794095, read from the chain config in `@arkiv-network/sdk` 1.0.1 and confirmed against the live RPC | SDK source |
 
 ### Off-chain price sources (S3)
 
@@ -195,48 +218,59 @@ Data was not adjusted to fit. These are the differences and their causes.
 
 Both totals treat 1 stETH as 1 ETH and are rough checks, not verdicts. Two further wstETH-collateral liquidations in the window had non-WETH debt (0.0034 and 0.0008 wstETH). They are stored in the incident file but are outside these totals.
 
----
+## Setup
 
-## Running the replay and mirror
-
-```bash
-make fork-up        # terminal 1: local fork. Without make: bash replay/fork-up.sh
-make snapshot       # terminal 2: serves the off-chain snapshot to the workflow
-make deploy-fork    # vault on the fork, funded with 3,000 WETH
-make replay         # every incident event through the CRE workflow on the fork
-make deploy-sepolia # MockWETH and vault on Sepolia, verified on Etherscan
-make mirror         # every incident event through the workflow, paying on Sepolia
-make scorecard      # rebuilds replay/out/replay.json with the vault transactions
-```
-
-`replay` and `mirror` resume from `replay/out/mirror-<target>.json`, so a failed run never pays twice, and they stop if the workflow's result differs from the offline replay by one wei. The fork is log replay: the workflow reads historical state and only the vault runs on the fork.
-
-`replay/out/rehearsal-fork.json` is a rehearsal, not a CRE run. It sends the encoded reports straight through the mock forwarder, and it never feeds `vaultTx`.
-
-## Frontend data contract
-
-- `docs/replay.schema.json`: the versioned contract.
-- `replay/out/replay.json`: real data. `vaultTx` is `null` until a real payout exists.
-- `replay/out/replay.mock.json`: synthetic data covering every verdict and page state, with `mock: true`.
-- `web/lib/lookup.ts`: address lookup for "Was I wronged?". It reads the JSON today, and Arkiv can replace it behind the `VerdictSource` interface.
-
-`redressFloor` is what is paid. `redressMidpoint` is for comparison with the DAO figure only.
-
-## ⚡ Quickstart
+Pinned toolchain: Foundry 1.5.1, solc 0.8.26, Bun 1.4.4, viem 2.57.
 
 ```bash
-# 1. Install dependencies
-git submodule update --init --recursive
-bun install
+git clone --recursive https://github.com/Rachit-Kale/redress
+cd redress
+bun install && (cd cre/sentinel-verdict && bun install)
 cp .env.example .env   # then fill it in
 
-# 2. Run tests
-bun test
+bun test                   # TypeScript tests
 (cd contracts && forge test)
 
-# 3. Re-check on-chain facts and rebuild the incident file
-bun run verify
-bun run fetch-incident
+bun backend/api.ts         # site and API on http://localhost:3001
+bun backend/watcher.ts     # one live scan for the Live page
+bun replay/controls.ts     # the seven negative controls
 ```
 
-Pinned toolchain: Foundry 1.5.1, solc 0.8.26, forge-std 1.17.0, Bun 1.4.4, viem 2.57.
+### Replay and mirror
+
+These need the [CRE CLI](https://docs.chain.link/cre) and `cre login`. `make` wraps each step.
+
+```bash
+make fork-up        # terminal 1: local fork
+make snapshot       # terminal 2: serves the off-chain snapshot to the workflow
+make deploy-fork    # vault on the fork
+make replay         # every incident event through the workflow on the fork
+make deploy-sepolia # bond, ledger and vault on Sepolia
+make mirror         # every incident event, paying on Sepolia
+make scorecard      # rebuilds replay/out/replay.json with the vault transactions
+make arkiv          # publishes the results to Arkiv
+```
+
+`replay` and `mirror` resume from `replay/out/mirror-<target>.json`, so a failed run never pays twice. They stop if the workflow differs from the offline replay by one wei.
+
+## Repository
+
+| Path | What |
+|---|---|
+| `contracts/` | Vault, bond, ledger, hook, `VerdictMath`, Foundry tests |
+| `cre/sentinel-verdict/` | The CRE workflow and its pure logic |
+| `replay/` | Incident data, offline replay, mirror, controls |
+| `backend/` | API, Arkiv client, live watcher |
+| `web/` | The site |
+| `arkiv/` | Arkiv sponsor files |
+| `docs/` | Verdict spec, hook design, security review, data schema, transcripts |
+| `deployments/` | Sepolia addresses. `sepolia-v1.json` is the earlier reserve-only vault |
+| `PRD.md`, `VERIFY.md` | The design record and the verification register |
+
+## AI usage
+
+This project was built with Claude Code. The developer set the scope, the rules and each phase, and approved the design decisions and public deployments. Claude wrote most of the code, tests and documentation, ran the deployments, and did the security self-review. All on-chain data comes from chain reads in this repo, not from the model.
+
+## Licence
+
+MIT. Incident data comes from public chain data and public governance posts.

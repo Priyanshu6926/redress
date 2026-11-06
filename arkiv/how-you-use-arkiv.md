@@ -35,3 +35,5 @@ One writer wallet owns every entity. Anyone can create an entity with matching a
 ## Publishing
 
 [`replay/publish-arkiv.ts`](../replay/publish-arkiv.ts) writes in atomic batches of 10 and records each entity key in `replay/out/arkiv.json`, so a failed run resumes without duplicates.
+
+Published: 128 entities (1 incident, 47 verdicts, 33 claims, 47 recoveries) in 13 transactions, for about 0.06 tGLM.

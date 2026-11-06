@@ -1,18 +1,18 @@
 ✓ Workflow compiled
 ✓ Simulation limits enabled
   HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb
-  Binary hash: 61d70536c1566d84dd3aead9cceaec76d22212b5d6112c581cc0aa4f9f827e16
-  Config hash: 549207a20ca3eddffb223bbdb8a27a512319d6e90b437427475a10703c01da04
-2026-11-07T00:24:29Z [SIMULATION] Simulator Initialized
+  Binary hash: 0443b633fd01771993bd50fdb95e342e75021325280865a595ac038f7804b2e2
+  Config hash: 1f4b3d25b994182dd9df99ddcd92e0b1eae2f666cf46853d82a07acfe97be573
+2026-11-07T02:42:37Z [SIMULATION] Simulator Initialized
 
-2026-11-07T00:24:29Z [SIMULATION] Running trigger trigger=evm:ChainSelector:5009297550715157269@1.0.0
-2026-11-07T00:24:37Z [USER LOG] REDRESS_RESULT {"config":"default","tx":"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c","logIndex":17,"block":24626860,"market":"Aave Ethereum Market","user":"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f","verdict":"WRONGFUL","hfWorst":"1020552288471107562","hfBest":"1024488899793505928","bandLow":"1225351253669499000","bandHigh":"1230077843059971905","sources":["S1 Lido stEthPerToken=1228848994065905999","S2 Uniswap v3 TWAP 30m=1228494837493714626","S3 defillama=1226577831501000000","S3 coingecko=1045285371266000000"],"redress":"230533099950029831035","peers":0,"vaultTx":"0xe823565fb68bdd53bfca824c2e0f72d82da3a4c208b98c9d74c275de53bd50a9"}
+2026-11-07T02:42:37Z [SIMULATION] Running trigger trigger=evm:ChainSelector:5009297550715157269@1.0.0
+2026-11-07T02:42:48Z [USER LOG] REDRESS_RESULT {"config":"default","tx":"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c","logIndex":17,"block":24626860,"market":"Aave Ethereum Market","user":"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f","verdict":"WRONGFUL","hfWorst":"1020552288471107562","hfBest":"1024488899793505928","bandLow":"1225351253669499000","bandHigh":"1230077843059971905","sources":["S1 Lido stEthPerToken=1228848994065905999","S2 Uniswap v3 TWAP 30m=1228494837493714626","S3 defillama=1226577831501000000","S3 coingecko=1045285371266000000"],"redress":"230533099950029831035","peers":0,"oracleAdapter":"0xe1D97bF61901B075E9626c8A2340a7De385861Ef","liquidator":"0xbD32122bAD41A09f2405Bb374A83877d8245079C","builder":"0xdadB0d80178819F2319190D340ce9A924f783711","vaultTx":"0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0"}
 
 ✓ Workflow Simulation Result:
-"{\"config\":\"default\",\"tx\":\"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c\",\"logIndex\":17,\"block\":24626860,\"market\":\"Aave Ethereum Market\",\"user\":\"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f\",\"verdict\":\"WRONGFUL\",\"hfWorst\":\"1020552288471107562\",\"hfBest\":\"1024488899793505928\",\"bandLow\":\"1225351253669499000\",\"bandHigh\":\"1230077843059971905\",\"sources\":[\"S1 Lido stEthPerToken=1228848994065905999\",\"S2 Uniswap v3 TWAP 30m=1228494837493714626\",\"S3 defillama=1226577831501000000\",\"S3 coingecko=1045285371266000000\"],\"redress\":\"230533099950029831035\",\"peers\":0,\"vaultTx\":\"0xe823565fb68bdd53bfca824c2e0f72d82da3a4c208b98c9d74c275de53bd50a9\"}"
+"{\"config\":\"default\",\"tx\":\"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c\",\"logIndex\":17,\"block\":24626860,\"market\":\"Aave Ethereum Market\",\"user\":\"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f\",\"verdict\":\"WRONGFUL\",\"hfWorst\":\"1020552288471107562\",\"hfBest\":\"1024488899793505928\",\"bandLow\":\"1225351253669499000\",\"bandHigh\":\"1230077843059971905\",\"sources\":[\"S1 Lido stEthPerToken=1228848994065905999\",\"S2 Uniswap v3 TWAP 30m=1228494837493714626\",\"S3 defillama=1226577831501000000\",\"S3 coingecko=1045285371266000000\"],\"redress\":\"230533099950029831035\",\"peers\":0,\"oracleAdapter\":\"0xe1D97bF61901B075E9626c8A2340a7De385861Ef\",\"liquidator\":\"0xbD32122bAD41A09f2405Bb374A83877d8245079C\",\"builder\":\"0xdadB0d80178819F2319190D340ce9A924f783711\",\"vaultTx\":\"0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0\"}"
 
-2026-11-07T00:24:37Z [SIMULATION] Execution finished signal received
-2026-11-07T00:24:37Z [SIMULATION] Skipping WorkflowEngineV2
+2026-11-07T02:42:48Z [SIMULATION] Execution finished signal received
+2026-11-07T02:42:48Z [SIMULATION] Skipping WorkflowEngineV2
 
 ╭──────────────────────────────────────────────────────╮
 │ Simulation complete! Ready to deploy your workflow?  │
