@@ -1,0 +1,12 @@
+{
+ "rehearsal": true,
+ "note": "Reports delivered directly through MockKeystoneForwarder. CRE did not run. Not a mirror result.",
+ "config": "default",
+ "reports": 47,
+ "recipients": 33,
+ "expectedWei": "473295500496135010048",
+ "paidWei": "473295500496135010048",
+ "recipientsWithWrongBalance": 0,
+ "duplicateChangedTotal": false,
+ "reserveLeftWei": "2526704499503864989952"
+}

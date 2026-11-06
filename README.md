@@ -165,6 +165,31 @@ Both totals treat 1 stETH as 1 ETH and are rough checks, not verdicts. Two furth
 
 ---
 
+## Running the replay and mirror
+
+```bash
+make fork-up        # terminal 1: local fork. Without make: bash replay/fork-up.sh
+make snapshot       # terminal 2: serves the off-chain snapshot to the workflow
+make deploy-fork    # vault on the fork, funded with 3,000 WETH
+make replay         # every incident event through the CRE workflow on the fork
+make deploy-sepolia # MockWETH and vault on Sepolia, verified on Etherscan
+make mirror         # every incident event through the workflow, paying on Sepolia
+make scorecard      # rebuilds replay/out/replay.json with the vault transactions
+```
+
+`replay` and `mirror` resume from `replay/out/mirror-<target>.json`, so a failed run never pays twice, and they stop if the workflow's result differs from the offline replay by one wei. The fork is log replay: the workflow reads historical state and only the vault runs on the fork.
+
+`replay/out/rehearsal-fork.json` is a rehearsal, not a CRE run. It sends the encoded reports straight through the mock forwarder, and it never feeds `vaultTx`.
+
+## Frontend data contract
+
+- `docs/replay.schema.json`: the versioned contract.
+- `replay/out/replay.json`: real data. `vaultTx` is `null` until a real payout exists.
+- `replay/out/replay.mock.json`: synthetic data covering every verdict and page state, with `mock: true`.
+- `web/lib/lookup.ts`: address lookup for "Was I wronged?". It reads the JSON today, and Arkiv can replace it behind the `VerdictSource` interface.
+
+`redressFloor` is what is paid. `redressMidpoint` is for comparison with the DAO figure only.
+
 ## ⚡ Quickstart
 
 ```bash

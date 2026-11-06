@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import {Test} from "forge-std/Test.sol";
 import {RedressVault, Verdict} from "../../src/RedressVault.sol";
 import {VerdictMath} from "../../src/VerdictMath.sol";
-import {MockWETH} from "../mocks/MockWETH.sol";
+import {MockWETH} from "../../src/mocks/MockWETH.sol";
 
 /// Drives the vault with reports, duplicates, bad reports, funding, time, pause and settle,
 /// keeping its own ledger to compare against the vault.

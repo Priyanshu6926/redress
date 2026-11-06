@@ -1,15 +1,21 @@
 # Verification register
 
-`script/DeployVault.s.sol` refuses to run until `VERIFY_CLEARED=true` is set, which must only happen when no row below is `OPEN`. Addresses are never guessed: each confirmed row names its source.
+The deploy scripts refuse to run until `VERIFY_CLEARED=true` is set, which must only happen when the deployment table below is empty. Addresses are never guessed: each confirmed row names its source.
 
 ## Open: blocks deployment
 
 | Item | Why it is open | What clears it |
 |---|---|---|
 | CRE account access | `cre whoami` reports not logged in. `cre workflow supported-chains` is tenant-scoped and needs login | Run `cre login`, then confirm Ethereum Sepolia and the forwarder from that command |
-| Mainnet read and Sepolia write in one simulation | The docs show a target with both RPCs and one client per chain, but no page states it for one run. Not yet run | A real `cre workflow simulate --target sepolia --broadcast` |
 | RPC configuration | `MAINNET_RPC` in `.env` currently answers chain id 11155111, which is Sepolia | Set `MAINNET_RPC` to a mainnet archive URL and add `SEPOLIA_RPC` |
 | Deployer key | Not provided yet | Add `CRE_ETH_PRIVATE_KEY` to `.env`, funded with Sepolia ETH |
+
+## Open: blocks the mirror, not deployment
+
+| Item | Why it is open | What clears it |
+|---|---|---|
+| Mainnet read and Sepolia write in one simulation | The docs show a target with both RPCs and one client per chain, but no page states it for one run. Not yet run | The first `bun replay/mirror.ts sepolia --limit 1` |
+| Real simulation of the workflow on any target | Only mocked tests have run, because CRE is not logged in | `bun replay/mirror.ts fork --limit 1` |
 
 ## Confirmed
 

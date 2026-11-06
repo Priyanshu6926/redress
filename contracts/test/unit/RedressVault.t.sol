@@ -7,7 +7,7 @@ import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {IReceiver} from "../../src/interfaces/IReceiver.sol";
 import {IRedressVault, RedressVault, Verdict} from "../../src/RedressVault.sol";
 import {VerdictMath} from "../../src/VerdictMath.sol";
-import {MockWETH} from "../mocks/MockWETH.sol";
+import {MockWETH} from "../../src/mocks/MockWETH.sol";
 
 contract RedressVaultTest is Test {
     using stdJson for string;
