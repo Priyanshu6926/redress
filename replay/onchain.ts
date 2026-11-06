@@ -5,6 +5,7 @@
  */
 import { createPublicClient, http, parseAbi, parseAbiItem, type Address, type Hash, type PublicClient } from "viem";
 import { mainnet } from "viem/chains";
+import { findProtocolFee } from "../cre/sentinel-verdict/position";
 
 export const WSTETH: Address = "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0";
 export const WETH: Address = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
@@ -46,8 +47,6 @@ export const v3PoolAbi = parseAbi([
 export const erc20Abi = parseAbi(["function balanceOf(address) view returns (uint256)"]);
 export const aTokenAbi = parseAbi(["function RESERVE_TREASURY_ADDRESS() view returns (address)"]);
 export const reserveAbi = parseAbi(["function getReserveAToken(address asset) view returns (address)"]);
-const LIQUIDATION_TOPIC = "0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37335533e005286";
-const TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
 export const liquidationCall = parseAbiItem(
   "event LiquidationCall(address indexed collateralAsset, address indexed debtAsset, address indexed user, uint256 debtToCover, uint256 liquidatedCollateralAmount, address liquidator, bool receiveAToken)",
 );
@@ -231,23 +230,7 @@ export async function collectLiquidations(c: PublicClient, markets: Market[], fr
   return out.sort((x, y) => x.blockNumber - y.blockNumber || x.logIndex - y.logIndex);
 }
 
-type RawLog = { address: string; topics: readonly string[]; data: string; logIndex: number };
-
-/**
- * Finds the fee transfer belonging to one liquidation: the aToken Transfer from the user to
- * the treasury after the previous LiquidationCall in the tx and before this one. Pure.
- */
-export function findProtocolFee(logs: readonly RawLog[], liquidationLogIndex: number, aToken: string, user: string, treasury: string): bigint {
-  const pad = (a: string) => "0x" + a.slice(2).toLowerCase().padStart(64, "0");
-  const previous = Math.max(-1, ...logs.filter((x) => x.topics[0] === LIQUIDATION_TOPIC && x.logIndex < liquidationLogIndex).map((x) => x.logIndex));
-  let fee = 0n;
-  for (const x of logs) {
-    if (x.logIndex <= previous || x.logIndex >= liquidationLogIndex) continue;
-    if (x.address.toLowerCase() !== aToken.toLowerCase() || x.topics[0] !== TRANSFER_TOPIC) continue;
-    if (x.topics[1] === pad(user) && x.topics[2] === pad(treasury)) fee += BigInt(x.data);
-  }
-  return fee;
-}
+export { findProtocolFee } from "../cre/sentinel-verdict/position";
 
 const WAD = 10n ** 18n;
 

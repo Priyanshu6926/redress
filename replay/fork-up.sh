@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Spin up a local Anvil fork one block before the incident execution block.
+# Starts Anvil on a fork of mainnet taken after the incident, so the original liquidation
+# transactions and their receipts exist. This is log replay (PRD 8.3): the workflow reads
+# historical state at each liquidation's block, and only the vault runs on the fork.
+cd "$(dirname "$0")/.."
+set -a; . ./.env; set +a
 : "${MAINNET_RPC:?set MAINNET_RPC in .env}"
-: "${INCIDENT_FORK_BLOCK:?set INCIDENT_FORK_BLOCK (execution block - 1, from replay/data/verification-report.txt)}"
+REPLAY_FORK_BLOCK="${REPLAY_FORK_BLOCK:-26355926}"
 
-echo "Starting Anvil fork at block ${INCIDENT_FORK_BLOCK}..."
-anvil --fork-url "${MAINNET_RPC}" --fork-block-number "${INCIDENT_FORK_BLOCK}" --port 8545
+echo "Starting Anvil fork at block ${REPLAY_FORK_BLOCK}"
+exec anvil --fork-url "${MAINNET_RPC}" --fork-block-number "${REPLAY_FORK_BLOCK}" --port 8545 --silent

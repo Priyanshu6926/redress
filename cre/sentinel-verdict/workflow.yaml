@@ -1,0 +1,15 @@
+fork:
+  user-workflow:
+    workflow-name: "sentinel-verdict-fork"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.fork.json"
+    secrets-path: ""
+
+sepolia:
+  user-workflow:
+    workflow-name: "sentinel-verdict-sepolia"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.sepolia.json"
+    secrets-path: ""

@@ -1,0 +1,14 @@
+{
+  "name": "sentinel-verdict",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "postinstall": "bun x cre-setup"
+  },
+  "dependencies": {
+    "@chainlink/cre-sdk": "1.23.0",
+    "viem": "2.57.16"
+  }
+}

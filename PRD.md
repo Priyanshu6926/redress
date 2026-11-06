@@ -305,7 +305,7 @@ Using the event amount alone gives 498.27 ETH, because it omits the fee.
 | Idempotency | One payout per `(txHash, logIndex)`; replays are rejected |
 | Per-event cap | Redress ≤ value of `C` at `p_c^L` (never more than what was seized) |
 | Epoch cap | Global payout cap per epoch (default 20% of reserve) as an automatic circuit breaker. Payouts are whole: one that does not fit is recorded, queued, and paid later by a permissionless `settle`. At 20% the largest incident event (230.53 ETH) needs a reserve of at least 1,153 ETH, and clearing all 473.30 ETH in one epoch needs at least 2,367 ETH |
-| Finality | Report only after `N` block confirmations (default 2) `[DECISION]`. Enforced by the workflow: a vault on another chain cannot see mainnet blocks |
+| Finality | Enforced by the workflow's log trigger through its `confidence` level (`CONFIDENCE_LEVEL_SAFE` by default), because a vault on another chain cannot see mainnet blocks. CRE has no exact `N`-confirmation setting, and a handler check would drop events with no retry |
 | Recipient | The `user` field of the on-chain event only. No claims, no addresses supplied by anyone else |
 | Emergency | An owner pause is the only admin power. While paused, verdicts are still recorded and payouts queue. It is not part of any normal flow and is not used in the demo. Production should use a multisig owner |
 | Parameters | Vault parameters are immutable, set at deployment: forwarder, payout asset, maximum bonus, epoch cap and length, workflow identity. Changing one means deploying a new vault. `τ`, `μ` and source lists are workflow configuration |
@@ -531,8 +531,8 @@ If re-executing every original transaction proves unstable, fall back to *log re
 | Classification of the 34 incident positions | All wrongful (they were healthy at true prices) | 34 / 34 `WRONGFUL`. Known risk: the non-E-Mode position started at HF 1.0016, inside the `ε_h` margin once the band is applied, so it may classify `AMBIGUOUS`. Report it; do not tune `ε_h` or `μ` |
 | Total redress | DAO refund 512.19 ETH headline; ARFC table components sum to 512.48 ETH | **Paid: the provable floor.** Comparison only: loss at the band midpoint, target ±2% of the DAO figure. Phase 1, `default`: floor 473.30 ETH paid (−7.59%), midpoint 499.17 ETH (−2.54%, misses the target). `onchain-only-2src`: floor 494.17 ETH (−3.52%), midpoint 509.61 ETH (−0.50%) |
 | Per-user accounting | None published by the DAO | 47 per-event rows across 34 positions, with evidence links |
-| Detection latency | LlamaRisk detected within minutes; the ARFC came the next day | ≤ 2 blocks after the first `LiquidationCall` |
-| Time to payout | ~3 weeks (10 Mar → ~1 Apr) | Same transaction as the attestation, after `N=2` confirmations |
+| Detection latency | LlamaRisk detected within minutes; the ARFC came the next day | In replay, not measurable: events are fed in. In live mode, set by the trigger confidence level, which is slower than 2 blocks at `SAFE` |
+| Time to payout | ~3 weeks (10 Mar → ~1 Apr) | Same transaction as the attestation, once the trigger's confidence level is reached |
 | False positives on normal liquidations | n/a | **0** across the negative-control set |
 | Reserve consumed | n/a | ≈ 3.5% of affected collateral value at the floor `[DERIVED]` |
 | Recovery tracking | 141.6 ETH + 41.62 WETH recovered manually | Roadmap: recovery ledger not in this build |

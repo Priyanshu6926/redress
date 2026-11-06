@@ -25,3 +25,8 @@ lcov.info
 .DS_Store
 Thumbs.db
 .idea/
+
+# CRE build output
+cre/sentinel-verdict/*.wasm
+cre/sentinel-verdict/dist/
+cre/.env

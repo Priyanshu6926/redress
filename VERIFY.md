@@ -6,11 +6,10 @@
 
 | Item | Why it is open | What clears it |
 |---|---|---|
-| Payout asset on Sepolia | No official test WETH address confirmed. We would deploy our own test token | Decide: deploy `MockWETH`, or confirm a canonical Sepolia WETH from an official source |
 | CRE account access | `cre whoami` reports not logged in. `cre workflow supported-chains` is tenant-scoped and needs login | Run `cre login`, then confirm Ethereum Sepolia and the forwarder from that command |
-| Forged reports through the mock forwarder | Measured: anyone can deliver a report through `MockKeystoneForwarder` (see below) | Accept for a test-token demo and say so in the README, or use the production forwarder |
-| Production `KeystoneForwarder` use | Needs a deployed workflow, which needs Early Access `[REPORTED]` | Confirm with Chainlink, or stay on simulation and accept the row above |
-| Deployer key and Sepolia RPC | Not provided yet | Add to `.env` |
+| Mainnet read and Sepolia write in one simulation | The docs show a target with both RPCs and one client per chain, but no page states it for one run. Not yet run | A real `cre workflow simulate --target sepolia --broadcast` |
+| RPC configuration | `MAINNET_RPC` in `.env` currently answers chain id 11155111, which is Sepolia | Set `MAINNET_RPC` to a mainnet archive URL and add `SEPOLIA_RPC` |
+| Deployer key | Not provided yet | Add `CRE_ETH_PRIVATE_KEY` to `.env`, funded with Sepolia ETH |
 
 ## Confirmed
 
@@ -24,6 +23,13 @@
 | Mainnet simulation forwarder | `0xa3d1ad4ac559a6575a114998affb2fb2ec97a7d9` | Same; 4,579 bytes of code on mainnet |
 | CRE quotas | 15 HTTP calls, 15 EVM reads, 50 KB report, 10M gas, 5 log-trigger addresses, 100-block log queries | [Service quotas](https://docs.chain.link/cre/service-quotas.md) |
 | Aave addresses and bonus logic | Registry reads and fork tests | `replay/data/verification-report.txt`, `contracts/test/fork/AaveBonus.fork.t.sol` |
+
+## Decided
+
+| Item | Decision |
+|---|---|
+| Payout asset on Sepolia | Deploy our own `MockWETH`, as no official test WETH address is confirmed |
+| Forged reports through the mock forwarder | Accepted for a test-token Sepolia demo and disclosed in the README. Production forwarding needs a deployed workflow, which needs Early Access `[REPORTED]` |
 
 ## Measured trust findings
 

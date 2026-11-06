@@ -1,10 +1,43 @@
 {
-  "target": "fork",
-  "chainId": 1,
-  "rpcUrl": "http://127.0.0.1:8545",
-  "aavePool": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2",
+  "readChain": "ethereum-mainnet",
+  "writeChain": "ethereum-mainnet",
+  "vault": "0x24658baab7fb72b862f3617dec25914131d9299d",
+  "gasLimit": "500000",
+  "confidence": "CONFIDENCE_LEVEL_SAFE",
   "wstEth": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
   "weth": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-  "vaultAddress": "0x0000000000000000000000000000000000000000"
+  "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+  "chainlinkStEthEth": "0x86392dC19c0b719886221c78AB11eb8Cf5c52812",
+  "uniswapPool": "0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa",
+  "twapWindowSec": 1800,
+  "markets": [
+    {
+      "name": "Aave Ethereum Market",
+      "pool": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2",
+      "oracle": "0x54586bE62E3c3580375aE3723C145253060Ca0C2",
+      "aToken": "0x0B925eD163218f6662a35e0f0371Ac234f9E9371",
+      "debtToken": "0xeA51d7853EEFb32b6ee06b1C12E6dcCA88Be0fFE"
+    },
+    {
+      "name": "Aave V3 Lido Ethereum",
+      "pool": "0x4e033931ad43597d96D6bcc25c280717730B58B1",
+      "oracle": "0xE3C061981870C0C7b1f3C4F4bB36B95f1F260BE6",
+      "aToken": "0xC035a7cf15375cE2706766804551791aD035E0C2",
+      "debtToken": "0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e"
+    }
+  ],
+  "offchain": {
+    "mode": "snapshot",
+    "snapshotUrl": "http://127.0.0.1:8787/offchain-prices.json",
+    "liveUrl": "https://coins.llama.fi/prices/historical/{timestamp}/ethereum:0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0,ethereum:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2?searchWidth=1h"
+  },
+  "engine": {
+    "name": "default",
+    "tauBps": "75",
+    "muBps": "10",
+    "epsOutBps": "100",
+    "epsHBps": "10",
+    "minSources": 3,
+    "maxStalenessSec": "3600"
+  }
 }
-

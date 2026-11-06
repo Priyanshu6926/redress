@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "bun test",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p cre/sentinel-verdict",
     "vectors": "python contracts/test/gen_vectors.py",
     "vectors:random": "bun cre/sentinel-verdict/gen-random-vectors.ts",
     "vectors:reports": "bun replay/gen-report-fixture.ts",
@@ -15,7 +15,9 @@
     "fetch-incident": "bun replay/fetch-incident.ts",
     "replay:fetch": "bun replay/fetch-reads.ts",
     "replay": "bun replay/replay.ts",
-    "scorecard": "bun replay/scorecard.ts"
+    "scorecard": "bun replay/scorecard.ts",
+    "cre:config": "bun replay/gen-cre-config.ts",
+    "snapshot:serve": "bun replay/serve-snapshot.ts"
   },
   "dependencies": {
     "viem": "^2.57.16"

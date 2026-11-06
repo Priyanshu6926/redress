@@ -1,18 +1,15 @@
-name: redress-sentinel
-version: 0.1.0
-description: "Chainlink CRE workflow for oracle liquidation monitoring and verdict calculation"
+# CRE project settings. RPC URLs come from the environment, never from this file.
+#
+# fork: reads and writes a local Anvil fork of mainnet.
+# sepolia: reads mainnet history and writes the Sepolia vault.
+fork:
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: http://127.0.0.1:8545
 
-targets:
-  fork:
-    network: local-anvil
-    rpcUrl: "http://127.0.0.1:8545"
-    vaultAddress: "0x0000000000000000000000000000000000000000"
-  sepolia:
-    network: ethereum-sepolia
-    rpcUrl: "${SEPOLIA_RPC_URL}"
-    vaultAddress: "0x0000000000000000000000000000000000000000"
-
-workflows:
-  - name: sentinel-verdict
-    entrypoint: ./sentinel-verdict/main.ts
-
+sepolia:
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: ${MAINNET_RPC}
+    - chain-name: ethereum-testnet-sepolia
+      url: ${SEPOLIA_RPC}

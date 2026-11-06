@@ -1,0 +1,7 @@
+{
+  "network": "fork",
+  "vault": "0x24658baab7fb72b862f3617dec25914131d9299d",
+  "payoutAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  "forwarder": "0xa3d1ad4ac559a6575a114998affb2fb2ec97a7d9",
+  "reserve": "3000ether"
+}

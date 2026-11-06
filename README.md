@@ -104,6 +104,11 @@ redress/
 
 ---
 
+## Trust model of this demo
+
+- **Anyone can forge a report against a simulation vault.** Simulated runs go through `MockKeystoneForwarder`. A fork test shows it delivers a report from any sender with no signatures, and it supplies no workflow identity, so the vault cannot tell a forged report from a real one. This is why the demo vault only ever holds test tokens. Production forwarding uses the signature-checking `KeystoneForwarder` and needs a deployed workflow.
+- **The vault checks arithmetic, not facts.** It cannot see mainnet, so it trusts the report for the position, band, bonus, verdict and finality. In production that trust rests on CRE consensus.
+
 ## Verified incident data
 
 Read from chain by `replay/verify-onchain.mjs`. Full output: [`replay/data/verification-report.txt`](replay/data/verification-report.txt). Per-liquidation data: [`replay/data/incident-2026-03-10.json`](replay/data/incident-2026-03-10.json).
