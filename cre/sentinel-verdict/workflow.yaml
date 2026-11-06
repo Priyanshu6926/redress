@@ -13,3 +13,11 @@ sepolia:
     workflow-path: "./main.ts"
     config-path: "./config.sepolia.json"
     secrets-path: ""
+
+demo-v4hook:
+  user-workflow:
+    workflow-name: "sentinel-verdict-demo-v4hook"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.demo-v4hook.json"
+    secrets-path: ""

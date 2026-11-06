@@ -1,6 +1,6 @@
 # BandOracleHook design
 
-Status: **awaiting approval.** A first version was built and deployed before this review (see "Current state"). It is not the approved design.
+Status: **approved and built.** See "Current state".
 
 ## Honest role
 
@@ -129,22 +129,20 @@ From the [official deployments page](https://developers.uniswap.org/docs/protoco
 
 The hook needs no Universal Router. The demo swaps use `PoolSwapTest`.
 
-## Decision needed: the base contract
+## Base contract
 
-The brief says to build on `BaseHook` from v4-periphery. **It is no longer there.** Commit `5da22e60` (2026-02-06, "remove hooks and move to hook repo") removed it, and it now lives in OpenZeppelin `uniswap-hooks`.
-
-| Option | For | Against |
-|---|---|---|
-| **A. OpenZeppelin `uniswap-hooks` `BaseHook` (recommended)** | The maintained successor, same pattern, less code | One more dependency |
-| B. Pin v4-periphery before `5da22e60` | Literally what the brief says | An abandoned version on purpose |
-| C. Implement `IHooks` directly | No new dependency; this is what is deployed | Not what the brief asks for; more boilerplate |
+The brief asked for `BaseHook` from v4-periphery, but commit `5da22e60` (2026-02-06, "remove hooks and move to hook repo") removed it. Uniswap's own `v4-template` now imports `BaseHook` from OpenZeppelin `uniswap-hooks`, so the hook uses that.
 
 ## Current state
 
-Built and deployed on 2026-11-07, **before this review**, using option C:
+| Item | Value |
+|---|---|
+| Hook | [`0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code), verified on Etherscan |
+| Address low bits | `0x1080`: `afterInitialize` (`0x1000`) and `beforeSwap` (`0x80`) only |
+| Demo pool | Start tick 2061, about 1.2288 WETH per demo token, a price we chose |
+| Band data | 7 observations after 6 swaps; a one-hour read gave TWAP tick 2052, min 1970, max 2080 |
+| Superseded | `0x301eb55a7d1e5528771857aceef4714af34b5080`, deployed before review on `IHooks` directly, unused |
 
-- Hook: `0x301eb55a7d1e5528771857aceef4714af34b5080`, verified on Etherscan.
-- Demo pool: 1:1 start, 7 observations. A one-hour read returned TWAP tick 10, min −60, max 59, covering 276 seconds.
-- Tests in `contracts/test/unit/BandOracleHook.t.sol`. They do not yet include the large-swap manipulation case above.
+**`demo-v4hook` run** (`docs/transcripts/demo-v4hook.txt`, `replay/out/demo-v4hook.json`): one CRE simulation read mainnet and the hook on Sepolia. The hook joined as source S4 at 1.229232, the verdict and redress matched the replay, and only `bandHigh` moved. Nothing was written.
 
-If this design is approved with option A, the hook is rebuilt and redeployed, and this address stays on Sepolia unused. Nothing in the README will present it as final.
+**Limits of that run.** The hook price is current while the event is from March 2026, so it carries the event's timestamp only to pass the staleness check. The read uses the latest block, because this SDK version exports no finalized-block constant. A real DON would need an agreed block.

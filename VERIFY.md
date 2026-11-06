@@ -50,9 +50,13 @@ These Sepolia contracts went out before the Phase 3 brief arrived, and they do n
 
 | Contract | Address | Gap against the brief |
 |---|---|---|
-| `BandOracleHook` | `0x301eb55a7d1e5528771857aceef4714af34b5080` | Built before design approval, on `IHooks` directly rather than `BaseHook` |
+| `BandOracleHook` | `0x301eb55a7d1e5528771857aceef4714af34b5080` | Superseded by `0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`, built on `BaseHook` after approval |
 | `OperatorBond` | `0xbd41374a100de606970fa787033e7eda97688cca` | Refills the vault after payout rather than paying first, and attribution comes from an attestor rather than the report |
 | `RecoveryLedger` | `0x0e11c9be0b6d88c0b5ebb05eb1150181a578060a` | Claims are opened by an attestor, not by each payout |
+
+## Uniswap v4 on Sepolia
+
+Addresses come from the [v4 deployments page](https://developers.uniswap.org/docs/protocols/v4/deployments), and activity was read from Etherscan on 2026-11-07. `docs/HOOK_DESIGN.md` lists them. The demo hook pool is synthetic and took no part in the mainnet replay.
 
 ## Decided
 

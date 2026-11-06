@@ -18,7 +18,8 @@ import {
   type EventFacts, type OffchainPrice, type RawLog,
 } from "./position";
 import { encodeReport } from "./report";
-import { INCONCLUSIVE, VerdictType, type EngineConfig, type Liquidation } from "./verdict";
+import { assertHookAllowed, hookSource, type HookBand, type V4HookConfig } from "./v4hook";
+import { INCONCLUSIVE, VerdictType, type EngineConfig, type Liquidation, type PriceSource } from "./verdict";
 
 export interface Market {
   name: string;
@@ -44,6 +45,10 @@ export interface Config {
   markets: Market[];
   offchain: { mode: "snapshot" | "live" | "none"; snapshotUrl: string; liveUrl: string };
   engine: { name: string; tauBps: string; muBps: string; epsOutBps: string; epsHBps: string; minSources: number; maxStalenessSec: string };
+  /** Demo only: a synthetic v4 pool as an extra source. Never present in a replay config. */
+  v4Hook?: V4HookConfig;
+  /** Runs the verdict and stops before any report is signed or written. */
+  dryRun?: boolean;
 }
 
 const poolAbi = parseAbi([
@@ -63,6 +68,12 @@ const oracleAbi = parseAbi(["function getAssetPrice(address asset) view returns 
 const wstEthAbi = parseAbi(["function stEthPerToken() view returns (uint256)"]);
 const feedAbi = parseAbi(["function latestAnswer() view returns (int256)"]);
 const uniswapAbi = parseAbi(["function observe(uint32[] secondsAgos) view returns (int56[] tickCumulatives, uint160[] secondsPerLiquidityCumulativeX128s)"]);
+const hookAbi = parseAbi([
+  "struct PoolKey { address currency0; address currency1; uint24 fee; int24 tickSpacing; address hooks; }",
+  "struct Band { int24 twapTick; int24 minTick; int24 maxTick; uint32 count; uint32 coveredSeconds; uint32 lastObservedAt; }",
+  "function getBand(PoolKey key, uint32 window) view returns (Band)",
+]);
+const clockAbi = parseAbi(["function getCurrentBlockTimestamp() view returns (uint256)"]);
 export const multicallAbi = parseAbi([
   "struct Call3 { address target; bool allowFailure; bytes callData; }",
   "struct Result { bool success; bytes returnData; }",
@@ -86,8 +97,8 @@ function evmClient(chain: string): EVMClient {
   return new EVMClient(network.chainSelector.selector);
 }
 
-/** One Multicall3 read at a block. Decoded values are in the order of `reads`; a failed optional read is undefined. */
-function multicall(runtime: Runtime<Config>, client: EVMClient, reads: Read[], block: bigint): unknown[] {
+/** One Multicall3 read at a block, or the latest. Decoded values are in the order of `reads`; a failed optional read is undefined. */
+function multicall(runtime: Runtime<Config>, client: EVMClient, reads: Read[], block?: bigint): unknown[] {
   const calls = reads.map((r) => ({
     target: r.target,
     allowFailure: r.allowFailure ?? false,
@@ -100,7 +111,7 @@ function multicall(runtime: Runtime<Config>, client: EVMClient, reads: Read[], b
         to: runtime.config.multicall3,
         data: encodeFunctionData({ abi: multicallAbi, functionName: "aggregate3", args: [calls] }),
       }),
-      blockNumber: toBlock(block),
+      ...(block === undefined ? {} : { blockNumber: toBlock(block) }),
     })
     .result();
   const results = decodeFunctionResult({ abi: multicallAbi, functionName: "aggregate3", data: bytesToHex(reply.data) });
@@ -206,8 +217,22 @@ function fromReceipt(logs: RawLog[], log: RawLog, market: Market, user: Address,
   return { logIndex: match.logIndex, fee: findProtocolFee(logs, match.logIndex, market.aToken, user, treasury) };
 }
 
+/** The synthetic hook source, if configured. A failed or stale read means one source fewer. */
+function hookSources(runtime: Runtime<Config>, timestamp: number): PriceSource[] {
+  const cfg = runtime.config;
+  if (!cfg.v4Hook) return [];
+  const [band, now] = multicall(runtime, evmClient(cfg.v4Hook.chain), [
+    { target: cfg.v4Hook.hook, abi: hookAbi, functionName: "getBand", args: [cfg.v4Hook.poolKey, cfg.v4Hook.windowSec], allowFailure: true },
+    { target: cfg.multicall3, abi: clockAbi, functionName: "getCurrentBlockTimestamp" },
+  ]) as [HookBand | undefined, bigint];
+  const source = hookSource(band, Number(now), timestamp, cfg.v4Hook);
+  if (!source) runtime.log("v4 hook source unavailable: no band, too few observations or too old");
+  return source ? [source] : [];
+}
+
 export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
   const cfg = runtime.config;
+  assertHookAllowed(cfg);
   const raw = hexLog(log);
   const decoded = decodeEventLog({ abi: liquidationAbi, data: raw.data as Hex, topics: raw.topics as [Hex, ...Hex[]] });
   const a = decoded.args;
@@ -345,9 +370,26 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
 
   const offchain = offchainPrices(runtime, timestamp);
   const engine = engineConfig(cfg);
-  const result = assess(facts, peers, engine, offchain);
+  const result = assess(facts, peers, engine, offchain, hookSources(runtime, timestamp));
   const { band, outcome } = result;
   const ok = band !== INCONCLUSIVE;
+
+  if (cfg.dryRun) {
+    const demo = JSON.stringify({
+      synthetic: true,
+      written: false,
+      config: cfg.engine.name,
+      tx: txHash,
+      logIndex: own.logIndex,
+      verdict: VerdictType[outcome.verdict],
+      bandLow: ok ? band.collateral.low.toString() : "0",
+      bandHigh: ok ? band.collateral.high.toString() : "0",
+      sources: result.sources.map((s) => `${s.name}=${s.price}`),
+      redress: result.redress.toString(),
+    });
+    runtime.log(`REDRESS_DEMO ${demo}`);
+    return demo;
+  }
 
   const reportHex = encodeReport({
     liquidationTx: txHash,

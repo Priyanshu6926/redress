@@ -6,6 +6,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { DEFAULT_CONFIG } from "../cre/sentinel-verdict/verdict";
+import { DEMO_ENGINE } from "../cre/sentinel-verdict/v4hook";
 import { CHAINLINK_STETH_ETH_FEED, WETH, WSTETH } from "./onchain";
 import { TWAP_WINDOW_SEC, UNISWAP_POOL, type EventReads } from "./reads";
 
@@ -18,9 +19,35 @@ const markets = [...new Map(reads.map((r) => [r.pool, r])).values()].map((r) => 
   name: r.market, pool: r.pool, oracle: r.oracle, aToken: r.aToken, debtToken: r.debtToken,
 }));
 
-for (const target of process.argv.slice(2).length ? process.argv.slice(2) : ["fork", "sepolia"]) {
-  const deployment = join(root, "deployments", `${target}.json`);
-  const vault = existsSync(deployment) ? (JSON.parse(readFileSync(deployment, "utf8")) as { vault: string }).vault : ZERO;
+interface Deployment {
+  vault: string;
+  bandOracleHook?: string;
+  hookPool?: { token0: string; token1: string; fee: number; tickSpacing: number };
+}
+
+/** The labelled demo: a synthetic pool as an extra source, and no write. See docs/HOOK_DESIGN.md. */
+function demoFields(d: Deployment | undefined) {
+  if (!d?.bandOracleHook || !d.hookPool) throw new Error("deploy the hook first: bash replay/deploy-hook.sh");
+  return {
+    dryRun: true,
+    v4Hook: {
+      type: "v4Hook",
+      chain: "ethereum-testnet-sepolia",
+      hook: d.bandOracleHook,
+      poolKey: { currency0: d.hookPool.token0, currency1: d.hookPool.token1, fee: d.hookPool.fee, tickSpacing: d.hookPool.tickSpacing, hooks: d.bandOracleHook },
+      windowSec: 1800,
+      minObservations: 5,
+      maxAgeSec: 3600,
+      synthetic: true,
+    },
+  };
+}
+
+for (const target of process.argv.slice(2).length ? process.argv.slice(2) : ["fork", "sepolia", "demo-v4hook"]) {
+  const demo = target === "demo-v4hook";
+  const deployment = join(root, "deployments", `${demo ? "sepolia" : target}.json`);
+  const deployed = existsSync(deployment) ? (JSON.parse(readFileSync(deployment, "utf8")) as Deployment) : undefined;
+  const vault = demo ? ZERO : (deployed?.vault ?? ZERO);
   const config = {
     readChain: "ethereum-mainnet",
     writeChain: target === "fork" ? "ethereum-mainnet" : "ethereum-testnet-sepolia",
@@ -42,7 +69,7 @@ for (const target of process.argv.slice(2).length ? process.argv.slice(2) : ["fo
       liveUrl: `https://coins.llama.fi/prices/historical/{timestamp}/ethereum:${WSTETH},ethereum:${WETH}?searchWidth=1h`,
     },
     engine: {
-      name: DEFAULT_CONFIG.name,
+      name: demo ? DEMO_ENGINE : DEFAULT_CONFIG.name,
       tauBps: DEFAULT_CONFIG.tauBps.toString(),
       muBps: DEFAULT_CONFIG.muBps.toString(),
       epsOutBps: DEFAULT_CONFIG.epsOutBps.toString(),
@@ -50,6 +77,7 @@ for (const target of process.argv.slice(2).length ? process.argv.slice(2) : ["fo
       minSources: DEFAULT_CONFIG.minSources,
       maxStalenessSec: DEFAULT_CONFIG.maxStalenessSec.toString(),
     },
+    ...(demo ? demoFields(deployed) : {}),
   };
   writeFileSync(join(root, "cre", "sentinel-verdict", `config.${target}.json`), JSON.stringify(config, null, 2) + "\n");
   console.log(`wrote config.${target}.json, vault ${vault}`);

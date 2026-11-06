@@ -24,6 +24,10 @@ describe("schema", () => {
 });
 
 describe("real data", () => {
+  test("no replay row uses the synthetic v4 hook", () => {
+    expect(JSON.stringify(real).toLowerCase()).not.toContain("v4 hook");
+  });
+
   test("is not marked as mock, and the mock is", () => {
     expect(real.mock).toBe(false);
     expect(mock.mock).toBe(true);

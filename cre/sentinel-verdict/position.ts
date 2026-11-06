@@ -253,8 +253,8 @@ export interface Assessment {
 }
 
 /** Runs the engine for one liquidation. `peers` are the same position's liquidations. */
-export function assess(r: EventFacts, peers: Liquidation[], cfg: EngineConfig, offchain: readonly OffchainPrice[]): Assessment {
-  const sources = sourcesFor(r, offchain);
+export function assess(r: EventFacts, peers: Liquidation[], cfg: EngineConfig, offchain: readonly OffchainPrice[], extra: readonly PriceSource[] = []): Assessment {
+  const sources = [...sourcesFor(r, offchain), ...extra];
   const built = buildBand(sources, { ...cfg, asOf: BigInt(r.timestamp) });
   const debtPrice = debtPriceEth(r);
   const band: PairBand | typeof INCONCLUSIVE = built === INCONCLUSIVE ? INCONCLUSIVE : { collateral: built, debt: fixedBand(debtPrice) };

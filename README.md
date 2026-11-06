@@ -9,13 +9,34 @@ Redress is an automatic, evidence-based restitution layer for wrongful liquidati
 ## 🏛️ Sponsor Sections & Code Pointers
 
 ### 1. Uniswap Foundation (Primary)
-- **U1: Uniswap v3 TWAP Oracle Integration**
-  - Consumed as an independent on-chain price source within the consensus band.
-  - Pointers: [`cre/sentinel-verdict/verdict.ts`](cre/sentinel-verdict/verdict.ts)
-- **U3: Uniswap v4 `BandOracleHook`**
-  - Native v4 hook recording tick observations and exposing `getBand(key, window)` to give pools manipulation-resistant internal price bands.
-  - Pointers: [`contracts/src/hooks/BandOracleHook.sol`](contracts/src/hooks/BandOracleHook.sol)
-- **Developer Feedback**: See [`FEEDBACK.md`](FEEDBACK.md) for detailed developer feedback submitted to the Uniswap Foundation form.
+
+**U1: Uniswap v3 TWAP in every verdict.** The mainnet wstETH/WETH pool's 30-minute TWAP is source S2 in the band, for all 47 incident events.
+
+| What | Where |
+|---|---|
+| `observe` read at the event block | [`cre/sentinel-verdict/handler.ts:298`](cre/sentinel-verdict/handler.ts#L298) |
+| Tick cumulatives to mean tick | [`cre/sentinel-verdict/position.ts:44`](cre/sentinel-verdict/position.ts#L44) |
+| Tick to price | [`cre/sentinel-verdict/position.ts:38`](cre/sentinel-verdict/position.ts#L38) |
+| Result per event | `sourcesUsed` in `replay/out/replay.json` |
+
+**U3: `BandOracleHook`, a Uniswap v4 hook.** It gives a v4 pool a TWAP plus the lowest and highest ticks over a window, with no external oracle.
+
+**This hook was not used in the incident replay.** The incident was on mainnet with a v3 pool. The Sepolia v4 pool is synthetic: we chose its price and made its swaps. It shows the mechanism, not market evidence, and a test keeps it out of `replay.json`. Design and limits: [`docs/HOOK_DESIGN.md`](docs/HOOK_DESIGN.md).
+
+| What | Where |
+|---|---|
+| Permission flags | [`contracts/src/hooks/BandOracleHook.sol:58`](contracts/src/hooks/BandOracleHook.sol#L58) |
+| `getBand(key, window)` | [`contracts/src/hooks/BandOracleHook.sol:68`](contracts/src/hooks/BandOracleHook.sol#L68) |
+| Pre-swap recording, once per block | [`contracts/src/hooks/BandOracleHook.sol:124`](contracts/src/hooks/BandOracleHook.sol#L124) to [`:133`](contracts/src/hooks/BandOracleHook.sol#L133) |
+| Large-swap manipulation test | [`contracts/test/unit/BandOracleHook.t.sol:172`](contracts/test/unit/BandOracleHook.t.sol#L172) |
+| Same-block sandwich test | [`contracts/test/unit/BandOracleHook.t.sol:82`](contracts/test/unit/BandOracleHook.t.sol#L82) |
+| Address mining and pool setup | [`contracts/script/DeployHook.s.sol`](contracts/script/DeployHook.s.sol) |
+| `v4Hook` source and its guards | [`cre/sentinel-verdict/v4hook.ts:34`](cre/sentinel-verdict/v4hook.ts#L34) |
+| Hook read in the workflow | [`cre/sentinel-verdict/handler.ts:221`](cre/sentinel-verdict/handler.ts#L221) |
+
+Deployed and verified on Sepolia: [`0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code). Example swap: [`0x8d9428c1…06f1`](https://sepolia.etherscan.io/tx/0x8d9428c179d62c188c301864ab0f163bdf491467a86c181a5254e149e79b06f1).
+
+Developer feedback: [`FEEDBACK.md`](FEEDBACK.md).
 
 ### 2. Chainlink CRE (Primary)
 - **Chainlink Runtime Environment (CRE) Workflow: `sentinel-verdict`**

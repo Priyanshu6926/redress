@@ -86,7 +86,7 @@ async function requireChain(c: PublicClient, want: number, name: string) {
   if (got !== want) throw new Error(`${name} answers chain id ${got}, expected ${want}. Check .env.`);
 }
 
-function run(args: string[], env: Record<string, string>, secrets: (string | undefined)[]) {
+export function run(args: string[], env: Record<string, string>, secrets: (string | undefined)[]) {
   const exe = join(homedir(), ".cre", "bin", process.platform === "win32" ? "cre.exe" : "cre");
   const p = Bun.spawnSync([existsSync(exe) ? exe : "cre", ...args], { cwd: join(root, "cre"), env: { ...process.env, ...env }, stdout: "pipe", stderr: "pipe" });
   return { ok: p.exitCode === 0, text: redact(`${p.stdout.toString()}\n${p.stderr.toString()}`, secrets) };

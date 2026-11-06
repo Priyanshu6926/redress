@@ -1,0 +1,27 @@
+✓ Workflow compiled
+✓ Simulation limits enabled
+  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb
+  Binary hash: 483f0f3310f5f98412d18c0bba1f7c91632035ddebac7029c13d863dfb21f313
+  Config hash: b3dd931a975a42f6e1ce7d945981586c066562085a5a4c2fe5e0c4a5eb6f94c1
+2026-11-07T02:11:06Z [SIMULATION] Simulator Initialized
+
+2026-11-07T02:11:06Z [SIMULATION] Running trigger trigger=evm:ChainSelector:5009297550715157269@1.0.0
+2026-11-07T02:11:07Z [USER LOG] REDRESS_DEMO {"synthetic":true,"written":false,"config":"demo-v4hook","tx":"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c","logIndex":17,"verdict":"WRONGFUL","bandLow":"1225351253669499000","bandHigh":"1230461350813703227","sources":["S1 Lido stEthPerToken=1228848994065905999","S2 Uniswap v3 TWAP 30m=1228494837493714626","S3 defillama=1226577831501000000","S3 coingecko=1045285371266000000","S4 v4 hook (synthetic demo pool)=1229232118695008218"],"redress":"230533099950029831035"}
+
+✓ Workflow Simulation Result:
+"{\"synthetic\":true,\"written\":false,\"config\":\"demo-v4hook\",\"tx\":\"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c\",\"logIndex\":17,\"verdict\":\"WRONGFUL\",\"bandLow\":\"1225351253669499000\",\"bandHigh\":\"1230461350813703227\",\"sources\":[\"S1 Lido stEthPerToken=1228848994065905999\",\"S2 Uniswap v3 TWAP 30m=1228494837493714626\",\"S3 defillama=1226577831501000000\",\"S3 coingecko=1045285371266000000\",\"S4 v4 hook (synthetic demo pool)=1229232118695008218\"],\"redress\":\"230533099950029831035\"}"
+
+2026-11-07T02:11:07Z [SIMULATION] Execution finished signal received
+2026-11-07T02:11:07Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+Fetching transaction receipt for 0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c...

@@ -13,3 +13,11 @@ sepolia:
       url: ${MAINNET_RPC}
     - chain-name: ethereum-testnet-sepolia
       url: ${SEPOLIA_RPC}
+
+# demo-v4hook: reads mainnet history and the synthetic Sepolia hook pool. Never writes.
+demo-v4hook:
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: ${MAINNET_RPC}
+    - chain-name: ethereum-testnet-sepolia
+      url: ${SEPOLIA_RPC}

@@ -22416,8 +22416,8 @@ function evidenceBundle(e) {
 function evidenceHash(e) {
   return keccak256(stringToHex(JSON.stringify(evidenceBundle(e))));
 }
-function assess(r, peers, cfg, offchain) {
-  const sources = sourcesFor(r, offchain);
+function assess(r, peers, cfg, offchain, extra = []) {
+  const sources = [...sourcesFor(r, offchain), ...extra];
   const built = buildBand(sources, { ...cfg, asOf: BigInt(r.timestamp) });
   const debtPrice = debtPriceEth(r);
   const band = built === INCONCLUSIVE ? INCONCLUSIVE : { collateral: built, debt: fixedBand(debtPrice) };
@@ -22456,6 +22456,24 @@ function encodeReport(report) {
   }
   return encodeAbiParameters(REPORT_PARAMS, [report]);
 }
+var DEMO_ENGINE = "demo-v4hook";
+var HOOK_SOURCE_NAME = "S4 v4 hook (synthetic demo pool)";
+function assertHookAllowed(cfg) {
+  const demo = cfg.engine.name === DEMO_ENGINE;
+  if (cfg.v4Hook && !demo)
+    throw new Error("v4Hook source is only allowed in the demo-v4hook config");
+  if (cfg.v4Hook && cfg.v4Hook.synthetic !== true)
+    throw new Error("v4Hook source must be marked synthetic");
+  if (demo && !cfg.v4Hook)
+    throw new Error("demo-v4hook config needs a v4Hook source");
+  if (demo && cfg.dryRun !== true)
+    throw new Error("demo-v4hook config must be a dry run");
+}
+function hookSource(band, nowSec, eventTimestamp, cfg) {
+  if (!band || band.count < cfg.minObservations || nowSec - band.lastObservedAt > cfg.maxAgeSec)
+    return null;
+  return { name: HOOK_SOURCE_NAME, price: priceAtTick(band.twapTick), timestamp: BigInt(eventTimestamp) };
+}
 var poolAbi = parseAbi([
   "struct CollateralConfig { uint16 ltv; uint16 liquidationThreshold; uint16 liquidationBonus; }",
   "struct ReserveConfigurationMap { uint256 data; }",
@@ -22473,6 +22491,12 @@ var oracleAbi = parseAbi(["function getAssetPrice(address asset) view returns (u
 var wstEthAbi = parseAbi(["function stEthPerToken() view returns (uint256)"]);
 var feedAbi = parseAbi(["function latestAnswer() view returns (int256)"]);
 var uniswapAbi = parseAbi(["function observe(uint32[] secondsAgos) view returns (int56[] tickCumulatives, uint160[] secondsPerLiquidityCumulativeX128s)"]);
+var hookAbi = parseAbi([
+  "struct PoolKey { address currency0; address currency1; uint24 fee; int24 tickSpacing; address hooks; }",
+  "struct Band { int24 twapTick; int24 minTick; int24 maxTick; uint32 count; uint32 coveredSeconds; uint32 lastObservedAt; }",
+  "function getBand(PoolKey key, uint32 window) view returns (Band)"
+]);
+var clockAbi = parseAbi(["function getCurrentBlockTimestamp() view returns (uint256)"]);
 var multicallAbi = parseAbi([
   "struct Call3 { address target; bool allowFailure; bytes callData; }",
   "struct Result { bool success; bytes returnData; }",
@@ -22499,7 +22523,7 @@ function multicall(runtime, client, reads, block) {
       to: runtime.config.multicall3,
       data: encodeFunctionData({ abi: multicallAbi, functionName: "aggregate3", args: [calls] })
     }),
-    blockNumber: blockNumber(block)
+    ...block === undefined ? {} : { blockNumber: blockNumber(block) }
   }).result();
   const results = decodeFunctionResult({ abi: multicallAbi, functionName: "aggregate3", data: bytesToHex3(reply.data) });
   return results.map((r, i) => r.success ? decodeFunctionResult({ abi: reads[i].abi, functionName: reads[i].functionName, data: r.returnData }) : undefined);
@@ -22581,8 +22605,22 @@ function fromReceipt(logs, log, market, user, treasury) {
     throw new Error("liquidation not found in its receipt");
   return { logIndex: match.logIndex, fee: findProtocolFee(logs, match.logIndex, market.aToken, user, treasury) };
 }
+function hookSources(runtime, timestamp) {
+  const cfg = runtime.config;
+  if (!cfg.v4Hook)
+    return [];
+  const [band, now] = multicall(runtime, evmClient(cfg.v4Hook.chain), [
+    { target: cfg.v4Hook.hook, abi: hookAbi, functionName: "getBand", args: [cfg.v4Hook.poolKey, cfg.v4Hook.windowSec], allowFailure: true },
+    { target: cfg.multicall3, abi: clockAbi, functionName: "getCurrentBlockTimestamp" }
+  ]);
+  const source = hookSource(band, Number(now), timestamp, cfg.v4Hook);
+  if (!source)
+    runtime.log("v4 hook source unavailable: no band, too few observations or too old");
+  return source ? [source] : [];
+}
 function onLiquidation(runtime, log) {
   const cfg = runtime.config;
+  assertHookAllowed(cfg);
   const raw = hexLog(log);
   const decoded = decodeEventLog({ abi: liquidationAbi, data: raw.data, topics: raw.topics });
   const a = decoded.args;
@@ -22696,9 +22734,25 @@ function onLiquidation(runtime, log) {
   }
   const offchain = offchainPrices(runtime, timestamp);
   const engine = engineConfig(cfg);
-  const result = assess(facts, peers, engine, offchain);
+  const result = assess(facts, peers, engine, offchain, hookSources(runtime, timestamp));
   const { band, outcome } = result;
   const ok = band !== INCONCLUSIVE;
+  if (cfg.dryRun) {
+    const demo = JSON.stringify({
+      synthetic: true,
+      written: false,
+      config: cfg.engine.name,
+      tx: txHash,
+      logIndex: own.logIndex,
+      verdict: VerdictType[outcome.verdict],
+      bandLow: ok ? band.collateral.low.toString() : "0",
+      bandHigh: ok ? band.collateral.high.toString() : "0",
+      sources: result.sources.map((s) => `${s.name}=${s.price}`),
+      redress: result.redress.toString()
+    });
+    runtime.log(`REDRESS_DEMO ${demo}`);
+    return demo;
+  }
   const reportHex = encodeReport({
     liquidationTx: txHash,
     logIndex: own.logIndex,

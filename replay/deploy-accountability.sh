@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Deploys the bond, ledger and hook on Sepolia against the existing vault, verifies them on
+# Deploys the bond and ledger on Sepolia against the existing vault, verifies them on
 # Etherscan and adds them to deployments/sepolia.json. Testnet only.
 cd "$(dirname "$0")/.."
 set -a; . <(tr -d '\r' < .env); set +a
@@ -26,37 +26,18 @@ broadcast() {
 if [ -z "$(read_field operatorBond)" ]; then
   broadcast script/DeployAccountability.s.sol --verify --etherscan-api-key "${ETHERSCAN_API_KEY:-}"
 fi
-if [ -z "$(read_field bandOracleHook)" ]; then
-  broadcast script/DeployHook.s.sol --verify --etherscan-api-key "${ETHERSCAN_API_KEY:-}"
-fi
-
 python - <<'PY'
 import json
 path = "deployments/sepolia.json"
 d = json.load(open(path))
-def created(script):
-    run = json.load(open(f"contracts/broadcast/{script}/11155111/run-latest.json"))
-    return [t for t in run["transactions"] if t["transactionType"] in ("CREATE", "CREATE2")]
-for t in created("DeployAccountability.s.sol"):
-    d[{"OperatorBond": "operatorBond", "RecoveryLedger": "recoveryLedger"}[t["contractName"]]] = t["contractAddress"]
-for t in created("DeployHook.s.sol"):
-    if t["contractName"] == "BandOracleHook":
-        d["bandOracleHook"] = t["contractAddress"]
-    elif t["contractName"] == "MockWETH":
-        d["hookPoolOtherToken"] = t["contractAddress"]
-a, b = sorted([d["payoutAsset"], d["hookPoolOtherToken"]], key=lambda x: int(x, 16))
-d["hookPool"] = {"token0": a, "token1": b, "fee": 3000, "tickSpacing": 60}
-d["uniswapPoolManager"] = "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543"
+run = json.load(open("contracts/broadcast/DeployAccountability.s.sol/11155111/run-latest.json"))
+for t in run["transactions"]:
+    if t["transactionType"] == "CREATE":
+        d[{"OperatorBond": "operatorBond", "RecoveryLedger": "recoveryLedger"}[t["contractName"]]] = t["contractAddress"]
 json.dump(d, open(path, "w"), indent=2)
 PY
 
-export TOKEN0 TOKEN1 HOOK
-TOKEN0=$(python -c "import json;print(json.load(open('deployments/sepolia.json'))['hookPool']['token0'])")
-TOKEN1=$(python -c "import json;print(json.load(open('deployments/sepolia.json'))['hookPool']['token1'])")
-HOOK=$(read_field bandOracleHook)
-broadcast script/SwapHookPool.s.sol
-
-for name in operatorBond recoveryLedger bandOracleHook; do
+for name in operatorBond recoveryLedger; do
   [ "$(cast code "$(read_field $name)" --rpc-url "$RPC")" != 0x ] || { echo "$name has no code"; exit 1; }
 done
-echo "deployed: bond $(read_field operatorBond), ledger $(read_field recoveryLedger), hook $HOOK"
+echo "deployed: bond $(read_field operatorBond), ledger $(read_field recoveryLedger)"

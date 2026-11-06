@@ -11,12 +11,15 @@ import {
   type Address, type Hex,
 } from "viem";
 import config from "./config.fork.json";
+import forkConfig from "./config.fork.json";
+import sepoliaConfig from "./config.sepolia.json";
 import incident from "../../replay/data/incident-reads.json";
 import offchainFile from "../../replay/data/offchain-prices.json";
 import results from "../../replay/out/results-default.json";
 import { multicallAbi, onLiquidation, ratioE18, type Config } from "./handler";
 import { LIQUIDATION_TOPIC } from "./position";
 import { REPORT_PARAMS } from "./report";
+import { DEMO_ENGINE, HOOK_SOURCE_NAME } from "./v4hook";
 
 const cfg = config as unknown as Config;
 const selector = getNetwork({ chainFamily: "evm", chainSelectorName: cfg.readChain })!.chainSelector.selector;
@@ -272,6 +275,81 @@ describe("failure", () => {
     install(first);
     EvmMock.testInstance(selector).writeReport = () => ({ txStatus: 1, errorMessage: "reverted" }) as never;
     expect(() => run(first)).toThrow("report write failed");
+  });
+});
+
+describe("v4Hook demo source", () => {
+  const sepolia = getNetwork({ chainFamily: "evm", chainSelectorName: "ethereum-testnet-sepolia" })!.chainSelector.selector;
+  const hookAddress: Address = "0x00000000000000000000000000000000000010c0";
+  const zero: Address = "0x0000000000000000000000000000000000000000";
+  const v4Hook = {
+    type: "v4Hook", chain: "ethereum-testnet-sepolia", hook: hookAddress,
+    poolKey: { currency0: zero, currency1: zero, fee: 3000, tickSpacing: 60, hooks: hookAddress },
+    windowSec: 1800, minObservations: 5, maxAgeSec: 3600, synthetic: true,
+  } as const;
+  const demo: Partial<Config> = { v4Hook, dryRun: true, engine: { ...cfg.engine, name: DEMO_ENGINE } };
+  const NOW = 2_000_000_000n;
+  const bandWord = (tick: number, count: number, age: bigint) =>
+    encodeAbiParameters(
+      [{ type: "int24" }, { type: "int24" }, { type: "int24" }, { type: "uint32" }, { type: "uint32" }, { type: "uint32" }],
+      [tick, tick - 50, tick + 50, count, 1800, Number(NOW - age)],
+    );
+
+  function installHook(band: Hex | null) {
+    EvmMock.testInstance(sepolia).callContract = () => ({
+      data: hexToBytes(encodeFunctionResult({
+        abi: multicallAbi,
+        functionName: "aggregate3",
+        result: [
+          { success: band !== null, returnData: band ?? "0x" },
+          { success: true, returnData: encodeAbiParameters([{ type: "uint256" }], [NOW]) },
+        ],
+      })),
+    }) as never;
+  }
+
+  test("a fresh band joins the sources and nothing is written", () => {
+    const seen = install(first);
+    installHook(bandWord(2052, 7, 60n));
+    const out = run(first, demo);
+    expect(out.synthetic).toBe(true);
+    expect(out.written).toBe(false);
+    expect(out.sources.some((s: string) => s.startsWith(HOOK_SOURCE_NAME))).toBe(true);
+    expect(seen.report).toBeUndefined();
+  });
+
+  test("too few observations drops the source", () => {
+    install(first);
+    installHook(bandWord(2052, 4, 60n));
+    expect(run(first, demo).sources.some((s: string) => s.startsWith(HOOK_SOURCE_NAME))).toBe(false);
+  });
+
+  test("an old band drops the source", () => {
+    install(first);
+    installHook(bandWord(2052, 7, 3601n));
+    expect(run(first, demo).sources.some((s: string) => s.startsWith(HOOK_SOURCE_NAME))).toBe(false);
+  });
+
+  test("a reverting hook drops the source rather than failing the verdict", () => {
+    install(first);
+    installHook(null);
+    expect(run(first, demo).sources.some((s: string) => s.startsWith(HOOK_SOURCE_NAME))).toBe(false);
+  });
+
+  test("a replay config with a hook source is refused", () => {
+    install(first);
+    expect(() => run(first, { v4Hook })).toThrow("only allowed in the demo-v4hook config");
+  });
+
+  test("the demo config must be a dry run", () => {
+    install(first);
+    expect(() => run(first, { ...demo, dryRun: false })).toThrow("must be a dry run");
+  });
+
+  test("the incident configs carry no hook source", () => {
+    expect(forkConfig).not.toHaveProperty("v4Hook");
+    expect(sepoliaConfig).not.toHaveProperty("v4Hook");
+    expect(sepoliaConfig).not.toHaveProperty("dryRun");
   });
 });
 

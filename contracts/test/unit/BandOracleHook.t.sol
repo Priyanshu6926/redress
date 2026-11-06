@@ -10,6 +10,7 @@ import {TickMath} from "@uniswap/v4-core/src/libraries/TickMath.sol";
 import {PoolKey} from "@uniswap/v4-core/src/types/PoolKey.sol";
 import {SwapParams} from "@uniswap/v4-core/src/types/PoolOperation.sol";
 import {PoolSwapTest} from "@uniswap/v4-core/src/test/PoolSwapTest.sol";
+import {BaseHook} from "@openzeppelin/uniswap-hooks/src/base/BaseHook.sol";
 import {BandOracleHook} from "../../src/hooks/BandOracleHook.sol";
 
 contract BandOracleHookTest is Test, Deployers {
@@ -168,6 +169,25 @@ contract BandOracleHookTest is Test, Deployers {
         assertEq(band.lastObservedAt, 1_000_000 + (cardinality + 5) * 12);
     }
 
+    function test_singleLargeSwapMovesLongWindowTwapOnlySlightly() public {
+        vm.warp(1_000_000 + 3_588);
+        _swap(true, -0.02 ether); // a large swap, then one 12-second block at that price
+        int24 moved = _tick();
+        assertLt(moved, -100, "the swap must be large against this pool");
+
+        vm.warp(1_000_000 + 3_600);
+        _swap(false, -0.021 ether); // the attacker unwinds
+
+        BandOracleHook.Band memory band = hook.getBand(poolKey, 3_600);
+        assertEq(band.minTick, moved, "the band must still show the excursion");
+        // 12 of 3,600 seconds at the moved tick: the TWAP moves by about 1/300 of it.
+        assertLe(_abs(band.twapTick) * 100, _abs(moved), "TWAP must move under 1% of the spot move");
+    }
+
+    function _abs(int24 x) private pure returns (uint256) {
+        return x < 0 ? uint256(uint24(-x)) : uint256(uint24(x));
+    }
+
     function test_revertsOnUnknownPool() public {
         PoolKey memory unknown = poolKey;
         unknown.fee = 500;
@@ -182,12 +202,12 @@ contract BandOracleHookTest is Test, Deployers {
 
     function test_onlyPoolManagerCanRecord() public {
         SwapParams memory params;
-        vm.expectRevert(BandOracleHook.NotPoolManager.selector);
+        vm.expectRevert(BaseHook.NotPoolManager.selector);
         hook.beforeSwap(address(this), poolKey, params, "");
     }
 
     function test_constructorRejectsAnAddressWithoutTheFlags() public {
-        vm.expectRevert(BandOracleHook.WrongHookAddress.selector);
+        vm.expectPartialRevert(Hooks.HookAddressNotValid.selector);
         new BandOracleHook(manager);
     }
 }

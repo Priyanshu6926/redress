@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {IHooks} from "@uniswap/v4-core/src/interfaces/IHooks.sol";
+import {BaseHook} from "@openzeppelin/uniswap-hooks/src/base/BaseHook.sol";
 import {IPoolManager} from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
 import {Hooks} from "@uniswap/v4-core/src/libraries/Hooks.sol";
 import {StateLibrary} from "@uniswap/v4-core/src/libraries/StateLibrary.sol";
-import {BalanceDelta} from "@uniswap/v4-core/src/types/BalanceDelta.sol";
 import {BeforeSwapDelta, BeforeSwapDeltaLibrary} from "@uniswap/v4-core/src/types/BeforeSwapDelta.sol";
 import {PoolId, PoolIdLibrary} from "@uniswap/v4-core/src/types/PoolId.sol";
 import {PoolKey} from "@uniswap/v4-core/src/types/PoolKey.sol";
-import {ModifyLiquidityParams, SwapParams} from "@uniswap/v4-core/src/types/PoolOperation.sol";
+import {SwapParams} from "@uniswap/v4-core/src/types/PoolOperation.sol";
 
 /// @notice Gives any v4 pool a price band: a time-weighted tick plus the lowest and highest
 /// ticks seen over a window, so a market can read an independent band with no external oracle.
@@ -22,8 +21,9 @@ import {ModifyLiquidityParams, SwapParams} from "@uniswap/v4-core/src/types/Pool
 /// `count` and `lastObservedAt` expose. Observations live in a ring, so a window longer than
 /// the ring's history is served from what remains, reported through `coveredSeconds`.
 ///
-/// Implements IHooks directly: BaseHook is no longer part of v4-periphery.
-contract BandOracleHook is IHooks {
+/// BaseHook comes from OpenZeppelin uniswap-hooks, as in Uniswap's v4-template. It left
+/// v4-periphery in commit 5da22e60.
+contract BandOracleHook is BaseHook {
     using PoolIdLibrary for PoolKey;
     using StateLibrary for IPoolManager;
 
@@ -44,37 +44,20 @@ contract BandOracleHook is IHooks {
         uint32 lastObservedAt;
     }
 
-    error NotPoolManager();
-    error HookNotImplemented();
     error UnknownPool();
     error ZeroWindow();
-    error WrongHookAddress();
 
     event ObservationRecorded(PoolId indexed poolId, uint32 timestamp, int24 tick);
-
-    IPoolManager public immutable poolManager;
 
     mapping(PoolId poolId => Observation[1024] ring) private observations;
     mapping(PoolId poolId => uint16 newest) private newestIndex;
     mapping(PoolId poolId => uint16 stored) private storedCount;
 
-    modifier onlyPoolManager() {
-        if (msg.sender != address(poolManager)) revert NotPoolManager();
-        _;
-    }
+    constructor(IPoolManager manager) BaseHook(manager) {}
 
-    constructor(IPoolManager manager) {
-        poolManager = manager;
-        Hooks.Permissions memory p;
-        p.afterInitialize = true;
-        p.beforeSwap = true;
-        if (!_hasExactFlags(p)) revert WrongHookAddress();
-    }
-
-    function _hasExactFlags(Hooks.Permissions memory p) private view returns (bool) {
-        return Hooks.hasPermission(IHooks(address(this)), Hooks.AFTER_INITIALIZE_FLAG) == p.afterInitialize
-            && Hooks.hasPermission(IHooks(address(this)), Hooks.BEFORE_SWAP_FLAG) == p.beforeSwap
-            && uint160(address(this)) & Hooks.ALL_HOOK_MASK == Hooks.AFTER_INITIALIZE_FLAG | Hooks.BEFORE_SWAP_FLAG;
+    function getHookPermissions() public pure override returns (Hooks.Permissions memory permissions) {
+        permissions.afterInitialize = true;
+        permissions.beforeSwap = true;
     }
 
     function observationCount(PoolKey calldata key) external view returns (uint16) {
@@ -130,25 +113,21 @@ contract BandOracleHook is IHooks {
             : _floorDiv(endCumulative - startCumulative, int56(uint56(band.coveredSeconds)));
     }
 
-    function afterInitialize(address, PoolKey calldata key, uint160, int24 tick)
-        external
-        onlyPoolManager
-        returns (bytes4)
-    {
+    function _afterInitialize(address, PoolKey calldata key, uint160, int24 tick) internal override returns (bytes4) {
         PoolId id = key.toId();
         observations[id][0] = Observation(uint32(block.timestamp), tick, 0);
         storedCount[id] = 1;
         emit ObservationRecorded(id, uint32(block.timestamp), tick);
-        return IHooks.afterInitialize.selector;
+        return this.afterInitialize.selector;
     }
 
-    function beforeSwap(address, PoolKey calldata key, SwapParams calldata, bytes calldata)
-        external
-        onlyPoolManager
+    function _beforeSwap(address, PoolKey calldata key, SwapParams calldata, bytes calldata)
+        internal
+        override
         returns (bytes4, BeforeSwapDelta, uint24)
     {
         _record(key.toId());
-        return (IHooks.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
+        return (this.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
     }
 
     function _record(PoolId id) private {
@@ -175,71 +154,5 @@ contract BandOracleHook is IHooks {
         int56 q = a / b;
         if (a < 0 && a % b != 0) q--;
         return int24(q);
-    }
-
-    function beforeInitialize(address, PoolKey calldata, uint160) external pure returns (bytes4) {
-        revert HookNotImplemented();
-    }
-
-    function beforeAddLiquidity(address, PoolKey calldata, ModifyLiquidityParams calldata, bytes calldata)
-        external
-        pure
-        returns (bytes4)
-    {
-        revert HookNotImplemented();
-    }
-
-    function afterAddLiquidity(
-        address,
-        PoolKey calldata,
-        ModifyLiquidityParams calldata,
-        BalanceDelta,
-        BalanceDelta,
-        bytes calldata
-    ) external pure returns (bytes4, BalanceDelta) {
-        revert HookNotImplemented();
-    }
-
-    function beforeRemoveLiquidity(address, PoolKey calldata, ModifyLiquidityParams calldata, bytes calldata)
-        external
-        pure
-        returns (bytes4)
-    {
-        revert HookNotImplemented();
-    }
-
-    function afterRemoveLiquidity(
-        address,
-        PoolKey calldata,
-        ModifyLiquidityParams calldata,
-        BalanceDelta,
-        BalanceDelta,
-        bytes calldata
-    ) external pure returns (bytes4, BalanceDelta) {
-        revert HookNotImplemented();
-    }
-
-    function afterSwap(address, PoolKey calldata, SwapParams calldata, BalanceDelta, bytes calldata)
-        external
-        pure
-        returns (bytes4, int128)
-    {
-        revert HookNotImplemented();
-    }
-
-    function beforeDonate(address, PoolKey calldata, uint256, uint256, bytes calldata)
-        external
-        pure
-        returns (bytes4)
-    {
-        revert HookNotImplemented();
-    }
-
-    function afterDonate(address, PoolKey calldata, uint256, uint256, bytes calldata)
-        external
-        pure
-        returns (bytes4)
-    {
-        revert HookNotImplemented();
     }
 }

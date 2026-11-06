@@ -9,13 +9,17 @@
   "forwarderKind": "MockKeystoneForwarder",
   "operatorBond": "0xbd41374a100de606970fa787033e7eda97688cca",
   "recoveryLedger": "0x0e11c9be0b6d88c0b5ebb05eb1150181a578060a",
-  "bandOracleHook": "0x301eb55a7d1e5528771857aceef4714af34b5080",
+  "bandOracleHook": "0xc555e1ca0a109a1f02d238455ff4feda7ba5d080",
   "hookPoolOtherToken": "0x22a30c5c890bd5c3edd0dbe43a5b8b2c3adf1626",
   "hookPool": {
     "token0": "0x22a30c5c890bd5c3edd0dbe43a5b8b2c3adf1626",
     "token1": "0xa193cae8762aeedcbf4d73c96369b54e5100fba4",
     "fee": 3000,
-    "tickSpacing": 60
+    "tickSpacing": 60,
+    "synthetic": true
   },
-  "uniswapPoolManager": "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543"
+  "uniswapPoolManager": "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543",
+  "supersededHooks": [
+    "0x301eb55a7d1e5528771857aceef4714af34b5080"
+  ]
 }
