@@ -49,6 +49,7 @@
 | Root cause | `snapshotRatio` could rise only 3% per 3 days on-chain, so it was set to ~1.1919 instead of the target ~1.2282, while `snapshotTimestamp` (1772535647, which is 2026-03-03 11:00:47 UTC `[DERIVED]`) assumed the full 7-day-old anchor | `[PRIMARY]` |
 | Effect | CAPO cap computed ~1.1939 against a live rate ~1.2288, an effective drop of ~2.85% | `[PRIMARY]` |
 | Liquidations | ~10,938 wstETH, 34 accounts, E-Mode, positions with health factor below ~1.0288 | `[PRIMARY]` |
+| Liquidations, on-chain | 47 WETH-debt events; 34 positions held by 33 addresses (`0x5e1b…2170` was liquidated in both Core and Prime); 10,938.58 wstETH in `liquidatedCollateralAmount` plus 10.84 wstETH protocol fee = 10,949.42 wstETH taken from users; one 0.038 wstETH position was outside E-Mode | Chain, `replay/data/verification-report.txt` |
 | Volume | ~$26M to $27.8M depending on source | `[REPORTED]` |
 | Value moved to liquidators | ~382 ETH from the price gap plus ~116 ETH in bonuses and fees (post-mortem); ARFC table: 382.76 ETH oracle profit + 129.72 ETH bonus | `[PRIMARY]` |
 | Protocol bad debt | None | `[PRIMARY]` |
@@ -191,13 +192,13 @@ This section is the product. Everything else exists to run it, show it, or fund 
 | `u` | Liquidated borrower |
 | `c`, `d` | Collateral asset, debt asset of the liquidation |
 | `X` | `debtToCover`: debt repaid by the liquidator (units of `d`) |
-| `C` | `liquidatedCollateralAmount`: collateral seized (units of `c`) |
-| `b` | Liquidation bonus applicable to the position (e.g. 1% in E-Mode) |
+| `C` | Gross collateral taken from the user (units of `c`): `liquidatedCollateralAmount` **plus** the liquidation protocol fee, which the event excludes. The fee is read from the aToken transfer to the treasury |
+| `b` | Liquidation bonus applicable to the position, read per position. On-chain: 1% in E-Mode in both markets |
 | `p_c^o`, `p_d^o` | Prices Aave's oracle used at the block |
 | `[p_c^L, p_c^H]` | Independent price band for the collateral |
 | `[p_d^L, p_d^H]` | Independent price band for the debt asset |
 | `A`, `D` | Borrower's collateral and debt balances just before this liquidation |
-| `LT` | Effective liquidation threshold (E-Mode value if the user is in an E-Mode category) |
+| `LT` | Effective liquidation threshold (E-Mode value if the user is in an E-Mode category), read per market. On-chain E-Mode category 1: Core 95.0%, Prime 96.5% |
 | `τ` | Gate tolerance in basis points |
 | `HF(p)` | `(A · p_c · LT) / (D · p_d)` |
 
@@ -210,7 +211,7 @@ Prices are expressed in one numeraire per market (ETH for ETH-correlated E-Mode,
 | # | Source | How it is read | Notes |
 |---|---|---|---|
 | S1 | Lido fundamental rate | `wstETH.stEthPerToken()` at the block, times a stETH/ETH market value (Chainlink stETH/ETH feed, which has a coarse 2% deviation threshold, so only used as a sanity multiplier) | Deterministic and on-chain. This is the rate CAPO caps, so S1 alone is never enough `[DECISION]` |
-| S2 | Uniswap v3 wstETH/WETH TWAP | `observe([window, 0])` on the deepest pool (selected by script, Section 17) | Market truth, manipulation-resistant with a 30-minute window |
+| S2 | Uniswap v3 wstETH/WETH TWAP | `observe([window, 0])` on the deepest pool, `0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa` (0.01% fee) | Market truth, manipulation-resistant with a 30-minute window |
 | S3 | Off-chain aggregator #1 | CRE HTTP client (for example a public price API) | Gives independence from on-chain sources |
 | S4 | Off-chain aggregator #2 | CRE HTTP client | Second off-chain opinion |
 
@@ -233,12 +234,12 @@ gate = ( p_c^o < p_c^L · (1 − τ) )  OR  ( p_d^o > p_d^H · (1 + τ) )
 ```
 
 - Default `τ` = 75 bps for ETH-correlated pairs; per-asset config. For volatile assets `τ` must exceed the feed's own deviation threshold plus market noise `[DECISION]`.
-- Incident check: oracle 1.193957 against market 1.228849 is a 2.84% gap `[DERIVED]`, about 38 times `τ`.
+- Incident check: oracle 1.193946 against the Lido rate 1.228848, both read at the execution block, is a 2.84% gap `[DERIVED]`, about 38 times `τ`. Sources quoted 1.193957 and 1.228849.
 - If the gate is false, the liquidation is recorded as `VALID` without the expensive verdict path. In live mode this keeps CRE usage low.
 
 ### 6.4 Interval verdict
 
-Each liquidation's pre-state is rebuilt from `A` and `D` at block `B-1`, adjusted by earlier liquidations of the same user in the same block (ordered by block and log index): `A_k = A_0 − ΣC_prev`, `D_k = D_0 − ΣX_prev`.
+Each liquidation's pre-state is rebuilt from `A` and `D` at block `B-1`, adjusted by earlier liquidations of the same user in the same market and block (ordered by block and log index): `A_k = A_0 − ΣC_prev`, `D_k = D_0 − ΣX_prev`. `C` is gross, so the fee is subtracted too. Positions are keyed by market and user, because one address can hold a position in each market.
 
 ```
 HF_best  = HF(p_c^H, p_d^L)      // most favourable to the borrower
@@ -256,7 +257,7 @@ Why intervals: the verdict never depends on a single price. If any price inside 
 
 ### 6.5 Redress amount: the provable floor
 
-Net-worth loss of the borrower is the collateral value taken minus the debt value relieved:
+Net-worth loss of the borrower is the collateral value taken minus the debt value relieved. `C` is gross (Section 6.1): the protocol fee left the borrower too, and `Entitlement` below is also a gross amount, so an event-only `C` would underpay every `EXCESS` case.
 
 ```
 Loss(p) = C · p_c − X · p_d
@@ -275,23 +276,25 @@ VALID:      Redress = 0
 - Paid in the debt asset (WETH in the incident) because that is what the DAO paid `[DECISION]`.
 - **True-up (Should).** After the TWAP window closes, a second report may pay `Loss(median) − already paid`, capped at the upper bound of the loss interval. In the incident the band is narrow (well under 0.1% `[DECISION target]`), so floor ≈ median.
 
-### 6.6 Back-of-envelope reproduction of the DAO refund `[DERIVED]`
+### 6.6 Reproduction of the DAO refund from chain data `[DERIVED]`
 
-Using the public aggregate figures (E-Mode ETH-correlated bonus inferred as 1%; checked below):
+Summed over the 47 WETH-debt liquidation events, valuing wstETH at the Lido rate read at each block and treating 1 stETH as 1 ETH:
 
 ```
-C        = 10,938 wstETH
-p_true   = 1.228849        (market rate quoted by sources)
-p_oracle = 1.193957        (rate Aave used)
+X (debt repaid)                 = 12,943.59 WETH
+C event amounts                 = 10,938.58 wstETH
+Protocol fee                    =     10.84 wstETH  = 13.32 ETH   (DAO fee line: 13.32)
+C gross                         = 10,949.42 wstETH
 
-Oracle profit = C · (p_true − p_oracle)           = 381.65 ETH   (DAO table: 382.76; −0.29%)
-X             = C · p_oracle / (1 + b), b = 1%    = 12,930.2 ETH
-Bonus value   = X · b                              = 129.30 ETH   (DAO table: 129.72; −0.32%)
-Net loss      = C · p_true − X                     = 510.95 ETH   (DAO table sum 512.48: −0.30%; headline 512.19: −0.24%)
-Redress / collateral value                         ≈ 3.8%
+Oracle gap  = C · (p_true − p_oracle)  = 382.16 ETH   (DAO table: 382.76; −0.16%)
+Bonus value = C · p_oracle − X         = 129.44 ETH   (DAO table: 129.72; −0.22%)
+Net loss    = C · p_true − X           = 511.60 ETH   (DAO table sum 512.48: −0.17%; headline 512.19: −0.12%)
+Net loss / collateral value            ≈ 3.80%
 ```
 
-A 1.05% or 2% bonus does not fit (517 or 638 ETH), which is the evidence for 1%. `[VERIFY]` the E-Mode bonus on-chain. The same formula as the DAO's manual accounting, now automatic and per user. The real backtest replaces these aggregates with 34 per-liquidation computations.
+Using the event amount alone gives 498.27 ETH, because it omits the fee.
+
+**This is the loss at a point price, not the redress.** Redress pays the floor across the band (Section 6.5), which is lower by about `C · (p_true − p_c^L)`. With `μ` = 10 bps and a TWAP a few bps under the Lido rate, that gap is about 3.5% of the loss, so the floor alone is expected to land outside ±2% of the DAO figure. The scorecard therefore reports the floor and the loss at the band median separately. The true-up in Section 6.5 is what closes the difference.
 
 ### 6.7 Vault payout rules
 
@@ -384,11 +387,11 @@ struct Verdict {
     address collateralAsset;
     address debtAsset;
     uint256 debtToCover;      // X
-    uint256 collateralSeized; // C
+    uint256 collateralSeized; // C, gross of the protocol fee
     uint256 bandLowE18;       // p_c^L (numeraire per collateral unit)
     uint256 bandHighE18;      // p_c^H
     uint256 debtPriceHighE18; // p_d^H
-    uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE
+    uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE, 5 OVERPRICED
     uint8   sourceCount;
     uint256 redress;          // computed off-chain, re-derived on-chain
     bytes32 evidenceHash;     // keccak256 of the Swarm bundle
@@ -410,7 +413,7 @@ The vault re-derives `redress` from the report's fields with `VerdictMath` and r
 **Trigger.** EVM log trigger on Aave `LiquidationCall` for the Core and Prime Pools (limit: 5 addresses per workflow). topic0 `0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37335533e005286` (computed locally from the event signature `[DERIVED]`). In replay, run with `--evm-tx-hash` and `--evm-event-index` `[PRIMARY: CRE docs]`.
 
 **Steps**
-1. Decode the event.
+1. Decode the event. Add the protocol fee from the aToken transfer to the treasury in the same receipt to get gross `C`.
 2. One Multicall3 `aggregate3` read at block `B-1`: user balances (aToken, debt token), E-Mode id and category data, reserve LT.
 3. One Multicall3 read at block `B`: `AaveOracle.getAssetPrice(c, d)`, `stEthPerToken`, Chainlink feed round, Uniswap `observe`.
 4. Two HTTP calls to off-chain aggregators, each with median consensus across DON nodes.
@@ -487,7 +490,7 @@ API (backend): `GET /verdicts`, `GET /incident/:id`, `POST /replay/start` (local
 2. Resolve the oracle at the target block with `getPriceOracle()`. Registries list two different AaveOracle addresses across versions (`0x54586bE62E3c3580375aE3723C145253060Ca0C2` and `0xb56c2F0B653B2e0b10C9b928C8580Ac5Df02C7C7`), so never hard-code it `[VERIFY]`.
 3. Find the block range from timestamps. The off-chain engine submitted the update at about 11:46 UTC on 10 Mar and the execution followed one block later `[REPORTED]`.
 4. Pull every `LiquidationCall` log for `collateralAsset = wstETH` (`0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0`) and `debtAsset = WETH` (`0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2`) via the Etherscan API V2 `logs` endpoint, from the execution block until the realignment block.
-5. Expected result: **34 distinct users, ~10,938 wstETH in total**. Any other count is a bug or a data-source difference to explain in the README.
+5. Expected result: **34 positions (33 distinct addresses), ~10,938 wstETH in event amounts**. Any other count is a bug or a data-source difference to explain in the README.
 6. Store for each liquidation: tx hash, block, log index, user, `X`, `C`, liquidator, builder (block coinbase), and the Aave oracle price at the block.
 
 Known transaction hashes to confirm `[REPORTED]`:
@@ -524,8 +527,8 @@ If re-executing every original transaction proves unstable, fall back to *log re
 
 | Metric | Ground truth / baseline | Target |
 |---|---|---|
-| Classification of the 34 incident accounts | All wrongful (they were healthy at true prices) | 34 / 34 `WRONGFUL` |
-| Total redress | DAO refund 512.19 ETH headline; ARFC table components sum to 512.48 ETH | within ±2% of the DAO figure; the aggregate arithmetic in 6.6 already lands at −0.24% to −0.30% |
+| Classification of the 34 incident positions | All wrongful (they were healthy at true prices) | 34 / 34 `WRONGFUL`. Known risk: the non-E-Mode position started at HF 1.0016, inside the `ε_h` margin once the band is applied, so it may classify `AMBIGUOUS`. Report it; do not tune `ε_h` or `μ` |
+| Total redress | DAO refund 512.19 ETH headline; ARFC table components sum to 512.48 ETH | Loss at the band median within ±2% of the DAO figure (6.6 lands at −0.12% to −0.17%). The provable floor is reported beside it and is expected to be lower |
 | Per-user accounting | None published by the DAO | 34 per-user rows with evidence links |
 | Detection latency | LlamaRisk detected within minutes; the ARFC came the next day | ≤ 2 blocks after the first `LiquidationCall` |
 | Time to payout | ~3 weeks (10 Mar → ~1 Apr) | Same transaction as the attestation, after `N=2` confirmations |
@@ -825,7 +828,7 @@ Pass condition: no `[VERIFY]` left in the README, and the script's output commit
 
 ## Appendix A: Worked example (one victim, illustrative)
 
-Numbers below are constructed to be consistent with the incident rates; they are **not** one of the 34 real accounts. LT = 0.955 is an assumed E-Mode value (`[VERIFY]`).
+Numbers below are constructed to be consistent with the incident rates; they are **not** one of the 34 real positions. LT = 0.955 is illustrative and kept as a fixed test vector: the real values are 0.95 (Core) and 0.965 (Prime). `C` here is gross, consistent with Section 6.1.
 
 | Quantity | Value |
 |---|---|
