@@ -7,6 +7,8 @@
   "scripts": {
     "test": "bun test",
     "typecheck": "tsc --noEmit",
+    "vectors": "python contracts/test/gen_vectors.py",
+    "vectors:random": "bun cre/sentinel-verdict/gen-random-vectors.ts",
     "verify": "bun replay/verify-onchain.mjs",
     "fetch-incident": "bun replay/fetch-incident.ts"
   },

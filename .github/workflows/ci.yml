@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Generate random parity vectors
+        run: bun run vectors:random
+
       - name: Foundry tests
         working-directory: contracts
         run: forge test -vvv
