@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { Row } from "./evaluate";
-import { assertMatches, eventIndexInTx, parseResult, redact } from "./mirror";
+import { isCredentialTimeout, assertMatches, eventIndexInTx, parseResult, redact } from "./mirror";
 
 test("redact removes every secret and ignores unset ones", () => {
   expect(redact("rpc https://x/key and pk 0xabc", ["https://x/key", undefined, "0xabc"])).toBe("rpc [redacted] and pk [redacted]");
@@ -42,5 +42,19 @@ describe("assertMatches", () => {
   test("stops on any difference", () => {
     expect(() => assertMatches(row, { verdict: "WRONGFUL", redress: "6" })).toThrow();
     expect(() => assertMatches(row, { verdict: "AMBIGUOUS", redress: "5" })).toThrow();
+  });
+});
+
+describe("isCredentialTimeout", () => {
+  test("retries a failed login check", () => {
+    expect(isCredentialTimeout("✗ Credential validation failed\ncontext deadline exceeded")).toBe(true);
+  });
+
+  test("never retries a run that reached the workflow", () => {
+    expect(isCredentialTimeout("Credential validation failed\nREDRESS_RESULT {}")).toBe(false);
+  });
+
+  test("never retries any other failure", () => {
+    expect(isCredentialTimeout("report write failed: status 1")).toBe(false);
   });
 });

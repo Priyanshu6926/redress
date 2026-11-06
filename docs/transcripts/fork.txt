@@ -3,16 +3,16 @@
   HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb
   Binary hash: 0443b633fd01771993bd50fdb95e342e75021325280865a595ac038f7804b2e2
   Config hash: 9d8ae571a7ad533a7d78c29dd2c4442543d55c353a4f26439ef21fa8b48e5cd1
-2026-11-07T03:17:59Z [SIMULATION] Simulator Initialized
+2026-11-07T03:27:44Z [SIMULATION] Simulator Initialized
 
-2026-11-07T03:17:59Z [SIMULATION] Running trigger trigger=evm:ChainSelector:5009297550715157269@1.0.0
+2026-11-07T03:27:44Z [SIMULATION] Running trigger trigger=evm:ChainSelector:5009297550715157269@1.0.0
+2026-11-07T03:27:46Z [USER LOG] REDRESS_RESULT {"config":"default","tx":"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c","logIndex":17,"block":24626860,"market":"Aave Ethereum Market","user":"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f","verdict":"WRONGFUL","hfWorst":"1020552288471107562","hfBest":"1024488899793505928","bandLow":"1225351253669499000","bandHigh":"1230077843059971905","sources":["S1 Lido stEthPerToken=1228848994065905999","S2 Uniswap v3 TWAP 30m=1228494837493714626","S3 defillama=1226577831501000000","S3 coingecko=1045285371266000000"],"redress":"230533099950029831035","peers":0,"oracleAdapter":"0xe1D97bF61901B075E9626c8A2340a7De385861Ef","liquidator":"0xbD32122bAD41A09f2405Bb374A83877d8245079C","builder":"0xdadB0d80178819F2319190D340ce9A924f783711","vaultTx":"0x9cbeee58141f98ad03069031110d0de5c7b9cd6d2efe954c6801170939e4b6f8"}
 
 ✓ Workflow Simulation Result:
-"{\"config\":\"default\",\"tx\":\"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c\",\"logIndex\":17,\"block\":24626860,\"market\":\"Aave Ethereum Market\",\"user\":\"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f\",\"verdict\":\"WRONGFUL\",\"hfWorst\":\"1020552288471107562\",\"hfBest\":\"1024488899793505928\",\"bandLow\":\"1225351253669499000\",\"bandHigh\":\"1230077843059971905\",\"sources\":[\"S1 Lido stEthPerToken=1228848994065905999\",\"S2 Uniswap v3 TWAP 30m=1228494837493714626\",\"S3 defillama=1226577831501000000\",\"S3 coingecko=1045285371266000000\"],\"redress\":\"230533099950029831035\",\"peers\":0,\"oracleAdapter\":\"0xe1D97bF61901B075E9626c8A2340a7De385861Ef\",\"liquidator\":\"0xbD32122bAD41A09f2405Bb374A83877d8245079C\",\"builder\":\"0xdadB0d80178819F2319190D340ce9A924f783711\",\"vaultTx\":\"0x8ad5f9f039d39eee08401264c996c3c3e6456c2dfc66f180f95794405471806f\"}"
+"{\"config\":\"default\",\"tx\":\"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c\",\"logIndex\":17,\"block\":24626860,\"market\":\"Aave Ethereum Market\",\"user\":\"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f\",\"verdict\":\"WRONGFUL\",\"hfWorst\":\"1020552288471107562\",\"hfBest\":\"1024488899793505928\",\"bandLow\":\"1225351253669499000\",\"bandHigh\":\"1230077843059971905\",\"sources\":[\"S1 Lido stEthPerToken=1228848994065905999\",\"S2 Uniswap v3 TWAP 30m=1228494837493714626\",\"S3 defillama=1226577831501000000\",\"S3 coingecko=1045285371266000000\"],\"redress\":\"230533099950029831035\",\"peers\":0,\"oracleAdapter\":\"0xe1D97bF61901B075E9626c8A2340a7De385861Ef\",\"liquidator\":\"0xbD32122bAD41A09f2405Bb374A83877d8245079C\",\"builder\":\"0xdadB0d80178819F2319190D340ce9A924f783711\",\"vaultTx\":\"0x9cbeee58141f98ad03069031110d0de5c7b9cd6d2efe954c6801170939e4b6f8\"}"
 
-2026-11-07T03:18:02Z [SIMULATION] Execution finished signal received
-2026-11-07T03:18:02Z [USER LOG] REDRESS_RESULT {"config":"default","tx":"0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c","logIndex":17,"block":24626860,"market":"Aave Ethereum Market","user":"0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f","verdict":"WRONGFUL","hfWorst":"1020552288471107562","hfBest":"1024488899793505928","bandLow":"1225351253669499000","bandHigh":"1230077843059971905","sources":["S1 Lido stEthPerToken=1228848994065905999","S2 Uniswap v3 TWAP 30m=1228494837493714626","S3 defillama=1226577831501000000","S3 coingecko=1045285371266000000"],"redress":"230533099950029831035","peers":0,"oracleAdapter":"0xe1D97bF61901B075E9626c8A2340a7De385861Ef","liquidator":"0xbD32122bAD41A09f2405Bb374A83877d8245079C","builder":"0xdadB0d80178819F2319190D340ce9A924f783711","vaultTx":"0x8ad5f9f039d39eee08401264c996c3c3e6456c2dfc66f180f95794405471806f"}
-2026-11-07T03:18:02Z [SIMULATION] Skipping WorkflowEngineV2
+2026-11-07T03:27:46Z [SIMULATION] Execution finished signal received
+2026-11-07T03:27:46Z [SIMULATION] Skipping WorkflowEngineV2
 
 ╭──────────────────────────────────────────────────────╮
 │ Simulation complete! Ready to deploy your workflow?  │
@@ -25,4 +25,3 @@ Loading settings...
 Checking RPC connectivity...
 Compiling workflow...
 Fetching transaction receipt for 0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c...
-time=2026-11-07T03:18:03.005+05:30 level=INFO msg="context canceled"

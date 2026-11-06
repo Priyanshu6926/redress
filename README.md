@@ -17,6 +17,7 @@ Replaying the incident from real chain data:
 | Liquidation events | 47, covering 34 positions and 33 addresses |
 | Verdicts | 46 `WRONGFUL`, 1 `AMBIGUOUS`. 33 of 34 positions wrongful on every event |
 | Paid on Sepolia | 473.2955 test WETH to 33 addresses, equal to the offline replay to the wei |
+| Same 47 events on a local fork | 473.2955 WETH through the same workflow, reserve-only vault, equal to the wei |
 | Paid from the bond, then the reserve | 100.0000 and 373.2955 |
 | Against the DAO's 512.19 ETH | Floor paid −7.594%. Midpoint, for comparison only, −2.541% |
 | False positives | 0 on 215 calm and 60 market-crash liquidations |

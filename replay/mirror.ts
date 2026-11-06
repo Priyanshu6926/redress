@@ -20,6 +20,7 @@ const root = join(import.meta.dir, "..");
 const outDir = join(import.meta.dir, "out");
 const ANVIL_KEY = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"; // public development key
 const LOCAL_RPC = "http://127.0.0.1:8545";
+const CREDENTIAL_RETRIES = 4;
 
 const vaultAbi = parseAbi([
   "event Paid(bytes32 indexed liquidationTx, address indexed user, address asset, uint256 amount, uint8 source)",
@@ -58,6 +59,11 @@ export function redact(text: string, secrets: readonly (string | undefined)[]): 
   let out = text;
   for (const s of secrets) if (s) out = out.split(s).join("[redacted]");
   return out;
+}
+
+/** CRE checks the login before it runs anything, so this failure wrote nothing and is safe to retry. Pure. */
+export function isCredentialTimeout(output: string): boolean {
+  return output.includes("Credential validation failed") && !output.includes("REDRESS_RESULT");
 }
 
 /** The workflow's structured result line, from simulator output. Pure. */
@@ -148,12 +154,18 @@ async function main() {
   for (const row of todo) {
     const receipt = await reader.getTransactionReceipt({ hash: row.txHash as Hash });
     const index = eventIndexInTx(receipt.logs, row.logIndex);
-    const sim = run(
+    const simulate = () => run(
       ["workflow", "simulate", "sentinel-verdict", "--target", target, "--broadcast", "--non-interactive",
         "--trigger-index", "0", "--evm-tx-hash", row.txHash, "--evm-event-index", String(index)],
       { CRE_ETH_PRIVATE_KEY: key },
       secrets,
     );
+    let sim = simulate();
+    for (let attempt = 1; attempt <= CREDENTIAL_RETRIES && !sim.ok && isCredentialTimeout(sim.text); attempt++) {
+      console.log(`CRE login check timed out, retrying (${attempt}/${CREDENTIAL_RETRIES})`);
+      await Bun.sleep(attempt * 15_000);
+      sim = simulate();
+    }
     if (mirror.rows.length === 0) {
       mkdirSync(join(root, "docs", "transcripts"), { recursive: true });
       writeFileSync(join(root, "docs", "transcripts", `${target}.txt`), sim.text);
