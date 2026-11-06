@@ -21,7 +21,7 @@ const LIQUIDATION_TOPIC = "0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37
 const debtTokenAbi = parseAbi(["function getReserveVariableDebtToken(address asset) view returns (address)"]);
 const dataDir = join(import.meta.dir, "data");
 
-interface RawLog {
+export interface RawLog {
   address: string;
   topics: string[];
   data: string;
@@ -31,7 +31,7 @@ interface RawLog {
   transactionHash: string;
 }
 
-async function etherscanLogs(address: string, fromBlock: number, toBlock: number, key: string): Promise<RawLog[]> {
+export async function etherscanLogs(address: string, fromBlock: number, toBlock: number, key: string): Promise<RawLog[]> {
   const out: RawLog[] = [];
   let from = fromBlock;
   for (;;) {

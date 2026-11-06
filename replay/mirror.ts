@@ -35,6 +35,11 @@ export interface MirrorRow {
   vaultTx: string;
   paid: boolean;
   queued: boolean;
+  fromBond: string;
+  fromReserve: string;
+  oracleAdapter: string;
+  liquidator: string;
+  builder: string;
 }
 
 export interface Mirror {
@@ -56,7 +61,7 @@ export function redact(text: string, secrets: readonly (string | undefined)[]): 
 }
 
 /** The workflow's structured result line, from simulator output. Pure. */
-export function parseResult(output: string): { verdict: string; redress: string; logIndex: number; user: string; vaultTx: string } {
+export function parseResult(output: string): { verdict: string; redress: string; logIndex: number; user: string; vaultTx: string; oracleAdapter: string; liquidator: string; builder: string } {
   const match = output.match(/REDRESS_RESULT (\{.*\})/);
   if (!match) throw new Error("no REDRESS_RESULT line in simulator output");
   // The simulator may print the line with escaped quotes when echoing the workflow result.
@@ -68,6 +73,19 @@ export function eventIndexInTx(logs: readonly { logIndex: number }[], logIndex: 
   const position = [...logs].sort((a, b) => a.logIndex - b.logIndex).findIndex((l) => l.logIndex === logIndex);
   if (position < 0) throw new Error(`log ${logIndex} not in receipt`);
   return position;
+}
+
+/** What a vault transaction paid, by source: 0 is the bond, 1 is the reserve. Pure. */
+export function paidBySource(events: readonly { eventName: string; args: unknown }[]): { fromBond: bigint; fromReserve: bigint } {
+  let fromBond = 0n;
+  let fromReserve = 0n;
+  for (const e of events) {
+    if (e.eventName !== "Paid") continue;
+    const { amount, source } = e.args as { amount: bigint; source: number };
+    if (source === 0) fromBond += amount;
+    else fromReserve += amount;
+  }
+  return { fromBond, fromReserve };
 }
 
 /** Stops the run if the workflow's result differs from the audited offline replay. Pure. */
@@ -147,13 +165,18 @@ async function main() {
 
     const vaultReceipt = await writer.getTransactionReceipt({ hash: result.vaultTx as Hash });
     const events = parseEventLogs({ abi: vaultAbi, logs: vaultReceipt.logs });
-    const paid = events.find((e) => e.eventName === "Paid");
+    const { fromBond, fromReserve } = paidBySource(events);
+    const paid = fromBond + fromReserve > 0n;
     const queued = events.some((e) => e.eventName === "Queued");
-    if (BigInt(row.redress) > 0n && !queued && (!paid || paid.args.amount !== BigInt(row.redress))) {
+    if (BigInt(row.redress) > 0n && !queued && fromBond + fromReserve !== BigInt(row.redress)) {
       throw new Error(`vault tx ${result.vaultTx} does not show the expected payment`);
     }
 
-    mirror.rows.push({ liquidationTx: row.txHash, logIndex: row.logIndex, user: row.user, verdict: row.verdict, redress: row.redress, vaultTx: result.vaultTx, paid: Boolean(paid), queued });
+    mirror.rows.push({
+      liquidationTx: row.txHash, logIndex: row.logIndex, user: row.user, verdict: row.verdict, redress: row.redress, vaultTx: result.vaultTx, paid, queued,
+      fromBond: fromBond.toString(), fromReserve: fromReserve.toString(),
+      oracleAdapter: result.oracleAdapter, liquidator: result.liquidator, builder: result.builder,
+    });
     mirror.totalPaidWei = mirror.rows.filter((r) => r.paid).reduce((a, r) => a + BigInt(r.redress), 0n).toString();
     mirror.complete = mirror.rows.length === results.incident.length;
     writeFileSync(path, JSON.stringify(mirror, null, 1) + "\n");

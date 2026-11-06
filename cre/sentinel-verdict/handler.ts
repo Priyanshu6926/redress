@@ -64,7 +64,7 @@ const poolAbi = parseAbi([
   "function getEModeCategoryCollateralBitmap(uint8 id) view returns (uint128)",
 ]);
 const tokenAbi = parseAbi(["function balanceOf(address) view returns (uint256)", "function RESERVE_TREASURY_ADDRESS() view returns (address)"]);
-const oracleAbi = parseAbi(["function getAssetPrice(address asset) view returns (uint256)"]);
+const oracleAbi = parseAbi(["function getAssetPrice(address asset) view returns (uint256)", "function getSourceOfAsset(address asset) view returns (address)"]);
 const wstEthAbi = parseAbi(["function stEthPerToken() view returns (uint256)"]);
 const feedAbi = parseAbi(["function latestAnswer() view returns (int256)"]);
 const uniswapAbi = parseAbi(["function observe(uint32[] secondsAgos) view returns (int56[] tickCumulatives, uint160[] secondsPerLiquidityCumulativeX128s)"]);
@@ -73,7 +73,7 @@ const hookAbi = parseAbi([
   "struct Band { int24 twapTick; int24 minTick; int24 maxTick; uint32 count; uint32 coveredSeconds; uint32 lastObservedAt; }",
   "function getBand(PoolKey key, uint32 window) view returns (Band)",
 ]);
-const clockAbi = parseAbi(["function getCurrentBlockTimestamp() view returns (uint256)"]);
+const clockAbi = parseAbi(["function getCurrentBlockTimestamp() view returns (uint256)", "function getCurrentBlockCoinbase() view returns (address)"]);
 export const multicallAbi = parseAbi([
   "struct Call3 { address target; bool allowFailure; bytes callData; }",
   "struct Result { bool success; bytes returnData; }",
@@ -287,7 +287,7 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
     collateralBitmap = bitmap;
   }
 
-  const [oracleCollateral, oracleWeth, lidoRate, chainlink, observed] = multicall(
+  const [oracleCollateral, oracleWeth, lidoRate, chainlink, observed, oracleAdapter, builder] = multicall(
     runtime,
     reader,
     [
@@ -296,9 +296,11 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
       { target: cfg.wstEth, abi: wstEthAbi, functionName: "stEthPerToken" },
       { target: cfg.chainlinkStEthEth, abi: feedAbi, functionName: "latestAnswer" },
       { target: cfg.uniswapPool, abi: uniswapAbi, functionName: "observe", args: [[cfg.twapWindowSec, 0]], allowFailure: true },
+      { target: market.oracle, abi: oracleAbi, functionName: "getSourceOfAsset", args: [cfg.wstEth] },
+      { target: cfg.multicall3, abi: clockAbi, functionName: "getCurrentBlockCoinbase" },
     ],
     B,
-  ) as [bigint, bigint, bigint, bigint, readonly [readonly bigint[], readonly bigint[]] | undefined];
+  ) as [bigint, bigint, bigint, bigint, readonly [readonly bigint[], readonly bigint[]] | undefined, Address, Address];
 
   const receiptLogs = (hash: Uint8Array): RawLog[] => {
     const receipt = reader.getTransactionReceipt(runtime, { hash: hexToBase64(bytesToHex(hash)) }).result().receipt;
@@ -408,6 +410,9 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
     sourceCount: ok ? band.collateral.n : 0,
     redress: result.redress,
     evidenceHash: evidenceHash({ txHash, facts, chainlinkStEthEth: chainlink.toString(), sources: result.sources, peers: peers.length, config: engine }),
+    oracleAdapter,
+    liquidator: a.liquidator,
+    builder,
   });
 
   const report = runtime.report(prepareReportRequest(reportHex)).result();
@@ -433,6 +438,9 @@ export function onLiquidation(runtime: Runtime<Config>, log: EVMLog): string {
     sources: result.sources.map((s) => `${s.name}=${s.price}`),
     redress: result.redress.toString(),
     peers: peers.length,
+    oracleAdapter,
+    liquidator: a.liquidator,
+    builder,
     vaultTx: bytesToHex(written.txHash ?? new Uint8Array(32)),
   };
   const line = JSON.stringify(summary);

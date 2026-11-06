@@ -5,7 +5,7 @@ set -euo pipefail
 # transactions and their receipts exist. This is log replay (PRD 8.3): the workflow reads
 # historical state at each liquidation's block, and only the vault runs on the fork.
 cd "$(dirname "$0")/.."
-set -a; . ./.env; set +a
+set -a; . <(tr -d '' < .env); set +a
 FORK_RPC="${FORK_RPC:-${MAINNET_RPC:?set MAINNET_RPC in .env}}"
 REPLAY_FORK_BLOCK="${REPLAY_FORK_BLOCK:-26355926}"
 

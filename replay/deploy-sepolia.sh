@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Deploys test WETH and the vault on Sepolia, verifies them on Etherscan and writes
+# Deploys the bond, ledger and vault on Sepolia, funds the reserve and the demo bond, verifies them on Etherscan and writes
 # deployments/sepolia.json. REHEARSAL=1 targets a local chain with Sepolia's chain id:
 # no Etherscan, and it writes deployments/rehearsal.json instead.
 cd "$(dirname "$0")/.."
@@ -30,12 +30,22 @@ CHAIN=$(cast chain-id --rpc-url "$RPC")
 [ "$CHAIN" = 11155111 ] || { echo "refusing to deploy: chain id is $CHAIN, not Sepolia"; exit 1; }
 
 export CRE_FORWARDER=$SEPOLIA_MOCK_FORWARDER
+export ORACLE_ADAPTER
+ORACLE_ADAPTER=$(python -c "import json;print(json.load(open('replay/data/incident-adapters.json'))['events'][0]['oracleAdapter'])")
+# Keep the existing test WETH, which the hook demo pool also uses.
+if [ -f "$OUT" ]; then
+  export PAYOUT_ASSET
+  PAYOUT_ASSET=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['payoutAsset'])" "$OUT")
+fi
+
 # Sepolia's gas schedule is not the one forge simulates: the node estimated 9,557,013 gas for
 # the vault create against forge's 1,359,377, so the default 130% ran out of gas. 1000% clears
 # that and stays under the 16,777,216 transaction cap. --slow stops at the first failure.
+# Forge also defaults to a 1 gwei price, far above Sepolia's base fee.
+GAS_ARGS=(--slow --gas-estimate-multiplier 1000)
+[ "${REHEARSAL:-0}" = 1 ] || GAS_ARGS+=(--with-gas-price 2000 --priority-gas-price 100)
 (cd contracts && forge script script/DeploySepolia.s.sol --rpc-url "$RPC" --private-key "$KEY" --broadcast --silent \
-  --slow --gas-estimate-multiplier 1000 \
-  ${VERIFY_ARGS[@]+"${VERIFY_ARGS[@]}"}) 2>&1 | sed -e "s|$RPC|[redacted]|g" -e "s|$KEY|[redacted]|g" -e "s|${ETHERSCAN_API_KEY:-no-etherscan-key}|[redacted]|g"
+  "${GAS_ARGS[@]}" ${VERIFY_ARGS[@]+"${VERIFY_ARGS[@]}"}) 2>&1 | sed -e "s|$RPC|[redacted]|g" -e "s|$KEY|[redacted]|g" -e "s|${ETHERSCAN_API_KEY:-no-etherscan-key}|[redacted]|g"
 
 python - "$OUT" "$CRE_FORWARDER" <<'PY'
 import json, os, sys
@@ -46,16 +56,21 @@ created = {t["contractName"]: t["contractAddress"] for t in run["transactions"] 
 # come from the receipt that created each address.
 deploy_tx = {r["contractAddress"].lower(): r["transactionHash"] for r in run["receipts"] if r.get("contractAddress")}
 os.makedirs("deployments", exist_ok=True)
-json.dump({
+d = json.load(open(out)) if os.path.exists(out) else {}
+d.update({
     "network": "sepolia",
     "chainId": 11155111,
     "vault": created["RedressVault"],
     "vaultDeployTx": deploy_tx[created["RedressVault"].lower()],
-    "payoutAsset": created["MockWETH"],
-    "payoutAssetDeployTx": deploy_tx[created["MockWETH"].lower()],
+    "operatorBond": created["OperatorBond"],
+    "recoveryLedger": created["RecoveryLedger"],
     "forwarder": forwarder,
     "forwarderKind": "MockKeystoneForwarder",
-}, open(out, "w"), indent=2)
+})
+if "MockWETH" in created:
+    d["payoutAsset"] = created["MockWETH"]
+    d["payoutAssetDeployTx"] = deploy_tx[created["MockWETH"].lower()]
+json.dump(d, open(out, "w"), indent=2)
 PY
 
 # A broadcast that reports success proves nothing until the chain agrees.
@@ -63,6 +78,6 @@ VAULT=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['vault'])"
 WETH=$(python -c "import json,sys;print(json.load(open(sys.argv[1]))['payoutAsset'])" "$OUT")
 RESERVE_HELD=$(cast call "$WETH" 'balanceOf(address)(uint256)' "$VAULT" --rpc-url "$RPC" | cut -d' ' -f1)
 [ "$(cast code "$VAULT" --rpc-url "$RPC")" != 0x ] && [ "$RESERVE_HELD" = "${RESERVE_WEI:-3000000000000000000000}" ] || {
-  rm -f "$OUT"; echo "deployment failed its on-chain check"; exit 1; }
+  echo "deployment failed its on-chain check"; exit 1; }
 echo "wrote $OUT"
 [ "${REHEARSAL:-0}" = 1 ] || bun replay/gen-cre-config.ts sepolia

@@ -1,0 +1,2710 @@
+{
+ "fetchedAt": "2026-11-06T21:09:17.412Z",
+ "volatilityDay": {
+  "day": "2024-08-05",
+  "count": 252
+ },
+ "selection": {
+  "calmSize": 220,
+  "volatilitySize": 60,
+  "lookbackBlocks": 5200000,
+  "skipped": 0
+ },
+ "prices": [
+  {
+   "name": "defillama",
+   "timestamp": 1710392101,
+   "price": "1164884133218000000",
+   "legs": {
+    "wstEthUsd": 4606.08,
+    "wstEthTimestamp": 1710392071,
+    "wethUsd": 3954.11,
+    "wethTimestamp": 1710392101
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1710471290,
+   "price": "1161301253812000000",
+   "legs": {
+    "wstEthUsd": 4352.29,
+    "wstEthTimestamp": 1710471266,
+    "wethUsd": 3747.77,
+    "wethTimestamp": 1710471290
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1710657587,
+   "price": "1171819028412000000",
+   "legs": {
+    "wstEthUsd": 4102.14,
+    "wstEthTimestamp": 1710657587,
+    "wethUsd": 3500.66,
+    "wethTimestamp": 1710657600
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1710698395,
+   "price": "1156234270264000000",
+   "legs": {
+    "wstEthUsd": 4203.64,
+    "wstEthTimestamp": 1710698395,
+    "wethUsd": 3635.63,
+    "wethTimestamp": 1710698403
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1710912302,
+   "price": "1169030607148000000",
+   "legs": {
+    "wstEthUsd": 3627.35,
+    "wstEthTimestamp": 1710912283,
+    "wethUsd": 3102.87,
+    "wethTimestamp": 1710912302
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1710912302,
+   "price": "1169030607148000000",
+   "legs": {
+    "wstEthUsd": 3627.35,
+    "wstEthTimestamp": 1710912283,
+    "wethUsd": 3102.87,
+    "wethTimestamp": 1710912302
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1712025703,
+   "price": "1171654300184000000",
+   "legs": {
+    "wstEthUsd": 3949.26,
+    "wstEthTimestamp": 1712025703,
+    "wethUsd": 3370.67,
+    "wethTimestamp": 1712025689
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1712318774,
+   "price": "1166706255803000000",
+   "legs": {
+    "wstEthUsd": 3782.03,
+    "wstEthTimestamp": 1712318774,
+    "wethUsd": 3241.63,
+    "wethTimestamp": 1712318754
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1712947005,
+   "price": "1163899198463000000",
+   "legs": {
+    "wstEthUsd": 3791.39,
+    "wstEthTimestamp": 1712946997,
+    "wethUsd": 3257.49,
+    "wethTimestamp": 1712947005
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1712947005,
+   "price": "1163899198463000000",
+   "legs": {
+    "wstEthUsd": 3791.39,
+    "wstEthTimestamp": 1712946997,
+    "wethUsd": 3257.49,
+    "wethTimestamp": 1712947005
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1712955110,
+   "price": "1166711066780000000",
+   "legs": {
+    "wstEthUsd": 3766.4,
+    "wstEthTimestamp": 1712955110,
+    "wethUsd": 3228.22,
+    "wethTimestamp": 1712955355
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713054083,
+   "price": "1160073756856000000",
+   "legs": {
+    "wstEthUsd": 3472.82,
+    "wstEthTimestamp": 1713054083,
+    "wethUsd": 2993.62,
+    "wethTimestamp": 1713054092
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713057094,
+   "price": "1160498369598000000",
+   "legs": {
+    "wstEthUsd": 3437.93,
+    "wstEthTimestamp": 1713057094,
+    "wethUsd": 2962.46,
+    "wethTimestamp": 1713057128
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713062221,
+   "price": "1160319428900000000",
+   "legs": {
+    "wstEthUsd": 3452.31,
+    "wstEthTimestamp": 1713062163,
+    "wethUsd": 2975.31,
+    "wethTimestamp": 1713062221
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713227230,
+   "price": "1161118047783000000",
+   "legs": {
+    "wstEthUsd": 3589.55,
+    "wstEthTimestamp": 1713227230,
+    "wethUsd": 3091.46,
+    "wethTimestamp": 1713227220
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713574310,
+   "price": "1165602852055000000",
+   "legs": {
+    "wstEthUsd": 3540.88,
+    "wstEthTimestamp": 1713574304,
+    "wethUsd": 3037.81,
+    "wethTimestamp": 1713574310
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713707819,
+   "price": "1165068617145000000",
+   "legs": {
+    "wstEthUsd": 3668.37,
+    "wstEthTimestamp": 1713707798,
+    "wethUsd": 3148.63,
+    "wethTimestamp": 1713707819
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1713989472,
+   "price": "1164186790341000000",
+   "legs": {
+    "wstEthUsd": 3639.83,
+    "wstEthTimestamp": 1713989472,
+    "wethUsd": 3126.5,
+    "wethTimestamp": 1713989468
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1714510600,
+   "price": "1165236792568000000",
+   "legs": {
+    "wstEthUsd": 3441.69,
+    "wstEthTimestamp": 1714510600,
+    "wethUsd": 2953.64,
+    "wethTimestamp": 1714510562
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1714550504,
+   "price": "1166118943762000000",
+   "legs": {
+    "wstEthUsd": 3339.03,
+    "wstEthTimestamp": 1714550486,
+    "wethUsd": 2863.37,
+    "wethTimestamp": 1714550504
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1714551713,
+   "price": "1163867081802000000",
+   "legs": {
+    "wstEthUsd": 3311.97,
+    "wstEthTimestamp": 1714551713,
+    "wethUsd": 2845.66,
+    "wethTimestamp": 1714551681
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1714576920,
+   "price": "1167680665304000000",
+   "legs": {
+    "wstEthUsd": 3352.96,
+    "wstEthTimestamp": 1714576920,
+    "wethUsd": 2871.47,
+    "wethTimestamp": 1714576898
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1715036435,
+   "price": "1163456514472000000",
+   "legs": {
+    "wstEthUsd": 3585.04,
+    "wstEthTimestamp": 1715036435,
+    "wethUsd": 3081.37,
+    "wethTimestamp": 1715036447
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1716144118,
+   "price": "1166257264980000000",
+   "legs": {
+    "wstEthUsd": 3579.85,
+    "wstEthTimestamp": 1716144119,
+    "wethUsd": 3069.52,
+    "wethTimestamp": 1716144118
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1717783616,
+   "price": "1183725771560000000",
+   "legs": {
+    "wstEthUsd": 4355.59,
+    "wstEthTimestamp": 1717783517,
+    "wethUsd": 3679.56,
+    "wethTimestamp": 1717783616
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1717788355,
+   "price": "1166220284269000000",
+   "legs": {
+    "wstEthUsd": 4284.67,
+    "wstEthTimestamp": 1717788359,
+    "wethUsd": 3673.98,
+    "wethTimestamp": 1717788355
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1718070978,
+   "price": "1167717812045000000",
+   "legs": {
+    "wstEthUsd": 4256.6,
+    "wstEthTimestamp": 1718070983,
+    "wethUsd": 3645.23,
+    "wethTimestamp": 1718070978
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1718072193,
+   "price": "1170221691123000000",
+   "legs": {
+    "wstEthUsd": 4240.31,
+    "wstEthTimestamp": 1718072193,
+    "wethUsd": 3623.51,
+    "wethTimestamp": 1718072221
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1719209504,
+   "price": "1170758407330000000",
+   "legs": {
+    "wstEthUsd": 3935.68,
+    "wstEthTimestamp": 1719209476,
+    "wethUsd": 3361.65,
+    "wethTimestamp": 1719209504
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1719221768,
+   "price": "1185763087991000000",
+   "legs": {
+    "wstEthUsd": 3932.69,
+    "wstEthTimestamp": 1719221504,
+    "wethUsd": 3316.59,
+    "wethTimestamp": 1719221768
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1719964320,
+   "price": "1171298125466000000",
+   "legs": {
+    "wstEthUsd": 4002.15,
+    "wstEthTimestamp": 1719964287,
+    "wethUsd": 3416.85,
+    "wethTimestamp": 1719964320
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1720235508,
+   "price": "1171095147182000000",
+   "legs": {
+    "wstEthUsd": 3490.25,
+    "wstEthTimestamp": 1720235503,
+    "wethUsd": 2980.33,
+    "wethTimestamp": 1720235508
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1721850997,
+   "price": "1175962047518000000",
+   "legs": {
+    "wstEthUsd": 3976.01,
+    "wstEthTimestamp": 1721850997,
+    "wethUsd": 3381.07,
+    "wethTimestamp": 1721850696
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1721938323,
+   "price": "1174637755891000000",
+   "legs": {
+    "wstEthUsd": 3644.76,
+    "wstEthTimestamp": 1721938234,
+    "wethUsd": 3102.88,
+    "wethTimestamp": 1721938323
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722365194,
+   "price": "1176817013606000000",
+   "legs": {
+    "wstEthUsd": 3864.62,
+    "wstEthTimestamp": 1722365194,
+    "wethUsd": 3283.96,
+    "wethTimestamp": 1722365179
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722529579,
+   "price": "1175519511803000000",
+   "legs": {
+    "wstEthUsd": 3659.98,
+    "wstEthTimestamp": 1722529615,
+    "wethUsd": 3113.5,
+    "wethTimestamp": 1722529579
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722610286,
+   "price": "1176369021444000000",
+   "legs": {
+    "wstEthUsd": 3638.18,
+    "wstEthTimestamp": 1722610264,
+    "wethUsd": 3092.72,
+    "wethTimestamp": 1722610286
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722610611,
+   "price": "1182954191847000000",
+   "legs": {
+    "wstEthUsd": 3611.5,
+    "wstEthTimestamp": 1722610611,
+    "wethUsd": 3052.95,
+    "wethTimestamp": 1722610592
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722610895,
+   "price": "1176823616799000000",
+   "legs": {
+    "wstEthUsd": 3580.58,
+    "wstEthTimestamp": 1722610884,
+    "wethUsd": 3042.58,
+    "wethTimestamp": 1722610895
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722816699,
+   "price": "1175681032806000000",
+   "legs": {
+    "wstEthUsd": 3143.63,
+    "wstEthTimestamp": 1722816696,
+    "wethUsd": 2673.88,
+    "wethTimestamp": 1722816699
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722816997,
+   "price": "1179411421539000000",
+   "legs": {
+    "wstEthUsd": 3133.59,
+    "wstEthTimestamp": 1722816994,
+    "wethUsd": 2656.91,
+    "wethTimestamp": 1722816997
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722818180,
+   "price": "1173261020322000000",
+   "legs": {
+    "wstEthUsd": 3112.99,
+    "wstEthTimestamp": 1722818180,
+    "wethUsd": 2653.28,
+    "wethTimestamp": 1722818188
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722818180,
+   "price": "1173261020322000000",
+   "legs": {
+    "wstEthUsd": 3112.99,
+    "wstEthTimestamp": 1722818180,
+    "wethUsd": 2653.28,
+    "wethTimestamp": 1722818188
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722818514,
+   "price": "1181409697025000000",
+   "legs": {
+    "wstEthUsd": 3086.74,
+    "wstEthTimestamp": 1722818514,
+    "wethUsd": 2612.76,
+    "wethTimestamp": 1722818491
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819417,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819417,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819417,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819417,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819417,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819384,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819384,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819384,
+   "price": "1173595811808000000",
+   "legs": {
+    "wstEthUsd": 3057.71,
+    "wstEthTimestamp": 1722819384,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819664,
+   "price": "1164445655595000000",
+   "legs": {
+    "wstEthUsd": 3033.87,
+    "wstEthTimestamp": 1722819664,
+    "wethUsd": 2605.42,
+    "wethTimestamp": 1722819417
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819690,
+   "price": "1206223809032000000",
+   "legs": {
+    "wstEthUsd": 3033.87,
+    "wstEthTimestamp": 1722819664,
+    "wethUsd": 2515.18,
+    "wethTimestamp": 1722819690
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722819664,
+   "price": "1206223809032000000",
+   "legs": {
+    "wstEthUsd": 3033.87,
+    "wstEthTimestamp": 1722819664,
+    "wethUsd": 2515.18,
+    "wethTimestamp": 1722819690
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820016,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820011,
+   "price": "1173113839330000000",
+   "legs": {
+    "wstEthUsd": 2951.66,
+    "wstEthTimestamp": 1722820011,
+    "wethUsd": 2516.09,
+    "wethTimestamp": 1722820016
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820297,
+   "price": "1203861239876000000",
+   "legs": {
+    "wstEthUsd": 2835.96,
+    "wstEthTimestamp": 1722820297,
+    "wethUsd": 2355.72,
+    "wethTimestamp": 1722820299
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820297,
+   "price": "1203861239876000000",
+   "legs": {
+    "wstEthUsd": 2835.96,
+    "wstEthTimestamp": 1722820297,
+    "wethUsd": 2355.72,
+    "wethTimestamp": 1722820299
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820922,
+   "price": "1134217139273000000",
+   "legs": {
+    "wstEthUsd": 2604.31,
+    "wstEthTimestamp": 1722820908,
+    "wethUsd": 2296.13,
+    "wethTimestamp": 1722820922
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820908,
+   "price": "1134217139273000000",
+   "legs": {
+    "wstEthUsd": 2604.31,
+    "wstEthTimestamp": 1722820908,
+    "wethUsd": 2296.13,
+    "wethTimestamp": 1722820922
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820908,
+   "price": "1134217139273000000",
+   "legs": {
+    "wstEthUsd": 2604.31,
+    "wstEthTimestamp": 1722820908,
+    "wethUsd": 2296.13,
+    "wethTimestamp": 1722820922
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820908,
+   "price": "1134217139273000000",
+   "legs": {
+    "wstEthUsd": 2604.31,
+    "wstEthTimestamp": 1722820908,
+    "wethUsd": 2296.13,
+    "wethTimestamp": 1722820922
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820908,
+   "price": "1134217139273000000",
+   "legs": {
+    "wstEthUsd": 2604.31,
+    "wstEthTimestamp": 1722820908,
+    "wethUsd": 2296.13,
+    "wethTimestamp": 1722820922
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722820908,
+   "price": "1134217139273000000",
+   "legs": {
+    "wstEthUsd": 2604.31,
+    "wstEthTimestamp": 1722820908,
+    "wethUsd": 2296.13,
+    "wethTimestamp": 1722820922
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1722821194,
+   "price": "1130722761597000000",
+   "legs": {
+    "wstEthUsd": 2620.45,
+    "wstEthTimestamp": 1722821194,
+    "wethUsd": 2317.5,
+    "wethTimestamp": 1722821191
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1723078720,
+   "price": "1172240802676000000",
+   "legs": {
+    "wstEthUsd": 2754.93,
+    "wstEthTimestamp": 1723078702,
+    "wethUsd": 2350.14,
+    "wethTimestamp": 1723078720
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1723683762,
+   "price": "1174857991706000000",
+   "legs": {
+    "wstEthUsd": 3137.610998390557,
+    "wstEthTimestamp": 1723683762,
+    "wethUsd": 2670.63,
+    "wethTimestamp": 1723683698
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1724075499,
+   "price": "1178882001343000000",
+   "legs": {
+    "wstEthUsd": 3041.409464085348,
+    "wstEthTimestamp": 1724075499,
+    "wethUsd": 2579.91,
+    "wethTimestamp": 1724075566
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1724775191,
+   "price": "1177843651558000000",
+   "legs": {
+    "wstEthUsd": 3025.64,
+    "wstEthTimestamp": 1724774980,
+    "wethUsd": 2568.7959484248504,
+    "wethTimestamp": 1724775191
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1724795206,
+   "price": "1173931870389000000",
+   "legs": {
+    "wstEthUsd": 2984.1,
+    "wstEthTimestamp": 1724795297,
+    "wethUsd": 2541.970343655042,
+    "wethTimestamp": 1724795206
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1724795206,
+   "price": "1173074267937000000",
+   "legs": {
+    "wstEthUsd": 2981.92,
+    "wstEthTimestamp": 1724795358,
+    "wethUsd": 2541.970343655042,
+    "wethTimestamp": 1724795206
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1724796950,
+   "price": "1201193210927000000",
+   "legs": {
+    "wstEthUsd": 2907.32,
+    "wstEthTimestamp": 1724796906,
+    "wethUsd": 2420.36,
+    "wethTimestamp": 1724796950
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1724934088,
+   "price": "1177029369764000000",
+   "legs": {
+    "wstEthUsd": 3011.041222848538,
+    "wstEthTimestamp": 1724934088,
+    "wethUsd": 2558.17,
+    "wethTimestamp": 1724933996
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1725230688,
+   "price": "1176090275199000000",
+   "legs": {
+    "wstEthUsd": 2850.49,
+    "wstEthTimestamp": 1725230688,
+    "wethUsd": 2423.7,
+    "wethTimestamp": 1725230330
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1725411659,
+   "price": "1177828772875000000",
+   "legs": {
+    "wstEthUsd": 2833.22,
+    "wstEthTimestamp": 1725411659,
+    "wethUsd": 2405.46,
+    "wethTimestamp": 1725411659
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1725411773,
+   "price": "1182549749259000000",
+   "legs": {
+    "wstEthUsd": 2815.58,
+    "wstEthTimestamp": 1725411773,
+    "wethUsd": 2380.94,
+    "wethTimestamp": 1725411777
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1725411845,
+   "price": "1180565270659000000",
+   "legs": {
+    "wstEthUsd": 2784.8,
+    "wstEthTimestamp": 1725411845,
+    "wethUsd": 2358.87,
+    "wethTimestamp": 1725411844
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1726284607,
+   "price": "1181074189834000000",
+   "legs": {
+    "wstEthUsd": 2871.9,
+    "wstEthTimestamp": 1726284607,
+    "wethUsd": 2431.6,
+    "wethTimestamp": 1726284839
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1726452897,
+   "price": "1175919453055000000",
+   "legs": {
+    "wstEthUsd": 2674.57,
+    "wstEthTimestamp": 1726452897,
+    "wethUsd": 2274.45,
+    "wethTimestamp": 1726452480
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1727569802,
+   "price": "1175004235680000000",
+   "legs": {
+    "wstEthUsd": 3148.31,
+    "wstEthTimestamp": 1727569802,
+    "wethUsd": 2679.403107153953,
+    "wethTimestamp": 1727569534
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1729696856,
+   "price": "1186131100456000000",
+   "legs": {
+    "wstEthUsd": 3022.95,
+    "wstEthTimestamp": 1729696857,
+    "wethUsd": 2548.58,
+    "wethTimestamp": 1729696856
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1729779673,
+   "price": "1181344156114000000",
+   "legs": {
+    "wstEthUsd": 2978.5584611346135,
+    "wstEthTimestamp": 1729779673,
+    "wethUsd": 2521.33,
+    "wethTimestamp": 1729779593
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1729813439,
+   "price": "1181299881470000000",
+   "legs": {
+    "wstEthUsd": 2989.87,
+    "wstEthTimestamp": 1729813439,
+    "wethUsd": 2531,
+    "wethTimestamp": 1729813439
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1729820454,
+   "price": "1180529922119000000",
+   "legs": {
+    "wstEthUsd": 2974.864571945191,
+    "wstEthTimestamp": 1729820454,
+    "wethUsd": 2519.94,
+    "wethTimestamp": 1729820461
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1730395803,
+   "price": "1186433282757000000",
+   "legs": {
+    "wstEthUsd": 3018.31,
+    "wstEthTimestamp": 1730395803,
+    "wethUsd": 2544.02,
+    "wethTimestamp": 1730396038
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1730399404,
+   "price": "1188485348892000000",
+   "legs": {
+    "wstEthUsd": 2990.03,
+    "wstEthTimestamp": 1730399404,
+    "wethUsd": 2515.832444031967,
+    "wethTimestamp": 1730399772
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1730619897,
+   "price": "1182905424711000000",
+   "legs": {
+    "wstEthUsd": 2898,
+    "wstEthTimestamp": 1730619897,
+    "wethUsd": 2449.9,
+    "wethTimestamp": 1730619537
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1730756137,
+   "price": "1188575679515000000",
+   "legs": {
+    "wstEthUsd": 2852.69,
+    "wstEthTimestamp": 1730756103,
+    "wethUsd": 2400.091175653118,
+    "wethTimestamp": 1730756137
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1731801601,
+   "price": "1183546565421000000",
+   "legs": {
+    "wstEthUsd": 3709.59,
+    "wstEthTimestamp": 1731801601,
+    "wethUsd": 3134.3,
+    "wethTimestamp": 1731801414
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1731928502,
+   "price": "1184906316623000000",
+   "legs": {
+    "wstEthUsd": 3679.3,
+    "wstEthTimestamp": 1731928502,
+    "wethUsd": 3105.14,
+    "wethTimestamp": 1731928382
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1731935707,
+   "price": "1183506868065000000",
+   "legs": {
+    "wstEthUsd": 3631.65,
+    "wstEthTimestamp": 1731935707,
+    "wethUsd": 3068.55,
+    "wethTimestamp": 1731935282
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1732125601,
+   "price": "1188363858642000000",
+   "legs": {
+    "wstEthUsd": 3654.92,
+    "wstEthTimestamp": 1732125601,
+    "wethUsd": 3075.59,
+    "wethTimestamp": 1732125719
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1732451401,
+   "price": "1189403437209000000",
+   "legs": {
+    "wstEthUsd": 3965.59,
+    "wstEthTimestamp": 1732451401,
+    "wethUsd": 3334.1,
+    "wethTimestamp": 1732451580
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1732547705,
+   "price": "1186533134330000000",
+   "legs": {
+    "wstEthUsd": 4030.57,
+    "wstEthTimestamp": 1732547705,
+    "wethUsd": 3396.93,
+    "wethTimestamp": 1732547520
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1732574704,
+   "price": "1195180765669000000",
+   "legs": {
+    "wstEthUsd": 4039.46,
+    "wstEthTimestamp": 1732574704,
+    "wethUsd": 3379.79,
+    "wethTimestamp": 1732574283
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1732617900,
+   "price": "1189630545420000000",
+   "legs": {
+    "wstEthUsd": 3964.42,
+    "wstEthTimestamp": 1732617900,
+    "wethUsd": 3332.48,
+    "wethTimestamp": 1732618015
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733012103,
+   "price": "1184799413891000000",
+   "legs": {
+    "wstEthUsd": 4398.71,
+    "wstEthTimestamp": 1733012103,
+    "wethUsd": 3712.62,
+    "wethTimestamp": 1733012010
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733127657,
+   "price": "1186468577475000000",
+   "legs": {
+    "wstEthUsd": 4331.42108615833,
+    "wstEthTimestamp": 1733127644,
+    "wethUsd": 3650.683354275989,
+    "wethTimestamp": 1733127657
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733169117,
+   "price": "1189258496367000000",
+   "legs": {
+    "wstEthUsd": 4289.81,
+    "wstEthTimestamp": 1733169117,
+    "wethUsd": 3607.13,
+    "wethTimestamp": 1733169117
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733198626,
+   "price": "1185301345237000000",
+   "legs": {
+    "wstEthUsd": 4312.15,
+    "wstEthTimestamp": 1733198626,
+    "wethUsd": 3638.02,
+    "wethTimestamp": 1733198630
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733236534,
+   "price": "1189807119875000000",
+   "legs": {
+    "wstEthUsd": 4220.80506354343,
+    "wstEthTimestamp": 1733236534,
+    "wethUsd": 3547.47,
+    "wethTimestamp": 1733236497
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733412242,
+   "price": "1190412868248000000",
+   "legs": {
+    "wstEthUsd": 4646.11,
+    "wstEthTimestamp": 1733412241,
+    "wethUsd": 3902.94,
+    "wethTimestamp": 1733412242
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733479435,
+   "price": "1184903361692000000",
+   "legs": {
+    "wstEthUsd": 4590.6,
+    "wstEthTimestamp": 1733479443,
+    "wethUsd": 3874.24,
+    "wethTimestamp": 1733479435
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733527343,
+   "price": "1186032178104000000",
+   "legs": {
+    "wstEthUsd": 4764.658929419052,
+    "wstEthTimestamp": 1733527343,
+    "wethUsd": 4017.31,
+    "wethTimestamp": 1733527328
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733607902,
+   "price": "1182630938547000000",
+   "legs": {
+    "wstEthUsd": 4752.84,
+    "wstEthTimestamp": 1733607902,
+    "wethUsd": 4018.87,
+    "wethTimestamp": 1733608139
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733848644,
+   "price": "1184786870554000000",
+   "legs": {
+    "wstEthUsd": 4230.4,
+    "wstEthTimestamp": 1733848704,
+    "wethUsd": 3570.6,
+    "wethTimestamp": 1733848644
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733853595,
+   "price": "1194515702517000000",
+   "legs": {
+    "wstEthUsd": 4228.06,
+    "wstEthTimestamp": 1733853595,
+    "wethUsd": 3539.56,
+    "wethTimestamp": 1733853580
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733874234,
+   "price": "1189954574522000000",
+   "legs": {
+    "wstEthUsd": 4317.06,
+    "wstEthTimestamp": 1733874243,
+    "wethUsd": 3627.92,
+    "wethTimestamp": 1733874234
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1733992322,
+   "price": "1190566769988000000",
+   "legs": {
+    "wstEthUsd": 4662.95,
+    "wstEthTimestamp": 1733992322,
+    "wethUsd": 3916.58,
+    "wethTimestamp": 1733992323
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1734162015,
+   "price": "1186774374888000000",
+   "legs": {
+    "wstEthUsd": 4660.059732828956,
+    "wstEthTimestamp": 1734162040,
+    "wethUsd": 3926.660224080398,
+    "wethTimestamp": 1734162015
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1734243416,
+   "price": "1186532284632000000",
+   "legs": {
+    "wstEthUsd": 4610.2,
+    "wstEthTimestamp": 1734243416,
+    "wethUsd": 3885.44,
+    "wethTimestamp": 1734243416
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1734552540,
+   "price": "1185931472462000000",
+   "legs": {
+    "wstEthUsd": 4457.50132896789,
+    "wstEthTimestamp": 1734552540,
+    "wethUsd": 3758.65,
+    "wethTimestamp": 1734552508
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1734563700,
+   "price": "1189998249721000000",
+   "legs": {
+    "wstEthUsd": 4351.3,
+    "wstEthTimestamp": 1734563700,
+    "wethUsd": 3656.56,
+    "wethTimestamp": 1734563578
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1734912000,
+   "price": "1186460999637000000",
+   "legs": {
+    "wstEthUsd": 3888.97,
+    "wstEthTimestamp": 1734912000,
+    "wethUsd": 3277.79,
+    "wethTimestamp": 1734911999
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736355595,
+   "price": "1191983103239000000",
+   "legs": {
+    "wstEthUsd": 3944.88,
+    "wstEthTimestamp": 1736355595,
+    "wethUsd": 3309.51,
+    "wethTimestamp": 1736355962
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736452804,
+   "price": "1200234478951000000",
+   "legs": {
+    "wstEthUsd": 3869.76,
+    "wstEthTimestamp": 1736452804,
+    "wethUsd": 3224.17,
+    "wethTimestamp": 1736452837
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736453707,
+   "price": "1214921866635000000",
+   "legs": {
+    "wstEthUsd": 3857.79,
+    "wstEthTimestamp": 1736453707,
+    "wethUsd": 3175.34,
+    "wethTimestamp": 1736453999
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736760598,
+   "price": "1193583458965000000",
+   "legs": {
+    "wstEthUsd": 3776.51,
+    "wstEthTimestamp": 1736760598,
+    "wethUsd": 3164.01,
+    "wethTimestamp": 1736760838
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736778598,
+   "price": "1203266991124000000",
+   "legs": {
+    "wstEthUsd": 3649.22,
+    "wstEthTimestamp": 1736778598,
+    "wethUsd": 3032.76,
+    "wethTimestamp": 1736778899
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736778598,
+   "price": "1206432383302000000",
+   "legs": {
+    "wstEthUsd": 3649.22,
+    "wstEthTimestamp": 1736778598,
+    "wethUsd": 3024.8027577080084,
+    "wethTimestamp": 1736778979
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1736914489,
+   "price": "1192948539207000000",
+   "legs": {
+    "wstEthUsd": 3850.48,
+    "wstEthTimestamp": 1736914489,
+    "wethUsd": 3227.7,
+    "wethTimestamp": 1736914677
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1737047688,
+   "price": "1182250676317000000",
+   "legs": {
+    "wstEthUsd": 3946.27,
+    "wstEthTimestamp": 1737047688,
+    "wethUsd": 3337.93,
+    "wethTimestamp": 1737048058
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1737282604,
+   "price": "1184981788495000000",
+   "legs": {
+    "wstEthUsd": 3773.93,
+    "wstEthTimestamp": 1737282604,
+    "wethUsd": 3184.8,
+    "wethTimestamp": 1737282477
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1738877516,
+   "price": "1194474366499000000",
+   "legs": {
+    "wstEthUsd": 3215.74,
+    "wstEthTimestamp": 1738877516,
+    "wethUsd": 2692.18,
+    "wethTimestamp": 1738877516
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740687305,
+   "price": "1198520252661000000",
+   "legs": {
+    "wstEthUsd": 2713.33,
+    "wstEthTimestamp": 1740687305,
+    "wethUsd": 2263.9,
+    "wethTimestamp": 1740687239
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740689103,
+   "price": "1196262053268000000",
+   "legs": {
+    "wstEthUsd": 2711.95,
+    "wstEthTimestamp": 1740689103,
+    "wethUsd": 2267.02,
+    "wethTimestamp": 1740689275
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740690457,
+   "price": "1192387128295000000",
+   "legs": {
+    "wstEthUsd": 2684.6,
+    "wstEthTimestamp": 1740690457,
+    "wethUsd": 2251.45,
+    "wethTimestamp": 1740690245
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740803405,
+   "price": "1189071172952000000",
+   "legs": {
+    "wstEthUsd": 2701.32,
+    "wstEthTimestamp": 1740803405,
+    "wethUsd": 2271.79,
+    "wethTimestamp": 1740803580
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740825904,
+   "price": "1195858490907000000",
+   "legs": {
+    "wstEthUsd": 2646.1,
+    "wstEthTimestamp": 1740825904,
+    "wethUsd": 2212.72,
+    "wethTimestamp": 1740826015
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740836706,
+   "price": "1194501647925000000",
+   "legs": {
+    "wstEthUsd": 2569.6,
+    "wstEthTimestamp": 1740836706,
+    "wethUsd": 2151.19,
+    "wethTimestamp": 1740836813
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740908636,
+   "price": "1193234971801000000",
+   "legs": {
+    "wstEthUsd": 2678.55,
+    "wstEthTimestamp": 1740908662,
+    "wethUsd": 2244.78,
+    "wethTimestamp": 1740908636
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1740932102,
+   "price": "1178546963597000000",
+   "legs": {
+    "wstEthUsd": 2666.71,
+    "wstEthTimestamp": 1740932102,
+    "wethUsd": 2262.71,
+    "wethTimestamp": 1740932343
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741026596,
+   "price": "1190476618261000000",
+   "legs": {
+    "wstEthUsd": 2650.37,
+    "wstEthTimestamp": 1741026596,
+    "wethUsd": 2226.31,
+    "wethTimestamp": 1741026475
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741029305,
+   "price": "1210632783652000000",
+   "legs": {
+    "wstEthUsd": 2639.24,
+    "wstEthTimestamp": 1741029305,
+    "wethUsd": 2180.05,
+    "wethTimestamp": 1741029305
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741032002,
+   "price": "1204410533436000000",
+   "legs": {
+    "wstEthUsd": 2546.16,
+    "wstEthTimestamp": 1741032002,
+    "wethUsd": 2114.03,
+    "wethTimestamp": 1741032001
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741038978,
+   "price": "1196488006967000000",
+   "legs": {
+    "wstEthUsd": 2541.52,
+    "wstEthTimestamp": 1741038978,
+    "wethUsd": 2124.15,
+    "wethTimestamp": 1741038938
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741397400,
+   "price": "1199676887601000000",
+   "legs": {
+    "wstEthUsd": 2554.46,
+    "wstEthTimestamp": 1741397400,
+    "wethUsd": 2129.29,
+    "wethTimestamp": 1741397638
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741537386,
+   "price": "1196266404794000000",
+   "legs": {
+    "wstEthUsd": 2509.42,
+    "wstEthTimestamp": 1741537386,
+    "wethUsd": 2097.71,
+    "wethTimestamp": 1741537502
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741544100,
+   "price": "1194089476566000000",
+   "legs": {
+    "wstEthUsd": 2421.1,
+    "wstEthTimestamp": 1741544100,
+    "wethUsd": 2027.57,
+    "wethTimestamp": 1741544102
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741546524,
+   "price": "1191298270658000000",
+   "legs": {
+    "wstEthUsd": 2403.48,
+    "wstEthTimestamp": 1741546524,
+    "wethUsd": 2017.53,
+    "wethTimestamp": 1741546683
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741751102,
+   "price": "1200532382144000000",
+   "legs": {
+    "wstEthUsd": 2255.02,
+    "wstEthTimestamp": 1741751102,
+    "wethUsd": 1878.35,
+    "wethTimestamp": 1741751222
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1741895104,
+   "price": "1197904401192000000",
+   "legs": {
+    "wstEthUsd": 2207.63,
+    "wstEthTimestamp": 1741895104,
+    "wethUsd": 1842.91,
+    "wethTimestamp": 1741895157
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1742039995,
+   "price": "1194954128440000000",
+   "legs": {
+    "wstEthUsd": 2308.03,
+    "wstEthTimestamp": 1742039995,
+    "wethUsd": 1931.48,
+    "wethTimestamp": 1742040059
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1742763599,
+   "price": "1198954534281000000",
+   "legs": {
+    "wstEthUsd": 2389.96,
+    "wstEthTimestamp": 1742763599,
+    "wethUsd": 1993.37,
+    "wethTimestamp": 1742763916
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743136790,
+   "price": "1200298190987000000",
+   "legs": {
+    "wstEthUsd": 2380.45,
+    "wstEthTimestamp": 1743136790,
+    "wethUsd": 1983.2155191729776,
+    "wethTimestamp": 1743136952
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743152398,
+   "price": "1198299392790000000",
+   "legs": {
+    "wstEthUsd": 2287.23,
+    "wstEthTimestamp": 1743152398,
+    "wethUsd": 1908.73,
+    "wethTimestamp": 1743152399
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743152769,
+   "price": "1198687365464000000",
+   "legs": {
+    "wstEthUsd": 2285.01,
+    "wstEthTimestamp": 1743152769,
+    "wethUsd": 1906.2601857961158,
+    "wethTimestamp": 1743152734
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743161186,
+   "price": "1196857692925000000",
+   "legs": {
+    "wstEthUsd": 2296.69,
+    "wstEthTimestamp": 1743161169,
+    "wethUsd": 1918.933231224409,
+    "wethTimestamp": 1743161186
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743341399,
+   "price": "1189639149777000000",
+   "legs": {
+    "wstEthUsd": 2175.45,
+    "wstEthTimestamp": 1743341399,
+    "wethUsd": 1828.6637594326905,
+    "wethTimestamp": 1743341440
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743353994,
+   "price": "1205854811380000000",
+   "legs": {
+    "wstEthUsd": 2163.4,
+    "wstEthTimestamp": 1743353994,
+    "wethUsd": 1794.08,
+    "wethTimestamp": 1743353881
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743372896,
+   "price": "1187618819305000000",
+   "legs": {
+    "wstEthUsd": 2130.22,
+    "wstEthTimestamp": 1743372896,
+    "wethUsd": 1793.69,
+    "wethTimestamp": 1743372443
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743635247,
+   "price": "1193819549629000000",
+   "legs": {
+    "wstEthUsd": 2135.97,
+    "wstEthTimestamp": 1743635179,
+    "wethUsd": 1789.19,
+    "wethTimestamp": 1743635247
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743684303,
+   "price": "1199145456884000000",
+   "legs": {
+    "wstEthUsd": 2144.18,
+    "wstEthTimestamp": 1743684302,
+    "wethUsd": 1788.09,
+    "wethTimestamp": 1743684303
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743684302,
+   "price": "1198200614697000000",
+   "legs": {
+    "wstEthUsd": 2144.18,
+    "wstEthTimestamp": 1743684302,
+    "wethUsd": 1789.5,
+    "wethTimestamp": 1743684362
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743684302,
+   "price": "1213684502482000000",
+   "legs": {
+    "wstEthUsd": 2144.18,
+    "wstEthTimestamp": 1743684302,
+    "wethUsd": 1766.67,
+    "wethTimestamp": 1743684483
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1743803102,
+   "price": "1194859019984000000",
+   "legs": {
+    "wstEthUsd": 2182.41,
+    "wstEthTimestamp": 1743803102,
+    "wethUsd": 1826.5,
+    "wethTimestamp": 1743803342
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1744145094,
+   "price": "1202583244299000000",
+   "legs": {
+    "wstEthUsd": 1767.16,
+    "wstEthTimestamp": 1744145094,
+    "wethUsd": 1469.47,
+    "wethTimestamp": 1744144683
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1744145094,
+   "price": "1202493229358000000",
+   "legs": {
+    "wstEthUsd": 1767.16,
+    "wstEthTimestamp": 1744145094,
+    "wethUsd": 1469.58,
+    "wethTimestamp": 1744144983
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1744149604,
+   "price": "1198108210881000000",
+   "legs": {
+    "wstEthUsd": 1764.43,
+    "wstEthTimestamp": 1744149604,
+    "wethUsd": 1472.68,
+    "wethTimestamp": 1744149777
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1744301701,
+   "price": "1189027637254000000",
+   "legs": {
+    "wstEthUsd": 1786.3,
+    "wstEthTimestamp": 1744301701,
+    "wethUsd": 1502.32,
+    "wethTimestamp": 1744301819
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1744315204,
+   "price": "1195651888858000000",
+   "legs": {
+    "wstEthUsd": 1823.68,
+    "wstEthTimestamp": 1744315206,
+    "wethUsd": 1525.26,
+    "wethTimestamp": 1744315204
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1744786798,
+   "price": "1200448860999000000",
+   "legs": {
+    "wstEthUsd": 1888.15,
+    "wstEthTimestamp": 1744786798,
+    "wethUsd": 1572.87,
+    "wethTimestamp": 1744786655
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1745258401,
+   "price": "1198853280680000000",
+   "legs": {
+    "wstEthUsd": 1894.38,
+    "wstEthTimestamp": 1745258401,
+    "wethUsd": 1580.16,
+    "wethTimestamp": 1745258277
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1745282223,
+   "price": "1199694765584000000",
+   "legs": {
+    "wstEthUsd": 1888.41,
+    "wstEthTimestamp": 1745282223,
+    "wethUsd": 1574.0753849836276,
+    "wethTimestamp": 1745282181
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1745514899,
+   "price": "1200324970239000000",
+   "legs": {
+    "wstEthUsd": 2127.54,
+    "wstEthTimestamp": 1745514899,
+    "wethUsd": 1772.47,
+    "wethTimestamp": 1745514966
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1746947143,
+   "price": "1202948598701000000",
+   "legs": {
+    "wstEthUsd": 3025.5961680234695,
+    "wstEthTimestamp": 1746947143,
+    "wethUsd": 2515.15,
+    "wethTimestamp": 1746947145
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1747490523,
+   "price": "1204151771206000000",
+   "legs": {
+    "wstEthUsd": 2964.14,
+    "wstEthTimestamp": 1747490798,
+    "wethUsd": 2461.6,
+    "wethTimestamp": 1747490523
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1747500300,
+   "price": "1197443417407000000",
+   "legs": {
+    "wstEthUsd": 2960.14,
+    "wstEthTimestamp": 1747500300,
+    "wethUsd": 2472.05,
+    "wethTimestamp": 1747500073
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1747535403,
+   "price": "1201987368489000000",
+   "legs": {
+    "wstEthUsd": 2984.15,
+    "wstEthTimestamp": 1747535403,
+    "wethUsd": 2482.68,
+    "wethTimestamp": 1747535461
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1747596598,
+   "price": "1207046699660000000",
+   "legs": {
+    "wstEthUsd": 2963.36,
+    "wstEthTimestamp": 1747596598,
+    "wethUsd": 2455.05,
+    "wethTimestamp": 1747596909
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1749570305,
+   "price": "1211311731299000000",
+   "legs": {
+    "wstEthUsd": 3282.57,
+    "wstEthTimestamp": 1749570305,
+    "wethUsd": 2709.93,
+    "wethTimestamp": 1749570301
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1749773701,
+   "price": "1194430923133000000",
+   "legs": {
+    "wstEthUsd": 3116.33,
+    "wstEthTimestamp": 1749773701,
+    "wethUsd": 2609.05,
+    "wethTimestamp": 1749773518
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1749775109,
+   "price": "1200309119011000000",
+   "legs": {
+    "wstEthUsd": 3067.57,
+    "wstEthTimestamp": 1749775109,
+    "wethUsd": 2555.65,
+    "wethTimestamp": 1749774844
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1750439443,
+   "price": "1214168206425000000",
+   "legs": {
+    "wstEthUsd": 2996.47,
+    "wstEthTimestamp": 1750439443,
+    "wethUsd": 2467.92,
+    "wethTimestamp": 1750440279
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1750623148,
+   "price": "1209187678156000000",
+   "legs": {
+    "wstEthUsd": 2634.3,
+    "wstEthTimestamp": 1750623148,
+    "wethUsd": 2178.57,
+    "wethTimestamp": 1750623080
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1750623633,
+   "price": "1206626486307000000",
+   "legs": {
+    "wstEthUsd": 2580.6,
+    "wstEthTimestamp": 1750623633,
+    "wethUsd": 2138.69,
+    "wethTimestamp": 1750623534
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1752376299,
+   "price": "1208990621781000000",
+   "legs": {
+    "wstEthUsd": 3568.36,
+    "wstEthTimestamp": 1752375922,
+    "wethUsd": 2951.52,
+    "wethTimestamp": 1752376299
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1753251686,
+   "price": "1204584033874000000",
+   "legs": {
+    "wstEthUsd": 4463.55,
+    "wstEthTimestamp": 1753251686,
+    "wethUsd": 3705.47,
+    "wethTimestamp": 1753251771
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1753529456,
+   "price": "1207798824681000000",
+   "legs": {
+    "wstEthUsd": 4527.76,
+    "wstEthTimestamp": 1753529494,
+    "wethUsd": 3748.77,
+    "wethTimestamp": 1753529456
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1754004954,
+   "price": "1205535099116000000",
+   "legs": {
+    "wstEthUsd": 4472.27,
+    "wstEthTimestamp": 1754004954,
+    "wethUsd": 3709.78,
+    "wethTimestamp": 1754004781
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1754366401,
+   "price": "1208982268669000000",
+   "legs": {
+    "wstEthUsd": 4416.92,
+    "wstEthTimestamp": 1754366401,
+    "wethUsd": 3653.42,
+    "wethTimestamp": 1754366521
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1754885693,
+   "price": "1207711356591000000",
+   "legs": {
+    "wstEthUsd": 5228.11,
+    "wstEthTimestamp": 1754885692,
+    "wethUsd": 4328.94,
+    "wethTimestamp": 1754885693
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1755496060,
+   "price": "1209085484322000000",
+   "legs": {
+    "wstEthUsd": 5190.325894534828,
+    "wstEthTimestamp": 1755496060,
+    "wethUsd": 4292.77,
+    "wethTimestamp": 1755496082
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1756057498,
+   "price": "1206345409606000000",
+   "legs": {
+    "wstEthUsd": 5900.73,
+    "wstEthTimestamp": 1756057498,
+    "wethUsd": 4891.41,
+    "wethTimestamp": 1756057442
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1756762896,
+   "price": "1210677015048000000",
+   "legs": {
+    "wstEthUsd": 5167.29,
+    "wstEthTimestamp": 1756762917,
+    "wethUsd": 4268.099530902117,
+    "wethTimestamp": 1756762896
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1757475853,
+   "price": "1211022589287000000",
+   "legs": {
+    "wstEthUsd": 5225.95,
+    "wstEthTimestamp": 1757475853,
+    "wethUsd": 4315.32,
+    "wethTimestamp": 1757475486
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1758032098,
+   "price": "1211544604255000000",
+   "legs": {
+    "wstEthUsd": 5385.97,
+    "wstEthTimestamp": 1758032098,
+    "wethUsd": 4445.54,
+    "wethTimestamp": 1758031977
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760029197,
+   "price": "1215556276280000000",
+   "legs": {
+    "wstEthUsd": 5217.984421231509,
+    "wstEthTimestamp": 1760029197,
+    "wethUsd": 4292.672024368999,
+    "wethTimestamp": 1760029197
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760230348,
+   "price": "1215244171195000000",
+   "legs": {
+    "wstEthUsd": 4525.101972993348,
+    "wstEthTimestamp": 1760230348,
+    "wethUsd": 3723.6154513242923,
+    "wethTimestamp": 1760230382
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760354996,
+   "price": "1216057873773000000",
+   "legs": {
+    "wstEthUsd": 4998.442769272565,
+    "wstEthTimestamp": 1760354996,
+    "wethUsd": 4110.36586093232,
+    "wethTimestamp": 1760354935
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760683494,
+   "price": "1214900935191000000",
+   "legs": {
+    "wstEthUsd": 4672.331445584815,
+    "wstEthTimestamp": 1760683494,
+    "wethUsd": 3845.8538554431843,
+    "wethTimestamp": 1760683070
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760688899,
+   "price": "1218238590066000000",
+   "legs": {
+    "wstEthUsd": 4564.243966585264,
+    "wstEthTimestamp": 1760688899,
+    "wethUsd": 3746.5928298481604,
+    "wethTimestamp": 1760688954
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1761763370,
+   "price": "1208015990095000000",
+   "legs": {
+    "wstEthUsd": 4732.373773236352,
+    "wstEthTimestamp": 1761763370,
+    "wethUsd": 3917.4761029964643,
+    "wethTimestamp": 1761763268
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1761853173,
+   "price": "1218268749939000000",
+   "legs": {
+    "wstEthUsd": 4521.695821294988,
+    "wstEthTimestamp": 1761853173,
+    "wethUsd": 3711.574988293497,
+    "wethTimestamp": 1761853240
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762183787,
+   "price": "1210261872883000000",
+   "legs": {
+    "wstEthUsd": 4460.462166208361,
+    "wstEthTimestamp": 1762183787,
+    "wethUsd": 3685.534731077022,
+    "wethTimestamp": 1762183640
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762183923,
+   "price": "1230903859533000000",
+   "legs": {
+    "wstEthUsd": 4460.462166208361,
+    "wstEthTimestamp": 1762183787,
+    "wethUsd": 3623.729125279252,
+    "wethTimestamp": 1762183923
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762186451,
+   "price": "1226672283014000000",
+   "legs": {
+    "wstEthUsd": 4377.880724807706,
+    "wstEthTimestamp": 1762186451,
+    "wethUsd": 3568.908163515069,
+    "wethTimestamp": 1762186249
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762589404,
+   "price": "1218997936534000000",
+   "legs": {
+    "wstEthUsd": 4197.558492693962,
+    "wstEthTimestamp": 1762589404,
+    "wethUsd": 3443.4500394877427,
+    "wethTimestamp": 1762589291
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762805700,
+   "price": "1218159042145000000",
+   "legs": {
+    "wstEthUsd": 4342.101197313128,
+    "wstEthTimestamp": 1762805700,
+    "wethUsd": 3564.478074772974,
+    "wethTimestamp": 1762805701
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763063772,
+   "price": "1223079292172000000",
+   "legs": {
+    "wstEthUsd": 3914.497619278196,
+    "wstEthTimestamp": 1763063772,
+    "wethUsd": 3200.5264452868014,
+    "wethTimestamp": 1763063816
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763072992,
+   "price": "1217771557510000000",
+   "legs": {
+    "wstEthUsd": 3908.7081259772526,
+    "wstEthTimestamp": 1763072992,
+    "wethUsd": 3209.721972790251,
+    "wethTimestamp": 1763073206
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763124016,
+   "price": "1224706017252000000",
+   "legs": {
+    "wstEthUsd": 3791.5425931695977,
+    "wstEthTimestamp": 1763124016,
+    "wethUsd": 3095.879778297456,
+    "wethTimestamp": 1763124110
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763124016,
+   "price": "1224706017252000000",
+   "legs": {
+    "wstEthUsd": 3791.5425931695977,
+    "wstEthTimestamp": 1763124016,
+    "wethUsd": 3095.879778297456,
+    "wethTimestamp": 1763124110
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763434803,
+   "price": "1226421088900000000",
+   "legs": {
+    "wstEthUsd": 3670.5480097051363,
+    "wstEthTimestamp": 1763434803,
+    "wethUsd": 2992.893748262812,
+    "wethTimestamp": 1763435006
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1764250196,
+   "price": "1220017396815000000",
+   "legs": {
+    "wstEthUsd": 3654.413020458239,
+    "wstEthTimestamp": 1764250196,
+    "wethUsd": 2995.3777954294596,
+    "wethTimestamp": 1764250505
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1764548091,
+   "price": "1209165727222000000",
+   "legs": {
+    "wstEthUsd": 3581.6767594438343,
+    "wstEthTimestamp": 1764548091,
+    "wethUsd": 2962.105755076165,
+    "wethTimestamp": 1764547809
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1764548091,
+   "price": "1229411210995000000",
+   "legs": {
+    "wstEthUsd": 3581.6767594438343,
+    "wstEthTimestamp": 1764548091,
+    "wethUsd": 2913.3269059293284,
+    "wethTimestamp": 1764548415
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1765988105,
+   "price": "1233692498103000000",
+   "legs": {
+    "wstEthUsd": 3546.904788019471,
+    "wstEthTimestamp": 1765988105,
+    "wethUsd": 2875.0314956701864,
+    "wethTimestamp": 1765988383
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1767852901,
+   "price": "1223679443934000000",
+   "legs": {
+    "wstEthUsd": 3826.7053432601306,
+    "wstEthTimestamp": 1767852901,
+    "wethUsd": 3127.212246826388,
+    "wethTimestamp": 1767853075
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768864968,
+   "price": "1224850829795000000",
+   "legs": {
+    "wstEthUsd": 3886.2900810886026,
+    "wstEthTimestamp": 1768864968,
+    "wethUsd": 3172.8680640568336,
+    "wethTimestamp": 1768865037
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768920600,
+   "price": "1216642481155000000",
+   "legs": {
+    "wstEthUsd": 3725.209883260997,
+    "wstEthTimestamp": 1768920600,
+    "wethUsd": 3061.877207941053,
+    "wethTimestamp": 1768920546
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768921355,
+   "price": "1217294441803000000",
+   "legs": {
+    "wstEthUsd": 3707.220176332935,
+    "wstEthTimestamp": 1768921521,
+    "wethUsd": 3045.4588873685652,
+    "wethTimestamp": 1768921355
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768998084,
+   "price": "1223621834393000000",
+   "legs": {
+    "wstEthUsd": 3569.725172430488,
+    "wstEthTimestamp": 1768998084,
+    "wethUsd": 2917.3434733633644,
+    "wethTimestamp": 1768997738
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769357995,
+   "price": "1219089677730000000",
+   "legs": {
+    "wstEthUsd": 3540.7812649052617,
+    "wstEthTimestamp": 1769357995,
+    "wethUsd": 2904.4469242813225,
+    "wethTimestamp": 1769357715
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769365788,
+   "price": "1225514257046000000",
+   "legs": {
+    "wstEthUsd": 3496.4588117434514,
+    "wstEthTimestamp": 1769365788,
+    "wethUsd": 2853.0543742266145,
+    "wethTimestamp": 1769365966
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769368936,
+   "price": "1225534315654000000",
+   "legs": {
+    "wstEthUsd": 3471.866781034504,
+    "wstEthTimestamp": 1769368936,
+    "wethUsd": 2832.941302978311,
+    "wethTimestamp": 1769368903
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769373464,
+   "price": "1227399187981000000",
+   "legs": {
+    "wstEthUsd": 3422.802044254044,
+    "wstEthTimestamp": 1769373325,
+    "wethUsd": 2788.6624643163314,
+    "wethTimestamp": 1769373464
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769737503,
+   "price": "1222432825551000000",
+   "legs": {
+    "wstEthUsd": 3347.311121086656,
+    "wstEthTimestamp": 1769737503,
+    "wethUsd": 2738.237268439062,
+    "wethTimestamp": 1769737494
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769737503,
+   "price": "1222432825551000000",
+   "legs": {
+    "wstEthUsd": 3347.311121086656,
+    "wstEthTimestamp": 1769737503,
+    "wethUsd": 2738.237268439062,
+    "wethTimestamp": 1769737517
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769797375,
+   "price": "1218050577051000000",
+   "legs": {
+    "wstEthUsd": 3254.1094577895424,
+    "wstEthTimestamp": 1769797375,
+    "wethUsd": 2671.571705722402,
+    "wethTimestamp": 1769797198
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769797375,
+   "price": "1224948902013000000",
+   "legs": {
+    "wstEthUsd": 3254.1094577895424,
+    "wstEthTimestamp": 1769797375,
+    "wethUsd": 2656.5266946583374,
+    "wethTimestamp": 1769797323
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770464700,
+   "price": "1225097383030000000",
+   "legs": {
+    "wstEthUsd": 2460.2801376518096,
+    "wstEthTimestamp": 1770464678,
+    "wethUsd": 2008.2323019634334,
+    "wethTimestamp": 1770464700
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770465603,
+   "price": "1223560411999000000",
+   "legs": {
+    "wstEthUsd": 2468.943487908107,
+    "wstEthTimestamp": 1770465603,
+    "wethUsd": 2017.8353791907768,
+    "wethTimestamp": 1770465660
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770465603,
+   "price": "1223561902064000000",
+   "legs": {
+    "wstEthUsd": 2468.943487908107,
+    "wstEthTimestamp": 1770465603,
+    "wethUsd": 2017.8329218507877,
+    "wethTimestamp": 1770465720
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770530398,
+   "price": "1224419605449000000",
+   "legs": {
+    "wstEthUsd": 2551.039879078287,
+    "wstEthTimestamp": 1770530398,
+    "wethUsd": 2083.4686636225347,
+    "wethTimestamp": 1770530518
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770625797,
+   "price": "1225896703764000000",
+   "legs": {
+    "wstEthUsd": 2513.719124756122,
+    "wstEthTimestamp": 1770625796,
+    "wethUsd": 2050.5146290371727,
+    "wethTimestamp": 1770625797
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771181103,
+   "price": "1224077575052000000",
+   "legs": {
+    "wstEthUsd": 2404.8941043023206,
+    "wstEthTimestamp": 1771180798,
+    "wethUsd": 1964.6582482331396,
+    "wethTimestamp": 1771181103
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771869412,
+   "price": "1225099364396000000",
+   "legs": {
+    "wstEthUsd": 2265.3315202863073,
+    "wstEthTimestamp": 1771869412,
+    "wethUsd": 1849.1002331084865,
+    "wethTimestamp": 1771869175
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771876318,
+   "price": "1226009754264000000",
+   "legs": {
+    "wstEthUsd": 2270.6779603329983,
+    "wstEthTimestamp": 1771876318,
+    "wethUsd": 1852.0880053645383,
+    "wethTimestamp": 1771876435
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771896023,
+   "price": "1214418758969000000",
+   "legs": {
+    "wstEthUsd": 2240.7096702346066,
+    "wstEthTimestamp": 1771896023,
+    "wethUsd": 1845.0881573473605,
+    "wethTimestamp": 1771895801
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771932111,
+   "price": "1226765269160000000",
+   "legs": {
+    "wstEthUsd": 2233.6455161941303,
+    "wstEthTimestamp": 1771932111,
+    "wethUsd": 1820.7603136042028,
+    "wethTimestamp": 1771932042
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772231410,
+   "price": "1226541162603000000",
+   "legs": {
+    "wstEthUsd": 2348.8927603010725,
+    "wstEthTimestamp": 1772231410,
+    "wethUsd": 1915.054163625977,
+    "wethTimestamp": 1772231425
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772262006,
+   "price": "1216347288453000000",
+   "legs": {
+    "wstEthUsd": 2261.713802992546,
+    "wstEthTimestamp": 1772262006,
+    "wethUsd": 1859.430957311674,
+    "wethTimestamp": 1772261740
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772444414,
+   "price": "1227788496425000000",
+   "legs": {
+    "wstEthUsd": 2406.1816785007777,
+    "wstEthTimestamp": 1772444414,
+    "wethUsd": 1959.7688734726573,
+    "wethTimestamp": 1772444280
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772447403,
+   "price": "1226803241424000000",
+   "legs": {
+    "wstEthUsd": 2392.964720715617,
+    "wstEthTimestamp": 1772447403,
+    "wethUsd": 1950.5692843933657,
+    "wethTimestamp": 1772447517
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772498987,
+   "price": "1225798194176000000",
+   "legs": {
+    "wstEthUsd": 2496.1144881226705,
+    "wstEthTimestamp": 1772498987,
+    "wethUsd": 2036.3176418293922,
+    "wethTimestamp": 1772498908
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772982905,
+   "price": "1228526259378000000",
+   "legs": {
+    "wstEthUsd": 2390.468710035212,
+    "wstEthTimestamp": 1772982905,
+    "wethUsd": 1945.8018839949598,
+    "wethTimestamp": 1772982929
+   }
+  }
+ ]
+}

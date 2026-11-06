@@ -43,7 +43,9 @@ contract RedressVaultTest is Test {
                 epochCapBps: capBps,
                 epochLength: EPOCH,
                 expectedWorkflowId: id,
-                expectedWorkflowOwner: workflowOwner
+                expectedWorkflowOwner: workflowOwner,
+                bond: address(0),
+                ledger: address(0)
             })
         );
     }
@@ -84,28 +86,28 @@ contract RedressVaultTest is Test {
     // Construction
 
     function test_constructorRejectsBadConfig() public {
-        RedressVault.Config memory good = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0));
-        RedressVault.Config memory c = RedressVault.Config(address(0), address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0));
+        RedressVault.Config memory good = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0));
+        RedressVault.Config memory c = RedressVault.Config(address(0), address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0));
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
-        c = RedressVault.Config(FORWARDER, address(0), MAX_BONUS, 2000, EPOCH, 0, address(0));
+        c = RedressVault.Config(FORWARDER, address(0), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0));
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
-        c = RedressVault.Config(FORWARDER, address(weth), 10_001, 2000, EPOCH, 0, address(0));
+        c = RedressVault.Config(FORWARDER, address(weth), 10_001, 2000, EPOCH, 0, address(0), address(0), address(0));
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
-        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 0, EPOCH, 0, address(0));
+        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 0, EPOCH, 0, address(0), address(0), address(0));
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
-        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 10_001, EPOCH, 0, address(0));
+        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 10_001, EPOCH, 0, address(0), address(0), address(0));
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
-        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 2000, 0, 0, address(0));
+        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 2000, 0, 0, address(0), address(0), address(0));
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 

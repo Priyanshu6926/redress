@@ -16,6 +16,9 @@ const CONFIG = process.argv[2] ?? "default";
 const results = JSON.parse(readFileSync(join(import.meta.dir, "out", `results-${CONFIG}.json`), "utf8")) as Results;
 const reads = JSON.parse(readFileSync(join(import.meta.dir, "data", "incident-reads.json"), "utf8")) as EventReads[];
 const readOf = (row: Row) => reads.find((r) => r.txHash === row.txHash && r.logIndex === row.logIndex)!;
+const adapters = JSON.parse(readFileSync(join(import.meta.dir, "data", "incident-adapters.json"), "utf8")) as { events: { txHash: string; logIndex: number; oracleAdapter: Address; builder: Address }[] };
+const incident = JSON.parse(readFileSync(join(import.meta.dir, "data", "incident-2026-03-10.json"), "utf8")) as { liquidations: { txHash: string; logIndex: number; liquidator: Address }[] };
+const same = (row: Row) => (e: { txHash: string; logIndex: number }) => e.txHash === row.txHash && e.logIndex === row.logIndex;
 
 const reports = results.incident.map((row) => {
   const r = readOf(row);
@@ -36,6 +39,9 @@ const reports = results.incident.map((row) => {
     sourceCount: row.sourcesUsed.length,
     redress: BigInt(row.redress),
     evidenceHash: row.evidenceHash as Hex,
+    oracleAdapter: adapters.events.find(same(row))!.oracleAdapter,
+    liquidator: incident.liquidations.find(same(row))!.liquidator,
+    builder: adapters.events.find(same(row))!.builder,
   });
   return { report, redress: row.redress };
 });

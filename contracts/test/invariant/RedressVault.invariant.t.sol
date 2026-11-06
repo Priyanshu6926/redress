@@ -154,7 +154,9 @@ contract RedressVaultInvariantTest is Test {
                 epochCapBps: 2_000,
                 epochLength: 1 days,
                 expectedWorkflowId: bytes32(0),
-                expectedWorkflowOwner: address(0)
+                expectedWorkflowOwner: address(0),
+                bond: address(0),
+                ledger: address(0)
             })
         );
         handler = new VaultHandler(vault, weth);

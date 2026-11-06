@@ -5,6 +5,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {IOperatorBond, IRecoveryLedger} from "./interfaces/IAccountability.sol";
 import {IReceiver} from "./interfaces/IReceiver.sol";
 import {VerdictMath} from "./VerdictMath.sol";
 
@@ -25,6 +26,9 @@ struct Verdict {
     uint8 sourceCount;
     uint256 redress; // computed off-chain, re-derived here
     bytes32 evidenceHash; // keccak256 of the evidence bundle
+    address oracleAdapter; // AaveOracle.getSourceOfAsset(collateral) at the incident block
+    address liquidator; // from the LiquidationCall event
+    address builder; // the incident block's coinbase
 }
 
 interface IRedressVault is IReceiver {
@@ -61,6 +65,7 @@ interface IRedressVault is IReceiver {
 contract RedressVault is IRedressVault, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
+    uint8 private constant SOURCE_BOND = 0;
     uint8 private constant SOURCE_RESERVE = 1;
     uint256 private constant BPS = 10_000;
 
@@ -73,6 +78,9 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
         /// Optional: leave zero for simulation, where MockKeystoneForwarder sends no metadata.
         bytes32 expectedWorkflowId;
         address expectedWorkflowOwner;
+        /// Optional: zero pays from the reserve only and opens no claims.
+        address bond;
+        address ledger;
     }
 
     struct Record {
@@ -82,6 +90,9 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
         address user;
         uint256 redress;
         bytes32 evidenceHash;
+        address oracleAdapter;
+        address liquidator;
+        address builder;
     }
 
     error InvalidConfig();
@@ -107,10 +118,13 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
     uint256 public immutable epochLength;
     bytes32 public immutable expectedWorkflowId;
     address public immutable expectedWorkflowOwner;
+    IOperatorBond public immutable bond;
+    IRecoveryLedger public immutable ledger;
 
     bool public paused;
     uint256 public totalFunded;
-    uint256 public totalPaid;
+    uint256 public totalPaid; // from the reserve
+    uint256 public totalPaidFromBond;
     uint256 public currentEpoch;
     uint256 public epochBudget;
     uint256 public epochSpent;
@@ -122,6 +136,15 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
             cfg.forwarder == address(0) || cfg.payoutAsset == address(0) || cfg.maxLiquidationBonusBps > BPS
                 || cfg.epochCapBps == 0 || cfg.epochCapBps > BPS || cfg.epochLength == 0
         ) revert InvalidConfig();
+        // Both are deployed first against this vault's predicted address, so there is no setter.
+        if (cfg.bond != address(0)) {
+            IOperatorBond b = IOperatorBond(cfg.bond);
+            if (b.vault() != address(this) || b.asset() != cfg.payoutAsset) revert InvalidConfig();
+        }
+        if (cfg.ledger != address(0)) {
+            IRecoveryLedger l = IRecoveryLedger(cfg.ledger);
+            if (l.vault() != address(this) || l.asset() != cfg.payoutAsset) revert InvalidConfig();
+        }
 
         owner = msg.sender;
         forwarder = cfg.forwarder;
@@ -131,6 +154,8 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
         epochLength = cfg.epochLength;
         expectedWorkflowId = cfg.expectedWorkflowId;
         expectedWorkflowOwner = cfg.expectedWorkflowOwner;
+        bond = IOperatorBond(cfg.bond);
+        ledger = IRecoveryLedger(cfg.ledger);
     }
 
     function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
@@ -184,13 +209,16 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
             verdict: v.verdict,
             user: v.user,
             redress: v.redress,
-            evidenceHash: v.evidenceHash
+            evidenceHash: v.evidenceHash,
+            oracleAdapter: v.oracleAdapter,
+            liquidator: v.liquidator,
+            builder: v.builder
         });
         emit Attested(v.liquidationTx, v.logIndex, v.user, v.verdict, v.redress, v.evidenceHash);
 
         if (v.redress == 0) return;
-        if (_canPay(v.redress)) {
-            _pay(key, v.liquidationTx);
+        if (_canPay(v.oracleAdapter, v.redress)) {
+            _pay(key, v.liquidationTx, v.logIndex);
         } else {
             emit Queued(v.liquidationTx, v.logIndex, v.user, v.redress);
         }
@@ -202,23 +230,41 @@ contract RedressVault is IRedressVault, ReentrancyGuard {
         Record storage r = records[key];
         if (!r.attested || r.paid || r.redress == 0) revert NothingToSettle();
         if (paused) revert IsPaused();
-        if (!_canPay(r.redress)) revert NotPayable();
-        _pay(key, liquidationTx);
+        if (!_canPay(r.oracleAdapter, r.redress)) revert NotPayable();
+        _pay(key, liquidationTx, logIndex);
     }
 
-    function _canPay(uint256 amount) private returns (bool) {
+    /// Only the reserve's share counts against the reserve and the epoch cap. Payouts are whole:
+    /// if the reserve cannot cover its share, nothing moves and the bond is left untouched.
+    function _canPay(address adapter, uint256 amount) private returns (bool) {
         if (paused) return false;
         _rollEpoch();
-        return amount <= available() && epochSpent + amount <= epochBudget;
+        uint256 bonded = address(bond) == address(0) ? 0 : bond.available(adapter);
+        uint256 fromReserve = amount > bonded ? amount - bonded : 0;
+        return fromReserve <= available() && epochSpent + fromReserve <= epochBudget;
     }
 
-    function _pay(bytes32 key, bytes32 liquidationTx) private {
+    /// Bond first, then reserve, then a claim for what was paid.
+    function _pay(bytes32 key, bytes32 liquidationTx, uint32 logIndex) private {
         Record storage r = records[key];
         r.paid = true;
-        totalPaid += r.redress;
-        epochSpent += r.redress;
-        payoutAsset.safeTransfer(r.user, r.redress);
-        emit Paid(liquidationTx, r.user, address(payoutAsset), r.redress, SOURCE_RESERVE);
+
+        uint256 fromBond = address(bond) == address(0) ? 0 : bond.draw(r.oracleAdapter, r.redress, r.user);
+        uint256 fromReserve = r.redress - fromBond;
+
+        if (fromBond > 0) {
+            totalPaidFromBond += fromBond;
+            emit Paid(liquidationTx, r.user, address(payoutAsset), fromBond, SOURCE_BOND);
+        }
+        if (fromReserve > 0) {
+            totalPaid += fromReserve;
+            epochSpent += fromReserve;
+            payoutAsset.safeTransfer(r.user, fromReserve);
+            emit Paid(liquidationTx, r.user, address(payoutAsset), fromReserve, SOURCE_RESERVE);
+        }
+        if (address(ledger) != address(0)) {
+            ledger.openClaim(liquidationTx, logIndex, r.liquidator, r.builder, r.redress);
+        }
     }
 
     function _rollEpoch() private {

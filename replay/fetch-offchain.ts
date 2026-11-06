@@ -51,7 +51,7 @@ export function llamaEntry(target: number, wst: Point[], weth: Point[]): Snapsho
   };
 }
 
-async function fetchLlama(stamps: number[]): Promise<Snapshot[]> {
+export async function fetchLlama(stamps: number[]): Promise<Snapshot[]> {
   const coins = encodeURIComponent(JSON.stringify({ [WSTETH]: stamps, [WETH]: stamps }));
   const res = await fetch(`${LLAMA}?coins=${coins}&searchWidth=1h`);
   if (!res.ok) throw new Error(`DefiLlama HTTP ${res.status}`);

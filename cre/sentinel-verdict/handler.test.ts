@@ -14,6 +14,7 @@ import config from "./config.fork.json";
 import forkConfig from "./config.fork.json";
 import sepoliaConfig from "./config.sepolia.json";
 import incident from "../../replay/data/incident-reads.json";
+import adapters from "../../replay/data/incident-adapters.json";
 import offchainFile from "../../replay/data/offchain-prices.json";
 import results from "../../replay/out/results-default.json";
 import { multicallAbi, onLiquidation, ratioE18, type Config } from "./handler";
@@ -27,6 +28,10 @@ const TREASURY: Address = "0x00000000000000000000000000000000000000fe";
 const TRANSFER = keccak256(toHex("Transfer(address,address,uint256)"));
 const VAULT_TX = `0x${"ab".repeat(32)}` as Hex;
 const COLLATERAL_ID = 9;
+const LIQUIDATOR: Address = "0x00000000000000000000000000000000000000aa";
+const eventOf = (r: { txHash: string; logIndex: number }) => adapters.events.find((e) => e.txHash === r.txHash && e.logIndex === r.logIndex)!;
+const adapterOf = (r: { txHash: string; logIndex: number }) => eventOf(r).oracleAdapter as Address;
+const builderOf = (r: { txHash: string; logIndex: number }) => eventOf(r).builder as Address;
 
 /** Replies carry the protobuf message form of a BigInt, with raw bytes. */
 const pbBlock = (n: number) => ({ absVal: bigintToBytes(BigInt(n)), sign: 1n });
@@ -44,6 +49,8 @@ const abi = parseAbi([
   "function balanceOf(address) view returns (uint256)",
   "function RESERVE_TREASURY_ADDRESS() view returns (address)",
   "function getAssetPrice(address) view returns (uint256)",
+  "function getSourceOfAsset(address) view returns (address)",
+  "function getCurrentBlockCoinbase() view returns (address)",
   "function stEthPerToken() view returns (uint256)",
   "function latestAnswer() view returns (int256)",
   "function observe(uint32[]) view returns (int56[], uint160[])",
@@ -107,6 +114,8 @@ function respond(r: Read, target: string, data: Hex, block: bigint): Hex {
       const weth = (call.args![0] as string).toLowerCase() === cfg.weth.toLowerCase();
       return out(BigInt(weth ? (isPre ? r.preOracleWeth : r.oracleWeth) : (isPre ? r.preOracleCollateral : r.oracleCollateral)));
     }
+    case "getSourceOfAsset": return out(adapterOf(r));
+    case "getCurrentBlockCoinbase": return out(builderOf(r));
     case "stEthPerToken": return out(BigInt(r.lidoRate));
     case "latestAnswer": return out(BigInt(r.chainlinkStEthEth));
     case "observe": return out([[0n, BigInt(r.twapTick!) * BigInt(cfg.twapWindowSec)], [0n, 0n]]);
@@ -234,6 +243,17 @@ describe("report", () => {
     expect(report.sourceCount).toBe(3);
     expect(report.evidenceHash).toBe(row.evidenceHash as Hex);
     expect((seen.report!.length - 2) / 2).toBeLessThan(1024);
+  });
+});
+
+describe("accountability fields", () => {
+  test("carries the adapter, liquidator and coinbase read for the event", () => {
+    const seen = install(first);
+    run(first);
+    const report = decodeReport(seen.report!);
+    expect(report.oracleAdapter.toLowerCase()).toBe(adapterOf(first).toLowerCase());
+    expect(report.liquidator.toLowerCase()).toBe(LIQUIDATOR);
+    expect(report.builder.toLowerCase()).toBe(builderOf(first).toLowerCase());
   });
 });
 

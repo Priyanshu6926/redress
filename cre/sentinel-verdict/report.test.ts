@@ -33,6 +33,7 @@ describe("encodeReport", () => {
     collateralAsset: "0x00000000000000000000000000000000000000C1", debtAsset: "0x00000000000000000000000000000000000000D1",
     debtToCover: 5n, collateralSeized: 6n, bandLowE18: 7n, bandHighE18: 8n, debtPriceHighE18: 9n, liquidationBonusBps: 600n,
     verdict: 1, sourceCount: 3, redress: 10n, evidenceHash: `0x${"22".repeat(32)}`,
+    oracleAdapter: "0x0000000000000000000000000000000000000012", liquidator: "0x0000000000000000000000000000000000000013", builder: "0x0000000000000000000000000000000000000014",
   };
 
   test("round-trips through the ABI", () => {

@@ -17,7 +17,9 @@ contract DeployVaultScript is Script {
             epochCapBps: vm.envOr("EPOCH_CAP_BPS", uint256(2_000)),
             epochLength: vm.envOr("EPOCH_LENGTH_SEC", uint256(1 days)),
             expectedWorkflowId: vm.envOr("EXPECTED_WORKFLOW_ID", bytes32(0)),
-            expectedWorkflowOwner: vm.envOr("EXPECTED_WORKFLOW_OWNER", address(0))
+            expectedWorkflowOwner: vm.envOr("EXPECTED_WORKFLOW_OWNER", address(0)),
+            bond: address(0),
+            ledger: address(0)
         });
 
         vm.startBroadcast();

@@ -4,16 +4,17 @@ pragma solidity ^0.8.20;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {RedressVault} from "./RedressVault.sol";
+import {IRecoveryLedger} from "./interfaces/IAccountability.sol";
 
-/// @notice Tracks what each paid redress is owed back by the liquidator and block builder that
-/// benefited, and refills the vault when funds arrive.
-/// @dev A claim is a public record, not an enforcement mechanism: nothing here can take funds
-/// from a liquidator or builder. Recovery depends on them, or someone else, paying in.
-///
-/// Trust: the attestor supplies the two addresses, which are public facts of the mainnet block
-/// that this chain cannot see. The expected amount comes from the vault, not the attestor.
-contract RecoveryLedger is ReentrancyGuard {
+interface IVaultFund {
+    function fund(uint256 amount) external;
+}
+
+/// @notice Records what each payout is owed back by the liquidator and block builder that
+/// benefited, and refills the reserve when funds arrive.
+/// @dev A claim is a public record, not enforcement: nothing here can take funds from anyone.
+/// Recovery depends on someone paying in. The addresses come from the report.
+contract RecoveryLedger is IRecoveryLedger, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     struct Claim {
@@ -24,11 +25,8 @@ contract RecoveryLedger is ReentrancyGuard {
     }
 
     error InvalidConfig();
-    error OnlyAttestor();
-    error NotPaid();
-    error ClaimExists();
+    error OnlyVault();
     error NoClaim();
-    error InvalidBeneficiary();
     error ZeroAmount();
     error AlreadySettled();
 
@@ -38,43 +36,36 @@ contract RecoveryLedger is ReentrancyGuard {
     event RecoveryReceived(bytes32 indexed liquidationTx, uint32 logIndex, address indexed from, uint256 amount);
     event ClaimSettled(bytes32 indexed liquidationTx, uint32 logIndex);
 
-    RedressVault public immutable vault;
-    IERC20 public immutable asset;
-    address public immutable attestor;
+    address public immutable vault;
+    address public immutable asset;
 
     uint256 public totalExpected;
     uint256 public totalRecovered;
 
     mapping(bytes32 key => Claim claim) private claims;
 
-    constructor(RedressVault vault_, address attestor_) {
-        if (address(vault_) == address(0) || attestor_ == address(0)) revert InvalidConfig();
+    constructor(address vault_, address asset_) {
+        if (vault_ == address(0) || asset_ == address(0)) revert InvalidConfig();
         vault = vault_;
-        asset = vault_.payoutAsset();
-        attestor = attestor_;
+        asset = asset_;
     }
 
     function claimOf(bytes32 liquidationTx, uint32 logIndex) external view returns (Claim memory) {
         return claims[_key(liquidationTx, logIndex)];
     }
 
-    /// @notice Opens a claim for the redress the vault paid. Write-once.
-    function openClaim(bytes32 liquidationTx, uint32 logIndex, address liquidator, address builder) external {
-        if (msg.sender != attestor) revert OnlyAttestor();
-        if (liquidator == address(0)) revert InvalidBeneficiary();
-        RedressVault.Record memory record = vault.recordOf(liquidationTx, logIndex);
-        if (!record.paid) revert NotPaid();
-
-        Claim storage c = claims[_key(liquidationTx, logIndex)];
-        if (c.expected != 0) revert ClaimExists();
-        c.liquidator = liquidator;
-        c.builder = builder;
-        c.expected = record.redress;
-        totalExpected += record.redress;
-        emit ClaimOpened(liquidationTx, logIndex, liquidator, builder, record.redress);
+    /// @dev The vault pays each event once, so a claim is never overwritten.
+    function openClaim(bytes32 liquidationTx, uint32 logIndex, address liquidator, address builder, uint256 expected)
+        external
+    {
+        if (msg.sender != vault) revert OnlyVault();
+        claims[_key(liquidationTx, logIndex)] =
+            Claim({liquidator: liquidator, builder: builder, expected: expected, recovered: 0});
+        totalExpected += expected;
+        emit ClaimOpened(liquidationTx, logIndex, liquidator, builder, expected);
     }
 
-    /// @notice Pays toward a claim and re-credits the vault. Anyone may call it, and an amount
+    /// @notice Pays toward a claim and re-credits the reserve. Anyone may call it, and an amount
     /// above what is outstanding is reduced to it.
     function receiveRecovery(bytes32 liquidationTx, uint32 logIndex, uint256 amount)
         external
@@ -91,9 +82,9 @@ contract RecoveryLedger is ReentrancyGuard {
         c.recovered += accepted;
         totalRecovered += accepted;
 
-        asset.safeTransferFrom(msg.sender, address(this), accepted);
-        asset.forceApprove(address(vault), accepted);
-        vault.fund(accepted);
+        IERC20(asset).safeTransferFrom(msg.sender, address(this), accepted);
+        IERC20(asset).forceApprove(vault, accepted);
+        IVaultFund(vault).fund(accepted);
 
         emit RecoveryReceived(liquidationTx, logIndex, msg.sender, accepted);
         if (c.recovered == c.expected) emit ClaimSettled(liquidationTx, logIndex);

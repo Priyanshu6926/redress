@@ -27,6 +27,9 @@ export const REPORT_PARAMS = [
       { name: "sourceCount", type: "uint8" },
       { name: "redress", type: "uint256" },
       { name: "evidenceHash", type: "bytes32" },
+      { name: "oracleAdapter", type: "address" },
+      { name: "liquidator", type: "address" },
+      { name: "builder", type: "address" },
     ],
   },
 ] as const;
@@ -48,6 +51,9 @@ export interface Report {
   sourceCount: number;
   redress: bigint;
   evidenceHash: Hex;
+  oracleAdapter: Address;
+  liquidator: Address;
+  builder: Address;
 }
 
 export function encodeReport(report: Report): Hex {

@@ -4,132 +4,130 @@ pragma solidity ^0.8.20;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {RedressVault} from "./RedressVault.sol";
+import {IOperatorBond} from "./interfaces/IAccountability.sol";
 
-/// @notice Oracle operators bond the payout asset against an adapter. When a paid redress is
-/// attributed to that adapter, anyone can slash the bond and the slash refills the vault.
-/// @dev The vault pays from its reserve and stays unaware of this contract, so the bond
-/// reimburses the reserve after a payout rather than paying the victim first.
+/// @notice An oracle operator bonds the payout asset against an adapter. When a verdict names
+/// that adapter, the vault pays the victim from this bond before touching its reserve.
+/// @dev One operator per adapter, named once by the registrar, so nobody can squat an adapter
+/// with a dust deposit. The adapter comes from the report, which the workflow reads from
+/// AaveOracle.getSourceOfAsset at the incident block, so a bond is only as trustworthy as the
+/// report path. Through the mock forwarder a forged report can draw it.
 ///
-/// Trust: the attestor decides which adapter caused an event. The vault's report does not carry
-/// the adapter, so attribution is a trusted, write-once input. It cannot raise a slash above the
-/// redress the vault actually paid for that event.
-contract OperatorBond is ReentrancyGuard {
+/// A withdrawal is only open for a short window after its delay. Without that, an operator could
+/// request once and hold a standing exit to use the moment an incident happens. An operator who
+/// keeps re-requesting still has a window once per cycle, so a pending request is public through
+/// `bondOf` and should be read as reduced cover.
+contract OperatorBond is IOperatorBond, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    struct Position {
+    struct Bond {
+        address operator;
         uint256 amount;
-        uint256 pending; // requested for withdrawal; still slashable
+        uint256 pending; // requested for withdrawal; still drawable
         uint256 availableAt;
     }
 
     error InvalidConfig();
-    error OnlyAttestor();
-    error NotPaid();
-    error AlreadyAttributed();
-    error NotAttributed();
+    error OnlyVault();
+    error OnlyRegistrar();
+    error AlreadyRegistered();
+    error NotOperator();
     error ZeroAmount();
-    error NothingToSlash();
     error ExceedsBond();
     error WithdrawalNotReady();
+    error WithdrawalExpired();
 
+    event OperatorRegistered(address indexed adapter, address indexed operator);
     event BondDeposited(address indexed adapter, address indexed operator, uint256 amount);
-    event WithdrawalRequested(address indexed adapter, address indexed operator, uint256 amount, uint256 availableAt);
+    event WithdrawalRequested(address indexed adapter, uint256 amount, uint256 availableAt);
     event BondWithdrawn(address indexed adapter, address indexed operator, uint256 amount);
-    event Attributed(bytes32 indexed liquidationTx, uint32 logIndex, address indexed adapter);
-    event BondSlashed(
-        bytes32 indexed liquidationTx, uint32 logIndex, address indexed adapter, address operator, uint256 amount
-    );
+    event BondDrawn(address indexed adapter, address indexed recipient, uint256 amount);
 
-    RedressVault public immutable vault;
-    IERC20 public immutable asset;
-    address public immutable attestor;
+    address public immutable vault;
+    address public immutable asset;
+    address public immutable registrar;
     uint256 public immutable withdrawalDelay;
+    uint256 public immutable withdrawalWindow;
 
     uint256 public totalBonded;
-    uint256 public totalSlashed;
+    uint256 public totalDrawn;
 
-    mapping(address adapter => mapping(address operator => Position position)) private positions;
-    mapping(bytes32 key => address adapter) public attributedTo;
-    mapping(bytes32 key => uint256 amount) public slashedFor;
+    mapping(address adapter => Bond bond) private bonds;
 
-    constructor(RedressVault vault_, address attestor_, uint256 withdrawalDelay_) {
-        if (address(vault_) == address(0) || attestor_ == address(0) || withdrawalDelay_ == 0) revert InvalidConfig();
+    constructor(address vault_, address asset_, address registrar_, uint256 withdrawalDelay_, uint256 withdrawalWindow_) {
+        if (
+            vault_ == address(0) || asset_ == address(0) || registrar_ == address(0) || withdrawalDelay_ == 0
+                || withdrawalWindow_ == 0
+        ) revert InvalidConfig();
         vault = vault_;
-        asset = vault_.payoutAsset();
-        attestor = attestor_;
+        asset = asset_;
+        registrar = registrar_;
         withdrawalDelay = withdrawalDelay_;
+        withdrawalWindow = withdrawalWindow_;
     }
 
-    function positionOf(address adapter, address operator) external view returns (Position memory) {
-        return positions[adapter][operator];
+    /// @notice Names an adapter's operator. Write-once, and the registrar's only power.
+    function registerOperator(address adapter, address operator) external {
+        if (msg.sender != registrar) revert OnlyRegistrar();
+        if (operator == address(0)) revert InvalidConfig();
+        if (bonds[adapter].operator != address(0)) revert AlreadyRegistered();
+        bonds[adapter].operator = operator;
+        emit OperatorRegistered(adapter, operator);
+    }
+
+    function bondOf(address adapter) external view returns (Bond memory) {
+        return bonds[adapter];
+    }
+
+    function available(address adapter) external view returns (uint256) {
+        return bonds[adapter].amount;
     }
 
     function deposit(address adapter, uint256 amount) external nonReentrant {
         if (amount == 0) revert ZeroAmount();
-        positions[adapter][msg.sender].amount += amount;
+        Bond storage b = bonds[adapter];
+        if (msg.sender != b.operator) revert NotOperator();
+        b.amount += amount;
         totalBonded += amount;
-        asset.safeTransferFrom(msg.sender, address(this), amount);
+        IERC20(asset).safeTransferFrom(msg.sender, address(this), amount);
         emit BondDeposited(adapter, msg.sender, amount);
     }
 
-    /// @notice Starts the delay. A new request replaces the old one and restarts the delay.
+    /// @notice Starts the delay. A new request replaces the old one and restarts it.
     function requestWithdrawal(address adapter, uint256 amount) external {
-        Position storage p = positions[adapter][msg.sender];
+        Bond storage b = bonds[adapter];
+        if (msg.sender != b.operator) revert NotOperator();
         if (amount == 0) revert ZeroAmount();
-        if (amount > p.amount) revert ExceedsBond();
-        p.pending = amount;
-        p.availableAt = block.timestamp + withdrawalDelay;
-        emit WithdrawalRequested(adapter, msg.sender, amount, p.availableAt);
+        if (amount > b.amount) revert ExceedsBond();
+        b.pending = amount;
+        b.availableAt = block.timestamp + withdrawalDelay;
+        emit WithdrawalRequested(adapter, amount, b.availableAt);
     }
 
-    /// @notice Pays the request, reduced by anything slashed during the delay.
+    /// @notice Pays the request, reduced by anything drawn during the delay. Lapses after the window.
     function withdraw(address adapter) external nonReentrant {
-        Position storage p = positions[adapter][msg.sender];
-        if (p.pending == 0 || block.timestamp < p.availableAt) revert WithdrawalNotReady();
-        uint256 amount = p.pending < p.amount ? p.pending : p.amount;
-        p.pending = 0;
-        p.availableAt = 0;
-        p.amount -= amount;
+        Bond storage b = bonds[adapter];
+        if (msg.sender != b.operator) revert NotOperator();
+        if (b.pending == 0 || block.timestamp < b.availableAt) revert WithdrawalNotReady();
+        if (block.timestamp >= b.availableAt + withdrawalWindow) revert WithdrawalExpired();
+        uint256 amount = b.pending < b.amount ? b.pending : b.amount;
+        b.pending = 0;
+        b.availableAt = 0;
+        b.amount -= amount;
         totalBonded -= amount;
-        asset.safeTransfer(msg.sender, amount);
+        IERC20(asset).safeTransfer(msg.sender, amount);
         emit BondWithdrawn(adapter, msg.sender, amount);
     }
 
-    /// @notice Names the adapter behind a paid redress. Write-once.
-    function attribute(bytes32 liquidationTx, uint32 logIndex, address adapter) external {
-        if (msg.sender != attestor) revert OnlyAttestor();
-        if (!vault.recordOf(liquidationTx, logIndex).paid) revert NotPaid();
-        bytes32 key = _key(liquidationTx, logIndex);
-        if (attributedTo[key] != address(0)) revert AlreadyAttributed();
-        attributedTo[key] = adapter;
-        emit Attributed(liquidationTx, logIndex, adapter);
-    }
-
-    /// @notice Moves up to the unreimbursed redress from one operator's bond into the vault.
-    /// Anyone may call it. Operators on the same adapter are slashed one call at a time.
-    function slash(bytes32 liquidationTx, uint32 logIndex, address operator) external nonReentrant returns (uint256) {
-        bytes32 key = _key(liquidationTx, logIndex);
-        address adapter = attributedTo[key];
-        if (adapter == address(0)) revert NotAttributed();
-
-        uint256 remaining = vault.recordOf(liquidationTx, logIndex).redress - slashedFor[key];
-        Position storage p = positions[adapter][operator];
-        uint256 amount = remaining < p.amount ? remaining : p.amount;
-        if (amount == 0) revert NothingToSlash();
-
-        p.amount -= amount;
-        slashedFor[key] += amount;
-        totalBonded -= amount;
-        totalSlashed += amount;
-
-        asset.forceApprove(address(vault), amount);
-        vault.fund(amount);
-        emit BondSlashed(liquidationTx, logIndex, adapter, operator, amount);
-        return amount;
-    }
-
-    function _key(bytes32 liquidationTx, uint32 logIndex) private pure returns (bytes32) {
-        return keccak256(abi.encode(liquidationTx, logIndex));
+    function draw(address adapter, uint256 amount, address recipient) external nonReentrant returns (uint256 paid) {
+        if (msg.sender != vault) revert OnlyVault();
+        Bond storage b = bonds[adapter];
+        paid = amount < b.amount ? amount : b.amount;
+        if (paid == 0) return 0;
+        b.amount -= paid;
+        totalBonded -= paid;
+        totalDrawn += paid;
+        IERC20(asset).safeTransfer(recipient, paid);
+        emit BondDrawn(adapter, recipient, paid);
     }
 }
