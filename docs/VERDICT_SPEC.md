@@ -14,7 +14,7 @@ This is the normative definition of the Redress verdict engine. `cre/sentinel-ve
 
 `WAD` = 1e18. `BPS` = 10,000. All arithmetic is exact integer arithmetic with no floating point.
 
-**Input bounds.** Amounts must be at most 1e30 and prices at most 1e24. Both implementations reject anything larger: TypeScript throws and Solidity reverts. These bounds keep every intermediate product under 2^256, so TypeScript's unbounded integers and Solidity's checked integers cannot diverge.
+**Input bounds.** Amounts must be at most 1e30, prices at most 1e24, and every basis-point value at most 10,000. Both implementations reject anything larger: TypeScript throws and Solidity reverts. These bounds keep every intermediate product under 2^256, so TypeScript's unbounded integers and Solidity's checked integers cannot diverge.
 
 ## 2. Parameters
 
@@ -126,7 +126,7 @@ hfBest  = hfCeil (A, collateral.high, D, debt.low,  lt)
 1. band is INCONCLUSIVE                     → INCONCLUSIVE   (both HF values are 0)
 2. gate closed and oracleCollateral > high  → OVERPRICED
 3. gate closed                              → VALID
-4. hfWorst · BPS >= WAD · (BPS + epsHBps)   → WRONGFUL
+4. hfWorst >= ceil(WAD · (BPS + epsHBps) / BPS) → WRONGFUL   (exact for an integer hfWorst; cannot overflow at HF_MAX)
 5. hfBest < WAD and excess > 0              → EXCESS
 6. hfBest < WAD                             → VALID
 7. otherwise                                → AMBIGUOUS

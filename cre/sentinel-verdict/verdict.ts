@@ -96,6 +96,10 @@ function assertPrice(v: bigint): void {
   if (v < 0n || v > MAX_PRICE) throw new RangeError(`price out of bounds: ${v}`);
 }
 
+function assertBps(...values: bigint[]): void {
+  for (const v of values) if (v < 0n || v > BPS) throw new RangeError(`basis points out of bounds: ${v}`);
+}
+
 /** A fixed band for a debt asset that is the numeraire. */
 export function fixedBand(price: bigint): Band {
   assertPrice(price);
@@ -104,6 +108,7 @@ export function fixedBand(price: bigint): Band {
 
 export function buildBand(sources: PriceSource[], cfg: EngineConfig & { asOf: bigint }): Band | typeof INCONCLUSIVE {
   sources.forEach((s) => assertPrice(s.price));
+  assertBps(cfg.muBps, cfg.epsOutBps);
   const age = (t: bigint) => (cfg.asOf > t ? cfg.asOf - t : t - cfg.asOf);
   const usable = sources
     .filter((s) => s.price > 0n && age(s.timestamp) <= cfg.maxStalenessSec)
@@ -128,6 +133,7 @@ export function buildBand(sources: PriceSource[], cfg: EngineConfig & { asOf: bi
 export function gate(oracleCollateralPrice: bigint, oracleDebtPrice: bigint, band: PairBand, tauBps: bigint): boolean {
   assertPrice(oracleCollateralPrice);
   assertPrice(oracleDebtPrice);
+  assertBps(tauBps);
   return (
     oracleCollateralPrice * BPS < band.collateral.low * (BPS - tauBps) ||
     oracleDebtPrice * BPS > band.debt.high * (BPS + tauBps)
@@ -140,6 +146,7 @@ export function hfFloor(a: bigint, pc: bigint, d: bigint, pd: bigint, ltBps: big
   assertAmount(d);
   assertPrice(pc);
   assertPrice(pd);
+  assertBps(ltBps);
   if (d === 0n || pd === 0n) return HF_MAX;
   const adjusted = mulDivDown(mulDivDown(a, pc, WAD), ltBps, BPS);
   return mulDivDown(adjusted, WAD, mulDivUp(d, pd, WAD));
@@ -151,6 +158,7 @@ export function hfCeil(a: bigint, pc: bigint, d: bigint, pd: bigint, ltBps: bigi
   assertAmount(d);
   assertPrice(pc);
   assertPrice(pd);
+  assertBps(ltBps);
   const debt = mulDivDown(d, pd, WAD);
   if (debt === 0n) return HF_MAX;
   const adjusted = mulDivUp(mulDivUp(a, pc, WAD), ltBps, BPS);
@@ -160,6 +168,7 @@ export function hfCeil(a: bigint, pc: bigint, d: bigint, pd: bigint, ltBps: bigi
 function excessOverEntitlement(position: Position, liquidation: Liquidation, band: PairBand): bigint {
   assertAmount(liquidation.collateralSeized);
   assertAmount(liquidation.debtCovered);
+  assertBps(position.bonusBps);
   const collateralFloor = mulDivDown(liquidation.collateralSeized, band.collateral.low, WAD);
   const debtCeil = mulDivUp(liquidation.debtCovered, band.debt.high, WAD);
   return subOrZero(collateralFloor, mulDivUp(debtCeil, BPS + position.bonusBps, BPS));
@@ -180,7 +189,8 @@ export function verdict(
   if (!gate(liquidation.oracleCollateralPrice, liquidation.oracleDebtPrice, band, cfg.tauBps)) {
     return outcome(liquidation.oracleCollateralPrice > band.collateral.high ? VerdictType.OVERPRICED : VerdictType.VALID);
   }
-  if (hfWorst * BPS >= WAD * (BPS + cfg.epsHBps)) return outcome(VerdictType.WRONGFUL);
+  assertBps(cfg.epsHBps);
+  if (hfWorst >= mulDivUp(WAD, BPS + cfg.epsHBps, BPS)) return outcome(VerdictType.WRONGFUL);
   if (hfBest < WAD) {
     return outcome(excessOverEntitlement(position, liquidation, band) > 0n ? VerdictType.EXCESS : VerdictType.VALID);
   }
