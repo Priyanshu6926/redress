@@ -3,7 +3,6 @@ pragma solidity ^0.8.20;
 
 import {Test} from "forge-std/Test.sol";
 import {stdJson} from "forge-std/StdJson.sol";
-import {RedressVault} from "../../src/RedressVault.sol";
 
 interface IAavePool {
     struct CollateralConfig {
@@ -79,7 +78,7 @@ contract AaveBonusForkTest is Test {
     function test_everyReportedBonusMatchesAaveAndPassesTheVaultBound() public {
         string memory rpc = _skipWithoutRpc();
         string memory json = vm.readFile("../replay/data/incident-reads.json");
-        uint256 maxBonus = new RedressVault(address(1)).MAX_LIQUIDATION_BONUS_BPS();
+        uint256 maxBonus = 2_000; // deployment default, DeployVault.s.sol
         vm.createSelectFork(rpc, FORK_BLOCK);
 
         uint256 categoryEvents;

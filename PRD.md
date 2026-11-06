@@ -300,15 +300,15 @@ Using the event amount alone gives 498.27 ETH, because it omits the fee.
 
 | Rule | Value |
 |---|---|
-| Authorization | Only reports delivered by the CRE forwarder (Receiver pattern from CRE templates) `[VERIFY forwarder address]` |
-| Waterfall | 1) the oracle operator's bond for the implicated adapter, 2) shared reserve, 3) treasury top-up line (off by default) |
+| Authorization | Only reports delivered by the configured CRE forwarder. Workflow ID and owner checks are optional immutables: production sets them, simulation cannot, because `MockKeystoneForwarder` supplies no metadata `[PRIMARY: CRE docs]` |
+| Waterfall | Reserve only in this build. Target design: 1) the oracle operator's bond for the implicated adapter, 2) shared reserve, 3) treasury top-up line (off by default) |
 | Idempotency | One payout per `(txHash, logIndex)`; replays are rejected |
 | Per-event cap | Redress ≤ value of `C` at `p_c^L` (never more than what was seized) |
-| Epoch cap | Global payout cap per epoch (default 20% of reserve) as an automatic circuit breaker |
-| Finality | Pay only after `N` block confirmations (default 2) `[DECISION]` |
+| Epoch cap | Global payout cap per epoch (default 20% of reserve) as an automatic circuit breaker. Payouts are whole: one that does not fit is recorded, queued, and paid later by a permissionless `settle`. At 20% the largest incident event (230.53 ETH) needs a reserve of at least 1,153 ETH, and clearing all 473.30 ETH in one epoch needs at least 2,367 ETH |
+| Finality | Report only after `N` block confirmations (default 2) `[DECISION]`. Enforced by the workflow: a vault on another chain cannot see mainnet blocks |
 | Recipient | The `user` field of the on-chain event only. No claims, no addresses supplied by anyone else |
-| Emergency | A multisig pause exists as a safety valve but is not part of any normal flow and is not used in the demo |
-| Parameters | `τ`, `μ`, caps and source lists change only through a timelock |
+| Emergency | An owner pause is the only admin power. While paused, verdicts are still recorded and payouts queue. It is not part of any normal flow and is not used in the demo. Production should use a multisig owner |
+| Parameters | Vault parameters are immutable, set at deployment: forwarder, payout asset, maximum bonus, epoch cap and length, workflow identity. Changing one means deploying a new vault. `τ`, `μ` and source lists are workflow configuration |
 
 ### 6.8 Recovery and accountability
 
@@ -401,13 +401,13 @@ struct Verdict {
 interface IRedressVault {
     function onReport(bytes calldata metadata, bytes calldata report) external; // forwarder only
     function fund(uint256 amount) external;
-    function receiveRecovery(bytes32 liquidationTx, uint256 amount) external;
+    function settle(bytes32 liquidationTx, uint32 logIndex) external; // anyone; pays a queued redress to its recorded user
     event Attested(bytes32 indexed liquidationTx, uint32 logIndex, address indexed user, uint8 verdict, uint256 redress, bytes32 evidenceHash);
     event Paid(bytes32 indexed liquidationTx, address indexed user, address asset, uint256 amount, uint8 source /*bond|reserve|treasury*/);
 }
 ```
 
-The vault re-derives `redress` from the report's fields with `VerdictMath` and reverts if the CRE-supplied value differs by even one wei, or if `liquidationBonusBps` exceeds 2,000 (20%). This keeps arithmetic deterministic and auditable on-chain.
+The vault re-derives `redress` from the report's fields with `VerdictMath` and reverts if the CRE-supplied value differs by even one wei, or if `liquidationBonusBps` exceeds the maximum set in the constructor (2,000, or 20%, by default). This keeps arithmetic deterministic and auditable on-chain.
 
 ### 7.4 CRE workflow: `sentinel-verdict`
 
@@ -417,19 +417,19 @@ The vault re-derives `redress` from the report's fields with `VerdictMath` and r
 1. Decode the event. Add the protocol fee from the aToken transfer to the treasury in the same receipt to get gross `C`.
 2. One Multicall3 `aggregate3` read at block `B-1`: user balances (aToken, debt token), E-Mode id and category data, reserve LT, and the inputs to the effective bonus: the E-Mode bonus applies only if the collateral is enabled in the category's collateral bitmap, otherwise the reserve bonus applies (`cre/sentinel-verdict/bonus.ts`).
 3. One Multicall3 read at block `B`: `AaveOracle.getAssetPrice(c, d)`, `stEthPerToken`, Chainlink feed round, Uniswap `observe`.
-4. Two HTTP calls to off-chain aggregators, each with median consensus across DON nodes.
+4. HTTP calls to off-chain aggregators, each with median consensus across DON nodes. Phase 1 found CoinGecko's wstETH history unusable, so DefiLlama is the only working off-chain series today (README, Off-chain price sources).
 5. Build the band, run gate and verdict from `verdict.ts` (the same pure function the unit tests use).
-6. Encode the report (< 1 KB) and write it to `RedressVault` (`--broadcast` in simulation).
+6. Encode the report and write it to `RedressVault` (`--broadcast` in simulation).
 7. Emit structured logs consumed by the backend (evidence bundle, Arkiv write).
 
-**Quota budget** (limits as reported by a community CRE skill guide `[REPORTED]`; confirm in CRE docs `[VERIFY]`):
+**Quota budget** (per execution, from the CRE service quotas page `[PRIMARY]`):
 
 | Quota | Limit | Our use per execution |
 |---|---|---|
-| HTTP calls | 5 | 2 |
-| EVM reads | 10 | 2 to 3 (Multicall3 batches the rest) |
-| EVM write report size | 1 KB | ~300 to 400 bytes |
-| Concurrent capability calls | 3 | respected |
+| HTTP calls | 15 | 1 to 2 |
+| EVM reads | 15 | 2 to 3 (Multicall3 batches the rest) |
+| EVM write report size | 50 KB | 512 bytes |
+| Concurrent capability calls | 30 | respected |
 | Log triggers | 5 per workflow | 2 pools |
 
 **Deployment caveat.** Deploying to the live DON requires Early Access approval `[REPORTED]`; simulation is unrestricted and is all the Chainlink CRE prize requires `[PRIMARY: ETHGlobal page]`. For "live" mode the backend watches the chain and invokes the workflow in simulation per event (a pattern already used by other CRE projects), and the production path is DON deployment.
@@ -508,13 +508,13 @@ Known transaction hashes to confirm `[REPORTED]`:
 | Profile | Reads | Writes | Purpose |
 |---|---|---|---|
 | **Fork-Faithful** (local) | Anvil fork of mainnet just before the execution block | Real Aave contracts re-execute the original transactions under impersonation; vault deployed on the fork with real WETH funded by impersonating a whale | Exact financials, real bytecode, real liquidations. Used for the video and live demo |
-| **Public-Mirror** (Sepolia) | Mainnet archive RPC (historical) | `RedressVault` on Sepolia with test WETH; the **same 34 victim addresses** are paid in test tokens at 1:1 amounts | Public, clickable, verifiable on Sepolia Etherscan; counts as the deployed project |
+| **Public-Mirror** (Sepolia) | Mainnet archive RPC (historical) | `RedressVault` on Sepolia with test WETH; the **same victims** (33 addresses, 34 positions, 47 payouts) are paid in test tokens at the provable floor. A vault using `MockKeystoneForwarder` accepts only what that forwarder delivers, which is not a production trust model | Public, clickable, verifiable on Sepolia Etherscan; counts as the deployed project |
 
 ### 8.3 Replay procedure
 
 ```
 make fork-up        # anvil --fork-url $MAINNET_RPC --fork-block-number <executionBlock - 1>
-make deploy-fork    # vault, bond, ledger; fund reserve; register adapter->operator (demo)
+make deploy-fork    # vault; fund reserve
 make replay         # re-executes the original txs in order (impersonation), then for each LiquidationCall:
                     #   cre workflow simulate sentinel-verdict --target fork --broadcast \
                     #     --non-interactive --trigger-index 0 --evm-tx-hash <tx> --evm-event-index <i>
@@ -529,13 +529,13 @@ If re-executing every original transaction proves unstable, fall back to *log re
 | Metric | Ground truth / baseline | Target |
 |---|---|---|
 | Classification of the 34 incident positions | All wrongful (they were healthy at true prices) | 34 / 34 `WRONGFUL`. Known risk: the non-E-Mode position started at HF 1.0016, inside the `ε_h` margin once the band is applied, so it may classify `AMBIGUOUS`. Report it; do not tune `ε_h` or `μ` |
-| Total redress | DAO refund 512.19 ETH headline; ARFC table components sum to 512.48 ETH | Loss at the band median within ±2% of the DAO figure (6.6 lands at −0.12% to −0.17%). The provable floor is reported beside it and is expected to be lower |
-| Per-user accounting | None published by the DAO | 34 per-user rows with evidence links |
+| Total redress | DAO refund 512.19 ETH headline; ARFC table components sum to 512.48 ETH | **Paid: the provable floor.** Comparison only: loss at the band midpoint, target ±2% of the DAO figure. Phase 1, `default`: floor 473.30 ETH paid (−7.59%), midpoint 499.17 ETH (−2.54%, misses the target). `onchain-only-2src`: floor 494.17 ETH (−3.52%), midpoint 509.61 ETH (−0.50%) |
+| Per-user accounting | None published by the DAO | 47 per-event rows across 34 positions, with evidence links |
 | Detection latency | LlamaRisk detected within minutes; the ARFC came the next day | ≤ 2 blocks after the first `LiquidationCall` |
 | Time to payout | ~3 weeks (10 Mar → ~1 Apr) | Same transaction as the attestation, after `N=2` confirmations |
 | False positives on normal liquidations | n/a | **0** across the negative-control set |
-| Reserve consumed | n/a | ≈ 3.8% of affected collateral value `[DERIVED]` |
-| Recovery tracking | 141.6 ETH + 41.62 WETH recovered manually | Recovery claims opened automatically against liquidator and builder addresses |
+| Reserve consumed | n/a | ≈ 3.5% of affected collateral value at the floor `[DERIVED]` |
+| Recovery tracking | 141.6 ETH + 41.62 WETH recovered manually | Roadmap: recovery ledger not in this build |
 
 ### 8.5 Before and after timeline
 

@@ -1,34 +1,33 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "./VerdictMath.sol";
-import "./OperatorBond.sol";
-import "./RecoveryLedger.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {IReceiver} from "./interfaces/IReceiver.sol";
+import {VerdictMath} from "./VerdictMath.sol";
 
 struct Verdict {
-    bytes32 liquidationTx;    // tx hash of the LiquidationCall
-    uint32  logIndex;
-    uint64  blockNumber;
-    address user;             // recipient
+    bytes32 liquidationTx; // tx hash of the LiquidationCall
+    uint32 logIndex;
+    uint64 blockNumber;
+    address user; // recipient
     address collateralAsset;
     address debtAsset;
-    uint256 debtToCover;      // X
+    uint256 debtToCover; // X
     uint256 collateralSeized; // C, gross of the protocol fee
-    uint256 bandLowE18;       // p_c^L (numeraire per collateral unit)
-    uint256 bandHighE18;      // p_c^H
+    uint256 bandLowE18; // p_c^L (numeraire per collateral unit)
+    uint256 bandHighE18; // p_c^H
     uint256 debtPriceHighE18; // p_d^H
     uint256 liquidationBonusBps; // effective bonus for this position, 100 = 1%
-    uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE, 5 OVERPRICED
-    uint8   sourceCount;
-    uint256 redress;          // computed off-chain, re-derived on-chain
-    bytes32 evidenceHash;     // keccak256 of the Swarm bundle
+    uint8 verdict; // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE, 5 OVERPRICED
+    uint8 sourceCount;
+    uint256 redress; // computed off-chain, re-derived here
+    bytes32 evidenceHash; // keccak256 of the evidence bundle
 }
 
-interface IRedressVault {
-    function onReport(bytes calldata metadata, bytes calldata report) external;
-    function fund(uint256 amount) external;
-    function receiveRecovery(bytes32 liquidationTx, uint256 amount) external;
-    
+interface IRedressVault is IReceiver {
     event Attested(
         bytes32 indexed liquidationTx,
         uint32 logIndex,
@@ -44,106 +43,208 @@ interface IRedressVault {
         uint256 amount,
         uint8 source // 0: bond, 1: reserve, 2: treasury
     );
+    event Queued(bytes32 indexed liquidationTx, uint32 logIndex, address indexed user, uint256 amount);
+    event Funded(address indexed from, uint256 amount);
+    event PauseChanged(bool paused);
+
+    function fund(uint256 amount) external;
+    function settle(bytes32 liquidationTx, uint32 logIndex) external;
 }
 
-contract RedressVault is IRedressVault {
-    using VerdictMath for uint8;
+/// @notice Records verdicts delivered by the CRE forwarder and pays the provable floor.
+/// @dev Follows the CRE receiver pattern, but does not inherit ReceiverTemplate: its owner
+/// setters for the forwarder and workflow identity would be admin powers. Here those values
+/// are immutable and pause is the owner's only power.
+///
+/// Trust: the vault re-derives the arithmetic, not the facts. It cannot see mainnet, so it
+/// trusts the report for the position, the band and the verdict.
+contract RedressVault is IRedressVault, ReentrancyGuard {
+    using SafeERC20 for IERC20;
 
-    /// Largest liquidation bonus a report may claim. Aave bonuses seen on Core and Prime
-    /// are 1% to 6%, so 20% leaves headroom while bounding what a bad report can assert.
-    uint256 public constant MAX_LIQUIDATION_BONUS_BPS = 2_000;
+    uint8 private constant SOURCE_RESERVE = 1;
+    uint256 private constant BPS = 10_000;
 
+    struct Config {
+        address forwarder;
+        address payoutAsset;
+        uint256 maxLiquidationBonusBps;
+        uint256 epochCapBps;
+        uint256 epochLength;
+        /// Optional: leave zero for simulation, where MockKeystoneForwarder sends no metadata.
+        bytes32 expectedWorkflowId;
+        address expectedWorkflowOwner;
+    }
+
+    struct Record {
+        bool attested;
+        bool paid;
+        uint8 verdict;
+        address user;
+        uint256 redress;
+        bytes32 evidenceHash;
+    }
+
+    error InvalidConfig();
+    error InvalidSender(address sender, address expected);
+    error InvalidWorkflowId(bytes32 received, bytes32 expected);
+    error InvalidWorkflowOwner(address received, address expected);
+    error MetadataTooShort(uint256 length);
+    error AlreadyProcessed(bytes32 liquidationTx, uint32 logIndex);
     error BonusOutOfBounds(uint256 bonusBps);
     error RedressMismatch(uint256 reported, uint256 calculated);
+    error RedressAboveCollateral(uint256 redress, uint256 cap);
+    error InvalidRecipient();
+    error NothingToSettle();
+    error NotPayable();
+    error IsPaused();
+    error OnlyOwner();
 
     address public immutable owner;
-    address public forwarder; // Chainlink CRE forwarder
-    OperatorBond public operatorBond;
-    RecoveryLedger public recoveryLedger;
+    address public immutable forwarder;
+    IERC20 public immutable payoutAsset;
+    uint256 public immutable maxLiquidationBonusBps;
+    uint256 public immutable epochCapBps;
+    uint256 public immutable epochLength;
+    bytes32 public immutable expectedWorkflowId;
+    address public immutable expectedWorkflowOwner;
 
-    uint256 public totalReserve;
+    bool public paused;
+    uint256 public totalFunded;
     uint256 public totalPaid;
-    uint256 public totalRecovered;
+    uint256 public currentEpoch;
+    uint256 public epochBudget;
+    uint256 public epochSpent;
 
-    // Idempotency: (liquidationTx, logIndex) => processed
-    mapping(bytes32 => mapping(uint32 => bool)) public processed;
+    mapping(bytes32 key => Record record) private records;
 
-    modifier onlyForwarder() {
-        require(msg.sender == forwarder || msg.sender == owner, "Unauthorized report sender");
-        _;
-    }
+    constructor(Config memory cfg) {
+        if (
+            cfg.forwarder == address(0) || cfg.payoutAsset == address(0) || cfg.maxLiquidationBonusBps > BPS
+                || cfg.epochCapBps == 0 || cfg.epochCapBps > BPS || cfg.epochLength == 0
+        ) revert InvalidConfig();
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner");
-        _;
-    }
-
-    constructor(address _forwarder) {
         owner = msg.sender;
-        forwarder = _forwarder;
+        forwarder = cfg.forwarder;
+        payoutAsset = IERC20(cfg.payoutAsset);
+        maxLiquidationBonusBps = cfg.maxLiquidationBonusBps;
+        epochCapBps = cfg.epochCapBps;
+        epochLength = cfg.epochLength;
+        expectedWorkflowId = cfg.expectedWorkflowId;
+        expectedWorkflowOwner = cfg.expectedWorkflowOwner;
     }
 
-    function setDependencies(address _bond, address _ledger) external onlyOwner {
-        operatorBond = OperatorBond(_bond);
-        recoveryLedger = RecoveryLedger(_ledger);
+    function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
+        return interfaceId == type(IReceiver).interfaceId || interfaceId == type(IERC165).interfaceId;
     }
 
-    function setForwarder(address _forwarder) external onlyOwner {
-        forwarder = _forwarder;
+    function available() public view returns (uint256) {
+        return totalFunded - totalPaid;
     }
 
-    function fund(uint256 amount) external override {
-        // Mock reserve funding helper
-        totalReserve += amount;
+    function recordOf(bytes32 liquidationTx, uint32 logIndex) external view returns (Record memory) {
+        return records[_key(liquidationTx, logIndex)];
     }
 
-    receive() external payable {
-        totalReserve += msg.value;
+    function setPaused(bool value) external {
+        if (msg.sender != owner) revert OnlyOwner();
+        paused = value;
+        emit PauseChanged(value);
     }
 
-    function receiveRecovery(bytes32 liquidationTx, uint256 amount) external override {
-        totalRecovered += amount;
-        if (address(recoveryLedger) != address(0)) {
-            recoveryLedger.recordRecovery(liquidationTx, amount);
-        }
+    /// @notice Adds to the reserve. Tokens sent directly are not counted.
+    function fund(uint256 amount) external nonReentrant {
+        _rollEpoch();
+        totalFunded += amount;
+        epochBudget += amount * epochCapBps / BPS;
+        payoutAsset.safeTransferFrom(msg.sender, address(this), amount);
+        emit Funded(msg.sender, amount);
     }
 
-    function onReport(bytes calldata /* metadata */, bytes calldata report) external override onlyForwarder {
+    function onReport(bytes calldata metadata, bytes calldata report) external nonReentrant {
+        if (msg.sender != forwarder) revert InvalidSender(msg.sender, forwarder);
+        _checkWorkflow(metadata);
+
         Verdict memory v = abi.decode(report, (Verdict));
+        bytes32 key = _key(v.liquidationTx, v.logIndex);
+        if (records[key].attested) revert AlreadyProcessed(v.liquidationTx, v.logIndex);
+        if (v.liquidationBonusBps > maxLiquidationBonusBps) revert BonusOutOfBounds(v.liquidationBonusBps);
 
-        require(!processed[v.liquidationTx][v.logIndex], "Already processed");
-        processed[v.liquidationTx][v.logIndex] = true;
-
-        if (v.liquidationBonusBps > MAX_LIQUIDATION_BONUS_BPS) revert BonusOutOfBounds(v.liquidationBonusBps);
-
-        // Re-derive the redress floor on-chain. It must equal the report exactly.
-        uint256 calculatedRedress = VerdictMath.computeRedress(
-            v.verdict,
-            v.collateralSeized,
-            v.debtToCover,
-            v.bandLowE18,
-            v.debtPriceHighE18,
-            v.liquidationBonusBps
+        uint256 calculated = VerdictMath.computeRedress(
+            v.verdict, v.collateralSeized, v.debtToCover, v.bandLowE18, v.debtPriceHighE18, v.liquidationBonusBps
         );
+        if (v.redress != calculated) revert RedressMismatch(v.redress, calculated);
 
-        if (v.redress != calculatedRedress) revert RedressMismatch(v.redress, calculatedRedress);
+        uint256 cap = v.collateralSeized * v.bandLowE18 / 1e18;
+        if (v.redress > cap) revert RedressAboveCollateral(v.redress, cap);
+        if (v.redress > 0 && v.user == address(0)) revert InvalidRecipient();
 
+        records[key] = Record({
+            attested: true,
+            paid: false,
+            verdict: v.verdict,
+            user: v.user,
+            redress: v.redress,
+            evidenceHash: v.evidenceHash
+        });
         emit Attested(v.liquidationTx, v.logIndex, v.user, v.verdict, v.redress, v.evidenceHash);
 
-        if (v.redress > 0) {
-            _executePayout(v);
+        if (v.redress == 0) return;
+        if (_canPay(v.redress)) {
+            _pay(key, v.liquidationTx);
+        } else {
+            emit Queued(v.liquidationTx, v.logIndex, v.user, v.redress);
         }
     }
 
-    function _executePayout(Verdict memory v) internal {
-        require(totalPaid + v.redress <= totalReserve + totalRecovered, "Exceeds vault reserve");
-        totalPaid += v.redress;
+    /// @notice Pays a queued redress to its recorded user. Anyone may call it.
+    function settle(bytes32 liquidationTx, uint32 logIndex) external nonReentrant {
+        bytes32 key = _key(liquidationTx, logIndex);
+        Record storage r = records[key];
+        if (!r.attested || r.paid || r.redress == 0) revert NothingToSettle();
+        if (paused) revert IsPaused();
+        if (!_canPay(r.redress)) revert NotPayable();
+        _pay(key, liquidationTx);
+    }
 
-        // Payout to victim
-        (bool sent, ) = payable(v.user).call{value: v.redress}("");
-        require(sent, "Payout transfer failed");
+    function _canPay(uint256 amount) private returns (bool) {
+        if (paused) return false;
+        _rollEpoch();
+        return amount <= available() && epochSpent + amount <= epochBudget;
+    }
 
-        emit Paid(v.liquidationTx, v.user, v.debtAsset, v.redress, 1 /* reserve */);
+    function _pay(bytes32 key, bytes32 liquidationTx) private {
+        Record storage r = records[key];
+        r.paid = true;
+        totalPaid += r.redress;
+        epochSpent += r.redress;
+        payoutAsset.safeTransfer(r.user, r.redress);
+        emit Paid(liquidationTx, r.user, address(payoutAsset), r.redress, SOURCE_RESERVE);
+    }
+
+    function _rollEpoch() private {
+        uint256 epoch = block.timestamp / epochLength;
+        if (epoch == currentEpoch) return;
+        currentEpoch = epoch;
+        epochSpent = 0;
+        epochBudget = available() * epochCapBps / BPS;
+    }
+
+    function _checkWorkflow(bytes calldata metadata) private view {
+        if (expectedWorkflowId == bytes32(0) && expectedWorkflowOwner == address(0)) return;
+        // 62 bytes of identity; the production forwarder appends a 2-byte report id.
+        if (metadata.length < 62) revert MetadataTooShort(metadata.length);
+
+        bytes32 workflowId = bytes32(metadata[0:32]);
+        address workflowOwner = address(bytes20(metadata[42:62]));
+        if (expectedWorkflowId != bytes32(0) && workflowId != expectedWorkflowId) {
+            revert InvalidWorkflowId(workflowId, expectedWorkflowId);
+        }
+        if (expectedWorkflowOwner != address(0) && workflowOwner != expectedWorkflowOwner) {
+            revert InvalidWorkflowOwner(workflowOwner, expectedWorkflowOwner);
+        }
+    }
+
+    function _key(bytes32 liquidationTx, uint32 logIndex) private pure returns (bytes32) {
+        return keccak256(abi.encode(liquidationTx, logIndex));
     }
 }
-

@@ -4,7 +4,7 @@
  */
 import { encodeAbiParameters, type Address, type Hex } from "viem";
 
-/** Mirrors RedressVault.MAX_LIQUIDATION_BONUS_BPS. */
+/** Mirrors the default in contracts/script/DeployVault.s.sol. */
 export const MAX_LIQUIDATION_BONUS_BPS = 2_000n;
 
 export const REPORT_PARAMS = [
