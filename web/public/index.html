@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redress</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#overview">Redress</a>
+    <nav aria-label="Pages">
+      <a href="#overview">Overview</a>
+      <a href="#lookup">Was I wronged?</a>
+      <a href="#theater">Replay</a>
+      <a href="#explorer">Explorer</a>
+      <a href="#reserve">Reserve</a>
+      <a href="#live">Live</a>
+    </nav>
+  </header>
+  <p class="notice">Testnet demo. Payouts are test tokens on Sepolia, not compensation. The incident data is real mainnet history.</p>
+
+  <main>
+    <section id="page-overview" hidden>
+      <h1>When an oracle gets it wrong, make people whole in blocks, not weeks.</h1>
+      <p class="lead">On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave, and healthy positions were liquidated. Redress re-checks every liquidation against independent prices and pays what can be proven.</p>
+      <div class="stats" id="overview-stats"></div>
+      <h2>How one liquidation is handled</h2>
+      <ol class="flow">
+        <li><strong>Detect</strong>A Chainlink CRE workflow reads the LiquidationCall.</li>
+        <li><strong>Price</strong>Lido rate, Uniswap TWAP and off-chain prices form a band.</li>
+        <li><strong>Judge</strong>Was the position healthy across the whole band?</li>
+        <li><strong>Pay</strong>The vault re-derives the amount and pays the provable floor.</li>
+        <li><strong>Charge</strong>The operator's bond pays first, then the reserve.</li>
+        <li><strong>Recover</strong>A claim opens against the liquidator and builder.</li>
+      </ol>
+      <h2>Compared with the DAO's refund</h2>
+      <div id="overview-compare"></div>
+    </section>
+
+    <section id="page-lookup" hidden>
+      <h1>Was I wronged?</h1>
+      <p class="lead">Enter an address to see every verdict for it.</p>
+      <form id="lookup-form" class="row">
+        <label class="grow">Address
+          <input id="lookup-input" placeholder="0x…" autocomplete="off" spellcheck="false">
+        </label>
+        <button type="submit">Check</button>
+      </form>
+      <p class="hint">Try an address from the <a href="#explorer">Explorer</a>.</p>
+      <div id="lookup-result" aria-live="polite"></div>
+    </section>
+
+    <section id="page-theater" hidden>
+      <h1>10 March 2026, re-run</h1>
+      <p class="lead">Each step is one block. The line is the Aave oracle's price and the box is the independent band.</p>
+      <div class="row">
+        <button id="theater-play" type="button">Play</button>
+        <label class="grow">Block
+          <input id="theater-slider" type="range" min="0" max="0" value="0">
+        </label>
+      </div>
+      <div id="theater-chart" class="chart"></div>
+      <div class="stats" id="theater-stats"></div>
+      <h2>Liquidations in this block</h2>
+      <div id="theater-events"></div>
+    </section>
+
+    <section id="page-explorer" hidden>
+      <h1>Incident explorer</h1>
+      <p class="lead">Filters run as queries on Arkiv.</p>
+      <form id="explorer-form" class="filters">
+        <label>Verdict
+          <select name="verdict">
+            <option value="">Any</option>
+            <option>WRONGFUL</option>
+            <option>AMBIGUOUS</option>
+            <option>EXCESS</option>
+            <option>VALID</option>
+            <option>INCONCLUSIVE</option>
+          </select>
+        </label>
+        <label>Min redress (ETH)<input name="minEth" type="number" min="0" step="any"></label>
+        <label>Max redress (ETH)<input name="maxEth" type="number" min="0" step="any"></label>
+        <label>From block<input name="fromBlock" type="number" min="0"></label>
+        <label>To block<input name="toBlock" type="number" min="0"></label>
+        <button type="submit">Filter</button>
+      </form>
+      <p class="hint" id="explorer-source"></p>
+      <div id="explorer-result"></div>
+    </section>
+
+    <section id="page-reserve" hidden>
+      <h1>Reserve and accountability</h1>
+      <div class="stats" id="reserve-stats"></div>
+      <h2>Who paid</h2>
+      <p class="hint">Bond first, then reserve. The bond belongs to a demo operator.</p>
+      <div id="reserve-waterfall"></div>
+      <h2>Recovery claims</h2>
+      <p class="hint">Claims are public records. Nothing here can force a payment.</p>
+      <div id="reserve-claims"></div>
+      <h2>Stress calculator</h2>
+      <p class="hint">Replays the 47 incident payouts in order under your settings, using the vault's own rules.</p>
+      <form id="stress-form" class="filters">
+        <label>Reserve (ETH)<input name="reserve" type="number" min="0" step="any" value="3000"></label>
+        <label>Bond (ETH)<input name="bond" type="number" min="0" step="any" value="100"></label>
+        <label>Epoch cap (%)<input name="cap" type="number" min="1" max="100" step="any" value="20"></label>
+      </form>
+      <div class="stats" id="stress-result"></div>
+    </section>
+
+    <section id="page-live" hidden>
+      <h1>Live monitor</h1>
+      <p class="lead">Recent real Aave liquidations with the gate applied. A quiet day should read VALID, which is a continuous test that the system does not cry wolf.</p>
+      <p class="hint" id="live-status"></p>
+      <div id="live-result"></div>
+      <h2>Negative controls</h2>
+      <div id="live-controls"></div>
+    </section>
+  </main>
+
+  <footer class="bottom" id="footer"></footer>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
