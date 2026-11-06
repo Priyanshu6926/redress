@@ -5,7 +5,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { EngineConfig } from "../cre/sentinel-verdict/verdict";
-import { CONFIGS, banner, evaluate, type OffchainPrice, type Row } from "./evaluate";
+import { CONFIGS, banner, evaluate, offchainFor, type OffchainPrice, type Row } from "./evaluate";
 import type { EventReads } from "./reads";
 
 const dataDir = join(import.meta.dir, "data");
@@ -33,7 +33,8 @@ export function tally(rows: Row[]): Record<string, number> {
   return out;
 }
 
-function runConfig(cfg: EngineConfig, incident: EventReads[], control: EventReads[], offchain: OffchainPrice[]): Results {
+function runConfig(cfg: EngineConfig, incident: EventReads[], control: EventReads[], allOffchain: OffchainPrice[]): Results {
+  const offchain = offchainFor(cfg, allOffchain);
   const results: Results = {
     config: Object.fromEntries(Object.entries(cfg).map(([k, v]) => [k, typeof v === "bigint" ? v.toString() : v])),
     banner: banner(cfg),

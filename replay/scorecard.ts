@@ -112,7 +112,7 @@ function printRows(rows: Row[]) {
       hf.padEnd(8),
       fmt18(BigInt(r.redress), 4).padEnd(11),
       `${fmt18(BigInt(r.bandLow), 5)}-${fmt18(BigInt(r.bandHigh), 5)}`.padEnd(20),
-      String(r.sourcesAvailable).padEnd(8),
+      `${r.sourcesUsed.length}/${r.sourcesAvailable}`.padEnd(8),
       r.multiAsset ? "multi-asset" : "",
     ].join(" "));
   }

@@ -128,6 +128,22 @@ Read from chain by `replay/verify-onchain.mjs`. Full output: [`replay/data/verif
 | Uniswap Sepolia | PoolManager `0xE03A1074c86CFeDd5C142C4F04F1a1536e203543`; code and activity are in the verification report | [v4 deployments](https://developers.uniswap.org/docs/protocols/v4/deployments) |
 | Arkiv testnet | TODO-VERIFY: the PRD chain ID 7794095 was not found. The Tiramisu RPC answers `eth_chainId` with `0x7614d1`. Confirm against the Mumbai prize page | [Arkiv docs](https://arkiv.dev.golem.network/docs) |
 
+### Off-chain price sources (S3)
+
+`replay/data/offchain-prices.json` holds two series fetched by `replay/fetch-offchain.ts`, stored as fetched with URLs, fetch date and timestamps. Nothing was removed by hand: the engine's outlier rejection decides what enters the band.
+
+| Series | Result | Overlap with S1 and S2 |
+|---|---|---|
+| [DefiLlama](https://coins.llama.fi) `batchHistorical`, wstETH USD / WETH USD | Used. Median 18.5 bps from the Lido rate | **Provenance unconfirmed.** A [2022 article](https://www.chaincatcher.com/en/article/2079733) says DefiLlama starts from CoinGecko and falls back to DEX markets including Uniswap, so a Uniswap input cannot be ruled out. Measured: 13 bps median from S2, and its deviation from Lido has a 0.12 correlation with S2's, so it is not a copy of that pool. It is also 14.5 bps from the Lido rate on a wstETH/stETH basis, so it is not the Lido rate either |
+| [CoinGecko](https://api.coingecko.com) `market_chart/range`, wstETH in ETH | **Rejected on every incident event.** Median 1,394 bps from the Lido rate. The stored series reads 1.02 to 1.08 ETH against a true ~1.23, in February as well as March, while current tickers and its stETH series look normal | CoinGecko aggregates markets. Its current wstETH tickers include Uniswap v3 wstETH/WETH, so this would overlap S2 if it were usable |
+
+Limits of the DefiLlama series:
+
+- It has one point every 30 to 60 minutes, so all 47 incident events share the same sample.
+- Its two legs are up to 7 minutes apart (114 seconds at the incident), so ETH movement between them adds noise to the ratio.
+- With CoinGecko rejected, it is the only off-chain source in the band, so `default` has one off-chain voice, not two.
+- CoinGecko's public API refuses dates older than 365 days, so 9 older control timestamps have no CoinGecko point.
+
 ### Differences from the published figures
 
 Data was not adjusted to fit. These are the differences and their causes.

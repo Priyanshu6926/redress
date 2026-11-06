@@ -14,6 +14,11 @@ export const CONFIGS: EngineConfig[] = [
   { ...DEFAULT_CONFIG, name: "onchain-only-2src", minSources: 2 },
 ];
 
+/** A config named onchain-only must never see off-chain prices. */
+export function offchainFor(cfg: EngineConfig, offchain: OffchainPrice[]): OffchainPrice[] {
+  return cfg.name.startsWith("onchain-only") ? [] : offchain;
+}
+
 export function banner(cfg: EngineConfig): string {
   return `=== CONFIG ${cfg.name}: minSources=${cfg.minSources} tau=${cfg.tauBps} mu=${cfg.muBps} epsOut=${cfg.epsOutBps} epsH=${cfg.epsHBps} (bps) ===`;
 }
@@ -109,7 +114,10 @@ export interface Row {
   lossAtBandMid: string;
   bandLow: string;
   bandHigh: string;
+  /** Sources that survived staleness and outlier checks. */
   sourcesUsed: string[];
+  /** Sources queried but dropped, with their prices kept out of the band. */
+  sourcesRejected: string[];
   sourcesAvailable: number;
   gateOpen: boolean;
   multiAsset: boolean;
@@ -138,6 +146,8 @@ export function evaluate(reads: EventReads[], cfg: EngineConfig, offchain: Offch
     const outcome = verdict(position, target, band, cfg);
     const pay = redress(position, target, band, outcome.verdict);
 
+    // Rejected sources sit outside the band: eps_out is wider than the mu widening.
+    const inBand = (s: PriceSource) => band !== INCONCLUSIVE && s.price >= band.collateral.low && s.price <= band.collateral.high;
     const mid = band === INCONCLUSIVE ? 0n : (band.collateral.low + band.collateral.high) / 2n;
     const loss = (target.collateralSeized * mid) / WAD - (target.debtCovered * debtPrice) / WAD;
     const implied = target.debtCovered === 0n ? 0n
@@ -157,7 +167,8 @@ export function evaluate(reads: EventReads[], cfg: EngineConfig, offchain: Offch
       lossAtBandMid: (band === INCONCLUSIVE || loss < 0n ? 0n : loss).toString(),
       bandLow: band === INCONCLUSIVE ? "0" : band.collateral.low.toString(),
       bandHigh: band === INCONCLUSIVE ? "0" : band.collateral.high.toString(),
-      sourcesUsed: sources.map((s) => s.name),
+      sourcesUsed: sources.filter(inBand).map((s) => s.name),
+      sourcesRejected: sources.filter((s) => !inBand(s)).map((s) => s.name),
       sourcesAvailable: sources.length,
       gateOpen: band !== INCONCLUSIVE && outcome.verdict !== VerdictType.VALID && outcome.verdict !== VerdictType.OVERPRICED,
       multiAsset: isMultiAsset(r),

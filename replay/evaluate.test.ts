@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { CONFIGS, banner, basePosition, evaluate, sourcesFor, to18 } from "./evaluate";
+import { CONFIGS, banner, basePosition, evaluate, offchainFor, sourcesFor, to18 } from "./evaluate";
 import { countUserAssets, meanTick, priceAtTick, sqrtRatioAtTick, type EventReads } from "./reads";
 
 const E18 = 10n ** 18n;
@@ -81,6 +81,26 @@ describe("sourcesFor", () => {
       { name: "other", timestamp: 1000, price: "3" },
     ]);
     expect(names.map((s) => s.price)).toEqual([12n * E18 / 10n, 12n * E18 / 10n, 2n, 3n]);
+  });
+});
+
+test("the on-chain-only config never receives off-chain prices", () => {
+  const offchain = [{ name: "x", timestamp: 1, price: "1" }];
+  expect(offchainFor(TWO_SOURCES, offchain)).toEqual([]);
+  expect(offchainFor(DEFAULT, offchain)).toEqual(offchain);
+});
+
+describe("source reporting", () => {
+  test("names survivors and rejected sources separately", () => {
+    const glitch = event({ oracleCollateral: "11000000000" });
+    const offchain = [
+      { name: "good", timestamp: 1000, price: (12n * E18 / 10n).toString() },
+      { name: "bad", timestamp: 1000, price: E18.toString() },
+    ];
+    const row = evaluate([glitch], DEFAULT, offchain)[0]!;
+    expect(row.verdict).toBe("WRONGFUL");
+    expect(row.sourcesUsed).toEqual(["S1 Lido stEthPerToken", "S2 Uniswap v3 TWAP 30m", "S3 good"]);
+    expect(row.sourcesRejected).toEqual(["S3 bad"]);
   });
 });
 

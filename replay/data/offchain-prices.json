@@ -1,0 +1,806 @@
+{
+ "fetchedAt": "2026-11-06T14:28:02.000Z",
+ "requestedTimestamps": 56,
+ "sources": [
+  {
+   "name": "defillama",
+   "url": "https://coins.llama.fi/batchHistorical?coins={wstETH and WETH timestamps}&searchWidth=1h",
+   "method": "wstETH USD divided by WETH USD, nearest sample to each event, dated by the leg further from the event",
+   "points": 56,
+   "medianGapToLidoBps": 18.5,
+   "status": "ok"
+  },
+  {
+   "name": "coingecko",
+   "url": "https://api.coingecko.com/api/v3/coins/wrapped-steth/market_chart/range?vs_currency=eth&from=..&to=..",
+   "method": "hourly wstETH price quoted in ETH, nearest sample to each event",
+   "points": 33,
+   "timestampsBeyondPublicApiLimit": 9,
+   "medianGapToLidoBps": 1393.9,
+   "status": "failed-sanity"
+  }
+ ],
+ "prices": [
+  {
+   "name": "defillama",
+   "timestamp": 1760230348,
+   "price": "1215244171195000000",
+   "legs": {
+    "wstEthUsd": 4525.101972993348,
+    "wstEthTimestamp": 1760230348,
+    "wethUsd": 3723.6154513242923,
+    "wethTimestamp": 1760230382
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760354996,
+   "price": "1216057873773000000",
+   "legs": {
+    "wstEthUsd": 4998.442769272565,
+    "wstEthTimestamp": 1760354996,
+    "wethUsd": 4110.36586093232,
+    "wethTimestamp": 1760354935
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760683494,
+   "price": "1214900935191000000",
+   "legs": {
+    "wstEthUsd": 4672.331445584815,
+    "wstEthTimestamp": 1760683494,
+    "wethUsd": 3845.8538554431843,
+    "wethTimestamp": 1760683070
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1760688899,
+   "price": "1218238590066000000",
+   "legs": {
+    "wstEthUsd": 4564.243966585264,
+    "wstEthTimestamp": 1760688899,
+    "wethUsd": 3746.5928298481604,
+    "wethTimestamp": 1760688954
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1761763370,
+   "price": "1208015990095000000",
+   "legs": {
+    "wstEthUsd": 4732.373773236352,
+    "wstEthTimestamp": 1761763370,
+    "wethUsd": 3917.4761029964643,
+    "wethTimestamp": 1761763268
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1761853173,
+   "price": "1218268749939000000",
+   "legs": {
+    "wstEthUsd": 4521.695821294988,
+    "wstEthTimestamp": 1761853173,
+    "wethUsd": 3711.574988293497,
+    "wethTimestamp": 1761853240
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762183787,
+   "price": "1210261872883000000",
+   "legs": {
+    "wstEthUsd": 4460.462166208361,
+    "wstEthTimestamp": 1762183787,
+    "wethUsd": 3685.534731077022,
+    "wethTimestamp": 1762183640
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762183923,
+   "price": "1230903859533000000",
+   "legs": {
+    "wstEthUsd": 4460.462166208361,
+    "wstEthTimestamp": 1762183787,
+    "wethUsd": 3623.729125279252,
+    "wethTimestamp": 1762183923
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762186451,
+   "price": "1226672283014000000",
+   "legs": {
+    "wstEthUsd": 4377.880724807706,
+    "wstEthTimestamp": 1762186451,
+    "wethUsd": 3568.908163515069,
+    "wethTimestamp": 1762186249
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1762588800,
+   "price": "1218932079934000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762589404,
+   "price": "1218997936534000000",
+   "legs": {
+    "wstEthUsd": 4197.558492693962,
+    "wstEthTimestamp": 1762589404,
+    "wethUsd": 3443.4500394877427,
+    "wethTimestamp": 1762589291
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1762804800,
+   "price": "1218524337348000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1762805700,
+   "price": "1218159042145000000",
+   "legs": {
+    "wstEthUsd": 4342.101197313128,
+    "wstEthTimestamp": 1762805700,
+    "wethUsd": 3564.478074772974,
+    "wethTimestamp": 1762805701
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763063772,
+   "price": "1223079292172000000",
+   "legs": {
+    "wstEthUsd": 3914.497619278196,
+    "wstEthTimestamp": 1763063772,
+    "wethUsd": 3200.5264452868014,
+    "wethTimestamp": 1763063816
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1763064000,
+   "price": "1225988740390000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763072992,
+   "price": "1217771557510000000",
+   "legs": {
+    "wstEthUsd": 3908.7081259772526,
+    "wstEthTimestamp": 1763072992,
+    "wethUsd": 3209.721972790251,
+    "wethTimestamp": 1763073206
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1763074800,
+   "price": "1222148174049000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763124016,
+   "price": "1224706017252000000",
+   "legs": {
+    "wstEthUsd": 3791.5425931695977,
+    "wstEthTimestamp": 1763124016,
+    "wethUsd": 3095.879778297456,
+    "wethTimestamp": 1763124110
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763124016,
+   "price": "1224706017252000000",
+   "legs": {
+    "wstEthUsd": 3791.5425931695977,
+    "wstEthTimestamp": 1763124016,
+    "wethUsd": 3095.879778297456,
+    "wethTimestamp": 1763124110
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1763125200,
+   "price": "1212752879331000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1763434800,
+   "price": "1232405015089000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1763434803,
+   "price": "1226421088900000000",
+   "legs": {
+    "wstEthUsd": 3670.5480097051363,
+    "wstEthTimestamp": 1763434803,
+    "wethUsd": 2992.893748262812,
+    "wethTimestamp": 1763435006
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1764250196,
+   "price": "1220017396815000000",
+   "legs": {
+    "wstEthUsd": 3654.413020458239,
+    "wstEthTimestamp": 1764250196,
+    "wethUsd": 2995.3777954294596,
+    "wethTimestamp": 1764250505
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1764252000,
+   "price": "1219370589438000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1764547200,
+   "price": "1230918771667000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1764548091,
+   "price": "1209165727222000000",
+   "legs": {
+    "wstEthUsd": 3581.6767594438343,
+    "wstEthTimestamp": 1764548091,
+    "wethUsd": 2962.105755076165,
+    "wethTimestamp": 1764547809
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1764548091,
+   "price": "1229411210995000000",
+   "legs": {
+    "wstEthUsd": 3581.6767594438343,
+    "wstEthTimestamp": 1764548091,
+    "wethUsd": 2913.3269059293284,
+    "wethTimestamp": 1764548415
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1765987200,
+   "price": "1224384602675000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1765988105,
+   "price": "1233692498103000000",
+   "legs": {
+    "wstEthUsd": 3546.904788019471,
+    "wstEthTimestamp": 1765988105,
+    "wethUsd": 2875.0314956701864,
+    "wethTimestamp": 1765988383
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1767852000,
+   "price": "1013277307023000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1767852901,
+   "price": "1223679443934000000",
+   "legs": {
+    "wstEthUsd": 3826.7053432601306,
+    "wstEthTimestamp": 1767852901,
+    "wethUsd": 3127.212246826388,
+    "wethTimestamp": 1767853075
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1768863600,
+   "price": "1030799706701000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768864968,
+   "price": "1224850829795000000",
+   "legs": {
+    "wstEthUsd": 3886.2900810886026,
+    "wstEthTimestamp": 1768864968,
+    "wethUsd": 3172.8680640568336,
+    "wethTimestamp": 1768865037
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768920600,
+   "price": "1216642481155000000",
+   "legs": {
+    "wstEthUsd": 3725.209883260997,
+    "wstEthTimestamp": 1768920600,
+    "wethUsd": 3061.877207941053,
+    "wethTimestamp": 1768920546
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1768921200,
+   "price": "1039139928059000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768921355,
+   "price": "1217294441803000000",
+   "legs": {
+    "wstEthUsd": 3707.220176332935,
+    "wstEthTimestamp": 1768921521,
+    "wethUsd": 3045.4588873685652,
+    "wethTimestamp": 1768921355
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1768996800,
+   "price": "1056967507935000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1768998084,
+   "price": "1223621834393000000",
+   "legs": {
+    "wstEthUsd": 3569.725172430488,
+    "wstEthTimestamp": 1768998084,
+    "wethUsd": 2917.3434733633644,
+    "wethTimestamp": 1768997738
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1769356800,
+   "price": "1028766348620000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769357995,
+   "price": "1219089677730000000",
+   "legs": {
+    "wstEthUsd": 3540.7812649052617,
+    "wstEthTimestamp": 1769357995,
+    "wethUsd": 2904.4469242813225,
+    "wethTimestamp": 1769357715
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769365788,
+   "price": "1225514257046000000",
+   "legs": {
+    "wstEthUsd": 3496.4588117434514,
+    "wstEthTimestamp": 1769365788,
+    "wethUsd": 2853.0543742266145,
+    "wethTimestamp": 1769365966
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1769367600,
+   "price": "1048816968309000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769368936,
+   "price": "1225534315654000000",
+   "legs": {
+    "wstEthUsd": 3471.866781034504,
+    "wstEthTimestamp": 1769368936,
+    "wethUsd": 2832.941302978311,
+    "wethTimestamp": 1769368903
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769373464,
+   "price": "1227399187981000000",
+   "legs": {
+    "wstEthUsd": 3422.802044254044,
+    "wstEthTimestamp": 1769373325,
+    "wethUsd": 2788.6624643163314,
+    "wethTimestamp": 1769373464
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1769374800,
+   "price": "1062910045992000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769737503,
+   "price": "1222432825551000000",
+   "legs": {
+    "wstEthUsd": 3347.311121086656,
+    "wstEthTimestamp": 1769737503,
+    "wethUsd": 2738.237268439062,
+    "wethTimestamp": 1769737494
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769737503,
+   "price": "1222432825551000000",
+   "legs": {
+    "wstEthUsd": 3347.311121086656,
+    "wstEthTimestamp": 1769737503,
+    "wethUsd": 2738.237268439062,
+    "wethTimestamp": 1769737517
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1769738400,
+   "price": "1004648864089000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1769796000,
+   "price": "1022491034651000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769797375,
+   "price": "1218050577051000000",
+   "legs": {
+    "wstEthUsd": 3254.1094577895424,
+    "wstEthTimestamp": 1769797375,
+    "wethUsd": 2671.571705722402,
+    "wethTimestamp": 1769797198
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1769797375,
+   "price": "1224948902013000000",
+   "legs": {
+    "wstEthUsd": 3254.1094577895424,
+    "wstEthTimestamp": 1769797375,
+    "wethUsd": 2656.5266946583374,
+    "wethTimestamp": 1769797323
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770464700,
+   "price": "1225097383030000000",
+   "legs": {
+    "wstEthUsd": 2460.2801376518096,
+    "wstEthTimestamp": 1770464678,
+    "wethUsd": 2008.2323019634334,
+    "wethTimestamp": 1770464700
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1770465600,
+   "price": "1019515954317000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770465603,
+   "price": "1223560411999000000",
+   "legs": {
+    "wstEthUsd": 2468.943487908107,
+    "wstEthTimestamp": 1770465603,
+    "wethUsd": 2017.8353791907768,
+    "wethTimestamp": 1770465660
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770465603,
+   "price": "1223561902064000000",
+   "legs": {
+    "wstEthUsd": 2468.943487908107,
+    "wstEthTimestamp": 1770465603,
+    "wethUsd": 2017.8329218507877,
+    "wethTimestamp": 1770465720
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770530398,
+   "price": "1224419605449000000",
+   "legs": {
+    "wstEthUsd": 2551.039879078287,
+    "wstEthTimestamp": 1770530398,
+    "wethUsd": 2083.4686636225347,
+    "wethTimestamp": 1770530518
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1770530400,
+   "price": "1014914316250000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1770624000,
+   "price": "1034583895454000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1770625797,
+   "price": "1225896703764000000",
+   "legs": {
+    "wstEthUsd": 2513.719124756122,
+    "wstEthTimestamp": 1770625796,
+    "wethUsd": 2050.5146290371727,
+    "wethTimestamp": 1770625797
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771181103,
+   "price": "1224077575052000000",
+   "legs": {
+    "wstEthUsd": 2404.8941043023206,
+    "wstEthTimestamp": 1771180798,
+    "wethUsd": 1964.6582482331396,
+    "wethTimestamp": 1771181103
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1771182000,
+   "price": "1061510639321000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771869412,
+   "price": "1225099364396000000",
+   "legs": {
+    "wstEthUsd": 2265.3315202863073,
+    "wstEthTimestamp": 1771869412,
+    "wethUsd": 1849.1002331084865,
+    "wethTimestamp": 1771869175
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1771869600,
+   "price": "1057095078926000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771876318,
+   "price": "1226009754264000000",
+   "legs": {
+    "wstEthUsd": 2270.6779603329983,
+    "wstEthTimestamp": 1771876318,
+    "wethUsd": 1852.0880053645383,
+    "wethTimestamp": 1771876435
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1771876800,
+   "price": "1056594863622000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1771894800,
+   "price": "1063446549943000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771896023,
+   "price": "1214418758969000000",
+   "legs": {
+    "wstEthUsd": 2240.7096702346066,
+    "wstEthTimestamp": 1771896023,
+    "wethUsd": 1845.0881573473605,
+    "wethTimestamp": 1771895801
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1771930800,
+   "price": "1090544075688000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1771932111,
+   "price": "1226765269160000000",
+   "legs": {
+    "wstEthUsd": 2233.6455161941303,
+    "wstEthTimestamp": 1771932111,
+    "wethUsd": 1820.7603136042028,
+    "wethTimestamp": 1771932042
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772231410,
+   "price": "1226541162603000000",
+   "legs": {
+    "wstEthUsd": 2348.8927603010725,
+    "wstEthTimestamp": 1772231410,
+    "wethUsd": 1915.054163625977,
+    "wethTimestamp": 1772231425
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1772233200,
+   "price": "1039524611584000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1772262000,
+   "price": "1032099550204000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772262006,
+   "price": "1216347288453000000",
+   "legs": {
+    "wstEthUsd": 2261.713802992546,
+    "wstEthTimestamp": 1772262006,
+    "wethUsd": 1859.430957311674,
+    "wethTimestamp": 1772261740
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772444414,
+   "price": "1227788496425000000",
+   "legs": {
+    "wstEthUsd": 2406.1816785007777,
+    "wstEthTimestamp": 1772444414,
+    "wethUsd": 1959.7688734726573,
+    "wethTimestamp": 1772444280
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1772445600,
+   "price": "1039164331828000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772447403,
+   "price": "1226803241424000000",
+   "legs": {
+    "wstEthUsd": 2392.964720715617,
+    "wstEthTimestamp": 1772447403,
+    "wethUsd": 1950.5692843933657,
+    "wethTimestamp": 1772447517
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1772449200,
+   "price": "1041632519335000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772498987,
+   "price": "1225798194176000000",
+   "legs": {
+    "wstEthUsd": 2496.1144881226705,
+    "wstEthTimestamp": 1772498987,
+    "wethUsd": 2036.3176418293922,
+    "wethTimestamp": 1772498908
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1772499600,
+   "price": "1054008082724000000"
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1772982000,
+   "price": "1231428020736000000"
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1772982905,
+   "price": "1228526259378000000",
+   "legs": {
+    "wstEthUsd": 2390.468710035212,
+    "wstEthTimestamp": 1772982905,
+    "wethUsd": 1945.8018839949598,
+    "wethTimestamp": 1772982929
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "defillama",
+   "timestamp": 1773143099,
+   "price": "1226577831501000000",
+   "legs": {
+    "wstEthUsd": 2532.3941577119963,
+    "wstEthTimestamp": 1773143213,
+    "wethUsd": 2064.601277371386,
+    "wethTimestamp": 1773143099
+   }
+  },
+  {
+   "name": "coingecko",
+   "timestamp": 1773144000,
+   "price": "1045285371266000000"
+  }
+ ]
+}

@@ -11,334 +11,38 @@
     "maxStalenessSec": "3600"
    },
    "banner": "=== CONFIG default: minSources=3 tau=75 mu=10 epsOut=100 epsH=10 (bps) ===",
-   "offchainSnapshot": false,
+   "offchainSnapshot": true,
    "incident": {
     "events": 47,
     "eventVerdicts": {
-     "INCONCLUSIVE": 47
+     "WRONGFUL": 46,
+     "AMBIGUOUS": 1
     },
     "positions": 34,
-    "positionsAllWrongful": 0,
+    "positionsAllWrongful": 33,
     "expectedPositions": 34,
     "positionsNotAllWrongful": [
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x4BaCce55f0991Cfc4D919f7F50EDB8be028E37DF",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xf82d8c60402200114E2d5a8bdc40b1eF8f8aB0De",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x1E2799e0071E535468097E04Ad23b9FE3Ae5A6A5",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x6CC243d26eb6B79B70D94Af4FD6f145b297e728b",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x3Ee505bA316879d246a8fD2b3d7eE63b51B44FAB",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x6C92cD38dB2074379aA6e68257F28207a8f7585e",
-      "events": 2,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x718E7B7e03F9370394CC8a3BD41B395C72B90fa2",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0xFBfA537Dde869b0C4738ef98Fd9A652c7bF0EFbc",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
-      "events": 4,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x9a982dfCd22159A059114eCa54B5AbaaBdd627B4",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x892843Df4Fa30ee38b38542f2050690403e47A0E",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xe0Eb3075C2cbC4C4807a5802DA45B1dbC7b955d1",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x1Fc623b96c8024067142Ec9c15D669E5c99c5e9D",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xC8cf295c4E084d08d3db7702aCa33450Ad652EB8",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xde89Be395B57D07741004ed0Be3174F3027fD44A",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
      {
       "market": "Aave Ethereum Market",
       "user": "0x3aaC936216A43D4195791819ECc4975ba8fb6C72",
       "events": 1,
       "verdicts": [
-       "INCONCLUSIVE"
+       "AMBIGUOUS"
       ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x7F689846082b2b086Fd9A899c61C16E9D0F6C31f",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x681Dc889B79AbA892D973d41C52f1b2B1F1Ee0dd",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x6B803f020cB302Db766c5A276e935CCa01De4E4A",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xe7aaF0d67d89c253d5c00FfA3D85e7F1a6D235cF",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x5ceDE91b3c5783d093B2F6C29Cb2571a11204B27",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x2935dd2B83dFaE2D038B7FB0b9D62D02a78d1707",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x669173F1505025bc31fc7245FE4565659ca0e6e0",
-      "events": 2,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
-      "events": 6,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x342686053986b43Cf852B94CA5aFC46151296685",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
-      "events": 3,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0xeeF25A4B78FEF3E5daf6FB0A2f12e36EA0828F96",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave V3 Lido Ethereum",
-      "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
-      "events": 2,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xBE6e072a92224CDeBcB5A171451A6eBd1E380e62",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xB27dd61b74e49d9707ddB7EA4A4baF03734DD94B",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0xDB306e5c24cD28a02B50c6F893d46a3572835195",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
-     },
-     {
-      "market": "Aave Ethereum Market",
-      "user": "0x7F821b5058C362088C88952fD7735A6965e0Bc98",
-      "events": 1,
-      "verdicts": [
-       "INCONCLUSIVE"
-      ],
-      "redress": "0"
+      "redress": "1201768889703676"
      }
     ],
-    "redressFloorEth": 0,
-    "lossAtBandMidEth": 0,
-    "floorVsDaoHeadlinePct": -100,
-    "floorVsDaoTablePct": -100,
-    "midVsDaoHeadlinePct": -100,
-    "midVsDaoTablePct": -100
+    "redressFloorEth": 473.2955,
+    "lossAtBandMidEth": 499.174801,
+    "floorVsDaoHeadlinePct": -7.594,
+    "floorVsDaoTablePct": -7.646,
+    "midVsDaoHeadlinePct": -2.541,
+    "midVsDaoTablePct": -2.596
    },
    "control": {
     "events": 50,
     "verdicts": {
-     "INCONCLUSIVE": 50
+     "VALID": 50
     },
     "falsePositives": 0,
     "falsePositiveRows": [],
@@ -354,19 +58,23 @@
      "block": 24626860,
      "logIndex": 17,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1020552288471107562",
+     "hfBest": "1024488899793505928",
+     "redress": "230533099950029831035",
+     "lossAtBandMid": "243137129221110741681",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -379,19 +87,23 @@
      "block": 24626861,
      "logIndex": 14,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1019492296367078665",
+     "hfBest": "1023424818945602257",
+     "redress": "81105872269752940657",
+     "lossAtBandMid": "85540210431827919950",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -404,19 +116,23 @@
      "block": 24626861,
      "logIndex": 37,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1013920511414321099",
+     "hfBest": "1017831541755769946",
+     "redress": "49963620037012877959",
+     "lossAtBandMid": "52695303709788883504",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": true,
      "bonusBps": "100",
      "ltBps": "9480",
@@ -429,19 +145,23 @@
      "block": 24626861,
      "logIndex": 64,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1014386544501413722",
+     "hfBest": "1018299372488262992",
+     "redress": "34278898364915054888",
+     "lossAtBandMid": "36153044131671327547",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -454,19 +174,23 @@
      "block": 24626861,
      "logIndex": 79,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1020995569943330230",
+     "hfBest": "1024933891150545155",
+     "redress": "10405196168930028333",
+     "lossAtBandMid": "10974084181160555654",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -479,19 +203,23 @@
      "block": 24626861,
      "logIndex": 102,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1023499090900704036",
+     "hfBest": "1027447069025117611",
+     "redress": "6852619558721992871",
+     "lossAtBandMid": "7227275937712131558",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": true,
      "bonusBps": "100",
      "ltBps": "9648",
@@ -504,19 +232,23 @@
      "block": 24626861,
      "logIndex": 128,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1016401223707831463",
+     "hfBest": "1020321822985838059",
+     "redress": "20669523267382448266",
+     "lossAtBandMid": "21799597493224072419",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -529,19 +261,23 @@
      "block": 24626861,
      "logIndex": 170,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1016154500642408075",
+     "hfBest": "1020074148227077823",
+     "redress": "1766025900927696932",
+     "lossAtBandMid": "1862580636467074515",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -554,19 +290,23 @@
      "block": 24626861,
      "logIndex": 186,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018405936461232550",
+     "hfBest": "1022334268586455645",
+     "redress": "1267422495902323519",
+     "lossAtBandMid": "1336716861202528089",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -579,19 +319,23 @@
      "block": 24626861,
      "logIndex": 216,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1008796520174689701",
+     "hfBest": "1012687785569101860",
+     "redress": "980291071519919487",
+     "lossAtBandMid": "1033886970148868333",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -604,19 +348,23 @@
      "block": 24626861,
      "logIndex": 233,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1021253737498022351",
+     "hfBest": "1025193054543794847",
+     "redress": "432821176609179770",
+     "lossAtBandMid": "456485005220860228",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -629,19 +377,23 @@
      "block": 24626861,
      "logIndex": 272,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1019996840920152628",
+     "hfBest": "1023931309695674380",
+     "redress": "23557517430921666",
+     "lossAtBandMid": "24845488272296117",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -654,19 +406,23 @@
      "block": 24626861,
      "logIndex": 334,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1013117706589982353",
+     "hfBest": "1017025640244865636",
+     "redress": "13743546472077503",
+     "lossAtBandMid": "14494953625442304",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -679,19 +435,23 @@
      "block": 24626861,
      "logIndex": 359,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018580301043886058",
+     "hfBest": "1022509305751590303",
+     "redress": "4600513471053311",
+     "lossAtBandMid": "4852039431861449",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -704,19 +464,23 @@
      "block": 24626861,
      "logIndex": 384,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1024303976308498025",
+     "hfBest": "1028255059144983065",
+     "redress": "4791206521369202",
+     "lossAtBandMid": "5053158329857590",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -729,19 +493,23 @@
      "block": 24626861,
      "logIndex": 409,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1025746808762510950",
+     "hfBest": "1029703457086074853",
+     "redress": "3305767437517397",
+     "lossAtBandMid": "3486505160852320",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -754,19 +522,23 @@
      "block": 24626861,
      "logIndex": 434,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1021214135564653027",
+     "hfBest": "1025153299852530586",
+     "redress": "1916636799505753",
+     "lossAtBandMid": "2021425953053334",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -779,19 +551,23 @@
      "block": 24626861,
      "logIndex": 459,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "AMBIGUOUS",
+     "hfWorst": "998799821037336114",
+     "hfBest": "1002652525821522572",
+     "redress": "1201768889703676",
+     "lossAtBandMid": "3878400737512551",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "600",
      "ltBps": "8100",
@@ -804,19 +580,23 @@
      "block": 24626861,
      "logIndex": 484,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1006701791550073671",
+     "hfBest": "1010584976875963973",
+     "redress": "1390055079832170",
+     "lossAtBandMid": "1466054192046696",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -829,19 +609,23 @@
      "block": 24626861,
      "logIndex": 509,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1020303388486480527",
+     "hfBest": "1024239039718437015",
+     "redress": "2602793380236669",
+     "lossAtBandMid": "2745097083914163",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -854,19 +638,23 @@
      "block": 24626861,
      "logIndex": 534,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018501162102976691",
+     "hfBest": "1022429861545331655",
+     "redress": "1061071059948136",
+     "lossAtBandMid": "1119083479543999",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -879,19 +667,23 @@
      "block": 24626861,
      "logIndex": 564,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1014560001340060701",
+     "hfBest": "1018473498407919029",
+     "redress": "19490139446710066",
+     "lossAtBandMid": "20555732685696048",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -904,19 +696,23 @@
      "block": 24626862,
      "logIndex": 14,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1024536933294961498",
+     "hfBest": "1028488914724415151",
+     "redress": "20259690988811773381",
+     "lossAtBandMid": "21367359281041770687",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -929,19 +725,23 @@
      "block": 24626862,
      "logIndex": 38,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1023870760265438989",
+     "hfBest": "1027820172042832361",
+     "redress": "5438667566867970661",
+     "lossAtBandMid": "5736018578743035796",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -954,19 +754,23 @@
      "block": 24626862,
      "logIndex": 85,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1015586235378120651",
+     "hfBest": "1019503690973708810",
+     "redress": "2563342564414356133",
+     "lossAtBandMid": "2703489483846311300",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -979,19 +783,23 @@
      "block": 24626862,
      "logIndex": 103,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1017168794430847908",
+     "hfBest": "1021092354485713370",
+     "redress": "1224188576944366849",
+     "lossAtBandMid": "1291119255755819259",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1004,19 +812,23 @@
      "block": 24626862,
      "logIndex": 155,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1007795376068819472",
+     "hfBest": "1011682779715757206",
+     "redress": "1595431019453726",
+     "lossAtBandMid": "1682658823355819",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1029,19 +841,23 @@
      "block": 24626862,
      "logIndex": 178,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1007801824258782524",
+     "hfBest": "1011689252778544418",
+     "redress": "362777865014404405",
+     "lossAtBandMid": "382612201995223159",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1054,19 +870,23 @@
      "block": 24626862,
      "logIndex": 226,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1009625368303614252",
+     "hfBest": "1013519830842323408",
+     "redress": "337256813327580898",
+     "lossAtBandMid": "355695824992062472",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1079,19 +899,23 @@
      "block": 24626862,
      "logIndex": 252,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1012345523268220087",
+     "hfBest": "1016250478353909258",
+     "redress": "295303505654407508",
+     "lossAtBandMid": "311448782992466906",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1104,19 +928,23 @@
      "block": 24626862,
      "logIndex": 297,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1016473883948102344",
+     "hfBest": "1020394763500944213",
+     "redress": "307301366535923162",
+     "lossAtBandMid": "324102608966460063",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1129,19 +957,23 @@
      "block": 24626863,
      "logIndex": 14,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1024681921539806600",
+     "hfBest": "1028634462237386659",
+     "redress": "1361068973437062268",
+     "lossAtBandMid": "1435483451158368000",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1154,19 +986,23 @@
      "block": 24626863,
      "logIndex": 58,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1016976929009968456",
+     "hfBest": "1020899748975769651",
+     "redress": "1134428576495821363",
+     "lossAtBandMid": "1196451818285605998",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1179,19 +1015,23 @@
      "block": 24626863,
      "logIndex": 147,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1025431942043456219",
+     "hfBest": "1029387375820832435",
+     "redress": "258214337281410617",
+     "lossAtBandMid": "272331832738254765",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1204,19 +1044,23 @@
      "block": 24626863,
      "logIndex": 217,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1014602111451850067",
+     "hfBest": "1018515770952485949",
+     "redress": "320807466362002478",
+     "lossAtBandMid": "338347150628067837",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1229,19 +1073,23 @@
      "block": 24626863,
      "logIndex": 264,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018716760819646843",
+     "hfBest": "1022646291898321352",
+     "redress": "321155329012938806",
+     "lossAtBandMid": "338714032166359159",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1254,19 +1102,23 @@
      "block": 24626863,
      "logIndex": 308,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1026161973489361081",
+     "hfBest": "1030120223242055878",
+     "redress": "318348847158338453",
+     "lossAtBandMid": "335754109975140873",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1279,19 +1131,23 @@
      "block": 24626863,
      "logIndex": 367,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1008067523658680301",
+     "hfBest": "1011955977069844437",
+     "redress": "38024025269320589",
+     "lossAtBandMid": "40102933859921171",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1304,19 +1160,23 @@
      "block": 24626863,
      "logIndex": 385,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1009453239351353275",
+     "hfBest": "1013347037931155046",
+     "redress": "105286961908967012",
+     "lossAtBandMid": "111043374283524081",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1329,19 +1189,23 @@
      "block": 24626864,
      "logIndex": 14,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018148493556461847",
+     "hfBest": "1022075832638344351",
+     "redress": "164142013059787330",
+     "lossAtBandMid": "173116248443392126",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1354,19 +1218,23 @@
      "block": 24626864,
      "logIndex": 47,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018370713795535183",
+     "hfBest": "1022298910055162605",
+     "redress": "53511543481001327",
+     "lossAtBandMid": "56437212406260522",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1379,19 +1247,23 @@
      "block": 24626864,
      "logIndex": 160,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1009777493183502639",
+     "hfBest": "1013672542518725165",
+     "redress": "59348954750754271",
+     "lossAtBandMid": "62593775986802959",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1404,19 +1276,23 @@
      "block": 24626864,
      "logIndex": 249,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1017444892100201565",
+     "hfBest": "1021369517156070449",
+     "redress": "36733676794720636",
+     "lossAtBandMid": "38742039284712822",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9650",
@@ -1429,19 +1305,23 @@
      "block": 24626866,
      "logIndex": 110,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1001704446573494201",
+     "hfBest": "1005568355469319360",
+     "redress": "436731979204488",
+     "lossAtBandMid": "460609734045210",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -1454,19 +1334,23 @@
      "block": 24626866,
      "logIndex": 127,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018335628364112866",
+     "hfBest": "1022263689287503235",
+     "redress": "413036325773353",
+     "lossAtBandMid": "435618551478678",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -1479,19 +1363,23 @@
      "block": 24626866,
      "logIndex": 144,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1011730274696047571",
+     "hfBest": "1015632856562331520",
+     "redress": "275390975485267",
+     "lossAtBandMid": "290447620089040",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": true,
      "bonusBps": "100",
      "ltBps": "9499",
@@ -1504,19 +1392,23 @@
      "block": 24626867,
      "logIndex": 126,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
-     "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "verdict": "WRONGFUL",
+     "hfWorst": "1018405044484936715",
+     "hfBest": "1022333373169509489",
+     "redress": "128675559015801",
+     "lossAtBandMid": "135710734838630",
+     "bandLow": "1225351253669499000",
+     "bandHigh": "1230077843059971905",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
-     "gateOpen": false,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
+     "gateOpen": true,
      "multiAsset": false,
      "bonusBps": "100",
      "ltBps": "9500",
@@ -1531,18 +1423,22 @@
      "block": 23558182,
      "logIndex": 17,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "997345849359249315",
+     "hfBest": "1000148009388318520",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "143144966333221700052",
+     "bandLow": "1214028927023805000",
+     "bandHigh": "1217439883549693640",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -1556,18 +1452,22 @@
      "block": 23558182,
      "logIndex": 39,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "998593343981064858",
+     "hfBest": "1001399008992450856",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "86740445510785669269",
+     "bandLow": "1214028927023805000",
+     "bandHigh": "1217439883549693640",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1581,18 +1481,22 @@
      "block": 23568499,
      "logIndex": 161,
      "debtAsset": "0x853d955aCEf822Db058eb8505911ED77F175b99e",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "1001936959984085487",
+     "hfBest": "1004376947596613022",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "6674573188770920",
+     "bandLow": "1214569545302661172",
+     "bandHigh": "1217527350796869843",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1606,18 +1510,22 @@
      "block": 23595638,
      "logIndex": 150,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "997103301025601360",
+     "hfBest": "1000548343842272679",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "9608384982454720",
+     "bandLow": "1213686034255809000",
+     "bandHigh": "1217879381474403656",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -1631,18 +1539,21 @@
      "block": 23596126,
      "logIndex": 112,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "999023543264271434",
+     "hfBest": "1003043495148902544",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "128790098321091209",
+     "bandLow": "1214569545302661172",
+     "bandHigh": "1219456828656066000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1656,18 +1567,21 @@
      "block": 23684898,
      "logIndex": 621,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "991112591069259712",
+     "hfBest": "1001121490413761382",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "87954189065452350",
+     "bandLow": "1206807974104905000",
+     "bandHigh": "1218995105667754748",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1681,18 +1595,21 @@
      "block": 23692346,
      "logIndex": 694,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "997669033802500541",
+     "hfBest": "1000206972800584928",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "488520444720509",
+     "bandLow": "1216392675471432700",
+     "bandHigh": "1219487018688939000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -1706,18 +1623,21 @@
      "block": 23719695,
      "logIndex": 559,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "995916683730655640",
+     "hfBest": "1004463644734561250",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "23208180582398817",
+     "bandLow": "1209051611010117000",
+     "bandHigh": "1219427696821133957",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1731,18 +1651,21 @@
      "block": 23719706,
      "logIndex": 447,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "994396047368924235",
+     "hfBest": "1002929958265429136",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "40682358303978550",
+     "bandLow": "1209051611010117000",
+     "bandHigh": "1219427696821133957",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1756,18 +1679,21 @@
      "block": 23719897,
      "logIndex": 131,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "996301139691588959",
+     "hfBest": "1005524382481662639",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "158003512682641656",
+     "bandLow": "1216635966170453740",
+     "bandHigh": "1227898955297014000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1781,18 +1707,21 @@
      "block": 23753250,
      "logIndex": 547,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "983580373598625078",
+     "hfBest": "986870030354403569",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "279520793098741",
+     "bandLow": "1216149433423253714",
+     "bandHigh": "1220216934470534000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1806,18 +1735,21 @@
      "block": 23771177,
      "logIndex": 321,
      "debtAsset": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "981091444922125306",
+     "hfBest": "983743625223696098",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "423145684883405",
+     "bandLow": "1216757629767070786",
+     "bandHigh": "1220046885456901024",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1831,18 +1763,21 @@
      "block": 23792512,
      "logIndex": 27,
      "debtAsset": "0xC139190F447e929f090Edeb554D95AbB8b18aC1C",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "999452937399233475",
+     "hfBest": "1007740117195146517",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "68679705451310835",
+     "bandLow": "1217122693559946558",
+     "bandHigh": "1227214729130390000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1856,18 +1791,21 @@
      "block": 23793286,
      "logIndex": 146,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "941740722119294274",
+     "hfBest": "947017438910540860",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "144093106958677",
+     "bandLow": "1216553785952490000",
+     "bandHigh": "1223370322223049000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -1881,18 +1819,21 @@
      "block": 23797494,
      "logIndex": 77,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "993138063838712482",
+     "hfBest": "1004934494801965514",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "4067883055855361",
+     "bandLow": "1211540126451669000",
+     "bandHigh": "1225930723269252000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1906,18 +1847,21 @@
      "block": 23797495,
      "logIndex": 21,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "998372642598642911",
+     "hfBest": "1010231249556565324",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "222920353766591705",
+     "bandLow": "1211540126451669000",
+     "bandHigh": "1225930723269252000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1931,18 +1875,21 @@
      "block": 23823211,
      "logIndex": 359,
      "debtAsset": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "995163168768302083",
+     "hfBest": "1008464498539784817",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "1209384583465571",
+     "bandLow": "1217366130269885483",
+     "bandHigh": "1233637420104089000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -1956,18 +1903,21 @@
      "block": 23890379,
      "logIndex": 262,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "844853573914960233",
+     "hfBest": "847265692794324876",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "52375451284924",
+     "bandLow": "1218096732577316103",
+     "bandHigh": "1221574488032528897",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -1981,18 +1931,21 @@
      "block": 23914968,
      "logIndex": 25,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "994304847796396826",
+     "hfBest": "1014218929278354277",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "11314796245624744044",
+     "bandLow": "1207956561494778000",
+     "bandHigh": "1232149690438667000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2006,18 +1959,21 @@
      "block": 23915018,
      "logIndex": 17,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "991593426751240787",
+     "hfBest": "1011453203499851320",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "29495147989456276267",
+     "bandLow": "1207956561494778000",
+     "bandHigh": "1232149690438667000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2031,18 +1987,21 @@
      "block": 24033481,
      "logIndex": 27,
      "debtAsset": "0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "998803199855748809",
+     "hfBest": "1010478727704509367",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "39238677010663698",
+     "bandLow": "1220657295339664813",
+     "bandHigh": "1234926190601103000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2056,18 +2015,22 @@
      "block": 24188119,
      "logIndex": 538,
      "debtAsset": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "998738136063141707",
+     "hfBest": "1000879564938197423",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "50805462644266",
+     "bandLow": "1222455764490066000",
+     "bandHigh": "1225076874046242019",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2081,18 +2044,22 @@
      "block": 24272085,
      "logIndex": 23,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "999841940551219087",
+     "hfBest": "1001872884697013115",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "24863869174977771",
+     "bandLow": "1223590244334523101",
+     "bandHigh": "1226075680624795000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2106,18 +2073,22 @@
      "block": 24276688,
      "logIndex": 54,
      "debtAsset": "0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "990907122648167119",
+     "hfBest": "999654128335501021",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "65814842062390969",
+     "bandLow": "1215425838673845000",
+     "bandHigh": "1226154731907552711",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2131,18 +2102,22 @@
      "block": 24276765,
      "logIndex": 697,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "991980563309839962",
+     "hfBest": "1000201068083561575",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "28192134637421975",
+     "bandLow": "1216077147361197000",
+     "bandHigh": "1226154731907552711",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2156,18 +2131,22 @@
      "block": 24283114,
      "logIndex": 22,
      "debtAsset": "0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "995979659790661671",
+     "hfBest": "999040378323069226",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "12371047471273743",
+     "bandLow": "1222398212558607000",
+     "bandHigh": "1226154731907552711",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2181,18 +2160,22 @@
      "block": 24312970,
      "logIndex": 194,
      "debtAsset": "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "997708989830271870",
+     "hfBest": "1004821803183329888",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "29606199496573333",
+     "bandLow": "1217870588052270000",
+     "bandHigh": "1226552965648635492",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2206,18 +2189,22 @@
      "block": 24313649,
      "logIndex": 18,
      "debtAsset": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "995908672314592863",
+     "hfBest": "998272481380893454",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "39169828020498538",
+     "bandLow": "1223834974619292449",
+     "bandHigh": "1226739771303046000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2231,18 +2218,22 @@
      "block": 24313887,
      "logIndex": 21,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "993214963000581913",
+     "hfBest": "995588673527848347",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "990942193379295262",
+     "bandLow": "1223834974619292449",
+     "bandHigh": "1226759849969654000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2256,18 +2247,22 @@
      "block": 24314256,
      "logIndex": 78,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "998493669937890209",
+     "hfBest": "1002403016294940824",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "2233587406347632",
+     "bandLow": "1223834974619292449",
+     "bandHigh": "1228626587168981000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2281,18 +2276,22 @@
      "block": 24344477,
      "logIndex": 267,
      "debtAsset": "0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "986757892814355939",
+     "hfBest": "991328562555939192",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "38853707661273090",
+     "bandLow": "1221210392725449000",
+     "bandHigh": "1226867048153071034",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2306,18 +2305,22 @@
      "block": 24344479,
      "logIndex": 813,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "991098673112838056",
+     "hfBest": "995689449380358030",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "30818683729050080",
+     "bandLow": "1221210392725449000",
+     "bandHigh": "1226867048153071034",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2331,18 +2334,22 @@
      "block": 24349435,
      "logIndex": 268,
      "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "994364110885609601",
+     "hfBest": "1002630815171391376",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "31434202816345847",
+     "bandLow": "1216832526473949000",
+     "bandHigh": "1226948734964943154",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2356,18 +2363,22 @@
      "block": 24349447,
      "logIndex": 446,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "991700552185390390",
+     "hfBest": "999945112819886401",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "32180392650708187",
+     "bandLow": "1216832526473949000",
+     "bandHigh": "1226948734964943154",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2381,18 +2392,22 @@
      "block": 24404725,
      "logIndex": 202,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "431158530648337592",
+     "hfBest": "432533297618327992",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "7738893437571",
+     "bandLow": "1223712603358956553",
+     "bandHigh": "1227614462068150547",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2406,18 +2421,22 @@
      "block": 24404810,
      "logIndex": 469,
      "debtAsset": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "439200868110845572",
+     "hfBest": "441097179346859168",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "115011642630",
+     "bandLow": "1222336851587001000",
+     "bandHigh": "1227614462068150547",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2431,18 +2450,22 @@
      "block": 24404811,
      "logIndex": 387,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "452813468622069528",
+     "hfBest": "454768554165886948",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "492559488467",
+     "bandLow": "1222336851587001000",
+     "bandHigh": "1227614462068150547",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2456,18 +2479,22 @@
      "block": 24410158,
      "logIndex": 281,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "954155732290827462",
+     "hfBest": "957667407078331767",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "101015316741859",
+     "bandLow": "1223195185843551000",
+     "bandHigh": "1227697033444475046",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2481,18 +2508,22 @@
      "block": 24418015,
      "logIndex": 17,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "1000879142173479403",
+     "hfBest": "1004205735117515641",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "2339350041276785658",
+     "bandLow": "1223712603358956553",
+     "bandHigh": "1227779821407903106",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2506,18 +2537,22 @@
      "block": 24464061,
      "logIndex": 499,
      "debtAsset": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "996465326914783435",
+     "hfBest": "1000927194698617820",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "121267933352783",
+     "bandLow": "1222853497476948000",
+     "bandHigh": "1228329062433767581",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2531,18 +2566,22 @@
      "block": 24521201,
      "logIndex": 142,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "994434675295721605",
+     "hfBest": "998562724442401758",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "55024709599824512",
+     "bandLow": "1223874265031604000",
+     "bandHigh": "1228954752710601215",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2556,18 +2595,22 @@
      "block": 24521809,
      "logIndex": 998,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "995554279208282122",
+     "hfBest": "998944645125204651",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "96361554536174",
+     "bandLow": "1224783744509736000",
+     "bandHigh": "1228954752710601215",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "600",
@@ -2581,18 +2624,22 @@
      "block": 24523419,
      "logIndex": 959,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "976544277698034614",
+     "hfBest": "989222253442955821",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "328840325015398",
+     "bandLow": "1213204340210031000",
+     "bandHigh": "1228954752710601215",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2606,18 +2653,22 @@
      "block": 24526415,
      "logIndex": 67,
      "debtAsset": "0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "997921827863286133",
+     "hfBest": "1000994878243857926",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "211252051871762",
+     "bandLow": "1225181866402582874",
+     "bandHigh": "1228954752710601215",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": true,
      "bonusBps": "100",
@@ -2631,18 +2682,22 @@
      "block": 24551265,
      "logIndex": 547,
      "debtAsset": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "996923992340640374",
+     "hfBest": "1000151947604732508",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "122032821342145",
+     "bandLow": "1225304384589223133",
+     "bandHigh": "1229271816177525219",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2656,18 +2711,22 @@
      "block": 24553786,
      "logIndex": 54,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "987868547780600936",
+     "hfBest": "999364696212168302",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "58494385552825907",
+     "bandLow": "1215130941164547000",
+     "bandHigh": "1229271816177525219",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2681,18 +2740,22 @@
      "block": 24568912,
      "logIndex": 342,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "944316815565159304",
+     "hfBest": "946928565240402204",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "42872222709978",
+     "bandLow": "1226039751040142281",
+     "bandHigh": "1229430677547889242",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2706,18 +2769,22 @@
      "block": 24569182,
      "logIndex": 15,
      "debtAsset": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "987817073976030799",
+     "hfBest": "990923598655876319",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "56048174283833",
+     "bandLow": "1225576438182576000",
+     "bandHigh": "1229430677547889242",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2731,18 +2798,22 @@
      "block": 24573445,
      "logIndex": 380,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "694289145919153523",
+     "hfBest": "697089035305786343",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "26935198908737",
+     "bandLow": "1224572395981824000",
+     "bandHigh": "1229510781199025866",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [
+      "S3 coingecko"
+     ],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2756,18 +2827,21 @@
      "block": 24613580,
      "logIndex": 193,
      "debtAsset": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-     "verdict": "INCONCLUSIVE",
-     "hfWorst": "0",
-     "hfBest": "0",
+     "verdict": "VALID",
+     "hfWorst": "617659337565940522",
+     "hfBest": "620373583223704947",
      "redress": "0",
-     "lossAtBandMid": "0",
-     "bandLow": "0",
-     "bandHigh": "0",
+     "lossAtBandMid": "17681369045890",
+     "bandLow": "1227266342656220911",
+     "bandHigh": "1232659448756736000",
      "sourcesUsed": [
       "S1 Lido stEthPerToken",
-      "S2 Uniswap v3 TWAP 30m"
+      "S2 Uniswap v3 TWAP 30m",
+      "S3 defillama",
+      "S3 coingecko"
      ],
-     "sourcesAvailable": 2,
+     "sourcesRejected": [],
+     "sourcesAvailable": 4,
      "gateOpen": false,
      "multiAsset": false,
      "bonusBps": "600",
@@ -2845,6 +2919,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -2870,6 +2945,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -2895,6 +2971,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": true,
@@ -2920,6 +2997,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -2945,6 +3023,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -2970,6 +3049,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": true,
@@ -2995,6 +3075,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3020,6 +3101,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3045,6 +3127,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3070,6 +3153,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3095,6 +3179,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3120,6 +3205,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3145,6 +3231,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3170,6 +3257,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3195,6 +3283,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3220,6 +3309,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3245,6 +3335,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3270,6 +3361,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3295,6 +3387,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3320,6 +3413,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3345,6 +3439,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3370,6 +3465,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3395,6 +3491,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3420,6 +3517,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3445,6 +3543,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3470,6 +3569,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3495,6 +3595,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3520,6 +3621,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3545,6 +3647,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3570,6 +3673,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3595,6 +3699,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3620,6 +3725,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3645,6 +3751,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3670,6 +3777,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3695,6 +3803,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3720,6 +3829,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3745,6 +3855,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3770,6 +3881,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3795,6 +3907,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3820,6 +3933,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3845,6 +3959,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3870,6 +3985,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3895,6 +4011,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3920,6 +4037,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3945,6 +4063,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -3970,6 +4089,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": true,
@@ -3995,6 +4115,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": true,
      "multiAsset": false,
@@ -4022,6 +4143,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4047,6 +4169,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4072,6 +4195,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4097,6 +4221,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4122,6 +4247,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4147,6 +4273,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4172,6 +4299,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4197,6 +4325,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4222,6 +4351,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4247,6 +4377,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4272,6 +4403,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4297,6 +4429,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4322,6 +4455,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4347,6 +4481,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4372,6 +4507,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4397,6 +4533,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4422,6 +4559,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4447,6 +4585,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4472,6 +4611,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4497,6 +4637,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4522,6 +4663,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4547,6 +4689,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4572,6 +4715,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4597,6 +4741,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4622,6 +4767,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4647,6 +4793,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4672,6 +4819,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4697,6 +4845,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4722,6 +4871,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4747,6 +4897,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4772,6 +4923,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4797,6 +4949,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4822,6 +4975,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4847,6 +5001,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4872,6 +5027,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4897,6 +5053,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4922,6 +5079,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4947,6 +5105,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -4972,6 +5131,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -4997,6 +5157,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5022,6 +5183,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5047,6 +5209,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -5072,6 +5235,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5097,6 +5261,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": true,
@@ -5122,6 +5287,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5147,6 +5313,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5172,6 +5339,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5197,6 +5365,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5222,6 +5391,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
@@ -5247,6 +5417,7 @@
       "S1 Lido stEthPerToken",
       "S2 Uniswap v3 TWAP 30m"
      ],
+     "sourcesRejected": [],
      "sourcesAvailable": 2,
      "gateOpen": false,
      "multiAsset": false,
