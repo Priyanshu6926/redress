@@ -25,6 +25,7 @@
     "mirror": "bun replay/mirror.ts sepolia"
   },
   "dependencies": {
+    "@arkiv-network/sdk": "1.0.1",
     "viem": "^2.57.16"
   },
   "devDependencies": {
