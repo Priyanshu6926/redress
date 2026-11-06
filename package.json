@@ -1,0 +1,20 @@
+{
+  "name": "redress",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "verify": "bun replay/verify-onchain.mjs",
+    "fetch-incident": "bun replay/fetch-incident.ts"
+  },
+  "dependencies": {
+    "viem": "^2.57.16"
+  },
+  "devDependencies": {
+    "bun-types": "^1.4.4",
+    "typescript": "^7.0.2"
+  }
+}
