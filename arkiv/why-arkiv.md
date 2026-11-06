@@ -1,17 +1,23 @@
-# Why Arkiv Instead of Traditional Postgres
+# Why Arkiv
 
----
+## What a user would lose with Postgres
 
-## 1. Censorship Resistance & Verifiability
-A centralized PostgreSQL database allows the server operator or hosting provider to silently alter restitution amounts, delete incident records, or falsify historical verdict outcomes. With Arkiv:
-- Verdict records and incident calculations are immutably signed and timestamped.
-- Borrowers do not have to trust our API server when verifying whether a liquidation was wrongful.
+**Anyone could be shown a different answer.** With Postgres, "Was I wronged?" means trusting our server. With Arkiv, a verdict is an entity whose owner is a known wallet, and anyone can run the same query against the chain without us. See the runnable query in [`schema.md`](schema.md).
 
-## 2. Multi-Party Auditability
-When a protocol governance body or insurance provider settles hundreds of thousands of dollars in restitution, both victims and liquidity providers require independent auditability. Arkiv provides:
-- Cryptographic proof of ownership for sentinel verifications.
-- Standardized open query endpoints that any third party or DAO can run independently of our frontend.
+**The record would end with the project.** A hackathon database goes away when the demo server does. Redress is about what people are owed, so that record should outlive the team, at least for its expiry period.
 
-## 3. Composable Decentralized State
-Other protocols, frontends, or automated agents can query Arkiv directly without permission, API keys, or web server uptime dependencies.
+**Expiry would be a cron job.** True-up claims have a 7-day window. In Postgres that needs a scheduled job and trust that it ran. On Arkiv the entity expires by itself.
 
+**Others could not build on it.** A protocol, a DAO or a victim's wallet can query verdicts directly, with no API key from us.
+
+## What Postgres does better
+
+We should be plain about this:
+
+- It has no anonymous query budget. Arkiv's public endpoint stopped answering our queries, so the app needs a fallback.
+- It has no lifetime cap. Arkiv's is about 182 days.
+- It is simpler to run.
+
+## What stays off Arkiv
+
+The chain is the source of truth for money. The vault's events decide what was paid, and Arkiv is an index that points at them. If they ever disagree, the chain is right.

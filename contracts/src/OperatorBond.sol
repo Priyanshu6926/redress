@@ -54,7 +54,13 @@ contract OperatorBond is IOperatorBond, ReentrancyGuard {
 
     mapping(address adapter => Bond bond) private bonds;
 
-    constructor(address vault_, address asset_, address registrar_, uint256 withdrawalDelay_, uint256 withdrawalWindow_) {
+    constructor(
+        address vault_,
+        address asset_,
+        address registrar_,
+        uint256 withdrawalDelay_,
+        uint256 withdrawalWindow_
+    ) {
         if (
             vault_ == address(0) || asset_ == address(0) || registrar_ == address(0) || withdrawalDelay_ == 0
                 || withdrawalWindow_ == 0

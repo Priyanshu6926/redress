@@ -165,7 +165,9 @@ library VerdictMath {
         outcome.hfWorst = hfFloor(position.collateral, collateralBand.low, position.debt, debtHigh, position.ltBps);
         outcome.hfBest = hfCeil(position.collateral, collateralBand.high, position.debt, debtLow, position.ltBps);
 
-        if (!gate(liquidation.oracleCollateralPrice, liquidation.oracleDebtPrice, collateralBand.low, debtHigh, cfg.tauBps)) {
+        if (!gate(
+                liquidation.oracleCollateralPrice, liquidation.oracleDebtPrice, collateralBand.low, debtHigh, cfg.tauBps
+            )) {
             outcome.verdict =
                 liquidation.oracleCollateralPrice > collateralBand.high ? VERDICT_OVERPRICED : VERDICT_VALID;
             return outcome;

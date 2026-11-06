@@ -4,8 +4,12 @@ pragma solidity ^0.8.20;
 import {Test} from "forge-std/Test.sol";
 
 interface IForwarder {
-    function report(address receiver, bytes calldata rawReport, bytes calldata reportContext, bytes[] calldata signatures)
-        external;
+    function report(
+        address receiver,
+        bytes calldata rawReport,
+        bytes calldata reportContext,
+        bytes[] calldata signatures
+    ) external;
 }
 
 contract RecordingReceiver {

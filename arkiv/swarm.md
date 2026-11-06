@@ -1,29 +1,12 @@
-# Swarm Integration & Evidence Storage
+# Swarm
 
-This document covers how Redress splits data between Arkiv and Swarm, providing permanent decentralized evidence packs for oracle mispricing verdicts.
+**Not built.** Swarm needs a postage batch ID and a Bee endpoint, and we do not have either. Nothing here should be read as a Swarm integration.
 
----
+## What exists
 
-## 1. Division of Responsibilities
-| Data Type | Storage Layer | Identifier / Location | Rationale |
-|---|---|---|---|
-| Verdict Metadata | Arkiv | `verdict:{tx}:{index}` | Fast queryable indexed fields |
-| Incident Registry | Arkiv | `incident:{id}` | Quick lookups by user and status |
-| Raw Debug Traces & Snapshots | Swarm | BZZ Reference Hash | Multi-megabyte raw transaction traces and logs |
+- Each verdict has a real `evidenceHash`, the keccak256 of a deterministic evidence bundle, stored on-chain in the vault. See `evidenceBundle` in [`cre/sentinel-verdict/position.ts`](../cre/sentinel-verdict/position.ts).
+- The Arkiv `verdict` entity has an `evidenceBzz` attribute, and it is empty.
 
-## 2. Postage Batch & Reference Details
-- **Swarm Postage Batch ID**: `[CONFIGURED_IN_DEPLOYMENT]`
-- **Wallet Address**: `[CONFIGURED_SENTINEL_WALLET]`
-- **Uploaded Artifacts**:
-  - `replay/data/incident-2026-03-10.json` raw debug bundle
-  - Consensus price feeds and multi-source oracle snapshot dumps
+## What would finish it
 
-## 3. Upload & Verification Steps
-```bash
-# Upload incident bundle to Swarm
-bun run backend/swarm.ts --upload incident-2026-03-10
-
-# Read evidence bundle from Swarm
-bun run backend/swarm.ts --fetch <SWARM_REFERENCE_HASH>
-```
-
+With a batch ID and a Bee endpoint: upload each bundle, check its keccak256 against the vault's `evidenceHash`, and write the reference into `evidenceBzz`.

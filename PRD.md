@@ -301,10 +301,10 @@ Using the event amount alone gives 498.27 ETH, because it omits the fee.
 | Rule | Value |
 |---|---|
 | Authorization | Only reports delivered by the configured CRE forwarder. Workflow ID and owner checks are optional immutables: production sets them, simulation cannot, because `MockKeystoneForwarder` supplies no metadata `[PRIMARY: CRE docs]` |
-| Waterfall | Reserve only in this build. Target design: 1) the oracle operator's bond for the implicated adapter, 2) shared reserve, 3) treasury top-up line (off by default) |
+| Waterfall | 1) The oracle operator's bond for the adapter named in the report, 2) the shared reserve. Only the reserve's share counts against the epoch cap. A treasury line is not built |
 | Idempotency | One payout per `(txHash, logIndex)`; replays are rejected |
 | Per-event cap | Redress ≤ value of `C` at `p_c^L` (never more than what was seized) |
-| Epoch cap | Global payout cap per epoch (default 20% of reserve) as an automatic circuit breaker. Payouts are whole: one that does not fit is recorded, queued, and paid later by a permissionless `settle`. At 20% the largest incident event (230.53 ETH) needs a reserve of at least 1,153 ETH, and clearing all 473.30 ETH in one epoch needs at least 2,367 ETH |
+| Epoch cap | Global payout cap per epoch (default 20% of reserve) as an automatic circuit breaker. Payouts are whole: if the reserve cannot cover its share, nothing moves, the bond is left untouched, and the payout is recorded, queued, and paid later by a permissionless `settle`. At 20% the largest incident event (230.53 ETH) needs a reserve of at least 1,153 ETH, and clearing all 473.30 ETH in one epoch needs at least 2,367 ETH |
 | Finality | Enforced by the workflow's log trigger through its `confidence` level (`CONFIDENCE_LEVEL_SAFE` by default), because a vault on another chain cannot see mainnet blocks. CRE has no exact `N`-confirmation setting, and a handler check would drop events with no retry |
 | Recipient | The `user` field of the on-chain event only. No claims, no addresses supplied by anyone else |
 | Emergency | An owner pause is the only admin power. While paused, verdicts are still recorded and payouts queue. It is not part of any normal flow and is not used in the demo. Production should use a multisig owner |
@@ -312,8 +312,8 @@ Using the event amount alone gives 498.27 ETH, because it omits the fee.
 
 ### 6.8 Recovery and accountability
 
-- **OperatorBond.** An oracle operator (risk service provider, demo account in our replay) posts a bond against specific adapters. Incidents attributed to that adapter (via `AaveOracle.getSourceOfAsset`) draw from the bond first. This answers the governance complaint that service providers carry no consequences.
-- **RecoveryLedger.** Each payout opens a `RecoveryClaim` against the liquidator and block builder addresses that benefited. The DAO recovered 141.6 ETH from a builder and 41.62 WETH from a searcher by hand; Redress makes those claims visible and trackable and automatically re-credits the reserve when funds arrive (`receiveRecovery`).
+- **OperatorBond.** An oracle operator (a demo operator in our replay) posts a bond against an adapter. The workflow reads `AaveOracle.getSourceOfAsset` at the incident block and puts the adapter in the report, and the vault pays from that adapter's bond before its reserve. A registrar names one operator per adapter, write-once. Withdrawals wait 7 days and lapse a day later, so a standing request cannot be used as an exit. This answers the governance complaint that service providers carry no consequences.
+- **RecoveryLedger.** Each payout opens a claim against the liquidator and the block builder (coinbase), both carried in the report. The DAO recovered 141.6 ETH from a builder and 41.62 WETH from a searcher by hand; Redress makes those claims visible and trackable and automatically re-credits the reserve when funds arrive (`receiveRecovery`).
 - **Optional liquidator bond (Roadmap).** Registered liquidators could post a bond slashed for wrongful liquidations, enabling clawback at the source.
 
 ### 6.9 Threat model
@@ -395,7 +395,10 @@ struct Verdict {
     uint8   verdict;          // 0 VALID, 1 WRONGFUL, 2 EXCESS, 3 AMBIGUOUS, 4 INCONCLUSIVE, 5 OVERPRICED
     uint8   sourceCount;
     uint256 redress;          // computed off-chain, re-derived on-chain
-    bytes32 evidenceHash;     // keccak256 of the Swarm bundle
+    bytes32 evidenceHash;     // keccak256 of the evidence bundle
+    address oracleAdapter;    // AaveOracle.getSourceOfAsset(collateral) at the incident block
+    address liquidator;       // from the LiquidationCall event
+    address builder;          // the incident block's coinbase
 }
 
 interface IRedressVault {
@@ -448,16 +451,16 @@ Hook notes: permission flags `afterInitialize` and `beforeSwap` (record pre-swap
 
 ### 7.6 Arkiv data model
 
-Built with `@arkiv-network/sdk`: `createEntity({ payload, contentType, attributes, expiresIn })`, queries through `buildQuery().where(eq(...))`; string attributes support only equality, numeric attributes support range filters `[PRIMARY: Arkiv docs]`. Use the testnet details on the Mumbai Arkiv prize page (chain ID 7794095, RPC and explorer listed there) and confirm the SDK chain config at install time `[VERIFY]`.
+Built with `@arkiv-network/sdk`: `createEntity({ payload, contentType, attributes, expiresIn })`, queries through `buildQuery().where(eq(...))`; string attributes support only equality, numeric attributes support range filters `[PRIMARY: Arkiv docs]`. The testnet is Rabdi, chain ID 7794095, confirmed from the chain config in `@arkiv-network/sdk` 1.0.1 and the live RPC. Gas is paid in tGLM. The current SDK types columns with `defineSchema`, and writes in batches with `executeBatch`.
 
 | Entity `type` | Key attributes (string unless marked `num`) | Payload | Expiry |
 |---|---|---|---|
-| `verdict` | `protocol`, `chainId`(num), `block`(num), `txHash`, `logIndex`(num), `user`, `verdict`, `redressMilliEth`(num), `deviationBps`(num), `srcCount`(num), `incidentId`, `evidenceBzz`, `vaultTx` | Full verdict JSON | 365 days |
-| `incident` | `incidentId`, `protocol`, `startBlock`(num), `endBlock`(num), `victims`(num), `totalRedressMilliEth`(num), `status` | Incident summary | 365 days |
+| `verdict` | `protocol`, `chainId`(num), `block`(num), `txHash`, `logIndex`(num), `user`, `verdict`, `redressMilliEth`(num), `deviationBps`(num), `srcCount`(num), `incidentId`, `evidenceBzz`, `vaultTx` | Full verdict JSON | 180 days |
+| `incident` | `incidentId`, `protocol`, `startBlock`(num), `endBlock`(num), `victims`(num), `totalRedressMilliEth`(num), `status` | Incident summary | 180 days |
 | `claim` | `claimId`, `user`, `kind` (`trueup`), `status`, `amountMilliEth`(num) | Claim JSON | Claim deadline (7 days): **expiry is the feature** |
 | `recovery` | `liquidationTx`, `liquidator`, `status`, `amountMilliEth`(num) | Recovery JSON | 90 days |
 
-Amounts in wei are stored in the payload as strings; numeric attributes use milli-ETH or basis points for range queries.
+The chain caps an entity's lifetime at 7,884,000 blocks, about 182 days, so the 365 days first planned here cannot be set. Amounts in wei are stored in the payload as strings; numeric attributes use milli-ETH or basis points for range queries.
 
 Owner: the Sentinel attestor wallet (only it can update status). The canonical truth stays on-chain in the vault events; Arkiv is the queryable index and evidence directory. At least one user-visible feature must *read* from Arkiv: the "Was I wronged?" lookup and the Incident Explorer both do.
 
@@ -551,17 +554,19 @@ If re-executing every original transaction proves unstable, fall back to *log re
 
 ### 8.6 Negative controls and stress tests (specificity matters)
 
-1. **Calm-day control:** at least 200 real Aave liquidations from a quiet period, expecting all `VALID`, zero payouts.
-2. **Volatility control:** a real market-driven cascade (for example the August 2024 volatility spike mentioned in governance discussion `[REPORTED]`), expecting `VALID` because the independent band falls with the market.
+**Measured results are in `replay/out/controls.json` and `docs/SECURITY.md`.** Control 5 does not meet its expectation: see below.
+
+1. **Calm-day control:** at least 200 real Aave liquidations from a quiet period, expecting zero payouts. Measured: all 215 qualifying events in about two years gave 207 `VALID`, 8 `INCONCLUSIVE`, 0 false positives. `INCONCLUSIVE` pays nothing, so it counts as safe.
+2. **Volatility control:** a real market-driven cascade, expecting `VALID` because the independent band falls with the market. The day is chosen from the data as the one with the most liquidations: 2024-08-05, with 252. Measured on 60 of them: 47 `VALID`, 13 `INCONCLUSIVE`, 0 false positives.
 3. **Over-pricing glitch:** synthetic: oracle too high, expecting no payout and an `OVERPRICED` anomaly.
 4. **Source outage:** drop two sources, expecting `INCONCLUSIVE` and no payout, then automatic re-evaluation.
-5. **Single-source manipulation:** push one source 5% off, expecting outlier rejection and an unchanged verdict.
+5. **Single-source manipulation:** push one source 5% off, expecting outlier rejection and an unchanged verdict. **Measured: fails.** The verdict became `INCONCLUSIVE`, because rejecting one of only three good sources falls below `minSources`. No wrong payment results, but a legitimate one is blocked.
 6. **Boundary case:** a position exactly at the threshold, expecting `AMBIGUOUS`, paying only the provable excess.
 7. **Reserve exhaustion:** feed more redress than the epoch cap, expecting payouts to stop at the cap and the rest queued.
 
 ### 8.7 Live mode (real-life use)
 
-- The backend tails new `LiquidationCall` events on Core and Prime and runs the gate. The Live Monitor shows every liquidation with its band and verdict; on a normal day all are `VALID`, which is a continuous public negative control.
+- `backend/watcher.ts` scans recent `LiquidationCall` events with wstETH collateral on Core and Prime and runs the same reads and engine as the replay. The Live Monitor shows every liquidation with its band and verdict; on a normal day all are `VALID`, which is a continuous public negative control.
 - A glitch can be demonstrated live on the fork by replaying the real parameter-update transaction under impersonation.
 - Real-money mainnet payouts are out of scope for the hackathon. The path to production is: deploy the workflow on the CRE network (Early Access), fund a mainnet vault, and let a protocol or DAO whitelist it `[REPORTED]`.
 
@@ -710,7 +715,7 @@ Never cut: the verdict engine tests, the replay scorecard, negative controls, an
 | Aave state rebuild | `A`, `D`, LT, E-Mode category match Aave's own `getUserAccountData` at `B-1` | Fork tests on 5 incident users | Exact match |
 | CRE workflow | Handler logic with mocked capabilities; real simulation on fork | `bun test`, `cre workflow simulate` | Both pass |
 | Replay | 34 / 34 classified, total within ±2% of the DAO figure | `make scorecard` | Target. Measured in Phase 1 and not met: 33 of 34 positions all `WRONGFUL`; floor paid −7.594% and midpoint −2.541% against 512.19 ETH. Reported as measured, never tuned |
-| Negative controls | 0 false positives across 200+ real liquidations | Replay harness | 0 payouts |
+| Negative controls | 0 false positives across 200+ real liquidations | `bun replay/controls.ts` | 0 payouts on 215 calm and 60 volatility events |
 | Frontend | "Was I wronged?" returns correct data for incident users and a clean "no record" for others | Manual plus Playwright smoke | Pass |
 
 CI runs Foundry tests, `bun test`, lint, and a script that fails the build if any `[VERIFY]` marker remains in `README.md`.

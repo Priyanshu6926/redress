@@ -58,7 +58,9 @@ contract DeployHookScript is Script {
         payout.approve(address(LIQUIDITY), type(uint256).max);
         other.approve(address(LIQUIDITY), type(uint256).max);
         LIQUIDITY.modifyLiquidity(
-            key, ModifyLiquidityParams({tickLower: RANGE_LOW, tickUpper: RANGE_HIGH, liquidityDelta: 1_000 ether, salt: 0}), ""
+            key,
+            ModifyLiquidityParams({tickLower: RANGE_LOW, tickUpper: RANGE_HIGH, liquidityDelta: 1_000 ether, salt: 0}),
+            ""
         );
         vm.stopBroadcast();
     }

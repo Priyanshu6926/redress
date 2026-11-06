@@ -26,7 +26,8 @@ contract SwapHookPoolScript is Script {
             tickSpacing: 60,
             hooks: IHooks(vm.envAddress("HOOK"))
         });
-        PoolSwapTest.TestSettings memory settings = PoolSwapTest.TestSettings({takeClaims: false, settleUsingBurn: false});
+        PoolSwapTest.TestSettings memory settings =
+            PoolSwapTest.TestSettings({takeClaims: false, settleUsingBurn: false});
 
         vm.startBroadcast();
         IERC20(token0).approve(address(ROUTER), type(uint256).max);

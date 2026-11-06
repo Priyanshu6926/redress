@@ -171,7 +171,9 @@ contract VerdictMathTest is Test {
         });
         k.debtLow = _w(d, b + 17);
         k.debtHigh = _w(d, b + 18);
-        k.base = VM.Position({collateral: _w(d, b + 19), debt: _w(d, b + 20), ltBps: _w(d, b + 21), bonusBps: _w(d, b + 22)});
+        k.base = VM.Position({
+            collateral: _w(d, b + 19), debt: _w(d, b + 20), ltBps: _w(d, b + 21), bonusBps: _w(d, b + 22)
+        });
         k.liquidation = VM.Liquidation({
             collateralSeized: _w(d, b + 23),
             debtCovered: _w(d, b + 24),

@@ -1,6 +1,6 @@
 # Replay targets (PRD 8.3). Each one is a thin wrapper, so it also runs without make:
 # the command after the tab works directly, for example on Windows.
-.PHONY: fork-up deploy-fork replay deploy-sepolia mirror scorecard snapshot
+.PHONY: fork-up deploy-fork replay deploy-sepolia deploy-hook mirror scorecard snapshot arkiv controls web watcher
 
 fork-up:
 	bash replay/fork-up.sh
@@ -22,3 +22,18 @@ mirror:
 
 scorecard:
 	bun replay/scorecard.ts
+
+deploy-hook:
+	bash replay/deploy-hook.sh
+
+arkiv:
+	bun replay/publish-arkiv.ts
+
+controls:
+	bun replay/controls.ts
+
+web:
+	bun backend/api.ts
+
+watcher:
+	bun backend/watcher.ts

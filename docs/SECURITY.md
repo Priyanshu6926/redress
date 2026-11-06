@@ -68,7 +68,7 @@ The hook records only when the pool trades. `count`, `coveredSeconds` and `lastO
 |---|---|
 | Access control | `onReport` is forwarder-only. `draw` and `openClaim` are vault-only. Pause is the owner's only vault power. Bond and ledger are bound to the vault at construction, and the vault checks them, so no setter exists |
 | Reentrancy | All token-moving entry points use `nonReentrant`, and state is written before tokens move. The payout asset has no transfer hooks |
-| Rounding | All payout rounding is against the payer of the claim: amounts round down, and the Python reference vectors and fuzz tests agree with both implementations |
+| Rounding | Every rounding choice works against the payout. The Python reference vectors and fuzz tests agree with both implementations |
 | Replay | One record per `(tx, logIndex)`. A duplicate reverts and draws no bond (`test_waterfall_duplicateCannotDrawTwice`) |
 | Pause | Verdicts are still recorded. Payouts queue, the bond is untouched, and `settle` reverts until unpaused (`test_waterfall_pausedPayoutQueuesAndDrawsNothing`) |
 | A ledger failure cannot block a victim | `openClaim` has no revert path on a call from the vault, and a report with no liquidator still pays (`test_ledger_missingLiquidatorStillPaysTheVictim`) |

@@ -1,18 +1,37 @@
-# How Redress Uses Arkiv
+# How Redress uses Arkiv
 
----
+## Filters
 
-## 1. Entity Filters and Indexing
-Redress leverages Arkiv's indexed metadata fields:
-- `user`: Allows instant lookups by borrower address in the "Was I Wronged?" web portal.
-- `incident`: Groups all 34 verdicts from the 2026-03-10 event under a single verifiable incident identifier.
-- `status`: Segregates actionable wrongful liquidations from benign liquidations.
+| Feature | Query |
+|---|---|
+| "Was I wronged?" | `user = <address>` |
+| Incident explorer | `incidentId = <id>`, with optional `verdict`, a `redressMilliEth` range and a `block` range, sorted by `redressMilliEth` descending |
 
-## 2. Ownership & Expiry Semantics
-- **Incidents & Verdicts**: Owned by the Sentinel consensus signer and set to never expire, preserving the historical safety record of DeFi lending protocols.
-- **Claims**: Owned by claimant addresses with configurable expiry to ensure active claims are settled within the vault's solvency window.
+The filters run on the node, on indexed attributes. Code: [`backend/arkiv.ts`](../backend/arkiv.ts).
 
-## 3. What We Kept Off Arkiv and Why
-- **Large RPC traces & raw debug logs**: Full multi-megabyte transaction debug traces are pinned to Swarm to keep Arkiv entities lean, fast, and low cost. Arkiv stores the Swarm content hash reference (`evidenceSwarmRef`).
-- **Private keys and pre-computation states**: Off-chain ephemeral states remain local to the sentinel runner.
+Each response says whether Arkiv or the local JSON fallback served it, and the site shows that to the user.
 
+## Ownership
+
+One writer wallet owns every entity. Anyone can create an entity with matching attributes, so reads use `.ownedBy(writer)`. Without that filter a stranger could plant a fake verdict for any address.
+
+## Expiry
+
+| Entity | Expiry | Why |
+|---|---|---|
+| `verdict`, `incident` | 180 days | The longest round figure under the chain's cap |
+| `recovery` | 90 days | A working window for pursuing a claim |
+| `claim` | 7 days | The claim window itself |
+
+## What we kept off Arkiv
+
+| Data | Where | Why |
+|---|---|---|
+| Payout amounts and status | Sepolia vault | Money needs the chain's guarantees |
+| Bond and reserve balances | Sepolia contracts | Same |
+| Raw evidence | Not stored yet | Swarm is the planned home, and only a hash is on-chain today |
+| Private keys | `.env` | Never published |
+
+## Publishing
+
+[`replay/publish-arkiv.ts`](../replay/publish-arkiv.ts) writes in atomic batches of 10 and records each entity key in `replay/out/arkiv.json`, so a failed run resumes without duplicates.

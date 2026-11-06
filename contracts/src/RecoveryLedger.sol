@@ -31,7 +31,11 @@ contract RecoveryLedger is IRecoveryLedger, ReentrancyGuard {
     error AlreadySettled();
 
     event ClaimOpened(
-        bytes32 indexed liquidationTx, uint32 logIndex, address indexed liquidator, address indexed builder, uint256 expected
+        bytes32 indexed liquidationTx,
+        uint32 logIndex,
+        address indexed liquidator,
+        address indexed builder,
+        uint256 expected
     );
     event RecoveryReceived(bytes32 indexed liquidationTx, uint32 logIndex, address indexed from, uint256 amount);
     event ClaimSettled(bytes32 indexed liquidationTx, uint32 logIndex);

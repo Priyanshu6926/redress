@@ -70,7 +70,10 @@ contract VerdictMathFuzzTest is Test {
     }
 
     function _liquidation(Case memory k) private pure returns (VM.Liquidation memory) {
-        return VM.Liquidation({collateralSeized: k.c, debtCovered: k.x, oracleCollateralPrice: k.oc, oracleDebtPrice: k.od});
+        return
+            VM.Liquidation({
+                collateralSeized: k.c, debtCovered: k.x, oracleCollateralPrice: k.oc, oracleDebtPrice: k.od
+            });
     }
 
     function _run(Case memory k) private pure returns (VM.Outcome memory o, uint256 pay) {

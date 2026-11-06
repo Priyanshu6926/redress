@@ -86,8 +86,12 @@ contract RedressVaultTest is Test {
     // Construction
 
     function test_constructorRejectsBadConfig() public {
-        RedressVault.Config memory good = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0));
-        RedressVault.Config memory c = RedressVault.Config(address(0), address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0));
+        RedressVault.Config memory good = RedressVault.Config(
+            FORWARDER, address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0)
+        );
+        RedressVault.Config memory c = RedressVault.Config(
+            address(0), address(weth), MAX_BONUS, 2000, EPOCH, 0, address(0), address(0), address(0)
+        );
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
@@ -103,7 +107,9 @@ contract RedressVaultTest is Test {
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
-        c = RedressVault.Config(FORWARDER, address(weth), MAX_BONUS, 10_001, EPOCH, 0, address(0), address(0), address(0));
+        c = RedressVault.Config(
+            FORWARDER, address(weth), MAX_BONUS, 10_001, EPOCH, 0, address(0), address(0), address(0)
+        );
         vm.expectRevert(RedressVault.InvalidConfig.selector);
         new RedressVault(c);
 
@@ -155,14 +161,18 @@ contract RedressVaultTest is Test {
     function test_wrongWorkflowIdReverts() public {
         RedressVault strict = _deploy(10_000, keccak256("wf"), address(0));
         vm.prank(FORWARDER);
-        vm.expectRevert(abi.encodeWithSelector(RedressVault.InvalidWorkflowId.selector, keccak256("other"), keccak256("wf")));
+        vm.expectRevert(
+            abi.encodeWithSelector(RedressVault.InvalidWorkflowId.selector, keccak256("other"), keccak256("wf"))
+        );
         strict.onReport(_metadata(keccak256("other"), address(0xA1), true), abi.encode(_report(WRONGFUL, 100, 10e18)));
     }
 
     function test_wrongWorkflowOwnerReverts() public {
         RedressVault strict = _deploy(10_000, bytes32(0), address(0xA1));
         vm.prank(FORWARDER);
-        vm.expectRevert(abi.encodeWithSelector(RedressVault.InvalidWorkflowOwner.selector, address(0xA2), address(0xA1)));
+        vm.expectRevert(
+            abi.encodeWithSelector(RedressVault.InvalidWorkflowOwner.selector, address(0xA2), address(0xA1))
+        );
         strict.onReport(_metadata(keccak256("wf"), address(0xA2), true), abi.encode(_report(WRONGFUL, 100, 10e18)));
     }
 

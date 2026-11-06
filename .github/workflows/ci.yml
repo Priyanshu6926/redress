@@ -30,6 +30,17 @@ jobs:
       - name: Generate random parity vectors
         run: bun run vectors:random
 
+      - name: No unverified facts in the README
+        run: |
+          if grep -nE '\[VERIFY\]|TODO-VERIFY' README.md; then
+            echo "README.md still holds a VERIFY marker"
+            exit 1
+          fi
+
+      - name: Solidity format
+        run: forge fmt --check
+        working-directory: contracts
+
       - name: Foundry tests
         working-directory: contracts
         run: forge test -vvv
