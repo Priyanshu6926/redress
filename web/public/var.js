@@ -75,6 +75,7 @@ function addCard(row) {
 function countTo(id, value) {
   const el = $(id);
   const from = el.value ?? 0n;
+  const tween = (el.tween = {}); // a newer write cancels this one, even for the same value
   el.value = value;
   if (REDUCED || skipping) {
     el.textContent = eth(value);
@@ -82,7 +83,7 @@ function countTo(id, value) {
   }
   const started = performance.now();
   const frame = (now) => {
-    if (el.value !== value) return;
+    if (el.tween !== tween) return;
     const part = BigInt(Math.max(0, Math.min(1000, Math.round(((now - started) / 250) * 1000))));
     el.textContent = eth(from + ((value - from) * part) / 1000n);
     if (part < 1000n) requestAnimationFrame(frame);
