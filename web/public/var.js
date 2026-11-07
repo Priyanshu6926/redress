@@ -83,7 +83,7 @@ function countTo(id, value) {
   const started = performance.now();
   const frame = (now) => {
     if (el.value !== value) return;
-    const part = BigInt(Math.min(1000, Math.round(((now - started) / 250) * 1000)));
+    const part = BigInt(Math.max(0, Math.min(1000, Math.round(((now - started) / 250) * 1000))));
     el.textContent = eth(from + ((value - from) * part) / 1000n);
     if (part < 1000n) requestAnimationFrame(frame);
   };
@@ -139,11 +139,15 @@ async function review(row, id) {
 
 function finish(id, t) {
   if (id !== run) return;
-  skipping = false;
+  skipping = true; // the totals land on their exact figures, with no animation in flight
   for (const row of data.rows.slice(t.done)) {
     addCard(row);
     addTotals(row, t);
   }
+  countTo("t-total", t.total);
+  countTo("t-bond", t.bond);
+  countTo("t-reserve", t.reserve);
+  skipping = false;
   const last = data.rows[data.rows.length - 1];
   drawChart(data.series.length - 1);
   $("reviewing").textContent = `All ${data.rows.length} events reviewed. Last one shown.`;
