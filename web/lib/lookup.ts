@@ -85,3 +85,24 @@ export async function lookup(source: VerdictSource, input: string): Promise<Look
     paidRows: rows.filter((r) => r.vaultTx !== null).length,
   };
 }
+
+export interface ExplorerFilter {
+  verdict?: string;
+  minMilliEth?: number;
+  maxMilliEth?: number;
+  fromBlock?: number;
+  toBlock?: number;
+  incidentId?: string;
+}
+
+/** The same filter as Arkiv's, for when Arkiv is unavailable. Pure. */
+export function filterRows(rows: readonly LiquidationRow[], f: ExplorerFilter): LiquidationRow[] {
+  const milli = (r: LiquidationRow) => Number(BigInt(r.redressFloor) / 10n ** 15n);
+  return rows
+    .filter((r) => (f.verdict ? r.verdict === f.verdict : true))
+    .filter((r) => (f.minMilliEth !== undefined ? milli(r) >= f.minMilliEth : true))
+    .filter((r) => (f.maxMilliEth !== undefined ? milli(r) <= f.maxMilliEth : true))
+    .filter((r) => (f.fromBlock !== undefined ? r.block >= f.fromBlock : true))
+    .filter((r) => (f.toBlock !== undefined ? r.block <= f.toBlock : true))
+    .sort((a, b) => (BigInt(b.redressFloor) > BigInt(a.redressFloor) ? 1 : -1));
+}

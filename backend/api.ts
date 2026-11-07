@@ -6,7 +6,7 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
-import { jsonSource, lookup, type LiquidationRow } from "../web/lib/lookup";
+import { filterRows, jsonSource, lookup, type LiquidationRow } from "../web/lib/lookup";
 import { arkivReader, arkivSource, explore, withFallback, type ExplorerFilter } from "./arkiv";
 
 const root = join(import.meta.dir, "..");
@@ -24,18 +24,6 @@ const TYPES: Record<string, string> = { ".html": "text/html; charset=utf-8", ".j
 const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { "cache-control": "no-store" } });
 
 const number = (v: string | null) => (v === null || v === "" || Number.isNaN(Number(v)) ? undefined : Number(v));
-
-/** The same filter as Arkiv's, for when Arkiv is unavailable. Pure. */
-export function filterRows(rows: readonly LiquidationRow[], f: ExplorerFilter): LiquidationRow[] {
-  const milli = (r: LiquidationRow) => Number(BigInt(r.redressFloor) / 10n ** 15n);
-  return rows
-    .filter((r) => (f.verdict ? r.verdict === f.verdict : true))
-    .filter((r) => (f.minMilliEth !== undefined ? milli(r) >= f.minMilliEth : true))
-    .filter((r) => (f.maxMilliEth !== undefined ? milli(r) <= f.maxMilliEth : true))
-    .filter((r) => (f.fromBlock !== undefined ? r.block >= f.fromBlock : true))
-    .filter((r) => (f.toBlock !== undefined ? r.block <= f.toBlock : true))
-    .sort((a, b) => (BigInt(b.redressFloor) > BigInt(a.redressFloor) ? 1 : -1));
-}
 
 function staticFile(pathname: string): Response {
   const clean = normalize(pathname === "/" ? "/index.html" : pathname).replace(/^([/\\])+/, "");

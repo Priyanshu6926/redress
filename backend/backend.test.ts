@@ -1,7 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { Row } from "../replay/evaluate";
-import type { LiquidationRow } from "../web/lib/lookup";
-import { filterRows } from "./api";
+import { filterRows, type LiquidationRow } from "../web/lib/lookup";
 import { withFallback } from "./arkiv";
 import { liveEvent } from "./watcher";
 

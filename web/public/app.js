@@ -21,11 +21,47 @@ const tag = (verdict) => `<span class="tag ${verdict === "WRONGFUL" ? "solid" : 
 const table = (head, rows) => `<div class="scroll"><table><thead><tr>${head.join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
 const th = (t, num) => `<th ${num ? 'class="num"' : ""}>${esc(t)}</th>`;
 
+// On the free static site there is no API: the same data sits beside the page, and the browser
+// reads Arkiv itself through arkiv-client.js.
+const STATIC = Boolean(window.REDRESS_STATIC);
+const STATIC_FILES = {
+  "/api/replay": "data/replay.json",
+  "/api/mirror": "data/mirror.json",
+  "/api/deployments": "data/deployments.json",
+  "/api/arkiv": "data/arkiv.json",
+  "/api/live": "data/live.json",
+  "/api/controls": "data/controls.json",
+};
+
 const get = async (path) => {
-  const r = await fetch(path);
-  if (!r.ok) throw new Error(`${path} answered ${r.status}`);
+  const url = STATIC ? STATIC_FILES[path] : path;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`${url} answered ${r.status}`);
   return r.json();
 };
+
+let staticClient;
+async function client() {
+  if (!staticClient) {
+    const { createClient } = await import("./arkiv-client.js");
+    staticClient = createClient(state.replay.liquidations, state.arkiv.writer);
+  }
+  return staticClient;
+}
+
+const lookupAddress = async (address) => (STATIC ? (await client()).lookup(address) : get(`/api/lookup/${encodeURIComponent(address)}`));
+
+async function queryVerdicts(params) {
+  if (!STATIC) return get(`/api/verdicts?${params}`);
+  const number = (k) => (params.has(k) ? Number(params.get(k)) : undefined);
+  return (await client()).verdicts({
+    verdict: params.get("verdict") || undefined,
+    minMilliEth: number("minMilliEth"),
+    maxMilliEth: number("maxMilliEth"),
+    fromBlock: number("fromBlock"),
+    toBlock: number("toBlock"),
+  });
+}
 
 const state = {};
 
@@ -67,7 +103,7 @@ async function runLookup(address) {
   const out = $("lookup-result");
   out.innerHTML = `<p class="hint">Checking…</p>`;
   try {
-    const { source, data } = await get(`/api/lookup/${encodeURIComponent(address)}`);
+    const { source, data } = await lookupAddress(address);
     const from = `<p class="hint">Read from ${source === "arkiv" ? "Arkiv" : "the local JSON file, because Arkiv did not answer"}.</p>`;
     const titles = {
       "invalid-address": ["Not an address", "Enter a 20-byte address starting with 0x."],
@@ -153,7 +189,7 @@ async function runExplorer(form) {
   if (f.get("toBlock")) q.set("toBlock", f.get("toBlock"));
   $("explorer-result").innerHTML = `<p class="hint">Querying…</p>`;
   try {
-    const { source, data } = await get(`/api/verdicts?${q}`);
+    const { source, data } = await queryVerdicts(q);
     $("explorer-source").textContent = `${data.length} result(s), served by ${source === "arkiv" ? "Arkiv" : "the local JSON fallback"}.`;
     $("explorer-result").innerHTML = data.length ? verdictRows(data) : `<div class="empty">Nothing matches these filters.</div>`;
   } catch (e) {
@@ -222,7 +258,7 @@ function runStress(form) {
 async function renderLive() {
   const [live, controls] = await Promise.all([get("/api/live"), get("/api/controls")]);
   const events = live.events ?? [];
-  $("live-status").textContent = live.updatedAt ? `Last scan ${live.updatedAt}: blocks ${live.fromBlock} to ${live.toBlock}. ${live.note ?? ""}` : "The watcher has not run yet. Start it with: bun backend/watcher.ts";
+  $("live-status").textContent = live.updatedAt ? `Last scan ${live.updatedAt}: blocks ${live.fromBlock} to ${live.toBlock}. ${live.note ?? ""}` : "The watcher has not run yet.";
   $("live-result").innerHTML = events.length ? table(
     [th("Block", true), th("Market"), th("Pair"), th("Gate"), th("Verdict"), th("Tx")],
     events.map((e) => `<tr><td class="num">${esc(e.block)}</td><td>${esc(e.market)}</td><td>${esc(e.pair)}</td><td>${esc(e.gate)}</td><td>${tag(e.verdict)}</td><td class="mono">${link(MAINNET, "tx", e.tx)}</td></tr>`),
@@ -271,5 +307,5 @@ async function start() {
 }
 
 start().catch((e) => {
-  document.querySelector("main").innerHTML = `<div class="empty">Could not load data: ${esc(e.message)}. Is <code>bun backend/api.ts</code> running?</div>`;
+  document.querySelector("main").innerHTML = `<div class="empty">Could not load data: ${esc(e.message)}. Try reloading the page.</div>`;
 });

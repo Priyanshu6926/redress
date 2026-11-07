@@ -8,7 +8,9 @@ import { and, desc, eq, gte, lte } from "@arkiv-network/sdk/query";
 import { bytes, defineSchema, str, u64 } from "@arkiv-network/sdk/schema";
 import { hexToString, http, type Hex } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import type { LiquidationRow, VerdictSource } from "../web/lib/lookup";
+import type { ExplorerFilter, LiquidationRow, VerdictSource } from "../web/lib/lookup";
+
+export type { ExplorerFilter };
 
 export const Verdicts = defineSchema("redress.verdict", {
   protocol: str().indexed(),
@@ -81,15 +83,6 @@ export function arkivSource(client: Reader, owner?: string): VerdictSource {
       return page.entities.map(rowOf);
     },
   };
-}
-
-export interface ExplorerFilter {
-  verdict?: string;
-  minMilliEth?: number;
-  maxMilliEth?: number;
-  fromBlock?: number;
-  toBlock?: number;
-  incidentId?: string;
 }
 
 /** The incident explorer's query. Indexed attributes are filtered by the node, not in JavaScript. */

@@ -32,3 +32,4 @@ cre/sentinel-verdict/dist/
 cre/.env
 cre/sentinel-verdict/.cre_build_tmp.js
 replay/out/mirror-run.log
+web/dist/
