@@ -99,6 +99,25 @@ function renderOverview() {
   ) + `<p class="hint">Redress pays only what it can prove, so the floor sits below the DAO's figure by design.</p>`;
 }
 
+/** The v3 TWAP from the first real event, and the recorded v4 hook run. Both read from data. */
+async function renderUniswap() {
+  const first = state.replay.liquidations[0];
+  const twap = first.sourcesUsed.filter((x) => x.includes("Uniswap")).join(", ");
+  const used = state.replay.liquidations.filter((r) => r.sourcesUsed.some((x) => x.includes("Uniswap"))).length;
+  let hook = "";
+  try {
+    const r = await fetch("data/v4hook.json");
+    if (!r.ok) throw new Error(String(r.status));
+    const demo = await r.json();
+    const line = demo.sources.find((x) => x.includes("hook")) ?? "";
+    const [name, value] = line.split("=");
+    hook = `<p><strong>v4 BandOracleHook:</strong> ${esc(name)} read ${esc(eth(value))} in a real CRE run on Sepolia. <mark class="hl-pink">Synthetic pool: we set its price and made its swaps.</mark> It was not used in the replay, and that run wrote nothing.</p>`;
+  } catch {
+    hook = "<p>The v4 hook result could not be loaded.</p>";
+  }
+  $("overview-uniswap").innerHTML = `<p><strong>v3 TWAP:</strong> ${esc(twap)} is a source in <mark class="hl-cyan">${used} of ${state.replay.liquidations.length}</mark> real verdicts, read from mainnet at each event's block.</p>${hook}`;
+}
+
 async function runLookup(address) {
   const out = $("lookup-result");
   out.innerHTML = `<p class="hint">Checking…</p>`;
@@ -285,6 +304,7 @@ function show() {
 async function start() {
   [state.replay, state.mirror, state.deployments, state.arkiv] = await Promise.all([get("/api/replay"), get("/api/mirror"), get("/api/deployments"), get("/api/arkiv")]);
   renderOverview();
+  renderUniswap();
   renderReserve();
   runStress($("stress-form"));
 

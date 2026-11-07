@@ -1,0 +1,19 @@
+{
+ "note": "Synthetic demo. The hook pool is ours and played no part in the incident. Nothing was written.",
+ "synthetic": true,
+ "written": false,
+ "config": "demo-v4hook",
+ "tx": "0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c",
+ "logIndex": 17,
+ "verdict": "WRONGFUL",
+ "bandLow": "1225351253669499000",
+ "bandHigh": "1230461350813703227",
+ "sources": [
+  "S1 Lido stEthPerToken=1228848994065905999",
+  "S2 Uniswap v3 TWAP 30m=1228494837493714626",
+  "S3 defillama=1226577831501000000",
+  "S3 coingecko=1045285371266000000",
+  "S4 v4 hook (synthetic demo pool)=1229232118695008218"
+ ],
+ "redress": "230533099950029831035"
+}

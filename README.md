@@ -90,7 +90,9 @@ Verdict logic is one pure function in TypeScript and Solidity, checked against s
 | `v4Hook` source and its guards | [`cre/sentinel-verdict/v4hook.ts:34`](cre/sentinel-verdict/v4hook.ts#L34) |
 | Hook read in the workflow | [`cre/sentinel-verdict/handler.ts:221`](cre/sentinel-verdict/handler.ts#L221) |
 
-Deployed and verified: [`0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code). Run the demo with `bun replay/demo-v4hook.ts`. Developer feedback: [`FEEDBACK.md`](FEEDBACK.md).
+Its live result is on the site's Overview page, labelled synthetic. In one CRE run it joined as an extra source and nothing was written.
+
+Deployed and verified: [0xc555e1ca0a109a1f02d238455ff4feda7ba5d080`](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code). Run the demo with `bun replay/demo-v4hook.ts`. Developer feedback: [`FEEDBACK.md`](FEEDBACK.md).
 
 ### Chainlink CRE
 
@@ -108,7 +110,20 @@ The whole pipeline is one CRE workflow, `sentinel-verdict`. It reads two chains 
 
 Simulation transcript with `--broadcast`: [`docs/transcripts/sepolia.txt`](docs/transcripts/sepolia.txt). First vault transaction: [`0xc7ca7d754a…`](https://sepolia.etherscan.io/tx/0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0). All 47 are in [`replay/out/mirror-sepolia.json`](replay/out/mirror-sepolia.json).
 
-**What breaks without CRE:** there would be no multi-source verdict with consensus and no authorised on-chain report, so the vault would have to trust one operator's server. In this demo CRE ran as a local simulation, so consensus across nodes was not exercised.
+```text
+cre workflow simulate sentinel-verdict --target sepolia --broadcast \
+  --trigger-index 0 --evm-tx-hash 0x9064b507f1… --evm-event-index <n>
+
+[USER LOG] REDRESS_RESULT verdict=WRONGFUL logIndex=17 block=24626860
+           redress=230533099950029831035 wei
+           vaultTx=0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0
+```
+
+**This ran as a single-node simulation** with the CRE CLI, and it was not deployed on the CRE network, so consensus across nodes was not exercised. Each run read mainnet and wrote to Sepolia.
+
+**What breaks without CRE:** there would be no multi-source verdict with consensus and no authorised on-chain report, so the vault would have to trust one operator's server. Removing the off-chain source that the workflow's HTTP step fetches turns all 47 verdicts INCONCLUSIVE, and nobody is paid.
+
+The workflow is the core path of the replay and the Sepolia mirror. The wallet-driven Live Demo is the exception: it runs the same engine in the page, and the wallet relays the report.
 
 ### Arkiv
 
@@ -116,8 +131,27 @@ Arkiv is the queryable index of verdicts, claims and recoveries. The lookup and 
 
 - **Writer wallet:** `0xD19D988fAe15c6AF0CB18FD5D79bffa41F8c2683`
 - **Published:** 128 entities in 13 batch transactions on Rabdi, listed in [`replay/out/arkiv.json`](replay/out/arkiv.json).
-- **Client:** [`backend/arkiv.ts:75`](backend/arkiv.ts#L75), [`backend/arkiv.ts:96`](backend/arkiv.ts#L96)
-- **Run a query:** see [`arkiv/schema.md`](arkiv/schema.md).
+- **Client:** [`backend/arkiv.ts:77`](backend/arkiv.ts#L77), [`backend/arkiv.ts:89`](backend/arkiv.ts#L89)
+- **Explorer:** [rabdi.explorer.arkiv.network](https://rabdi.explorer.arkiv.network)
+- **A query you can run,** from the repo root, listing WRONGFUL verdicts of 10 ETH or more:
+
+```ts
+import { and, eq, gte } from "@arkiv-network/sdk/query";
+import { u64 } from "@arkiv-network/sdk/schema";
+import { hexToString } from "viem";
+import { Verdicts, arkivReader } from "./backend/arkiv";
+
+const page = await arkivReader()
+  .select({ payload: true })
+  .from(Verdicts)
+  .where(and(eq("verdict", "WRONGFUL"), gte("redressMilliEth", u64(10_000n))))
+  .ownedBy("0xD19D988fAe15c6AF0CB18FD5D79bffa41F8c2683")
+  .limit(5)
+  .fetch();
+
+for (const e of page.entities) console.log(JSON.parse(hexToString(e.payload.value)).user);
+```
+
 - **Sponsor files:** [`schema`](arkiv/schema.md), [`friction`](arkiv/friction.md), [`reach`](arkiv/reach.md), [`why-arkiv`](arkiv/why-arkiv.md), [`how-you-use-arkiv`](arkiv/how-you-use-arkiv.md), [`swarm`](arkiv/swarm.md).
 
 Swarm is not built: it needs a postage batch and a Bee endpoint.

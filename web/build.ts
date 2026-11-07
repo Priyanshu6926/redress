@@ -31,6 +31,7 @@ const data: Record<string, string> = {
   "incident-reads.json": "replay/data/incident-reads.json",
   "offchain-prices.json": "replay/data/offchain-prices.json",
   "live-demo.json": "deployments/live.json",
+  "v4hook.json": "replay/out/demo-v4hook.json",
 };
 // The pages read data/, so the local site needs the same files as the published one.
 const publicData = join(import.meta.dir, "public", "data");
