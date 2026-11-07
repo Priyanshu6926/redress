@@ -2,6 +2,8 @@
 
 A guided way through the project, from a five-minute look to giving the demo. Pick the path that fits.
 
+**Fastest look: open the live site, https://rachit-kale.github.io/redress/. It needs no setup.**
+
 | You want to | Go to | Time |
 |---|---|---|
 | Run the entire project, in order | [Step by step](#run-the-entire-project-step-by-step) | 15 to 25 minutes |

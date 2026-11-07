@@ -1,6 +1,6 @@
 # Redress web
 
-A plain black-and-white site served by `backend/api.ts`. It has no build step.
+A plain black-and-white site. Live at https://rachit-kale.github.io/redress/
 
 ```bash
 bun backend/api.ts   # then open http://localhost:3001
@@ -16,3 +16,12 @@ bun backend/api.ts   # then open http://localhost:3001
 | Live | Recent real liquidations and the negative controls | `live.json`, `controls.json` |
 
 Each lookup and explorer result says whether Arkiv or the fallback served it.
+
+## Two ways it runs
+
+| Mode | How | Arkiv reads |
+|---|---|---|
+| Local | `bun backend/api.ts` | The server, with your access key |
+| Static, on GitHub Pages | `bash web/deploy-pages.sh` | The visitor's browser, with no key |
+
+The static build compiles the access key out, because anything in the page is public. Its Live page is a snapshot from the last publish.

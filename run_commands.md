@@ -272,6 +272,17 @@ These send real testnet transactions.
 | `make deploy-sepolia` | `VERIFY_CLEARED=true bun run sepolia:deploy` | Bond, ledger and vault, verified on Etherscan. Refuses to run without `VERIFY_CLEARED=true`, on `make` too |
 | `make deploy-hook` | `bash replay/deploy-hook.sh` | Hook, demo pool and swaps |
 
+### Publishing the website
+
+Free, on GitHub Pages: https://rachit-kale.github.io/redress/
+
+| Command | What it does |
+|---|---|
+| `bun web/build.ts` | Builds the static site into `web/dist`. Fails if any `.env` value reaches the output |
+| `bash web/deploy-pages.sh` | Builds and pushes to the `gh-pages` branch. The site updates about a minute later |
+
+To refresh the Live page, run `bun backend/watcher.ts` and `bun replay/controls.ts` first.
+
 ### Arkiv
 
 | `make` target | Direct command | What it does |

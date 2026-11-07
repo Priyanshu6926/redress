@@ -22,6 +22,8 @@ On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave, and healthy 
 
 Redress re-runs that day from real chain data. It is a hackathon demo: the history is real, but every payout is a test token on Sepolia. It is economic restitution, not a reversal, and it handles no real funds.
 
+**Live site:** https://rachit-kale.github.io/redress/
+
 ### Results
 
 | Measure | Result |
@@ -346,7 +348,10 @@ redress/
 | `public/index.html` | The six pages |
 | `public/app.js` | All page logic, plus the stress calculator |
 | `public/style.css` | The black-and-white design |
-| `lib/lookup.ts` | The lookup logic and the `VerdictSource` interface |
+| `lib/lookup.ts` | The lookup logic, the `VerdictSource` interface and the fallback filter |
+| `lib/static-client.ts` | The browser's Arkiv client for the static site |
+| `build.ts` | Builds the static site into `web/dist` and scans it for secrets |
+| `deploy-pages.sh` | Publishes `web/dist` to the `gh-pages` branch |
 | `README.md` | Which page reads what |
 
 **The six pages:**

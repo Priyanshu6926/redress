@@ -6,6 +6,8 @@ On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave, and healthy 
 
 Redress is an automatic, evidence-based restitution layer. It re-checks each liquidation against prices the broken oracle could not touch, decides whether the position was really unhealthy, and pays the amount it can prove, from the oracle operator's bond first. It then opens a public claim against whoever benefited.
 
+**Live site: [https://rachit-kale.github.io/redress/](https://rachit-kale.github.io/redress/)**
+
 **This is a hackathon demo on testnets.** It replays real mainnet history, but every payout is a test token on Sepolia. It is economic restitution, not a reversal, and it handles no real funds.
 
 ## Results
@@ -251,6 +253,14 @@ make mirror         # every incident event, paying on Sepolia
 make scorecard      # rebuilds replay/out/replay.json with the vault transactions
 make arkiv          # publishes the results to Arkiv
 ```
+
+### Publish the site
+
+```bash
+bash web/deploy-pages.sh   # builds web/dist and pushes it to the gh-pages branch
+```
+
+The live site is static and free. The browser reads Arkiv itself, without an access key, and falls back to the JSON published beside the page. Its Live page is a snapshot from the last publish, because a static site cannot run the watcher.
 
 `replay` and `mirror` resume from `replay/out/mirror-<target>.json`, so a failed run never pays twice. They stop if the workflow differs from the offline replay by one wei.
 
