@@ -62,6 +62,14 @@ An operator who keeps re-requesting still gets a one-day exit window in each eig
 
 The hook records only when the pool trades. `count`, `coveredSeconds` and `lastObservedAt` expose this, and the `v4Hook` source fails closed on too few or too old observations.
 
+## The live demo contracts
+
+`contracts/src/demo/` and the vault deployed with them hold a small amount of real test ETH.
+
+- **Anyone can drain them.** They use the mock forwarder, as in finding 1, and the page itself sends the report, so a user could send a forged one. The deposit cap and the 20% epoch cap limit the rate, not the outcome.
+- **`DemoWETH` calls the recipient** when a marked sender transfers. The vault and bond guards cover this, but it is a demo convenience and should not be copied.
+- **The price sources are synthetic,** so its verdicts demonstrate the mechanism rather than judge a market.
+
 ## Checked and clean
 
 | Area | Result |

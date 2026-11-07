@@ -91,3 +91,22 @@
 @media (prefers-reduced-motion: reduce) {
   .badge.on, .card-liq, .stamp { animation: none; }
 }
+
+/* Live demo */
+.wallet-hero { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+.wallet-hero > div { padding: 18px; background: var(--ink); color: var(--paper); }
+.wallet-hero span, .wallet-hero small { display: block; color: #bbb; font-size: 13px; }
+.wallet-hero b { display: block; margin: 6px 0; color: var(--yellow); font: 700 clamp(26px, 5vw, 42px)/1.1 var(--mono); overflow-wrap: anywhere; }
+#delta[data-sign="down"] { color: #ff8fab; }
+#delta[data-sign="up"] { color: var(--lime); }
+.live-steps { margin: 0; padding: 0; list-style: none; }
+.live-step { margin: 0 0 12px; padding: 16px; border: 2px solid var(--ink); }
+.live-step h2 { margin: 0 0 6px; font-size: 18px; }
+.live-step p { margin: 6px 0; overflow-wrap: anywhere; }
+.live-step[data-state="wait"] { border-color: var(--soft); color: var(--grey); }
+.live-step[data-state="now"] { box-shadow: 0 0 16px var(--red-glow); }
+.live-out { margin-top: 8px; }
+
+@media (max-width: 700px) {
+  .wallet-hero { grid-template-columns: minmax(0, 1fr); }
+}

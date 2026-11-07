@@ -17,7 +17,7 @@ const read = <T>(...path: string[]) => JSON.parse(readFileSync(join(root, ...pat
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(join(dist, "data"), { recursive: true });
 
-for (const file of ["style.css", "app.js", "simulator.js", "var.css", "var.js", "var.html", "index.html"]) copyFileSync(join(import.meta.dir, "public", file), join(dist, file));
+for (const file of ["style.css", "app.js", "simulator.js", "var.css", "var.js", "var.html", "index.html", "live.html", "live.js"]) copyFileSync(join(import.meta.dir, "public", file), join(dist, file));
 const html = readFileSync(join(import.meta.dir, "public", "evidence.html"), "utf8");
 writeFileSync(join(dist, "evidence.html"), html.replace("<script src=\"app.js\"", "<script>window.REDRESS_STATIC = true;</script>\n  <script src=\"app.js\""));
 writeFileSync(join(dist, ".nojekyll"), "");
@@ -30,6 +30,7 @@ const data: Record<string, string> = {
   "deployments.json": "deployments/sepolia.json",
   "incident-reads.json": "replay/data/incident-reads.json",
   "offchain-prices.json": "replay/data/offchain-prices.json",
+  "live-demo.json": "deployments/live.json",
 };
 // The pages read data/, so the local site needs the same files as the published one.
 const publicData = join(import.meta.dir, "public", "data");
@@ -66,6 +67,18 @@ const engine = await Bun.build({
 });
 if (!engine.success) throw new Error(engine.logs.join("\n"));
 copyFileSync(join(dist, "engine.js"), join(import.meta.dir, "public", "engine.js"));
+
+// The Live Demo's bundle: the same engine, plus the report encoder.
+const liveEngine = await Bun.build({
+  entrypoints: [join(import.meta.dir, "lib", "live-entry.ts")],
+  outdir: dist,
+  naming: "live-engine.js",
+  target: "browser",
+  format: "esm",
+  minify: true,
+});
+if (!liveEngine.success) throw new Error(liveEngine.logs.join("\n"));
+copyFileSync(join(dist, "live-engine.js"), join(import.meta.dir, "public", "live-engine.js"));
 
 /** Every file in the output, for the secret scan. */
 const walk = (dir: string): string[] => readdirSync(dir).flatMap((f) => (statSync(join(dir, f)).isDirectory() ? walk(join(dir, f)) : [join(dir, f)]));

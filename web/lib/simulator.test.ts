@@ -10,6 +10,7 @@ import type { EventFacts } from "../../cre/sentinel-verdict/position";
 import { VerdictType, WAD } from "../../cre/sentinel-verdict/verdict";
 import { PRESETS, SIM_ADAPTER, parseWad, presetScenario, review, runIncident, settle, simulate, type IncidentRead } from "./scenario";
 import { VaultRevert, VaultSim, deriveRedress, type VaultReport } from "./vault-sim";
+import { call, decodePosition, judge } from "./live-entry";
 
 const ADAPTER = mirror.rows[0]!.oracleAdapter;
 
@@ -239,3 +240,36 @@ describe("the vault rejects what the contract rejects", () => {
 });
 
 test("VerdictType stays the shared enum", () => expect(VerdictType.WRONGFUL).toBe(1));
+
+describe("the live demo's report", () => {
+  const A = "0x0000000000000000000000000000000000000abc" as const;
+  const seized = 31000000000000000n, repaid = 36700000000000000n;
+  const facts = {
+    tx: `0x${"ab".repeat(32)}` as const, logIndex: 3, blockNumber: 10n, user: A, liquidator: A, builder: A, adapter: A, debtAsset: A,
+    oracle: parseWad("1.193826"), collateral: 63800000000000000n, debt: 73400000000000000n, seized, repaid,
+  };
+
+  test("a glitched oracle gives WRONGFUL through the real engine", () => {
+    const j = judge(facts, A, 1n);
+    expect(j.review.verdict).toBe("WRONGFUL");
+    expect(j.review.assessment.redress).toBeGreaterThan(0n);
+  });
+
+  test("an oracle at the true price gives no payout", () => {
+    const j = judge({ ...facts, oracle: parseWad("1.228849") }, A, 1n);
+    expect(j.review.verdict).toBe("VALID");
+    expect(j.review.assessment.redress).toBe(0n);
+  });
+
+  test("the encoded call differs per execution, so the mock forwarder accepts each one", () => {
+    expect(judge(facts, A, 1n).data).not.toBe(judge(facts, A, 2n).data);
+  });
+
+  test("calls and position reads encode and decode", () => {
+    expect(call.close(1n).startsWith("0x")).toBe(true);
+    const word = (v: bigint) => v.toString(16).padStart(64, "0");
+    const p = decodePosition(`0x${word(BigInt(A))}${word(5n)}${word(6n)}${word(7n)}${word(1n)}`);
+    expect(p.collateral).toBe(5n);
+    expect(p.closed).toBe(true);
+  });
+});

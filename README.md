@@ -10,6 +10,14 @@ Redress is an automatic, evidence-based restitution layer. It re-checks each liq
 
 **This is a hackathon demo on testnets.** It replays real mainnet history, but every payout is a test token on Sepolia. It is economic restitution, not a reversal, and it handles no real funds.
 
+## Try it with your own wallet
+
+**Live Demo** (`live.html`): send test ETH from MetaMask into a leveraged position, break the oracle, get liquidated, and watch Redress pay native SepoliaETH back to your wallet. In a full run from a fresh wallet, a 0.005 ETH deposit lost 0.001455 ETH and was repaid 0.001405 ETH, ending 0.000049 short by design.
+
+Real here: your wallet, every transaction, the verdict engine, and the vault, bond and ledger contracts. Staged here: a demo lending pool rather than Aave, a glitch you trigger yourself, and synthetic price sources, because Sepolia has no real wstETH market. Your wallet relays the report through the mock forwarder, where production would use a Chainlink CRE workflow.
+
+Contracts: [pool](https://sepolia.etherscan.io/address/0xcfccec9f15f09e57556f60fe6005c86be1d9cc9e#code), [vault](https://sepolia.etherscan.io/address/0x5df1961e9b2a9f1a7711d7b7422f1e8f44355122#code), [bond](https://sepolia.etherscan.io/address/0x3e2b1ef989a3a24d04e529a8a55ff572947510b9#code), [ledger](https://sepolia.etherscan.io/address/0x11b6992c890211dc92ed24828e259eb0a169a601#code), [token](https://sepolia.etherscan.io/address/0x24afe65f117964c8ba45de4f1683d7c4321c2004#code).
+
 ## Results
 
 Replaying the incident from real chain data:

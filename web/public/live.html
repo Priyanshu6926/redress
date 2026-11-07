@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redress Live Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="var.css">
+</head>
+<body>
+  <header class="top var-top">
+    <a class="brand" href="var.html">Redress</a>
+    <nav aria-label="Pages">
+      <a href="live.html" aria-current="page">Live Demo</a>
+      <a href="var.html">VAR Room</a>
+      <a href="evidence.html#simulator">Simulator</a>
+      <a href="evidence.html">Evidence</a>
+    </nav>
+    <div class="var-actions">
+      <span class="pill">Sepolia</span>
+      <button id="connect" class="btn-cyan" type="button">Connect wallet</button>
+    </div>
+  </header>
+  <p class="notice">Real Sepolia transactions from your wallet, with test ETH only. A demo lending pool, not Aave. Price sources are synthetic.</p>
+
+  <main class="var-main">
+    <section class="var-hero">
+      <h1>Your money. A bad oracle. <mark class="hl-lime">Your money back.</mark></h1>
+      <p class="lead">Send test ETH into a leveraged position, break the oracle, get liquidated, and watch Redress prove the loss and pay your wallet. Every step is a public transaction.</p>
+    </section>
+
+    <div id="error" class="empty" role="alert" hidden></div>
+
+    <div class="wallet-hero" aria-live="polite">
+      <div><span>Your wallet</span><b id="balance">—</b><small>SepoliaETH, read from the chain</small></div>
+      <div><span>Change since you started</span><b id="delta">—</b><small id="who">Connect a wallet to begin</small></div>
+    </div>
+
+    <ol class="live-steps">
+      <li class="live-step" id="s1">
+        <h2>1. Open a position</h2>
+        <p>Test ETH leaves your wallet and backs a looped position, like the ones hit on 10 March 2026.</p>
+        <div class="row">
+          <label>Deposit (ETH, up to 0.02)<input id="amount" type="number" min="0.001" max="0.02" step="0.001" value="0.005"></label>
+          <button id="b1" class="btn-lime" type="button" disabled>Send test ETH</button>
+        </div>
+        <div class="live-out" id="o1"></div>
+      </li>
+      <li class="live-step" id="s2">
+        <h2>2. Break the oracle</h2>
+        <p>The on-chain price drops. Nothing about the real value changed, but your health factor falls below 1.</p>
+        <div class="row">
+          <label>Severity: <b id="sev-label">2.85%</b><input id="sev" type="range" min="200" max="600" step="5" value="285"></label>
+          <button id="b2" class="btn-hero" type="button" disabled>GLITCH THE ORACLE</button>
+        </div>
+        <div class="live-out" id="o2"></div>
+      </li>
+      <li class="live-step" id="s3">
+        <h2>3. Get liquidated</h2>
+        <p>A liquidator seizes collateral at the wrong price. The profit leaves your position as real test ETH.</p>
+        <button id="b3" class="btn-pink" type="button" disabled>Trigger the liquidator</button>
+        <div class="live-out" id="o3"></div>
+      </li>
+      <li class="live-step" id="s4">
+        <h2>4. Redress reviews it</h2>
+        <p>The real verdict engine runs in this page on that liquidation. The vault re-derives the amount, and pays from the operator's bond first. In production a Chainlink CRE workflow delivers this report. Here your wallet relays it through the mock forwarder.</p>
+        <button id="b4" class="btn-lime" type="button" disabled>Run the review and pay</button>
+        <div class="live-out" id="o4"></div>
+      </li>
+      <li class="live-step" id="s5">
+        <h2>5. Close the position</h2>
+        <p>Take back what the liquidation left, and see where you ended up.</p>
+        <button id="b5" class="btn-cyan" type="button" disabled>Close and withdraw</button>
+        <div class="live-out" id="o5"></div>
+      </li>
+    </ol>
+
+    <section id="summary" hidden>
+      <h2>Your result</h2>
+      <div class="stats" id="result"></div>
+      <p><strong>Net loss restored, not the position reversed.</strong></p>
+      <p class="hint">The refund is the provable floor, so a small gap remains by design. Gas is not included. <a href="live.html">Run it again</a>.</p>
+    </section>
+  </main>
+
+  <footer class="bottom" id="footer"></footer>
+  <script src="live.js" type="module"></script>
+</body>
+</html>

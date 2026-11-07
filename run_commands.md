@@ -272,6 +272,12 @@ These send real testnet transactions.
 | `make deploy-sepolia` | `VERIFY_CLEARED=true bun run sepolia:deploy` | Bond, ledger and vault, verified on Etherscan. Refuses to run without `VERIFY_CLEARED=true`, on `make` too |
 | `make deploy-hook` | `bash replay/deploy-hook.sh` | Hook, demo pool and swaps |
 
+### Live demo contracts
+
+| Command | What it does |
+|---|---|
+| `bash replay/deploy-live.sh` | Deploys a new pool, vault, bond and ledger, using real test ETH. Writes `deployments/live.json` |
+
 ### Publishing the website
 
 Free, on GitHub Pages: https://rachit-kale.github.io/redress/

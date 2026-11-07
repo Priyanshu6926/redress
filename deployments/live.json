@@ -1,0 +1,11 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "forwarder": "0x15fC6ae953E024d975e77382eEeC56A9101f9F88",
+  "forwarderKind": "MockKeystoneForwarder",
+  "weth": "0x24afe65f117964c8ba45de4f1683d7c4321c2004",
+  "pool": "0xcfccec9f15f09e57556f60fe6005c86be1d9cc9e",
+  "bond": "0x3e2b1ef989a3a24d04e529a8a55ff572947510b9",
+  "ledger": "0x11b6992c890211dc92ed24828e259eb0a169a601",
+  "vault": "0x5df1961e9b2a9f1a7711d7b7422f1e8f44355122"
+}

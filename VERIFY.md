@@ -62,6 +62,10 @@ These contracts are on Sepolia but are not the final system. Nothing current use
 
 The final contracts were verified on Etherscan before `forge fmt` ran, so the repo's Solidity differs from the verified source in whitespace only.
 
+## Live demo on Sepolia
+
+Deployed by `replay/deploy-live.sh`, addresses in `deployments/live.json`. Vault `0x5df1961e9b2a9f1a7711d7b7422f1e8f44355122`. A full run from a fresh wallet through the real page, signed by a local script rather than MetaMask, took 5 transactions: deposit 0.005, lost 0.001455, repaid 0.001405, ended 0.000049 short. MetaMask itself was not tested.
+
 ## Uniswap v4 on Sepolia
 
 Addresses come from the [v4 deployments page](https://developers.uniswap.org/docs/protocols/v4/deployments), and activity was read from Etherscan on 2026-11-07. `docs/HOOK_DESIGN.md` lists them. The demo hook pool is synthetic and took no part in the mainnet replay.
