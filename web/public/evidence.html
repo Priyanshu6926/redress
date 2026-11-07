@@ -10,6 +10,7 @@
   <header class="top">
     <a class="brand" href="var.html">Redress</a>
     <nav aria-label="Pages">
+      <a href="#simulator">Simulator</a>
       <a class="nav-hot" href="var.html">VAR Room</a>
       <a href="#overview">Overview</a>
       <a href="#lookup">Was I wronged?</a>
@@ -22,6 +23,51 @@
   <p class="notice">Testnet demo. Payouts are test tokens on Sepolia, not compensation. The incident data is real mainnet history.</p>
 
   <main>
+    <section id="page-simulator" hidden>
+      <h1>Glitch simulator</h1>
+      <p class="lead">Break the oracle on a synthetic position, and watch the real engine detect it, prove the loss and pay it.</p>
+      <p class="hint">Priya is synthetic. Every number comes from the same engine call as the CRE workflow. Vault rules, simulated in-browser.</p>
+
+      <div class="filters">
+        <button id="sim-go" class="sim-go" type="button" disabled>GLITCH THE ORACLE</button>
+        <label>Severity: <b id="sim-sev-label"></b>
+          <input id="sim-sev" type="range" min="0" max="600" step="5" value="285">
+        </label>
+        <label>Scenario
+          <select id="sim-preset"></select>
+        </label>
+        <button id="sim-reset" class="btn-pink" type="button">Reset</button>
+      </div>
+      <p class="hint" id="sim-note"></p>
+
+      <details class="sim-advanced">
+        <summary>Advanced</summary>
+        <form id="sim-form" class="filters"></form>
+      </details>
+
+      <div class="row sim-controls">
+        <button id="sim-play" class="btn-lime" type="button" disabled>Play</button>
+        <button id="sim-pause" class="btn-cyan" type="button" disabled>Pause</button>
+        <button id="sim-step" class="btn-cyan" type="button" disabled>Step</button>
+        <button id="sim-instant" class="btn-cyan" type="button" disabled>Instant</button>
+      </div>
+      <div id="sim-error" class="empty" role="alert" hidden></div>
+
+      <div class="sim-layout">
+        <ol id="sim-cards" class="sim-cards"></ol>
+        <aside class="sim-ledger" aria-label="Ledger">
+          <h2>Ledger</h2>
+          <div id="sim-totals"></div>
+          <ol id="sim-log" class="sim-log"></ol>
+        </aside>
+      </div>
+
+      <h2>Run the same logic on the real 10 March 2026 incident</h2>
+      <p class="hint">Puts the 47 real events through this same engine and vault, then compares every row with replay.json.</p>
+      <button id="sim-real" type="button" disabled>Run the real incident</button>
+      <div id="sim-real-out" aria-live="polite"></div>
+    </section>
+
     <section id="page-overview" hidden>
       <h1>When an oracle gets it wrong, make people whole in <mark class="hl-lime">blocks</mark>, not <mark class="hl-pink">weeks</mark>.</h1>
       <p class="lead">On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave, and healthy positions were liquidated. Redress re-checks every liquidation against independent prices and pays what can be proven.</p>
@@ -122,5 +168,6 @@
 
   <footer class="bottom" id="footer"></footer>
   <script src="app.js" type="module"></script>
+  <script src="simulator.js" type="module"></script>
 </body>
 </html>

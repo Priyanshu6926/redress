@@ -270,7 +270,7 @@ async function renderLive() {
   ) : `<div class="empty">Control results are not available yet.</div>`;
 }
 
-const pages = ["overview", "lookup", "theater", "explorer", "reserve", "live"];
+const pages = ["simulator", "overview", "lookup", "theater", "explorer", "reserve", "live"];
 function show() {
   const name = pages.includes(location.hash.slice(1)) ? location.hash.slice(1) : "overview";
   for (const p of pages) $(`page-${p}`).hidden = p !== name;
