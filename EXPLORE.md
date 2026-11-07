@@ -384,51 +384,175 @@ The fork vault has no bond, so this pays from the reserve only. To see the bond 
 
 ## 6. Give the demo
 
-### Prepare
+The main demo runs in a browser, on the live site. You don't need a terminal, keys or any local setup.
 
-1. Check `ARKIV_ACCESS_KEY` is in `.env`, so the lookup keeps reading from Arkiv.
-2. Run `bun backend/watcher.ts` for fresh live data.
-3. Run `bun backend/api.ts`.
-4. Open these in tabs: the site, the Sepolia payout from section 2, and the vault's page.
-5. Rehearse once, and record it as your backup.
+**Your message in one line:** Redress re-ran a real incident through a real pipeline, and every claim can be checked on-chain. The website is a window onto that, not the product itself.
 
-### Three-minute script
+### Part A: The day before
 
-| Time | Say | Show |
+**1. Rehearse out loud with a timer.** Aim for 2 minutes 45 seconds, so you have room for a slow page.
+
+**2. Record the rehearsal as your backup.** Save the video to your laptop, not only to the cloud.
+
+**3. Check the live site opens on a phone,** using mobile data. This proves it works away from your own network.
+
+**4. Decide who does what,** if you're presenting as a team: one person talks, and one person clicks.
+
+### Part B: Ten minutes before
+
+**5. Close everything you don't need,** including notifications and other browser tabs.
+
+**6. Open these four tabs, in this order.**
+
+| Tab | Open | Prepare it |
 |---|---|---|
-| 0:00 | "On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave. Healthy positions were liquidated, and the repair was a manual DAO process." | Overview |
-| 0:25 | "You can't undo a liquidation. But you can restore what was lost, automatically, from evidence anyone can check." | Overview, the six steps |
-| 0:45 | "A Chainlink CRE workflow builds a price band from sources the broken oracle can't touch: the Lido rate, the Uniswap TWAP and off-chain prices. Then it asks whether the position was healthy across the whole band." | Replay |
-| 1:05 | Press **Play**. "The oracle falls below the band in the first block. This is the real incident, from real chain data." | Replay running |
-| 1:30 | "47 events through the real workflow. We pay the provable floor: 473.3 ETH, 7.6% under the DAO's figure, by design. Zero false positives on 275 real liquidations, including the August 2024 crash." | Overview table, then Live controls |
-| 1:55 | Enter `0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f`. "Anyone can check. This reads from Arkiv." | Was I wronged? |
-| 2:10 | "The operator's bond pays first, then the reserve, and a claim opens against the liquidator and the builder." | Reserve, then the Sepolia transaction logs |
-| 2:30 | "This is the Live monitor on real recent liquidations. On a normal day it reads VALID." | Live |
-| 2:45 | "It runs on testnets with a mock forwarder, and one manipulated source can still block a payout. Next: a production forwarder and more independent sources." | Overview |
+| 1 | [Live site](https://rachit-kale.github.io/redress/) | Stay on Overview |
+| 2 | [CRE transcript](https://github.com/Rachit-Kale/redress/blob/main/docs/transcripts/sepolia.txt) | Press `Ctrl+F`, search for `REDRESS_RESULT`, and leave it highlighted |
+| 3 | [Sepolia payout](https://sepolia.etherscan.io/tx/0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0) | Click the **Logs** tab, and find the two `Paid` events |
+| 4 | [Vault code](https://github.com/Rachit-Kale/redress/blob/main/contracts/src/RedressVault.sol) | Press `Ctrl+F` and search for `function _pay`. Only for questions |
 
-**Keep it true.** The PRD's script in section 14.2 was written before the results and is out of date, so use this one. In particular, do not say:
+**7. Copy this address** into a note you can reach quickly:
+
+```text
+0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f
+```
+
+**8. Warm up the site.** Click every page once, then try the address on **Was I wronged?**. This also confirms Arkiv is answering. Return to **Overview**.
+
+**9. Zoom the browser to 125%** with `Ctrl` and `+`, so the back of the room can read it.
+
+**10. Have your backup video open,** paused at the start.
+
+### Part C: The demo (3 minutes)
+
+**Step 1. The problem (0:00 to 0:25). Tab 1, Overview.**
+
+- **Do:** Stay on the page. Point at the headline.
+- **Say:** "On 10 March 2026 a misconfigured oracle undervalued wstETH on Aave, and healthy positions were liquidated. The repair was a slow, manual DAO process. You can't undo a liquidation, but you can restore what was lost, automatically, from evidence anyone can check."
+
+**Step 2. How it works (0:25 to 0:40). Same page.**
+
+- **Do:** Scroll to the six numbered boxes.
+- **Say:** "Six steps: detect the liquidation, price it independently, judge it, pay, charge the operator's bond, and open a claim to recover the money."
+
+**Step 3. The incident (0:40 to 1:15). Tab 1, Replay.**
+
+- **Do:** Click **Replay**, then **Play**. It runs through 8 blocks in about 7 seconds.
+- **Say while it plays:** "This is real mainnet data, block by block. The black line is Aave's oracle. The grey boxes are independent prices from Lido, Uniswap and off-chain sources, which the broken oracle can't touch. The oracle drops below them in the first block and stays there."
+- **Do:** When it stops, point at the cumulative redress box.
+- **Say:** "47 liquidations, and 473 ETH of provable loss."
+
+**Step 4. Prove it's real (1:15 to 1:55). Tabs 2 and 3.** This is the most important moment.
+
+- **Do:** Switch to tab 2. Point at the highlighted `REDRESS_RESULT` line.
+- **Say:** "That wasn't an animation. This is the real Chainlink CRE workflow judging that liquidation: it read mainnet, built the band, and wrote a report to the vault."
+- **Do:** Switch to tab 3. Point at the first `Paid` event, then the second, then `ClaimOpened`.
+- **Say:** "And this is the transaction it produced. In one transaction the vault re-checked the amount, paid 100 from the oracle operator's bond, paid the remaining 130 from the reserve, and opened a claim against the liquidator and the block builder. These are test tokens, but this is a real contract on a public chain."
+
+**Step 5. Anyone can check (1:55 to 2:15). Tab 1, Was I wronged?**
+
+- **Do:** Click **Was I wronged?**, paste the address, and click **Check**.
+- **Do:** Point at "Read from Arkiv" and at the Payout link.
+- **Say:** "A victim doesn't have to trust us. This verdict comes from Arkiv, and it links to the real payout."
+
+**Step 6. It doesn't cry wolf (2:15 to 2:35). Tab 1, Live.**
+
+- **Do:** Click **Live**, then scroll to **Negative controls**.
+- **Say:** "A system that pays people must not pay wrongly. We tested 275 real liquidations, including the August 2024 market crash. Zero false positives, because the independent band falls with a real market."
+- **Do:** Point at the row marked **No**.
+- **Say:** "One control fails, and we kept it visible: a manipulated source can block a payout, though it can't cause a wrong one."
+
+**Step 7. Be honest, then close (2:35 to 3:00). Tab 1, Overview.**
+
+- **Do:** Click **Overview**, and point at the comparison table.
+- **Say:** "We pay only what we can prove: 473.3 ETH, 7.6% under the DAO's figure, by design. Today this is a testnet demo with a mock forwarder, and CRE ran as a local simulation. The next step is deploying on the CRE network, so a protocol can fund a vault and this runs by itself. Oracle failures shouldn't take weeks to repair."
+
+### Part D: Sponsor add-ons
+
+Use one of these if a sponsor's judges are in front of you, or if you have extra time.
+
+**Chainlink (30 seconds).** Open `cre/sentinel-verdict/handler.ts` on GitHub.
+
+- **Say:** "The whole pipeline is one workflow: it reads mainnet and Sepolia, calls an off-chain source with consensus, and writes a report. All 47 events went through it on Sepolia and on a fork, and matched our offline replay to the wei."
+
+**Uniswap (30 seconds).** Open the [hook on Etherscan](https://sepolia.etherscan.io/address/0xc555e1ca0a109a1f02d238455ff4feda7ba5d080#code).
+
+- **Say:** "Uniswap is in every verdict: the v3 TWAP is one of our price sources. We also built a v4 hook that gives any pool a TWAP and a price band. To be clear, its pool is synthetic, and it wasn't used in the replay."
+
+**Arkiv (30 seconds).** Stay on the Explorer page, and set **Min redress** to `20`.
+
+- **Say:** "That filter runs on Arkiv, in your browser, with no server of ours. We published 128 entities, and claims expire by themselves after 7 days."
+
+**Technical judges (30 seconds).** Open tab 4, at `_pay`.
+
+- **Say:** "Bond first, then reserve, then a claim. Before this, the vault re-derives the amount itself and reverts if it differs by one wei."
+
+**Business judges (30 seconds).** Open **Reserve** and scroll to the stress calculator. Set **Reserve** to `500`.
+
+- **Say:** "This replays the incident under your settings. With a smaller reserve, the epoch cap holds, and payouts queue instead of draining it."
+
+### Part E: Optional live run
+
+Only do this if judges ask to see it run, and only if you practised it. It takes about a minute, and depends on your network.
+
+**1.** Before the demo, complete steps 1, 2, 20, 21 and 22 of [Part E above](#part-e-run-a-real-liquidation-through-chainlink-cre-optional), and leave those terminals open.
+
+**2.** When asked, run this in terminal 3:
+
+```bash
+bun replay/mirror.ts fork --limit 1
+```
+
+**3.** Expect `1/47 WRONGFUL 230533099950029831035 vault tx 0x…`.
+
+**4.** **Say:** "That is the real workflow running now, on a local fork of mainnet, reaching the same answer to the wei."
+
+If you've already run all 47 on that fork, this does nothing, because the run resumes. Run `bun run fork:deploy` first.
+
+### Part F: If something goes wrong
+
+| Problem | What to do |
+|---|---|
+| The page says "local JSON file" | Keep going. Say: "Arkiv didn't answer in time, so the fallback served the same data" |
+| The Etherscan tab is slow | Show the transcript tab, and return to it later |
+| The site won't load | In Git Bash, run `bun backend/api.ts`, and open http://localhost:3001 |
+| The internet fails | Play your backup video |
+| You run out of time | Skip Step 2, and go straight from Step 5 to Step 7 |
+| You forget a number | Point at the screen. All the key numbers are on Overview |
+
+### Likely questions
+
+| Question | Answer |
+|---|---|
+| Is this a real product or a website? | The website is a window onto it. The workflow, vault, bond and claims are real, and they ran on-chain. It's a replay today, and it doesn't yet watch mainnet by itself |
+| Could it be integrated today? | The contracts and workflow are built for it. Production needs Chainlink Early Access, an audit, and a protocol or DAO to fund a vault |
+| Why is your number lower than the DAO's? | We pay the floor, the worst case across the band. Our midpoint estimate is 2.54% under |
+| Why 33 of 34 positions? | One position sat so close to the threshold that it came out `AMBIGUOUS`, so it was paid only its provable excess |
+| What stops a fake report? | In this demo, nothing: the mock forwarder accepts anyone. That is why it holds test tokens. Production uses the signature-checking forwarder |
+| What if a price source is manipulated? | It cannot raise a payout. Today it can block one, and control 5 shows that |
+| How is a real crash told apart from a glitch? | The independent band falls with the market. On 2024-08-05, 60 tested events gave no false positives |
+| Who funds the reserve? | The PRD's design is a protocol or DAO, with operators' bonds paying first |
+| Can the bond be escaped? | A withdrawal waits 7 days and lapses a day later. An operator who keeps re-requesting still gets a window, and a pending request is public |
+| Can it force a liquidator to repay? | No. Claims are public records. Recovery depends on someone paying in |
+| Why Arkiv rather than a database? | Anyone can run the same query without trusting our server. See `arkiv/why-arkiv.md` |
+| Was it audited? | No. We did a self-review, and every finding is in `docs/SECURITY.md` |
+| How was AI used? | Claude Code wrote most of the code, tests and docs, under our direction. The README has the detail |
+
+### What not to say
+
+The PRD's script in section 14.2 was written before the results and is out of date, so use this one.
 
 | Do not say | Say |
 |---|---|
 | "34 of 34" | "33 of 34 positions wrongful on every event" |
 | "Within 2% of the DAO" | "7.6% under, by design" |
 | "Refund", "reversal" or "compensation" | "Economic restitution", and that payouts are test tokens |
+| "Three weeks" | "A slow, manual process". We did not verify the duration from chain data |
 | "Evidence on Swarm" | Nothing. It is not built |
 | "The hook was used in the replay" | "The replay uses the v3 TWAP. The v4 hook is a synthetic demo" |
 | "CRE consensus verified this" | "A local CRE simulation, on one node" |
+| "It's live on mainnet" | "It replays real mainnet history, and pays on testnet" |
 | A real operator's name | "A demo operator" |
-
-### Likely questions
-
-| Question | Answer |
-|---|---|
-| Why is your number lower than the DAO's? | We pay the floor, the worst case across the band. Our midpoint estimate is 2.54% under |
-| What stops a fake report? | In this demo, nothing: the mock forwarder accepts anyone. That is why it holds test tokens. Production uses the signature-checking forwarder |
-| What if a price source is manipulated? | It cannot raise a payout. Today it can block one, and control 5 shows that |
-| How is a real crash told apart from a glitch? | The independent band falls with the market. On 2024-08-05, 60 tested events gave no false positives |
-| Who funds the reserve? | The PRD's design is a protocol or DAO, with operators' bonds paying first |
-| Can the bond be escaped? | A withdrawal waits 7 days and lapses a day later. An operator who keeps re-requesting still gets a window, and a pending request is public |
-| Why Arkiv rather than a database? | Anyone can run the same query without trusting our server. See `arkiv/why-arkiv.md` |
 
 ---
 
