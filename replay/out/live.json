@@ -1,7 +1,7 @@
 {
- "updatedAt": "2026-11-07T00:03:34.622Z",
- "fromBlock": 26143268,
- "toBlock": 26359268,
+ "updatedAt": "2026-11-07T02:10:05.415Z",
+ "fromBlock": 26143899,
+ "toBlock": 26359899,
  "note": "wstETH collateral only. 17 found, 17 evaluated, 0 skipped.",
  "events": [
   {
