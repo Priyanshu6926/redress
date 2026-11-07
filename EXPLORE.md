@@ -4,6 +4,7 @@ A guided way through the project, from a five-minute look to giving the demo. Pi
 
 | You want to | Go to | Time |
 |---|---|---|
+| Run the entire project, in order | [Step by step](#run-the-entire-project-step-by-step) | 15 to 25 minutes |
 | See it working | [1. See the product](#1-see-the-product) | 5 minutes |
 | Check the claims yourself | [2. Verify it on-chain](#2-verify-it-on-chain) | 10 minutes |
 | Understand the code | [3. Read the code](#3-read-the-code) | 30 minutes |
@@ -13,17 +14,217 @@ A guided way through the project, from a five-minute look to giving the demo. Pi
 
 Other documents: [`documentation.md`](documentation.md) explains every file, and [`run_commands.md`](run_commands.md) lists every command.
 
-## Setup
+## Which terminal to use
 
-Use **Git Bash**, from the `redress` folder.
+**Use Git Bash for everything.** Open it from the Start menu, or right-click in the `redress` folder and choose **Open Git Bash here**.
+
+`bun test` and `forge test` also work in PowerShell, but the fork and deploy scripts are bash, and so is the line that loads `.env`. Using one terminal avoids surprises.
+
+## Run the entire project, step by step
+
+Follow these in order. Parts A to D take about 15 minutes. Part E is optional and adds 10 minutes.
+
+Nothing here touches a public network or spends anything. The Sepolia contracts and the Arkiv data are already live, so you do not redeploy them.
+
+### Part A: Prepare (once per terminal)
+
+**1. Go to the project.**
+
+```bash
+cd "/d/CAREER/Hackathon/ETHGlobal Mumbai/redress"
+```
+
+**2. Put the tools on your PATH.** Repeat this in every new terminal.
+
+```bash
+export PATH="$HOME/.foundry/bin:$HOME/.cre/bin:$PATH"
+```
+
+To make it permanent, run this once, then reopen Git Bash:
+
+```bash
+echo 'export PATH="$HOME/.foundry/bin:$HOME/.cre/bin:$PATH"' >> ~/.bashrc
+```
+
+**3. Check the tools.**
+
+```bash
+bun --version      # 1.4.4
+forge --version    # 1.5.1
+cre version        # v1.39.0
+python --version   # 3.13
+```
+
+**4. Install packages.** Only needed the first time, or after `package.json` changes.
 
 ```bash
 bun install
 (cd cre/sentinel-verdict && bun install)
-export PATH="$HOME/.foundry/bin:$HOME/.cre/bin:$PATH"
 ```
 
-Sections 1 to 4 use committed data, so they need no keys, except for the fork tests. Section 5 needs a filled-in `.env` and `cre login`.
+**5. Check `.env` has its five values.** This prints the names only.
+
+```bash
+grep -oE '^[A-Z_]+=.' .env
+```
+
+Expect `ETHERSCAN_API_KEY`, `MAINNET_RPC`, `SEPOLIA_RPC`, `CRE_ETH_PRIVATE_KEY` and `ARKIV_ACCESS_KEY`.
+
+**6. Load `.env` into this terminal.** The Foundry fork tests need it.
+
+```bash
+set -a; . <(tr -d '\r' < .env); set +a
+```
+
+**7. Check the Chainlink login.** Only needed for Part E.
+
+```bash
+cre whoami
+```
+
+If it says you are not logged in, run `cre login`.
+
+### Part B: Run the tests
+
+**8. Run the TypeScript tests.**
+
+```bash
+bun test
+```
+
+Expect `150 pass` and `0 fail`.
+
+**9. Check the types.**
+
+```bash
+bun run typecheck
+```
+
+Expect no errors.
+
+**10. Generate the random test cases.** Only needed the first time.
+
+```bash
+bun run vectors:random
+```
+
+**11. Run the quick Solidity tests.** Under a minute.
+
+```bash
+(cd contracts && forge test --no-match-contract Invariant)
+```
+
+Expect every test to pass.
+
+**12. Run all the Solidity tests.** About 9 minutes. Skip this if you are short of time.
+
+```bash
+(cd contracts && forge test)
+```
+
+Expect `115 tests passed, 0 failed, 0 skipped`. If 3 are skipped, go back to step 6.
+
+### Part C: Produce the results
+
+**13. Run the offline replay.** This judges all 47 events.
+
+```bash
+bun run replay
+```
+
+Expect 46 `WRONGFUL` and 1 `AMBIGUOUS` under the default config.
+
+**14. Compare with the DAO's figures.**
+
+```bash
+bun run scorecard
+```
+
+Expect a floor of 473.2955 ETH, 7.594% under 512.19.
+
+**15. Run the negative controls.**
+
+```bash
+bun replay/controls.ts
+```
+
+Expect 6 `PASS` and 1 `FAIL`. Control 5 is a known result, not a broken setup.
+
+**16. Scan recent real liquidations.** About a minute.
+
+```bash
+bun backend/watcher.ts
+```
+
+Expect a line like `scanned 26143268 to 26359268: 17 events`. The numbers change over time.
+
+### Part D: Run the website
+
+**17. Start the site.** Leave this terminal running.
+
+```bash
+bun backend/api.ts
+```
+
+Expect `Redress on http://localhost:3001`.
+
+**18. Open http://localhost:3001 in your browser** and follow [section 1](#1-see-the-product).
+
+**19. Stop the site** with `Ctrl+C` when you finish.
+
+### Part E: Run a real liquidation through Chainlink CRE (optional)
+
+This uses three terminals. In each new one, repeat steps 1 and 2.
+
+**20. Terminal 1: start the local fork.** Leave it running.
+
+```bash
+bun run fork:up
+```
+
+**21. Terminal 2: start the price server.** Leave it running.
+
+```bash
+bun run snapshot:serve
+```
+
+**22. Terminal 3: deploy a vault on the fork.**
+
+```bash
+bun run fork:deploy
+```
+
+Expect `funded with 3000ether`.
+
+**23. Terminal 3: run one liquidation.** About a minute.
+
+```bash
+bun replay/mirror.ts fork --limit 1
+```
+
+Expect `1/47 WRONGFUL 230533099950029831035 vault tx 0x…`.
+
+To run all 47, use `bun run replay:fork` instead. That takes about 50 minutes and ends with `paid 473295500496135010048 wei`.
+
+**24. Stop terminals 1 and 2** with `Ctrl+C`.
+
+**25. Restore the committed results,** because this run overwrote them.
+
+```bash
+git checkout replay/out/mirror-fork.json docs/transcripts/fork.txt deployments/fork.json cre/sentinel-verdict/config.fork.json
+```
+
+### What you have run
+
+| Step | What it proved |
+|---|---|
+| 8 to 12 | The code is correct |
+| 13 to 15 | The verdicts and controls give the published results |
+| 16 | The engine works on today's mainnet data |
+| 17 to 18 | The product works, reading from Arkiv |
+| 20 to 23 | The real CRE workflow reaches the same answer as the offline replay |
+
+The Sepolia payouts were made by `make mirror` earlier. Don't rerun that, because it needs a new deployment. To check them instead, see [section 2](#2-verify-it-on-chain).
 
 ---
 
@@ -171,31 +372,9 @@ The best way to trust the tests is to watch them fail. Try one of these, then un
 
 ## 5. Run one liquidation yourself
 
-This runs the real CRE workflow on a local fork. It touches no public network.
+Follow [Part E](#part-e-run-a-real-liquidation-through-chainlink-cre-optional) above. It runs the real CRE workflow on a local fork, and touches no public network.
 
-**You need:** `MAINNET_RPC` in `.env`, and `cre login`.
-
-```bash
-# terminal 1: the fork
-bun run fork:up
-
-# terminal 2: off-chain prices
-bun run snapshot:serve
-
-# terminal 3: a vault, then one event
-bun run fork:deploy
-bun replay/mirror.ts fork --limit 1
-```
-
-Expect a line ending in the vault transaction:
-
-```text
-1/47 WRONGFUL 230533099950029831035 vault tx 0x…
-```
-
-Then open `docs/transcripts/fork.txt` to see the simulator's output. Stop terminals 1 and 2 when you finish.
-
-`fork:deploy` deletes the previous fork results, and the fork run overwrites the committed transcript. Run `git checkout replay/out/mirror-fork.json docs/transcripts/fork.txt` to restore them.
+Then open `docs/transcripts/fork.txt` before step 25 to see the simulator's output, and find `REDRESS_RESULT`.
 
 The fork vault has no bond, so this pays from the reserve only. To see the bond waterfall, use the Sepolia links in section 2.
 
@@ -205,7 +384,7 @@ The fork vault has no bond, so this pays from the reserve only. To see the bond 
 
 ### Prepare
 
-1. Add `ARKIV_ACCESS_KEY` to `.env`, so the lookup keeps reading from Arkiv.
+1. Check `ARKIV_ACCESS_KEY` is in `.env`, so the lookup keeps reading from Arkiv.
 2. Run `bun backend/watcher.ts` for fresh live data.
 3. Run `bun backend/api.ts`.
 4. Open these in tabs: the site, the Sepolia payout from section 2, and the vault's page.
@@ -255,5 +434,5 @@ The fork vault has no bond, so this pays from the reserve only. To see the bond 
 
 The troubleshooting table is at the end of [`run_commands.md`](run_commands.md). The two most likely problems during a demo:
 
-- **The lookup says "local JSON file".** Arkiv's anonymous budget ran out. The data is still right. Add `ARKIV_ACCESS_KEY` and restart the site.
-- **`forge` or `cre` is not found.** Run the `export PATH` line in Setup.
+- **The lookup says "local JSON file".** Arkiv did not answer in time. The data is still right. Check `ARKIV_ACCESS_KEY` and restart the site.
+- **`forge` or `cre` is not found.** Repeat step 2.
