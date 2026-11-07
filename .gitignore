@@ -33,3 +33,6 @@ cre/.env
 cre/sentinel-verdict/.cre_build_tmp.js
 replay/out/mirror-run.log
 web/dist/
+
+# Personal demo script
+script.txt
