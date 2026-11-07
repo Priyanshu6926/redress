@@ -1,0 +1,25 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "vault": "0xaccfe6e8939d3143f7f70a550ebf29dcfc197609",
+  "vaultDeployTx": "0x29847f200d18542adf3f9d57f4ec7362e60a9b880ab767b226c7606fbae82e23",
+  "payoutAsset": "0xa193cae8762aeedcbf4d73c96369b54e5100fba4",
+  "payoutAssetDeployTx": "0xaca75d1628baaf9412525aa1b37fcdcf6d82745c2183137a4a1d2fdb40065d56",
+  "forwarder": "0x15fC6ae953E024d975e77382eEeC56A9101f9F88",
+  "forwarderKind": "MockKeystoneForwarder",
+  "operatorBond": "0x934d3fae4d7393ef34a35246b28aab0b05cddea4",
+  "recoveryLedger": "0x82339ee18be49be221bac62c4fb30e2f1d7a055d",
+  "bandOracleHook": "0xc555e1ca0a109a1f02d238455ff4feda7ba5d080",
+  "hookPoolOtherToken": "0x22a30c5c890bd5c3edd0dbe43a5b8b2c3adf1626",
+  "hookPool": {
+    "token0": "0x22a30c5c890bd5c3edd0dbe43a5b8b2c3adf1626",
+    "token1": "0xa193cae8762aeedcbf4d73c96369b54e5100fba4",
+    "fee": 3000,
+    "tickSpacing": 60,
+    "synthetic": true
+  },
+  "uniswapPoolManager": "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543",
+  "supersededHooks": [
+    "0x301eb55a7d1e5528771857aceef4714af34b5080"
+  ]
+}

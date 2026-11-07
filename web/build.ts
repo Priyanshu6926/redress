@@ -17,9 +17,9 @@ const read = <T>(...path: string[]) => JSON.parse(readFileSync(join(root, ...pat
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(join(dist, "data"), { recursive: true });
 
-for (const file of ["style.css", "app.js"]) copyFileSync(join(import.meta.dir, "public", file), join(dist, file));
-const html = readFileSync(join(import.meta.dir, "public", "index.html"), "utf8");
-writeFileSync(join(dist, "index.html"), html.replace("<script src=\"app.js\"", "<script>window.REDRESS_STATIC = true;</script>\n  <script src=\"app.js\""));
+for (const file of ["style.css", "app.js", "var.css", "var.js", "var.html", "index.html"]) copyFileSync(join(import.meta.dir, "public", file), join(dist, file));
+const html = readFileSync(join(import.meta.dir, "public", "evidence.html"), "utf8");
+writeFileSync(join(dist, "evidence.html"), html.replace("<script src=\"app.js\"", "<script>window.REDRESS_STATIC = true;</script>\n  <script src=\"app.js\""));
 writeFileSync(join(dist, ".nojekyll"), "");
 
 const data: Record<string, string> = {
@@ -29,10 +29,18 @@ const data: Record<string, string> = {
   "controls.json": "replay/out/controls.json",
   "deployments.json": "deployments/sepolia.json",
 };
-for (const [name, source] of Object.entries(data)) copyFileSync(join(root, source), join(dist, "data", name));
+// The pages read data/, so the local site needs the same files as the published one.
+const publicData = join(import.meta.dir, "public", "data");
+mkdirSync(publicData, { recursive: true });
+for (const [name, source] of Object.entries(data)) {
+  copyFileSync(join(root, source), join(dist, "data", name));
+  copyFileSync(join(root, source), join(publicData, name));
+}
 
 const arkiv = read<{ writer: string; entities: Record<string, string>; txs: string[] }>("replay", "out", "arkiv.json");
-writeFileSync(join(dist, "data", "arkiv.json"), JSON.stringify({ writer: arkiv.writer, entities: Object.keys(arkiv.entities).length, txs: arkiv.txs.length }));
+const summary = JSON.stringify({ writer: arkiv.writer, entities: Object.keys(arkiv.entities).length, txs: arkiv.txs.length });
+writeFileSync(join(dist, "data", "arkiv.json"), summary);
+writeFileSync(join(publicData, "arkiv.json"), summary);
 
 const built = await Bun.build({
   entrypoints: [join(import.meta.dir, "lib", "static-client.ts")],

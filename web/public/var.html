@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redress VAR Room</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="var.css">
+</head>
+<body>
+  <header class="top var-top">
+    <a class="brand" href="var.html">Redress</a>
+    <nav aria-label="Pages">
+      <a href="var.html" aria-current="page">VAR Room</a>
+      <a href="evidence.html">Evidence</a>
+    </nav>
+    <div class="var-actions">
+      <span class="pill">Sepolia</span>
+      <button id="connect" class="btn-cyan" type="button">Connect wallet</button>
+    </div>
+  </header>
+  <p class="notice">Replay of 10 Mar 2026 from real mainnet data. Payouts are Sepolia test WETH.</p>
+
+  <main class="var-main">
+    <section class="var-hero">
+      <h1>When an oracle gets it wrong, make people whole in <mark class="hl-lime">blocks</mark>, not <mark class="hl-pink">weeks</mark>.</h1>
+      <div class="row">
+        <button id="break" class="btn-hero" type="button" disabled>BREAK THE ORACLE</button>
+        <button id="faster" class="btn-lime" type="button" disabled>Speed 1×</button>
+        <button id="skip" class="btn-pink" type="button" disabled>Skip to result</button>
+      </div>
+      <div id="wallet" aria-live="polite"></div>
+    </section>
+
+    <div id="error" class="empty" role="alert" hidden></div>
+
+    <section id="scene" aria-label="Incident replay">
+      <div class="ticker">
+        <span id="badge" class="badge">READY</span>
+        <span>Block <b id="block">—</b></span>
+        <span>Oracle <b id="price">—</b></span>
+        <span>Drop <b id="drop" class="txt-red">—</b></span>
+        <span>Events <b id="count">—</b></span>
+      </div>
+
+      <div class="scene">
+        <article class="panel">
+          <h2>Aave oracle</h2>
+          <div id="chart" class="var-chart"></div>
+          <p class="hint">Line: Aave oracle. Shaded: independent band. WETH per wstETH.</p>
+        </article>
+
+        <article class="panel">
+          <h2>Liquidations</h2>
+          <div id="feed" class="feed" aria-live="off"></div>
+        </article>
+
+        <article class="panel">
+          <h2>VAR review</h2>
+          <p id="reviewing" class="hint">Press BREAK THE ORACLE.</p>
+          <ol id="steps" class="steps"></ol>
+          <div id="stamp" class="stamp" hidden></div>
+        </article>
+      </div>
+
+      <div class="stats" id="totals"></div>
+    </section>
+  </main>
+
+  <footer class="bottom" id="footer"></footer>
+  <script src="var.js" type="module"></script>
+</body>
+</html>

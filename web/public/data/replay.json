@@ -1,0 +1,1465 @@
+{
+ "schemaVersion": "1.0.0",
+ "mock": false,
+ "config": {
+  "name": "default",
+  "minSources": 3,
+  "tauBps": "75",
+  "muBps": "10",
+  "epsOutBps": "100",
+  "epsHBps": "10",
+  "maxStalenessSec": "3600"
+ },
+ "incident": {
+  "id": "aave-2026-03-10",
+  "protocol": "aave-v3",
+  "chain": "ethereum-mainnet",
+  "title": "Aave wstETH CAPO misconfiguration, 10 March 2026",
+  "executionTx": "0x32c64151469cf2202cbc9581139c6de7b34dae2012eba9daf49311265dfe5a1e",
+  "executionBlock": 24626860,
+  "firstLiquidationBlock": 24626860,
+  "lastLiquidationBlock": 24626867,
+  "collateralAsset": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+  "debtAsset": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  "markets": [
+   {
+    "name": "Aave Ethereum Market",
+    "pool": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
+   },
+   {
+    "name": "Aave V3 Lido Ethereum",
+    "pool": "0x4e033931ad43597d96D6bcc25c280717730B58B1"
+   }
+  ]
+ },
+ "series": [
+  {
+   "block": 24626859,
+   "timestamp": null,
+   "oraclePrice": "1228848994063584438",
+   "bandLow": null,
+   "bandHigh": null,
+   "liquidations": 0,
+   "cumulativeRedressFloor": "0"
+  },
+  {
+   "block": 24626860,
+   "timestamp": 1773143171,
+   "oraclePrice": "1193946836120871904",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 1,
+   "cumulativeRedressFloor": "230533099950029831035"
+  },
+  {
+   "block": 24626861,
+   "timestamp": 1773143183,
+   "oraclePrice": "1193946876034389978",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 21,
+   "cumulativeRedressFloor": "438333051277693169266"
+  },
+  {
+   "block": 24626862,
+   "timestamp": 1773143195,
+   "oraclePrice": "1193946915943060059",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 9,
+   "cumulativeRedressFloor": "469123175956283405989"
+  },
+  {
+   "block": 24626863,
+   "timestamp": 1773143207,
+   "oraclePrice": "1193946955856578133",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 8,
+   "cumulativeRedressFloor": "472980510473209267575"
+  },
+  {
+   "block": 24626864,
+   "timestamp": 1773143219,
+   "oraclePrice": "1193946995770096206",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 4,
+   "cumulativeRedressFloor": "473294246661295531139"
+  },
+  {
+   "block": 24626866,
+   "timestamp": 1773143243,
+   "oraclePrice": "1193947075592284361",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 3,
+   "cumulativeRedressFloor": "473295371820575994247"
+  },
+  {
+   "block": 24626867,
+   "timestamp": 1773143255,
+   "oraclePrice": "1193947115505802435",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "liquidations": 1,
+   "cumulativeRedressFloor": "473295500496135010048"
+  }
+ ],
+ "liquidations": [
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x4f962BB0EA0785c539f8ab52a17f1f873DDc355f",
+   "tx": "0x9064b507f16bd8b85fb5aea0185153b01fa23b3205f7153f986e5107ce988a9c",
+   "logIndex": 17,
+   "block": 24626860,
+   "debtToCover": "6304565167623755951957",
+   "collateralSeized": "5333244853672323854639",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1020552288471107562",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "230533099950029831035",
+   "redressMidpoint": "243137129221110741681",
+   "vaultTx": "0xc7ca7d754a1d35fe5648996103cf1b2fd2db0b4d35b3424e38a31309b724fdb0",
+   "evidenceHash": "0x0356a7d8e0c17bf4ac909b9e3c99649c794b1ceb4f0a32da5ff8ef125ae50a06",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x4BaCce55f0991Cfc4D919f7F50EDB8be028E37DF",
+   "tx": "0x8f47b5e821530e9b9fc2262cde6dbb7427311f13116de995650fd7709df2fa67",
+   "logIndex": 14,
+   "block": 24626861,
+   "debtToCover": "2218066481074625052672",
+   "collateralSeized": "1876337373842120678747",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1019492296367078665",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "81105872269752940657",
+   "redressMidpoint": "85540210431827919950",
+   "vaultTx": "0xe08cc0fdffac1f10b5769c3642fd8659d29531b2a77424ded418ce288285b587",
+   "evidenceHash": "0x192024111015522d8db147ca68c505ecdd7151d2aa4a152b73e946328a4c3b56",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xf82d8c60402200114E2d5a8bdc40b1eF8f8aB0De",
+   "tx": "0x6b9c0d3292b51fc1612fba7cc26258357b2b705ab2699d2a4f0014c09a9b96cc",
+   "logIndex": 37,
+   "block": 24626861,
+   "debtToCover": "1366394661395882701753",
+   "collateralSeized": "1155879407795436001462",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1013920511414321099",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "49963620037012877959",
+   "redressMidpoint": "52695303709788883504",
+   "vaultTx": "0x70f1f2ad1fa9e136a9541d97f819e8b48018b931981b28814c56c9fbea1cd43b",
+   "evidenceHash": "0x4770a257475ddca00e414f168ab14d28dfc9ae4a308556402b9f301f768fcd12",
+   "multiAsset": true,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x1E2799e0071E535468097E04Ad23b9FE3Ae5A6A5",
+   "tx": "0x60f3fd66c0f13927ff8b827228dcf209d6f2a5501ec5050e119f0c09300992db",
+   "logIndex": 64,
+   "block": 24626861,
+   "debtToCover": "937452163987601000000",
+   "collateralSeized": "793022457391316114880",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1014386544501413722",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "34278898364915054888",
+   "redressMidpoint": "36153044131671327547",
+   "vaultTx": "0x978b089081be0c6a538a619bcacc5028b12150b9f0d5bd16f95764b3bf4c8ffb",
+   "evidenceHash": "0xc469df89748fc016de623daa08f4f81cf5e0d39242a04ff5b860e6e15f94eac1",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x6CC243d26eb6B79B70D94Af4FD6f145b297e728b",
+   "tx": "0xac1cad7fdcab60d1174cd785ac993d36b8230caa5517541b7ee8b7a370fd66fb",
+   "logIndex": 79,
+   "block": 24626861,
+   "debtToCover": "284559134935990015037",
+   "collateralSeized": "240718186088768343147",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1020995569943330230",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "10405196168930028333",
+   "redressMidpoint": "10974084181160555654",
+   "vaultTx": "0xd7dece6500b5f4e3fbd2bbac9f5d98957f24bb42eee7455d2add7a95a11c551c",
+   "evidenceHash": "0x38093b815eacb1d0663c83a5dd3539fd83b13dde17715b52866748ca3d9150bf",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x3Ee505bA316879d246a8fD2b3d7eE63b51B44FAB",
+   "tx": "0x33fc18a92afeccaa00e1cab0f406b9f03f516b1d38cd15a7d58d8f9094c6c31b",
+   "logIndex": 102,
+   "block": 24626861,
+   "debtToCover": "187404010651717766127",
+   "collateralSeized": "158531384065351876617",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1023499090900704036",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "6852619558721992871",
+   "redressMidpoint": "7227275937712131558",
+   "vaultTx": "0xdb36f2f6be66e71147976977ad7160fd272091d1e76f4236c8e8bea9c172233c",
+   "evidenceHash": "0x9d77e9abd0b58e32459afb3b4bd5654c494487e5f8930592e52cf5a201a1d110",
+   "multiAsset": true,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x6C92cD38dB2074379aA6e68257F28207a8f7585e",
+   "tx": "0xfdac8cca66fc49bc709ef0eb3471458db1f2833815192c166950910c9e9aeded",
+   "logIndex": 128,
+   "block": 24626861,
+   "debtToCover": "565265811909290098688",
+   "collateralSeized": "478177447831387841090",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1016401223707831463",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "20669523267382448266",
+   "redressMidpoint": "21799597493224072419",
+   "vaultTx": "0x64e85efa27c1b289dafacf863052cd24afa48a3934e13b715bf62bd5aca309be",
+   "evidenceHash": "0x8797f903979ccbf6fcf6f20aff7e050e8d6ff7628aa2e1d81b2c0135666a2cfa",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x718E7B7e03F9370394CC8a3BD41B395C72B90fa2",
+   "tx": "0xb27dd3350490a750ee92494b0c0d9b33f2ad1cf0cbeadff8dae52104a1ead99b",
+   "logIndex": 170,
+   "block": 24626861,
+   "debtToCover": "48296908052836275216",
+   "collateralSeized": "40855986235655263348",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1016154500642408075",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1766025900927696932",
+   "redressMidpoint": "1862580636467074515",
+   "vaultTx": "0xfe20a78a2b7921e46fefe46781cc723d193163dfb06c676113ece0ae56fd78fe",
+   "evidenceHash": "0x3a1de395d56db1dc4cc0114da2844affdecdccc39f21a3bbfac37ba19a49309c",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xFBfA537Dde869b0C4738ef98Fd9A652c7bF0EFbc",
+   "tx": "0x83c6cad0319f1b6a4777dd4cfffa2b07c3ffad5dbb6a340f475179a7676bdcb1",
+   "logIndex": 186,
+   "block": 24626861,
+   "debtToCover": "34661206110587441152",
+   "collateralSeized": "29321085279748212244",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018405936461232550",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1267422495902323519",
+   "redressMidpoint": "1336716861202528089",
+   "vaultTx": "0x21690cfff2f81fcc76a5de7f7c2aa69bcc93ddcb987c053a615cd5173ad2532d",
+   "evidenceHash": "0x9e32dcbdd89123554dfaf35e22fc6bd0b5f9c2ad60bf16242193486382d63223",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "tx": "0xf7b0ff68402cee6f68bb746f91f00503e13d35ef87471df10fb1d66117d49e1e",
+   "logIndex": 216,
+   "block": 24626861,
+   "debtToCover": "26808795794752196376",
+   "collateralSeized": "22678466099458018417",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1008796520174689701",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "980291071519919487",
+   "redressMidpoint": "1033886970148868333",
+   "vaultTx": "0x1468ec29405348df7eb661e4fe11808964b33404560eb9abd99204a254605388",
+   "evidenceHash": "0xdc0b70d5f4a1a29047ab44b557b2f967ff118b47bdb0f5f6866c77a17542e89a",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x9a982dfCd22159A059114eCa54B5AbaaBdd627B4",
+   "tx": "0x7872defdef7b839d43e79797ce4c4461b9727861db6aa9e72347f8e995812f5f",
+   "logIndex": 233,
+   "block": 24626861,
+   "debtToCover": "11836703277700000242",
+   "collateralSeized": "10013067206293901371",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1021253737498022351",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "432821176609179770",
+   "redressMidpoint": "456485005220860228",
+   "vaultTx": "0x563f6298321f8354c69b529a535ec1eb8334dbebe6e4459d31d5ad0950df6a29",
+   "evidenceHash": "0xfc9df4127dd2b64a582f7fca02737123f26b7a749632775ffa7763a5b7f8d700",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x892843Df4Fa30ee38b38542f2050690403e47A0E",
+   "tx": "0x058203b57c37d0700a2caccf9303a25ce1a3cbe7b751c26c8b9a02dd24f49f65",
+   "logIndex": 272,
+   "block": 24626861,
+   "debtToCover": "644246074033595145",
+   "collateralSeized": "544989519914945460",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1019996840920152628",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "23557517430921666",
+   "redressMidpoint": "24845488272296117",
+   "vaultTx": "0x14770eff38dd62b25975e0185c395621ca593a7b61b0feecb5095dce7786904c",
+   "evidenceHash": "0x31bf6a3458caa8f42312c417be1a86738374484c10ba23e32c229102c985298b",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xe0Eb3075C2cbC4C4807a5802DA45B1dbC7b955d1",
+   "tx": "0x5444c97b90d957420b8d1b1e53117525cf498e6f2c3aefb66ac34034c461db19",
+   "logIndex": 334,
+   "block": 24626861,
+   "debtToCover": "375855642849365599",
+   "collateralSeized": "317948986590358980",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1013117706589982353",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "13743546472077503",
+   "redressMidpoint": "14494953625442304",
+   "vaultTx": "0x3858a0934f1a286790dd68f15d18d37601bf8f69bb29a57fc0870dd8f312a7c6",
+   "evidenceHash": "0xa071b33726b592622fa9751fcb30552418d0e7720263723fe44679c0416ec89d",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x1Fc623b96c8024067142Ec9c15D669E5c99c5e9D",
+   "tx": "0x5444c97b90d957420b8d1b1e53117525cf498e6f2c3aefb66ac34034c461db19",
+   "logIndex": 359,
+   "block": 24626861,
+   "debtToCover": "125813883018691491",
+   "collateralSeized": "106430214274641037",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018580301043886058",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "4600513471053311",
+   "redressMidpoint": "4852039431861449",
+   "vaultTx": "0x4da1ccdd2ca279b18f97c91b5f96c2cffdfccc27382861ced0613a2f842d1bd3",
+   "evidenceHash": "0x604055609932ccf2fd2633a14ea544e8541eefb52019e798bba2ec4f61b2c340",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xC8cf295c4E084d08d3db7702aCa33450Ad652EB8",
+   "tx": "0x5444c97b90d957420b8d1b1e53117525cf498e6f2c3aefb66ac34034c461db19",
+   "logIndex": 384,
+   "block": 24626861,
+   "debtToCover": "131028916791742878",
+   "collateralSeized": "110841787533475199",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1024303976308498025",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "4791206521369202",
+   "redressMidpoint": "5053158329857590",
+   "vaultTx": "0x5364ea769db6f6d3b39fa054bed833f144439e6d1527409f7e776c4ec9483bab",
+   "evidenceHash": "0x69fd3c99751685e6dbad08e61547d5e3d0ffa88812be85b38e941fa8e63c90cd",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xde89Be395B57D07741004ed0Be3174F3027fD44A",
+   "tx": "0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78",
+   "logIndex": 409,
+   "block": 24626861,
+   "debtToCover": "90405438498930902",
+   "collateralSeized": "76477014779081484",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1025746808762510950",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "3305767437517397",
+   "redressMidpoint": "3486505160852320",
+   "vaultTx": "0xcb61e431971a1d131e81c98f8a78d73e3470fb494401fb1bfe1e2c7ef7af5821",
+   "evidenceHash": "0xefd8f22d3b4d125e1b20f3c86dae0189aced64507b0d9c52862bc1e8d78db572",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
+   "tx": "0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78",
+   "logIndex": 434,
+   "block": 24626861,
+   "debtToCover": "52415783498863674",
+   "collateralSeized": "44340282131888964",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1021214135564653027",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1916636799505753",
+   "redressMidpoint": "2021425953053334",
+   "vaultTx": "0xe7e31c9157e6244cf79afc769dc9fc4b88e8fdb2db33daff366b453e00ace1c2",
+   "evidenceHash": "0xaf7211c4fc2eb8bfca0224a01d3817ef27adc943091a2192d0e1d433b9930dca",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x3aaC936216A43D4195791819ECc4975ba8fb6C72",
+   "tx": "0xd1ac5af3abbaaf1a0acc0fd257a71dbb28924368ddbc68f6dd8cb45c85eeeb78",
+   "logIndex": 459,
+   "block": 24626861,
+   "debtToCover": "43103238790725097",
+   "collateralSeized": "38267559499734879",
+   "verdict": "AMBIGUOUS",
+   "hfWorst": "998799821037336114",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1201768889703676",
+   "redressMidpoint": "3878400737512551",
+   "vaultTx": "0x0fb3f0f5fcfb26ef7dc698e6c644762c17d6e7782300355bd49b0c334c858f57",
+   "evidenceHash": "0x351f9488ac2293c6ce7b7d797f7590bf50b678a22126e55c7fff57b862242273",
+   "multiAsset": false,
+   "bonusBps": "600"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x7F689846082b2b086Fd9A899c61C16E9D0F6C31f",
+   "tx": "0xf7ef63d5b2da12a3ff3dedca42156174f5970f073777e24349a064af6fb5c566",
+   "logIndex": 484,
+   "block": 24626861,
+   "debtToCover": "38014936442192606",
+   "collateralSeized": "32158119073221324",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1006701791550073671",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1390055079832170",
+   "redressMidpoint": "1466054192046696",
+   "vaultTx": "0x008f011d427ccae686eb95172eedbedc78add7c8df90026e3fe3b5b2bd4dbb83",
+   "evidenceHash": "0x1abdf0f5da64c0c0909bc02101a4edf9431cef22d529998b44f6ab28da39ab9c",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x681Dc889B79AbA892D973d41C52f1b2B1F1Ee0dd",
+   "tx": "0xf7ef63d5b2da12a3ff3dedca42156174f5970f073777e24349a064af6fb5c566",
+   "logIndex": 509,
+   "block": 24626861,
+   "debtToCover": "71180650578107214",
+   "collateralSeized": "60214117166313121",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1020303388486480527",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "2602793380236669",
+   "redressMidpoint": "2745097083914163",
+   "vaultTx": "0x180cdc034d75cf6e4afc0c6741cffef32e462678e0b9244d13afe345b1975f8e",
+   "evidenceHash": "0xe5390a71c41655dab97f56e2f10bf5979da4d1d491c006090d35f2b866775cef",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x6B803f020cB302Db766c5A276e935CCa01De4E4A",
+   "tx": "0xf7ef63d5b2da12a3ff3dedca42156174f5970f073777e24349a064af6fb5c566",
+   "logIndex": 534,
+   "block": 24626861,
+   "debtToCover": "29017950072488093",
+   "collateralSeized": "24547264339396616",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018501162102976691",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1061071059948136",
+   "redressMidpoint": "1119083479543999",
+   "vaultTx": "0xab0055fd7afcf2547eba6e69e56173a3437c6c2d14913dbe33b498bad1c2cd9a",
+   "evidenceHash": "0x1bcdc4a040e682865910eb0756ca75291512504d5ec720714ea17825de97111d",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xe7aaF0d67d89c253d5c00FfA3D85e7F1a6D235cF",
+   "tx": "0x545558c91855f69185390957af3dacc7422c5d72758cc3b0ebc2a81bd3f79f77",
+   "logIndex": 564,
+   "block": 24626861,
+   "debtToCover": "533012269129370928",
+   "collateralSeized": "450893086306093265",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1014560001340060701",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "19490139446710066",
+   "redressMidpoint": "20555732685696048",
+   "vaultTx": "0x78de042e810ce42aeff05af290724791a6c8933385ddba8df0908052e20aa130",
+   "evidenceHash": "0x2a70563ece7583bcaf9e7d6686f386f34f1862ea015e4e111092a48582cfbf54",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x6C92cD38dB2074379aA6e68257F28207a8f7585e",
+   "tx": "0xc5aa4bf15e6b762bf9e75e33897fa143afe619b47a9789f03e2e532cd620b1f3",
+   "logIndex": 14,
+   "block": 24626862,
+   "debtToCover": "554058329218220228608",
+   "collateralSeized": "468696643911001140167",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1024536933294961498",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "20259690988811773381",
+   "redressMidpoint": "21367359281041770687",
+   "vaultTx": "0xf623b072e5015deb2fd3a89c3e6fed3abc5ad61b93791db97327dcd71c2a1fdc",
+   "evidenceHash": "0x95d61c49cb29aed216d7ae7f5c039d78a98687c88f17fb4b3e1898d1ed42ec7a",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x5ceDE91b3c5783d093B2F6C29Cb2571a11204B27",
+   "tx": "0x4054c372cb927fa5386a8786d59ec5f09d17be697e4a116c7631361e76174495",
+   "logIndex": 38,
+   "block": 24626862,
+   "debtToCover": "148735687377279320064",
+   "collateralSeized": "125820538790366394497",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1023870760265438989",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "5438667566867970661",
+   "redressMidpoint": "5736018578743035796",
+   "vaultTx": "0x1cc0be0b612d2b045db21eea784ae0e6f650c86a726e7d79f57b3dddd38cc014",
+   "evidenceHash": "0x310b7825b25c23785803bed4764665c453da5a75d27ddfedabff8ac3e11354ea",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x2935dd2B83dFaE2D038B7FB0b9D62D02a78d1707",
+   "tx": "0x61031c5559992e6a72996aa549fa7d209fb1877913dafcf84a6559ab60fc334c",
+   "logIndex": 85,
+   "block": 24626862,
+   "debtToCover": "70101824318923784192",
+   "collateralSeized": "59301499603261796838",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1015586235378120651",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "2563342564414356133",
+   "redressMidpoint": "2703489483846311300",
+   "vaultTx": "0xcd6159b5bd0bad1e8763728780885160853ef6efe1d5d918f1a017f408975e5b",
+   "evidenceHash": "0x365cbe39322fa92cf28968ee901084e2b2d8862a244f1565d6fc3a2c1d278832",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x669173F1505025bc31fc7245FE4565659ca0e6e0",
+   "tx": "0x66f6d449111cb67ce2fc491f6a6be0c4096d2e468579bf1b348dcb230ce51647",
+   "logIndex": 103,
+   "block": 24626862,
+   "debtToCover": "33478885633763905536",
+   "collateralSeized": "28320919496988872874",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1017168794430847908",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1224188576944366849",
+   "redressMidpoint": "1291119255755819259",
+   "vaultTx": "0x236c8fef2ca278fa2267636a948cdfda3b4f299da1a43fcabfb1e6c90065a0ee",
+   "evidenceHash": "0x236378262c81e99915472b838f80f69eeabb0309cc607937bf542f40168843d5",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "tx": "0xef7217a8a72b236b3c00640e88e78e66fa8b23a3507e411c617cfb7712289c5a",
+   "logIndex": 155,
+   "block": 24626862,
+   "debtToCover": "43631556153033792",
+   "collateralSeized": "36909406210707737",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1007795376068819472",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1595431019453726",
+   "redressMidpoint": "1682658823355819",
+   "vaultTx": "0xf07469729ef8de90d2a75ce6b6099b821437768604feef39a409d151a00c01d9",
+   "evidenceHash": "0x316f10ed259f9ec4a9047547f6fe2b9dd309026b0bdad96eb581b7d175cf194c",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "tx": "0x3bee9cc474c6bb9d0e03d6ce8b5efe89cf5098d791c35c62cbb0ab504f6f27db",
+   "logIndex": 178,
+   "block": 24626862,
+   "debtToCover": "9921182799788722176",
+   "collateralSeized": "8392663437529652408",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1007801824258782524",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "362777865014404405",
+   "redressMidpoint": "382612201995223159",
+   "vaultTx": "0x86d176c13d4042f79ebd36ba21441a2e22e406ab6fb22d3089be106b915b6ba7",
+   "evidenceHash": "0x39a5db566e85ee49a1fd7269e1ce3dc55d7e1833fee86b80d7dda7d9b75b5ace",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "tx": "0xd7418255899739b2579c4f12ed244ea8e1c670062280e1afea01c8286d5515b5",
+   "logIndex": 226,
+   "block": 24626862,
+   "debtToCover": "9223237739061880832",
+   "collateralSeized": "7802248150282720930",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1009625368303614252",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "337256813327580898",
+   "redressMidpoint": "355695824992062472",
+   "vaultTx": "0xce6dfc38b77bc43b2bb742e4fcb25755c432d215e9b8c1db17faf5737d88b286",
+   "evidenceHash": "0x9448cf7a023faff293f838523af17c5db3deda2be9443803f3d7717510c34869",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "tx": "0x047b6265d7ab3def4054bea0f805c65f5e78c58a966a92323f08ad09c3af7186",
+   "logIndex": 252,
+   "block": 24626862,
+   "debtToCover": "8075906342575478784",
+   "collateralSeized": "6831681791780958145",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1012345523268220087",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "295303505654407508",
+   "redressMidpoint": "311448782992466906",
+   "vaultTx": "0xd32ad390f861df54facfe2a9658f9fc76d33ed7b654fde4e7cf7743671167723",
+   "evidenceHash": "0x068c83e4aaafa6b40a521b6a82ab8a03288c8c0106c56263918015cde088ddc4",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "tx": "0x31482796d23b1c04b47852f85aabf98b0351d3fdae07f23b1200e8cb41a5f159",
+   "logIndex": 297,
+   "block": 24626862,
+   "debtToCover": "8404021650843321344",
+   "collateralSeized": "7109245607161109813",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1016473883948102344",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "307301366535923162",
+   "redressMidpoint": "324102608966460063",
+   "vaultTx": "0x564081861f5c9511422587c910c4ab9a98517f04e3c881a824accfc1a18baa5f",
+   "evidenceHash": "0xa239884621658bea6abb51c76642356bc551f8e74e33fd5a4b21bbe193e56ce3",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x669173F1505025bc31fc7245FE4565659ca0e6e0",
+   "tx": "0x02796db103e92e98f68cfe1e3d9cf712a0edfe67903ac246eba086c32f0f205b",
+   "logIndex": 14,
+   "block": 24626863,
+   "debtToCover": "37222300993396408320",
+   "collateralSeized": "31487599862724875320",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1024681921539806600",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1361068973437062268",
+   "redressMidpoint": "1435483451158368000",
+   "vaultTx": "0x8ef7716d0eb382b671ed7e04c677e0051546d136eb3754f28491111cbca0a1f6",
+   "evidenceHash": "0x56a7952a2a0b36928df65ef0c82088faa736535c1adbd6342b89fd1d0919add7",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x342686053986b43Cf852B94CA5aFC46151296685",
+   "tx": "0xedacc685c672873fb90b0e5250387261583c2e9b0acdda54873a5a6042ea1a54",
+   "logIndex": 58,
+   "block": 24626863,
+   "debtToCover": "31024174934504357888",
+   "collateralSeized": "26244395976008017670",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1016976929009968456",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "1134428576495821363",
+   "redressMidpoint": "1196451818285605998",
+   "vaultTx": "0x1b633029dee5afb965eabbb8513cbeb257e8d24f381e3b28b37a17826189bcf1",
+   "evidenceHash": "0x79ebdcceb086cb04716871839168cfea4fcc92cb6cdb3fbb9831a1183f05e63b",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xA85CD6Fe2f9e3DDc3f635F66a2773F71CFaFaC4d",
+   "tx": "0xc59881ec4233833ddc7e0eb3b78a4e4654d86a6f79aa7e6ed948e13f2f52a7d6",
+   "logIndex": 147,
+   "block": 24626863,
+   "debtToCover": "7061605231385055232",
+   "collateralSeized": "5973650042586697481",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1025431942043456219",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "258214337281410617",
+   "redressMidpoint": "272331832738254765",
+   "vaultTx": "0xbdbaa6d87da1ebbf2829d9f4900b2426ff7e91c80337713dc7abbdc17aa91fa4",
+   "evidenceHash": "0xf680f83c617d1c2bbcf569d849188fc3a4b1b5ca6814f1c4d3d12d0a17a7ecb1",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "tx": "0xffb974f5e9618c5f774a7eeb0ee1f89e7a048cf9d55ec9aa914446981f141c7e",
+   "logIndex": 217,
+   "block": 24626863,
+   "debtToCover": "8773392316555900928",
+   "collateralSeized": "7421708473944880362",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1014602111451850067",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "320807466362002478",
+   "redressMidpoint": "338347150628067837",
+   "vaultTx": "0x8870199a2f6452360f8e1db5d97fbddc90c23910f1186a2a770ea61ff3242772",
+   "evidenceHash": "0xcd980ca92eaaecf255a1625c59b75025dd7d9c5d2b56d6d7fa7900a20dcf794b",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "tx": "0x602afac70192ed1903ceade622731c2430d68974618a211308da3ca0c17c9584",
+   "logIndex": 264,
+   "block": 24626863,
+   "debtToCover": "8782905609820396544",
+   "collateralSeized": "7429756089586437203",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018716760819646843",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "321155329012938806",
+   "redressMidpoint": "338714032166359159",
+   "vaultTx": "0xc5dd89ba8eb55b8fa52395b48aa718bd543ae842ddff201d16f811d61e05d79c",
+   "evidenceHash": "0xbcd600580f46c1a31b977d83c9926b7faa62813d23e22d939c5086ff3d669746",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xB29730E5DbeEB428B7b723a8a51d722a08872d9a",
+   "tx": "0x2b043f918b90e572130d35f41533c38e823a1b5f1a777a441b19912e93c1bb55",
+   "logIndex": 308,
+   "block": 24626863,
+   "debtToCover": "8706154383862581248",
+   "collateralSeized": "7364829638844930959",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1026161973489361081",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "318348847158338453",
+   "redressMidpoint": "335754109975140873",
+   "vaultTx": "0x6035dbf5e6c64c39847dd43714cc41b1a1a5d59167a829cbb61ab54bb1d18454",
+   "evidenceHash": "0x6aac534125d2d275e97dd8fb219a7af9df02176ee579d0dffb64ddca5f2c7994",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
+   "tx": "0xecb8f9bc4fbae98456aed6ce93e9578a0c742c7fe0b0b5a4193ffc24226ea73e",
+   "logIndex": 367,
+   "block": 24626863,
+   "debtToCover": "1039875084347155840",
+   "collateralSeized": "879665407276929858",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1008067523658680301",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "38024025269320589",
+   "redressMidpoint": "40102933859921171",
+   "vaultTx": "0x85448795e361d6d184fc9d9d55595ee1855e91ff513047e6a36b5e37529e7423",
+   "evidenceHash": "0x324613ba2ba33f0ab9310e4ffd17b77b8d6e1c9e5fa509cff80c513c7e4e6644",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
+   "tx": "0x499fe5661104e3bdd301aae517c32f1fd10b9adc3dcfdbca74db54e8eb711b11",
+   "logIndex": 385,
+   "block": 24626863,
+   "debtToCover": "2879371334840771584",
+   "collateralSeized": "2435757329020335609",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1009453239351353275",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "105286961908967012",
+   "redressMidpoint": "111043374283524081",
+   "vaultTx": "0xdbca5be10edc4d771e92a6514d7a5cfe4d7219a7b1a6bb7c64c8677e277a4b85",
+   "evidenceHash": "0x5d9d231bb0db1e2f9e1bf477995f3fb1dc37d5ab2d65f617fc0e29be7ad65087",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0xeeF25A4B78FEF3E5daf6FB0A2f12e36EA0828F96",
+   "tx": "0x896a41b851cd5162b2fd9841b7fb7344cf0e40aea6621a9b48e4c7939302c346",
+   "logIndex": 14,
+   "block": 24626864,
+   "debtToCover": "4488934304587125760",
+   "collateralSeized": "3797340806330082741",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018148493556461847",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "164142013059787330",
+   "redressMidpoint": "173116248443392126",
+   "vaultTx": "0x1562c7c7881c1ca604da407aa0942f546c018803b75fa3b5394c318f9d8033c0",
+   "evidenceHash": "0x9a0b14451439804bc01100bcc5e2d976a195370b43bacaa8bbed9ecd982fc770",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x318E706186A91Ee084052789B5176fFb63135A21",
+   "tx": "0xbf9bcadd9dc090cda315bceb565641b1c3296b00b71199d6322b14894d44c0aa",
+   "logIndex": 47,
+   "block": 24626864,
+   "debtToCover": "1463426692200844800",
+   "collateralSeized": "1237961956736197858",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018370713795535183",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "53511543481001327",
+   "redressMidpoint": "56437212406260522",
+   "vaultTx": "0x20be14d1a7ca6bc0a1560a076636070a99922aa73b1794c61d9299586af0e8fa",
+   "evidenceHash": "0x02eec1e7c839c306074203bb3399ce10961a8130e103d6ddfd56c30bdcdebf0c",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
+   "tx": "0x90181b3cde4da6b467a7844d58230d2d5d6c21f4f9ff8fa22a6d249e6295e378",
+   "logIndex": 160,
+   "block": 24626864,
+   "debtToCover": "1623067452115449856",
+   "collateralSeized": "1373007455476912961",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1009777493183502639",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "59348954750754271",
+   "redressMidpoint": "62593775986802959",
+   "vaultTx": "0xd824523c272d93380e84e660225e80c2b0ab05728284d060f064346ea498f82d",
+   "evidenceHash": "0x5e8f3aef77de66d0f8cedfd3a4dd4ca66aca886d5f4dbe613bc1d9020a5a640e",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave V3 Lido Ethereum",
+   "user": "0x5E1b601245b942d99Aa924d39E0fbEC1786e2170",
+   "tx": "0xca6082d51fcf0e47f2581d4f9be0092e03f02cd783fd343e73c541df690c080d",
+   "logIndex": 249,
+   "block": 24626864,
+   "debtToCover": "1004587788486399863",
+   "collateralSeized": "849814665111515115",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1017444892100201565",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "36733676794720636",
+   "redressMidpoint": "38742039284712822",
+   "vaultTx": "0x039ea78df256c7bc0bc01e50fc2db61a50534c860e1fdfdabc5d1d3504a8505f",
+   "evidenceHash": "0x9221175e13c014a5f9f04b1eedff4986eab19602620d9acddb499f22a75ba1c9",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xBE6e072a92224CDeBcB5A171451A6eBd1E380e62",
+   "tx": "0x0269621586a95336197fd4194ec0fa964de27b283516c856713625f9540def47",
+   "logIndex": 110,
+   "block": 24626866,
+   "debtToCover": "11943711681870252",
+   "collateralSeized": "10103587541939208",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1001704446573494201",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "436731979204488",
+   "redressMidpoint": "460609734045210",
+   "vaultTx": "0xc08f11213f6c7700f7681b841d0d4985e43b784e85a8eb47679d47e53a83cd1b",
+   "evidenceHash": "0xbe2669fddfb3f5b84314237ee6564d55c13f07e5f1fd0bd1f3a88b26481ea93d",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xB27dd61b74e49d9707ddB7EA4A4baF03734DD94B",
+   "tx": "0x0269621586a95336197fd4194ec0fa964de27b283516c856713625f9540def47",
+   "logIndex": 127,
+   "block": 24626866,
+   "debtToCover": "11295684822901733",
+   "collateralSeized": "9555399819938615",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018335628364112866",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "413036325773353",
+   "redressMidpoint": "435618551478678",
+   "vaultTx": "0x1ab1edf5b2f8a518e936538a63507d12df48a2088c57c70cc03defc6df59a146",
+   "evidenceHash": "0x819b3bee532fba3432d4b1f8e0f737ebfd209f0212323e3e4ca7a6b1b753eea3",
+   "multiAsset": false,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0xDB306e5c24cD28a02B50c6F893d46a3572835195",
+   "tx": "0x0269621586a95336197fd4194ec0fa964de27b283516c856713625f9540def47",
+   "logIndex": 144,
+   "block": 24626866,
+   "debtToCover": "7531370652033148",
+   "collateralSeized": "6371039817472656",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1011730274696047571",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "275390975485267",
+   "redressMidpoint": "290447620089040",
+   "vaultTx": "0x253fcd5c7d85b23e24d6d1c0d9aff399c344245f432a4a5d5b264ef94e6217c9",
+   "evidenceHash": "0x01218b8bdb6776e1d3a3088469914579d50a22962729b5e7d98b77fb0382c672",
+   "multiAsset": true,
+   "bonusBps": "100"
+  },
+  {
+   "market": "Aave Ethereum Market",
+   "user": "0x7F821b5058C362088C88952fD7735A6965e0Bc98",
+   "tx": "0xa6367dca45597724f06d499bec95a86bea0475243bca975331ecf2338fa20452",
+   "logIndex": 126,
+   "block": 24626867,
+   "debtToCover": "3519012362285341",
+   "collateralSeized": "2976850850217512",
+   "verdict": "WRONGFUL",
+   "hfWorst": "1018405044484936715",
+   "bandLow": "1225351253669499000",
+   "bandHigh": "1230077843059971905",
+   "sourcesUsed": [
+    "S1 Lido stEthPerToken",
+    "S2 Uniswap v3 TWAP 30m",
+    "S3 defillama"
+   ],
+   "sourcesRejected": [
+    "S3 coingecko"
+   ],
+   "redressFloor": "128675559015801",
+   "redressMidpoint": "135710734838630",
+   "vaultTx": "0x4b10bf0ab6618275b1d504f7d7d7035c589181b11b09b117a663efb76e76db45",
+   "evidenceHash": "0x181ae3440d1b5f16d2a99f3fd4555ecfb0bb20fddad0891759b39fb1347c2740",
+   "multiAsset": false,
+   "bonusBps": "100"
+  }
+ ],
+ "scorecard": {
+  "events": 47,
+  "eventVerdicts": {
+   "WRONGFUL": 46,
+   "AMBIGUOUS": 1
+  },
+  "positions": 34,
+  "addresses": 33,
+  "positionsAllWrongful": 33,
+  "expectedPositions": 34,
+  "paidFloor": {
+   "eth": 473.2955,
+   "vsDaoHeadlinePct": -7.594,
+   "vsDaoTablePct": -7.646
+  },
+  "comparisonMidpoint": {
+   "eth": 499.174801,
+   "vsDaoHeadlinePct": -2.541,
+   "vsDaoTablePct": -2.596
+  },
+  "daoHeadlineEth": 512.19,
+  "daoTableEth": 512.48,
+  "payouts": {
+   "target": "sepolia",
+   "network": "sepolia",
+   "vault": "0xaccfe6e8939d3143f7f70a550ebf29dcfc197609",
+   "payoutAsset": "0xa193cae8762aeedcbf4d73c96369b54e5100fba4",
+   "complete": true,
+   "recorded": 47,
+   "totalPaidWei": "473295500496135010048"
+  }
+ },
+ "control": {
+  "events": 50,
+  "verdicts": {
+   "VALID": 50
+  },
+  "falsePositives": 0,
+  "totalRedressEth": 0,
+  "wethDebtEvents": 2,
+  "note": "50 calm-period wstETH liquidations; only some have WETH debt, and the rest use Aave's own debt price, so they test the collateral side only. Aave's oracle equalled the Lido rate on every control."
+ },
+ "alternateConfigs": [
+  {
+   "config": {
+    "name": "onchain-only-2src",
+    "minSources": 2,
+    "tauBps": "75",
+    "muBps": "10",
+    "epsOutBps": "100",
+    "epsHBps": "10",
+    "maxStalenessSec": "3600"
+   },
+   "eventVerdicts": {
+    "WRONGFUL": 46,
+    "AMBIGUOUS": 1
+   },
+   "paidFloor": {
+    "eth": 494.165365,
+    "vsDaoHeadlinePct": -3.519,
+    "vsDaoTablePct": -3.574
+   },
+   "comparisonMidpoint": {
+    "eth": 509.609733,
+    "vsDaoHeadlinePct": -0.504,
+    "vsDaoTablePct": -0.56
+   },
+   "control": {
+    "events": 50,
+    "verdicts": {
+     "VALID": 50
+    },
+    "falsePositives": 0,
+    "totalRedressEth": 0,
+    "wethDebtEvents": 2,
+    "note": "50 calm-period wstETH liquidations; only some have WETH debt, and the rest use Aave's own debt price, so they test the collateral side only. Aave's oracle equalled the Lido rate on every control."
+   }
+  }
+ ],
+ "dataChecks": {
+  "singleAssetEvents": 44,
+  "maxDeviationBpsSingle": 0.000019278620549880105,
+  "multiAssetEvents": 3,
+  "maxDeviationBpsMulti": 3.625769416748137
+ }
+}

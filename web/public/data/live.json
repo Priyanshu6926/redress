@@ -1,0 +1,161 @@
+{
+ "updatedAt": "2026-11-07T02:10:05.415Z",
+ "fromBlock": 26143899,
+ "toBlock": 26359899,
+ "note": "wstETH collateral only. 17 found, 17 evaluated, 0 skipped.",
+ "events": [
+  {
+   "block": 26302299,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0xd9994fea36a57fcb52d4c31c2325e394a79cef8af42e10514277d3961fc5593b",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26302299,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0xd9994fea36a57fcb52d4c31c2325e394a79cef8af42e10514277d3961fc5593b",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26301900,
+   "market": "Core",
+   "pair": "wstETH / 0xdAC17F…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x57ceba6d42b910010d1862801a75e4a910345f5b4064827fc82a04c5fc55b33a",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26263314,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "INCONCLUSIVE",
+   "tx": "0x81409c105eec7226a528e3a611e9c67e0f0eb8f6c5a719a387c013cac0614b68",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26216271,
+   "market": "Core",
+   "pair": "wstETH / 0x40D16F…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x7f760bf0dbe91fb94708898bb7db5c489494e50c50ea7d9aa10a1c3791ff05f2",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26216267,
+   "market": "Core",
+   "pair": "wstETH / 0x4c9EDD…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x12a7c995d2a338f26f0d78aac61392b9c4133046e144ac8926662c74efc08ed0",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26216189,
+   "market": "Prime",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x76b54382155fe3d196e245aeeac78ee0524c48d7a3b2372f19ebc829a87dab96",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26198343,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x5453e6606e250461c12ee5bb789aa464461f1420a172554c56b3947b1526959b",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26198343,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x881956d0c7de178bad4fcabdaa1eb0d8d148cc569e13d5cbd126adb452b45e10",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26194932,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "INCONCLUSIVE",
+   "tx": "0xc92ac503a0c4a17dc3c5d705ef44fb418b1100a054ce120cb5857f5436da92a1",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26194930,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "INCONCLUSIVE",
+   "tx": "0x2bd374cb72b125f866ed0324fb5073b0ded0b71c45c4d405c440d8064224d505",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26194910,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "INCONCLUSIVE",
+   "tx": "0x3b4b6b4b2ef290920f510806780b608e056b8a6c53344a3ed8a54237a41616af",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26194900,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "INCONCLUSIVE",
+   "tx": "0x4195632f7c934364b61389d2c942ad427ee0317b79ba3bd0a834d7239e7cf5a5",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26181624,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x9b5374d35e9f38baaa5ed442faa5a2b352bc7d6b949f630571d255bed9942ea0",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26179880,
+   "market": "Core",
+   "pair": "wstETH / 0x6B1754…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x6a5a508cb56b7a8ef3a88cb73f334ab9b152430cb6200bd40a92607ca810d15f",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26148071,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0x3e74575c51f8207ce751e70014bcf2e3dbe3161f62e0d2f2e1c2b697b11f6824",
+   "redressWouldBe": "0"
+  },
+  {
+   "block": 26147280,
+   "market": "Core",
+   "pair": "wstETH / 0xA0b869…",
+   "gate": "closed",
+   "verdict": "VALID",
+   "tx": "0xd20284b90f170c0edd405e8e0eb4ea983d14430b1626be51088cdd957306599d",
+   "redressWouldBe": "0"
+  }
+ ]
+}

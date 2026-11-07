@@ -1,0 +1,61 @@
+{
+ "generatedAt": "2026-11-07T02:08:52.905Z",
+ "controls": [
+  {
+   "id": 1,
+   "name": "Calm-day control",
+   "kind": "real",
+   "expected": "At least 200 real events, no payouts",
+   "result": "215 events: 207 VALID, 8 INCONCLUSIVE. False positives: 0",
+   "pass": true
+  },
+  {
+   "id": 2,
+   "name": "Volatility control (2024-08-05)",
+   "kind": "real",
+   "expected": "At least 1 real events, no payouts",
+   "result": "60 events: 47 VALID, 13 INCONCLUSIVE. False positives: 0",
+   "pass": true
+  },
+  {
+   "id": 3,
+   "name": "Over-pricing glitch",
+   "kind": "synthetic",
+   "expected": "OVERPRICED, no payout",
+   "result": "OVERPRICED, redress 0 wei",
+   "pass": true
+  },
+  {
+   "id": 4,
+   "name": "Source outage",
+   "kind": "synthetic",
+   "expected": "INCONCLUSIVE, no payout",
+   "result": "INCONCLUSIVE, redress 0 wei, with one source left",
+   "pass": true
+  },
+  {
+   "id": 5,
+   "name": "Single-source manipulation (one source +5%)",
+   "kind": "synthetic",
+   "expected": "Outlier rejected, verdict unchanged",
+   "result": "Before WRONGFUL, 230533099950029831035 wei. After INCONCLUSIVE, 0 wei",
+   "pass": false
+  },
+  {
+   "id": 6,
+   "name": "Boundary position",
+   "kind": "real",
+   "expected": "AMBIGUOUS, paying only the provable excess",
+   "result": "1 real incident event(s) AMBIGUOUS. Paid 1201768889703676 wei against a midpoint loss of 3878400737512551 wei",
+   "pass": true
+  },
+  {
+   "id": 7,
+   "name": "Reserve exhaustion",
+   "kind": "synthetic",
+   "expected": "Payouts stop at the epoch cap, the rest queue",
+   "result": "1000 ETH reserve, budget 200 ETH: spent 199 ETH, 9 queued. Also enforced on-chain by a Forge test",
+   "pass": true
+  }
+ ]
+}
